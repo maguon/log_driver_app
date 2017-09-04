@@ -4,6 +4,9 @@ import { Button, Icon } from 'native-base'
 import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
+
+import NavBar from './components/bar/NavBar'
+import TopBar from './components/bar/TopBar'
 import TabIcon from './components/TabIcon'
 import Home from './views/blockInitial/Home'
 import Work from './views/blockInitial/Work'
@@ -71,16 +74,16 @@ export default class App extends Component {
                         <Scene key="login"  component={Login} hideNavBar hideTabBar /> */}
                         <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" initial={true} component={Home} title='车辆管理' hideNavBar={true} />
+                                <Scene key="home" initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                                <Scene key="truck" initial={true}  component={Truck} title='车辆信息' hideNavBar={true}  />
+                                <Scene key="truck" initial={true}  component={Truck} title='货车管理' hideNavBar={false}  navBar={TopBar} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                                <Scene key="work" initial={true} component={Work} title='司机信息' hideNavBar={true}  />
+                                <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar}  />
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
-                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={true}  />
+                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false}  navBar={TopBar} />
                             </Scene>
                         </Scene>
                     </Scene>
