@@ -18,20 +18,20 @@ class Home extends Component {
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade' }}>重载里程</Text>
+                            <Text style={{ color: '#00cade', fontSize: 11 }}>重载里程</Text>
                             <Text style={{ color: '#00cade' }}>12345</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade' }}>本月里程</Text>
+                            <Text style={{ color: '#00cade', fontSize: 11 }}>本月里程</Text>
                             <Text style={{ color: '#00cade' }}>123456</Text>
-                            <Text style={{ color: '#00cade' }}>公里</Text>
+                            <Text style={{ color: '#00cade', fontSize: 11 }}>公里</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade' }}>空载里程</Text>
+                            <Text style={{ color: '#00cade', fontSize: 11 }}>空载里程</Text>
                             <Text style={{ color: '#00cade' }}>12345</Text>
                         </View>
                     </View>
@@ -39,11 +39,11 @@ class Home extends Component {
                 <View>
                     <View style={{ flexDirection: 'row', backgroundColor: '#b0bfc6', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20}/>
-                            <Text style={{ color: '#fff', paddingLeft: 10,fontSize:11 }}>大连—>沈阳</Text>
+                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>大连—>沈阳</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#fff',fontSize:11 }}>在途</Text>
+                            <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
                         </View>
                     </View>
                     <View style={{ height: 150, backgroundColor: 'red' }}>
@@ -110,7 +110,6 @@ class Home extends Component {
         )
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {

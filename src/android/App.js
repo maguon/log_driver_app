@@ -12,6 +12,7 @@ import Home from './views/blockInitial/Home'
 import Work from './views/blockInitial/Work'
 import Truck from './views/blockInitial/Truck'
 import Setting from './views/blockInitial/Setting'
+import Instruct from './views/Instruct'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -74,7 +75,8 @@ export default class App extends Component {
                         <Scene key="login"  component={Login} hideNavBar hideTabBar /> */}
                         <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="home" component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck" initial={true}  component={Truck} title='货车管理' hideNavBar={false}  navBar={TopBar} />
