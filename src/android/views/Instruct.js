@@ -9,7 +9,7 @@ export default class Instruct extends Component {
         return (
             <View>
                 <Text>
-                    Work
+                    Instruct
                 </Text>
             </View>
         )
