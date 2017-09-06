@@ -14,6 +14,8 @@ import Truck from './views/blockInitial/Truck'
 import Setting from './views/blockInitial/Setting'
 import Instruct from './views/Instruct'
 import DriverInfo from './views/DriverInfo'
+import TruckInfo from './views/TruckInfo'
+import TrailerInfo from './views/TrailerInfo'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -48,7 +50,7 @@ export default class App extends Component {
         super(props)
     }
 
-      render() {
+    render() {
         console.disableYellowBox = true
         return (
             <Router
@@ -74,23 +76,25 @@ export default class App extends Component {
                         }}
                     >
                         <Scene key="login"  component={Login} hideNavBar hideTabBar /> */}
-                        <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} />
-                            </Scene>
-                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                                <Scene key="truck"  component={Truck} title='货车管理' hideNavBar={false}  navBar={TopBar} />
-                                <Scene key="driverInfo" initial={true}  component={DriverInfo} title='货车管理' hideNavBar={false}  navBar={TopBar} />
-                            </Scene>
-                            <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                                <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar}  />
-                            </Scene>
-                            <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
-                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false}  navBar={TopBar} />
-                            </Scene>
+                    <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
+                        <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="home" component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} />
+                        </Scene>
+                        <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truck" component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="truckInfo" initial={true} component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="trailerInfo"  component={TrailerInfo} title='挂车资料' hideNavBar={false} navBar={NavBar} />
+                        </Scene>
+                        <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
+                            <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
+                        </Scene>
+                        <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
+                            <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
                         </Scene>
                     </Scene>
+                </Scene>
                 {/* </Scene> */}
             </Router>
 

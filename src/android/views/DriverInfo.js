@@ -3,8 +3,11 @@ import {
     Text,
     View
 } from 'react-native'
-import { Button } from 'native-base'
+import { Button, Icon } from 'native-base'
 import RecordListItem from '../components/RecordListItem'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontTag from '../components/FontTag'
 
 export default class DriverInfo extends Component {
     constructor(props) {
@@ -26,8 +29,65 @@ export default class DriverInfo extends Component {
 
     renderDriverInfo() {
         return (
-            <View style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
-
+            <View style={{}}>
+                <View style={{ paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ width: 40 }}>
+                            <MaterialCommunityIcons name='account' size={20} color='#00cade' />
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <Text style={{ color: '#00cade', fontWeight: 'bold' }}>王宝泉</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <Icon color='#00cade' name='md-man' style={{ fontSize: 20, color: '#00cade' }} />
+                            {/* <Icon  name ='md-woman'/> */}
+                        </View>
+                        <View style={{ width: 40 }}>
+                            <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />
+                            {/* <FontTag size={30} title='协' color='#73de8a' fontColor='#fff' />
+                    <FontTag size={30} title='供' color='#efbb7a' fontColor='#fff' />
+                    <FontTag size={30} title='包' color='#e08ddd' fontColor='#fff' /> */}
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', paddingHorizontal: 40 }}>
+                        <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesomeIcon name='building-o' size={11} />
+                            <Text style={{ paddingLeft: 5 }}>安吉物流</Text>
+                        </View>
+                        <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
+                            <FontAwesomeIcon name='mobile-phone' size={16} />
+                            <Text style={{ paddingLeft: 5 }}>13887878787</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>关联货车：</Text>辽B12345</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>入职时间：</Text>2017-08-19</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>身份证号：</Text>210210210210210210</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>家庭住址：</Text>始源国际2012</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>紧急联系人电话：</Text>13887878787</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾照类型：</Text>A1</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾驶证检证日期：</Text>2017-09-10</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>准运证检证日期：</Text>2017-09-10</Text>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>备注：</Text>
+                    <Text style={{ fontSize: 11 }}>一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁</Text>
+                </View>
             </View>
         )
     }
