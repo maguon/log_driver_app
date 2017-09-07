@@ -3,7 +3,9 @@ import {
     Text,
     View,
     ScrollView,
-    FlatList
+    FlatList,
+    InteractionManager,
+    ActivityIndicator
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import RecordListItem from '../components/RecordListItem'
@@ -17,7 +19,9 @@ export default class TrailerInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 0,
+            active: 2,
+            insuranceList: [],
+            loading: true
         }
         this.renderTrailerInfo = this.renderTrailerInfo.bind(this)
         this.renderTrailerPhoto = this.renderTrailerPhoto.bind(this)
@@ -30,6 +34,17 @@ export default class TrailerInfo extends Component {
     onPressSegment(index) {
         if (this.state.active != index)
             this.setState({ active: index })
+    }
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => this.setState({
+            insuranceList: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }
+                , { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' }, { key: '23' }, { key: '24' }, { key: '25' }],
+            loading: false
+        }))
+// this.setState({
+//             insuranceList: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }
+//                 , { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' }, { key: '23' }, { key: '24' }, { key: '25' }]})
     }
 
     renderTrailerInfo() {
@@ -109,16 +124,28 @@ export default class TrailerInfo extends Component {
     }
 
     renderTrailerInsure() {
-        return (
-            <View style={{ backgroundColor: '#edf1f4' }}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    data={[{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }]}
-                    ListFooterComponent={<View style={{ height: 10, backgroundColor: '#edf1f4' }} />}
-                    renderItem={({ item }) => <InsuranceListItem />}
-                />
-            </View>
-        )
+        if (this.state.loading) {
+            return (
+                <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={this.state.loading}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ backgroundColor: '#edf1f4', flex: 1 }}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={this.state.insuranceList}
+                        ListFooterComponent={<View style={{ height: 10, backgroundColor: '#edf1f4' }} />}
+                        renderItem={({ item }) => <InsuranceListItem />}
+                    />
+                </View>
+            )
+        }
     }
 
     renderTrailerRecord() {

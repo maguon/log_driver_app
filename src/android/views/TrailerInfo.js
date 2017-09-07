@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View
+    View,
+    FlatList
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import RecordListItem from '../components/RecordListItem'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontTag from '../components/FontTag'
+import InsuranceListItem from '../components/InsuranceListItem'
+import PhotoItem from '../components/camera/PhotoItem'
 
 export default class TrailerInfo extends Component {
     constructor(props) {
@@ -20,7 +23,6 @@ export default class TrailerInfo extends Component {
         this.renderTrailerRecord = this.renderTrailerRecord.bind(this)
         this.renderTrailerInsure = this.renderTrailerInsure.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
-
     }
 
     onPressSegment(index) {
@@ -89,7 +91,7 @@ export default class TrailerInfo extends Component {
     renderTrailerPhoto() {
         return (
             <View>
-                <Text>renderTrailerPhoto</Text>
+                <PhotoItem />
             </View>
         )
     }
@@ -97,7 +99,12 @@ export default class TrailerInfo extends Component {
     renderTrailerInsure() {
         return (
             <View>
-                <Text>renderTrailerInsure</Text>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={[{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }]}
+                    ListFooterComponent={<View style={{ height: 10, backgroundColor: '#edf1f4' }} />}
+                    renderItem={({ item }) => <InsuranceListItem />}
+                />
             </View>
         )
     }

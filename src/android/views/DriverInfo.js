@@ -8,6 +8,7 @@ import RecordListItem from '../components/RecordListItem'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontTag from '../components/FontTag'
+import PhotoItem from '../components/camera/PhotoItem'
 
 export default class DriverInfo extends Component {
     constructor(props) {
@@ -95,7 +96,7 @@ export default class DriverInfo extends Component {
     renderDriverPhoto() {
         return (
             <View>
-
+                <PhotoItem />
             </View>
         )
     }
