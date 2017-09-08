@@ -164,6 +164,73 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    }
+    },
 
+    [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckRecordList: data
+            },
+            getTruckRecord: {
+                ...state.getTruckRecord,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRecord_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRecord: {
+                ...state.getTruckRecord,
+                isResultStatus: 4,
+                failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRecord_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRecord: {
+                ...state.getTruckRecord,
+                isResultStatus: 5,
+                serviceFailedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRecord_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckRecord: {
+                ...state.getTruckRecord,
+                isResultStatus: 3,
+                errorMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRecord_WAITING)]: (state, action) => {
+        return {
+            ...initialState,
+            getTruckRecord: {
+                ...initialState.getTruckRecord,
+                isResultStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_GET_TruckRecord)]: (state, action) => {
+        return {
+            ...state,
+            getTruckRecord: {
+                isResultStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    },
 }, initialState)

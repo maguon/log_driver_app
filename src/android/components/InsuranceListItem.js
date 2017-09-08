@@ -7,10 +7,14 @@ import insuranceTypeList from '../../config/insuranceType.json'
 import moment from 'moment'
 
 export default class InsuranceListItem extends Component {
+    constructor(props) {
+        super(props)
+    }
+    
     render() {
         const { data } = this.props
         return (
-            <View style={{ backgroundColor: '#edf1f4',paddingTop:10 }}>
+            <View style={{ backgroundColor: '#edf1f4', paddingTop: 10 }}>
                 <View style={{ marginHorizontal: 10, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#fff', borderColor: '#e8e8e8', borderWidth: 0.5 }}>
                     <View style={{ flexDirection: 'row', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#e8e8e8', alignItems: 'flex-end' }}>
                         <View style={{ flex: 1 }}>

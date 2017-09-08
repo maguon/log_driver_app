@@ -40,7 +40,8 @@ class TruckInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            truckId: 202
+            truckId: 202,
+            truckName: '辽B12224'
         }
     }
 
@@ -68,7 +69,9 @@ class TruckInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getTruckInsurance({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } }))
             }
             if (index == 3) {
+                this.props.setGetTruckRecordWaiting()
                 this.setState({ active: 3 })
+                InteractionManager.runAfterInteractions(() => this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truckName } }))
             }
         }
     }
@@ -201,15 +204,32 @@ class TruckInfo extends Component {
     }
 
     renderTruckRecord() {
-        return (
-            <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}>
-                <RecordListItem />
-            </View>
-        )
+        const { getTruckRecord } = this.props.truckInfoReducer
+        if (getTruckRecord.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getTruckRecord.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            const { truckRecordList } = this.props.truckInfoReducer.data
+            return (
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={truckRecordList}
+                        renderItem={({ item }) => <RecordListItem data={item} />}
+                    />
+                </View>
+            )
+        }
     }
 
     render() {
-        console.log(this.props.userReducer)
         console.log(this.props.truckInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>

@@ -26,16 +26,16 @@ export const setGetTruckInfoWaiting = (param) => (dispatch) => {
 }
 
 export const getTruckRecord = (param) => async (dispatch) => {
-    const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
+    const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS, payload: { data: res.result[0].comments } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
     }
 }
 
