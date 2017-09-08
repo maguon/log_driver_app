@@ -14,15 +14,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontTag from '../components/FontTag'
 import InsuranceListItem from '../components/InsuranceListItem'
 import PhotoItem from '../components/camera/PhotoItem'
+import { connect } from 'react-redux'
 import * as truckInfoAction from '../../actions/TruckInfoAction'
+import moment from 'moment'
 
 class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 2,
+            active: 0,
             insuranceList: [],
-            loading: true
+            loading: false
         }
         this.renderTruckInfo = this.renderTruckInfo.bind(this)
         this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
@@ -33,37 +35,61 @@ class TruckInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            truckId: 172
+            truckId: 202
         }
     }
 
     onPressSegment(index) {
+        // if (this.state.active != index) {
+        //     this.setState({ active: index, insuranceList: [], loading: true })
+        //     InteractionManager.runAfterInteractions(() => this.setState({ loading: false }))
+        // }
         if (this.state.active != index) {
-            this.setState({ active: index, insuranceList: [], loading: true })
-            InteractionManager.runAfterInteractions(() => this.setState({ loading: false }))
+            if (index == 0) {
+                this.props.setGetTruckInfoWaiting()
+                this.setState({ active: index })
+                InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
+                    OptionalParam: {
+                        truckId: this.props.initParam.truckId
+                    }
+                }))
+            }
+            if (index == 1) {
+                this.setState({ active: index })
+            }
+            if (index == 2) {
+                this.setState({ active: index })
+            }
+            if (index == 3) {
+                this.setState({ active: index })
+            }
         }
     }
 
     componentDidMount() {
-        InteractionManager.runAfterInteractions(() => this.setState({
-            insuranceList: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }
-                , { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' }, { key: '23' }, { key: '24' }, { key: '25' }],
-            loading: false
+        this.props.setGetTruckInfoWaiting()
+        InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
+            OptionalParam: {
+                truckId: this.props.initParam.truckId
+            }
         }))
+
     }
 
     renderTruckInfo() {
-        if (this.state.loading) {
+        const { getTruckInfo } = this.props.truckInfoReducer
+        if (getTruckInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator
-                        animating={this.state.loading}
+                        animating={getTruckInfo.isResultStatus == 1}
                         style={{ height: 80 }}
                         size="large"
                     />
                 </View>
             )
         } else {
+            const { truckInfo } = this.props.truckInfoReducer.data
             return (
                 <View style={{ flex: 1 }}>
                     <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
@@ -74,56 +100,56 @@ class TruckInfo extends Component {
                                         <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
                                     </View>
                                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                                        <Text style={{ color: '#00cade', fontWeight: 'bold' }}>辽B12345</Text>
+                                        <Text style={{ color: '#00cade', fontWeight: 'bold' }}>{truckInfo.truck_num ? truckInfo.truck_num : ''}</Text>
                                     </View>
                                     <View style={{ width: 40 }}>
-                                        <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />
-                                        {/* <FontTag size={30} title='协' color='#73de8a' fontColor='#fff' />
-                    <FontTag size={30} title='供' color='#efbb7a' fontColor='#fff' />
-                    <FontTag size={30} title='包' color='#e08ddd' fontColor='#fff' /> */}
+                                        {truckInfo.operate_type == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />}
+                                        {truckInfo.operate_type == 2 && <FontTag size={26} title='协' color='#73de8a' fontColor='#fff' />}
+                                        {truckInfo.operate_type == 3 && <FontTag size={26} title='供' color='#efbb7a' fontColor='#fff' />}
+                                        {truckInfo.operate_type == 4 && <FontTag size={26} title='包' color='#e08ddd' fontColor='#fff' />}
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', paddingHorizontal: 40 }}>
                                     <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
                                         <FontAwesomeIcon name='building-o' size={11} />
-                                        <Text style={{ paddingLeft: 5 }}>安吉物流</Text>
+                                        <Text style={{ paddingLeft: 5 }}>{truckInfo.company_name ? truckInfo.company_name : ''}</Text>
                                     </View>
                                     <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
-                                        <FontAwesomeIcon name='mobile-phone' size={16} />
-                                        <Text style={{ paddingLeft: 5 }}>13887878787</Text>
+                                        {truckInfo.truck_tel && <FontAwesomeIcon name='mobile-phone' size={16} />}
+                                        {truckInfo.truck_tel && <Text style={{ paddingLeft: 5 }}>{truckInfo.truck_tel}</Text>}
                                     </View>
                                 </View>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>主驾司机：</Text>王宝泉</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>主驾司机：</Text>{truckInfo.drive_name ? truckInfo.drive_name : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>副驾司机：</Text>王宝泉</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>副驾司机：</Text>{truckInfo.vice_drive_name ? truckInfo.vice_drive_name : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>关联挂车：</Text>辽B12345</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>关联挂车：</Text>{truckInfo.trail_num ? truckInfo.trail_num : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>品牌：</Text>东风</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>品牌：</Text>{truckInfo.brand_name ? truckInfo.brand_name : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>识别代码：</Text>123456789012345678</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>识别代码：</Text>{truckInfo.the_code ? truckInfo.the_code : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>挂车货位：</Text>14</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>挂车货位：</Text>{truckInfo.trail_number ? truckInfo.trail_number : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>车辆状态：</Text>正常</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>车辆状态：</Text>{truckInfo.repair_status ? '正常' : '维修'}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>行驶证检证日期：</Text>2017-09-10</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>行驶证检证日期：</Text>{truckInfo.driving_date ? moment(truckInfo.driving_date).format('YYYY-MM-DD') : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>营运证检证日期：</Text>2017-09-10</Text>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>营运证检证日期：</Text>{truckInfo.license_date ? moment(truckInfo.license_date).format('YYYY-MM-DD') : ''}</Text>
                             </View>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
                                 <Text style={{ fontSize: 11, fontWeight: 'bold' }}>备注：</Text>
-                                <Text style={{ fontSize: 11 }}>一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁</Text>
+                                <Text style={{ fontSize: 11 }}>{truckInfo.remark ? truckInfo.remark : ''}</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -174,6 +200,8 @@ class TruckInfo extends Component {
     }
 
     render() {
+        console.log(this.props.userReducer)
+        console.log(this.props.truckInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
@@ -201,12 +229,39 @@ class TruckInfo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        truckInfoReducer: state.truckInfoReducer
+        truckInfoReducer: state.truckInfoReducer,
+        userReducer: state.userReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    getTruckInfo: (param) => {
+        dispatch(truckInfoAction.getTruckInfo(param))
+    },
+    resetGetTruckInfo: () => {
+        dispatch(truckInfoAction.resetGetTruckInfo())
+    },
+    setGetTruckInfoWaiting: () => {
+        dispatch(truckInfoAction.setGetTruckInfoWaiting())
+    },
+    getTruckRecord: (param) => {
+        dispatch(truckInfoAction.getTruckRecord(param))
+    },
+    resetGetTruckRecord: () => {
+        dispatch(truckInfoAction.resetGetTruckRecord())
+    },
+    setGetTruckRecordWaiting: () => {
+        dispatch(truckInfoAction.setGetTruckRecordWaiting())
+    },
+    getTruckInsurance: (param) => {
+        dispatch(truckInfoAction.getTruckInsurance(param))
+    },
+    resetGetTruckInsurance: () => {
+        dispatch(truckInfoAction.resetGetTruckInsurance())
+    },
+    setGetTruckInsuranceWaiting: () => {
+        dispatch(truckInfoAction.setGetTruckInsuranceWaiting())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TruckInfo)

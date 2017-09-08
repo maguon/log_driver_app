@@ -82,9 +82,9 @@ export default class App extends Component {
                             <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} />
                         </Scene>
                         <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                            <Scene key="truck"  component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="truck" initial={true} component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
                             <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} />
-                            <Scene key="truckInfo" initial={true} component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="truckInfo"  component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
                             <Scene key="trailerInfo"  component={TrailerInfo} title='挂车资料' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>

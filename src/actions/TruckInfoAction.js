@@ -3,13 +3,12 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-
-export const getTruckInfo = (param) => (dispatch) => {
+export const getTruckInfo = (param) => async (dispatch) => {
     const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_SUCCESS, payload: { data: res.result[0] } })
         } else {
             dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_FAILED, payload: { data: res.msg } })
         }
@@ -26,7 +25,7 @@ export const setGetTruckInfoWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_WAITING, payload: {} })
 }
 
-export const getTruckRecord = (param) => (dispatch) => {
+export const getTruckRecord = (param) => async (dispatch) => {
     const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)
@@ -48,7 +47,7 @@ export const setGetTruckRecordWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
 }
 
-export const getTruckInsurance = (param) => (dispatch) => {
+export const getTruckInsurance = (param) => async (dispatch) => {
     const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)

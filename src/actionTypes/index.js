@@ -1,7 +1,7 @@
-import homeTypes from './HomeTypes'
-import truckTypes from './TruckTypes'
-import workTypes from './WorkTypes'
-import truckInfoTypes from './TruckInfoTypes'
+import * as homeTypes from './HomeTypes'
+import * as truckTypes from './TruckTypes'
+import * as workTypes from './WorkTypes'
+import * as truckInfoTypes from './TruckInfoTypes'
 
 export {
     homeTypes,
