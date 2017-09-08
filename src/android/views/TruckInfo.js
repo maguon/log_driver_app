@@ -23,17 +23,19 @@ export default class TrailerInfo extends Component {
             insuranceList: [],
             loading: true
         }
-        this.renderTrailerInfo = this.renderTrailerInfo.bind(this)
-        this.renderTrailerPhoto = this.renderTrailerPhoto.bind(this)
-        this.renderTrailerRecord = this.renderTrailerRecord.bind(this)
-        this.renderTrailerInsure = this.renderTrailerInsure.bind(this)
+        this.renderTruckInfo = this.renderTruckInfo.bind(this)
+        this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
+        this.renderTruckRecord = this.renderTruckRecord.bind(this)
+        this.renderTruckInsure = this.renderTruckInsure.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
 
     }
 
     onPressSegment(index) {
-        if (this.state.active != index)
-            this.setState({ active: index })
+        if (this.state.active != index) {
+            this.setState({ active: index, insuranceList: [], loading: true })
+            InteractionManager.runAfterInteractions(() => this.setState({ loading: false }))
+        }
     }
 
     componentDidMount() {
@@ -42,80 +44,89 @@ export default class TrailerInfo extends Component {
                 , { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' }, { key: '23' }, { key: '24' }, { key: '25' }],
             loading: false
         }))
-// this.setState({
-//             insuranceList: [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }
-//                 , { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' }, { key: '23' }, { key: '24' }, { key: '25' }]})
     }
 
-    renderTrailerInfo() {
-        return (
-            <View style={{ flex: 1 }}>
-                <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-                    <View style={{ flex: 1 }}>
-                        <View style={{ paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: 40 }}>
-                                    <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
-                                </View>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <Text style={{ color: '#00cade', fontWeight: 'bold' }}>辽B12345</Text>
-                                </View>
-                                <View style={{ width: 40 }}>
-                                    <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />
-                                    {/* <FontTag size={30} title='协' color='#73de8a' fontColor='#fff' />
+    renderTruckInfo() {
+        if (this.state.loading) {
+            return (
+                <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={this.state.loading}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1 }}>
+                    <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+                        <View style={{ flex: 1 }}>
+                            <View style={{ paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ width: 40 }}>
+                                        <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                                    </View>
+                                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                                        <Text style={{ color: '#00cade', fontWeight: 'bold' }}>辽B12345</Text>
+                                    </View>
+                                    <View style={{ width: 40 }}>
+                                        <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />
+                                        {/* <FontTag size={30} title='协' color='#73de8a' fontColor='#fff' />
                     <FontTag size={30} title='供' color='#efbb7a' fontColor='#fff' />
                     <FontTag size={30} title='包' color='#e08ddd' fontColor='#fff' /> */}
+                                    </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', paddingHorizontal: 40 }}>
+                                    <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
+                                        <FontAwesomeIcon name='building-o' size={11} />
+                                        <Text style={{ paddingLeft: 5 }}>安吉物流</Text>
+                                    </View>
+                                    <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
+                                        <FontAwesomeIcon name='mobile-phone' size={16} />
+                                        <Text style={{ paddingLeft: 5 }}>13887878787</Text>
+                                    </View>
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', paddingHorizontal: 40 }}>
-                                <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
-                                    <FontAwesomeIcon name='building-o' size={11} />
-                                    <Text style={{ paddingLeft: 5 }}>安吉物流</Text>
-                                </View>
-                                <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
-                                    <FontAwesomeIcon name='mobile-phone' size={16} />
-                                    <Text style={{ paddingLeft: 5 }}>13887878787</Text>
-                                </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>主驾司机：</Text>王宝泉</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>副驾司机：</Text>王宝泉</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>关联挂车：</Text>辽B12345</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>品牌：</Text>东风</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>识别代码：</Text>123456789012345678</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>挂车货位：</Text>14</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>车辆状态：</Text>正常</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>行驶证检证日期：</Text>2017-09-10</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>营运证检证日期：</Text>2017-09-10</Text>
+                            </View>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <Text style={{ fontSize: 11, fontWeight: 'bold' }}>备注：</Text>
+                                <Text style={{ fontSize: 11 }}>一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁</Text>
                             </View>
                         </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>主驾司机：</Text>王宝泉</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>副驾司机：</Text>王宝泉</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>关联挂车：</Text>辽B12345</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>品牌：</Text>东风</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>识别代码：</Text>123456789012345678</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>挂车货位：</Text>14</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>车辆状态：</Text>正常</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>行驶证检证日期：</Text>2017-09-10</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>营运证检证日期：</Text>2017-09-10</Text>
-                        </View>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontSize: 11, fontWeight: 'bold' }}>备注：</Text>
-                            <Text style={{ fontSize: 11 }}>一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁一只大蚂蚁</Text>
-                        </View>
-                    </View>
-                </ScrollView>
-            </View>
-        )
+                    </ScrollView>
+                </View>
+            )
+        }
     }
 
-    renderTrailerPhoto() {
+    renderTruckPhoto() {
         return (
             <View>
                 <PhotoItem />
@@ -123,7 +134,7 @@ export default class TrailerInfo extends Component {
         )
     }
 
-    renderTrailerInsure() {
+    renderTruckInsure() {
         if (this.state.loading) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -148,7 +159,7 @@ export default class TrailerInfo extends Component {
         }
     }
 
-    renderTrailerRecord() {
+    renderTruckRecord() {
         return (
             <View style={{ borderColor: '#ddd', borderBottomWidth: 0.5, paddingHorizontal: 10 }}>
                 <RecordListItem />
@@ -173,10 +184,10 @@ export default class TrailerInfo extends Component {
                 </Button>
             </View>
             <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                {this.state.active == 0 && this.renderTrailerInfo()}
-                {this.state.active == 1 && this.renderTrailerPhoto()}
-                {this.state.active == 2 && this.renderTrailerInsure()}
-                {this.state.active == 3 && this.renderTrailerRecord()}
+                {/* {this.state.active == 0 && this.renderTruckInfo()} */}
+                {this.state.active == 1 && this.renderTruckPhoto()}
+                {this.state.active == 2 && this.renderTruckInsure()}
+                {this.state.active == 3 && this.renderTruckRecord()}
             </View>
         </View>)
     }
