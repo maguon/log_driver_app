@@ -14,8 +14,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontTag from '../components/FontTag'
 import InsuranceListItem from '../components/InsuranceListItem'
 import PhotoItem from '../components/camera/PhotoItem'
+import * as truckInfoAction from '../../actions/TruckInfoAction'
 
-export default class TrailerInfo extends Component {
+class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,7 +29,12 @@ export default class TrailerInfo extends Component {
         this.renderTruckRecord = this.renderTruckRecord.bind(this)
         this.renderTruckInsure = this.renderTruckInsure.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
+    }
 
+    static defaultProps = {
+        initParam: {
+            truckId: 172
+        }
     }
 
     onPressSegment(index) {
@@ -184,7 +190,7 @@ export default class TrailerInfo extends Component {
                 </Button>
             </View>
             <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
-                {/* {this.state.active == 0 && this.renderTruckInfo()} */}
+                {this.state.active == 0 && this.renderTruckInfo()}
                 {this.state.active == 1 && this.renderTruckPhoto()}
                 {this.state.active == 2 && this.renderTruckInsure()}
                 {this.state.active == 3 && this.renderTruckRecord()}
@@ -192,3 +198,15 @@ export default class TrailerInfo extends Component {
         </View>)
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        truckInfoReducer: state.truckInfoReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TruckInfo)
