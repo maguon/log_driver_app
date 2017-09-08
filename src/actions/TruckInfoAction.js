@@ -48,16 +48,16 @@ export const setGetTruckRecordWaiting = (param) => (dispatch) => {
 }
 
 export const getTruckInsurance = (param) => async (dispatch) => {
-    const url = `${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`
+    const url = `${base_host}/truckInsureRel?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsurance_SUCCESS, payload: { data: res.result } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsurance_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsurance_ERROR, payload: { data: err } })
     }
 }
 

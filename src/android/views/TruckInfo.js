@@ -23,8 +23,13 @@ class TruckInfo extends Component {
         super(props)
         this.state = {
             active: 0,
-            insuranceList: [],
-            loading: false
+            // insuranceList: [{ key: '0' }, { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' },
+            // { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' },
+            // { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' },
+            // { key: '23' }, { key: '24' }, { key: '25' }, { key: '26' }, { key: '27' }, { key: '28' }, { key: '29' },
+            // { key: '30' }, { key: '31' }, { key: '32' }, { key: '33' }, { key: '34' }, { key: '35' }, { key: '36' }, { key: '37' },
+            // { key: '38' }, { key: '39' }, { key: '40' }, { key: '41' }, { key: '42' }, { key: '43' }, { key: '44' }, { key: '45' }],
+            //loading: false
         }
         this.renderTruckInfo = this.renderTruckInfo.bind(this)
         this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
@@ -47,7 +52,7 @@ class TruckInfo extends Component {
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetTruckInfoWaiting()
-                this.setState({ active: index })
+                this.setState({ active: 0 })
                 InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
                     OptionalParam: {
                         truckId: this.props.initParam.truckId
@@ -55,13 +60,15 @@ class TruckInfo extends Component {
                 }))
             }
             if (index == 1) {
-                this.setState({ active: index })
+                this.setState({ active: 1 })
             }
             if (index == 2) {
-                this.setState({ active: index })
+                this.props.setGetTruckInsuranceWaiting()
+                this.setState({ active: 2 })
+                InteractionManager.runAfterInteractions(() => this.props.getTruckInsurance({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } }))
             }
             if (index == 3) {
-                this.setState({ active: index })
+                this.setState({ active: 3 })
             }
         }
     }
@@ -80,7 +87,7 @@ class TruckInfo extends Component {
         const { getTruckInfo } = this.props.truckInfoReducer
         if (getTruckInfo.isResultStatus == 1) {
             return (
-                <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator
                         animating={getTruckInfo.isResultStatus == 1}
                         style={{ height: 80 }}
@@ -167,24 +174,26 @@ class TruckInfo extends Component {
     }
 
     renderTruckInsure() {
-        if (this.state.loading) {
+        const { getTruckInsurance } = this.props.truckInfoReducer
+        if (getTruckInsurance.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator
-                        animating={this.state.loading}
+                        animating={getTruckInsurance.isResultStatus == 1}
                         style={{ height: 80 }}
                         size="large"
                     />
                 </View>
             )
         } else {
+            const { truckInsuranceList } = this.props.truckInfoReducer.data
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1 }}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={this.state.insuranceList}
+                        data={truckInsuranceList}
                         ListFooterComponent={<View style={{ height: 10, backgroundColor: '#edf1f4' }} />}
-                        renderItem={({ item }) => <InsuranceListItem />}
+                        renderItem={({ item }) => <InsuranceListItem data={item} />}
                     />
                 </View>
             )

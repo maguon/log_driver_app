@@ -35,6 +35,7 @@ export default handleActions({
         return {
             ...state,
             data: {
+                ...state.data,
                 truckInfo: data
             },
             getTruckInfo: {
@@ -95,7 +96,74 @@ export default handleActions({
                 serviceFailedMsg: ''
             }
         }
-    }
+    },
 
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                truckInsuranceList: data
+            },
+            getTruckInsurance: {
+                ...state.getTruckInsurance,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckInsurance: {
+                ...state.getTruckInsurance,
+                isResultStatus: 4,
+                failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckInsurance: {
+                ...state.getTruckInsurance,
+                isResultStatus: 5,
+                serviceFailedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckInsurance: {
+                ...state.getTruckInsurance,
+                isResultStatus: 3,
+                errorMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_WAITING)]: (state, action) => {
+        return {
+            ...initialState,
+            getTruckInsurance: {
+                ...initialState.getTruckInsurance,
+                isResultStatus: 1
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.RESET_GET_TruckInsurance)]: (state, action) => {
+        return {
+            ...state,
+            getTruckInsurance: {
+                isResultStatus: 0,
+                errorMsg: '',
+                failedMsg: '',
+                serviceFailedMsg: ''
+            }
+        }
+    }
 
 }, initialState)
