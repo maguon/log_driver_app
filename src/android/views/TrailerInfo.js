@@ -143,11 +143,44 @@ class TrailerInfo extends Component {
     }
 
     renderTrailerPhoto() {
-        return (
-            <View>
-                <PhotoItem />
-            </View>
-        )
+        const { getTrailerImage } = this.props.trailerInfoReducer
+        if (getTrailerImage.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getTrailerImage.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            const { trailerInfo, trailerImageList } = this.props.trailerInfoReducer.data
+            let imageHead = (
+                <View key={'head'} style={{ flexDirection: 'row' }}>
+                    {!trailerInfo.driving_image ? <PhotoItemDefault containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={trailerInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!trailerInfo.license_image ? <PhotoItemDefault containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={trailerInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+            )
+            let imageBody = []
+            for (let i = 0; i < trailerImageList.length; i += 2) {
+                const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
+                    <PhotoItem onShowPhoto={() => { }} uri={trailerImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    {trailerImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => { }} uri={trailerImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>)
+                imageBody.push(viewItem)
+            }
+
+            return (
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={[imageHead, ...imageBody]}
+                        renderItem={({ item }) => item}
+                    />
+                </View>
+            )
+        }
     }
 
     renderTrailerInsure() {
