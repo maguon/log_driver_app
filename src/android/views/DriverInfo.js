@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View
+    View,
+    InteractionManager
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import RecordListItem from '../components/RecordListItem'
@@ -9,8 +10,10 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontTag from '../components/FontTag'
 import PhotoItem from '../components/camera/PhotoItem'
+import { connect } from 'react-redux'
+import * as driverInfoAction from '../../actions/DriverInfoAction'
 
-export default class DriverInfo extends Component {
+class DriverInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,6 +24,21 @@ export default class DriverInfo extends Component {
         this.renderDriverRecord = this.renderDriverRecord.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
 
+    }
+
+    static defaultProps = {
+        initParam: {
+            driverId: 125
+        }
+    }
+
+    componentDidMount() {
+        this.props.setGetDriverInfoWaiting()
+        InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({
+            OptionalParam: {
+                driveId: this.props.initParam.driverId
+            }
+        }))
     }
 
     onPressSegment(index) {
@@ -110,6 +128,7 @@ export default class DriverInfo extends Component {
     }
 
     render() {
+        console.log(this.props.driverInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
@@ -130,3 +149,33 @@ export default class DriverInfo extends Component {
         </View>)
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        driverInfoReducer: state.driverInfoReducer,
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getDriverInfo: (param) => {
+        dispatch(driverInfoAction.getDriverInfo(param))
+    },
+    setGetDriverInfoWaiting: () => {
+        dispatch(driverInfoAction.setGetDriverInfoWaiting())
+    },
+    getDriverRecord: (param) => {
+        dispatch(driverInfoAction.getDriverRecord(param))
+    },
+    setGetDriverRecordWaiting: () => {
+        dispatch(driverInfoAction.setGetDriverRecordWaiting())
+    },
+    getDriverImage: (param) => {
+        dispatch(driverInfoAction.getDriverImage(param))
+    },
+    setGetDriverImageWaiting: () => {
+        dispatch(driverInfoAction.setGetDriverImageWaiting())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DriverInfo)
