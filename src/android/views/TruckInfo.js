@@ -74,7 +74,6 @@ class TruckInfo extends Component {
                 truckId: this.props.initParam.truckId
             }
         }))
-
     }
 
     renderTruckInfo() {
@@ -254,7 +253,7 @@ class TruckInfo extends Component {
     }
 
     render() {
-        console.log(this.props.truckInfoReducer)
+       // console.log(this.props.truckInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>

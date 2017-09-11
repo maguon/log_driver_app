@@ -99,10 +99,10 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckInsuranceList: data
+                trailerInsuranceList: data
             },
-            getTruckInsurance: {
-                ...state.getTruckInsurance,
+            getTrailerInsurance: {
+                ...state.getTrailerInsurance,
                 isResultStatus: 2
             }
         }
@@ -111,8 +111,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckInsurance: {
-                ...state.getTruckInsurance,
+            getTrailerInsurance: {
+                ...state.getTrailerInsurance,
                 isResultStatus: 4,
                 failedMsg: data
             }
@@ -122,8 +122,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckInsurance: {
-                ...state.getTruckInsurance,
+            getTrailerInsurance: {
+                ...state.getTrailerInsurance,
                 isResultStatus: 5,
                 serviceFailedMsg: data
             }
@@ -133,8 +133,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckInsurance: {
-                ...state.getTruckInsurance,
+            getTrailerInsurance: {
+                ...state.getTrailerInsurance,
                 isResultStatus: 3,
                 errorMsg: data
             }
@@ -143,8 +143,8 @@ export default handleActions({
     [(actionTypes.trailerInfoTypes.GET_TrailerInsurance_WAITING)]: (state, action) => {
         return {
             ...initialState,
-            getTruckInsurance: {
-                ...initialState.getTruckInsurance,
+            getTrailerInsurance: {
+                ...initialState.getTrailerInsurance,
                 isResultStatus: 1
             }
         }
@@ -156,10 +156,10 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckRecordList: data
+                trailerRecordList: data
             },
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTrailerRecord: {
+                ...state.getTrailerRecord,
                 isResultStatus: 2
             }
         }
@@ -168,8 +168,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTrailerRecord: {
+                ...state.getTrailerRecord,
                 isResultStatus: 4,
                 failedMsg: data
             }
@@ -179,8 +179,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTrailerRecord: {
+                ...state.getTrailerRecord,
                 isResultStatus: 5,
                 serviceFailedMsg: data
             }
@@ -190,8 +190,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTrailerRecord: {
+                ...state.getTrailerRecord,
                 isResultStatus: 3,
                 errorMsg: data
             }
@@ -200,8 +200,8 @@ export default handleActions({
     [(actionTypes.trailerInfoTypes.GET_TrailerRecord_WAITING)]: (state, action) => {
         return {
             ...initialState,
-            getTruckRecord: {
-                ...initialState.getTruckRecord,
+            getTrailerRecord: {
+                ...initialState.getTrailerRecord,
                 isResultStatus: 1
             }
         }
@@ -213,11 +213,11 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                truckInfo: data.truckInfo,
-                truckImageList: data.truckImageList
+                trailerInfo: data.truckInfo,
+                trailerImageList: data.truckImageList
             },
-            getTruckImage: {
-                ...state.getTruckImage,
+            getTrailerImage: {
+                ...state.getTrailerImage,
                 isResultStatus: 2
             }
         }
@@ -226,8 +226,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckImage: {
-                ...state.getTruckImage,
+            getTrailerImage: {
+                ...state.getTrailerImage,
                 isResultStatus: 4,
                 failedMsg: data
             }
@@ -237,8 +237,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckImage: {
-                ...state.getTruckImage,
+            getTrailerImage: {
+                ...state.getTrailerImage,
                 isResultStatus: 5,
                 serviceFailedMsg: data
             }
@@ -248,8 +248,8 @@ export default handleActions({
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckImage: {
-                ...state.getTruckImage,
+            getTrailerImage: {
+                ...state.getTrailerImage,
                 isResultStatus: 3,
                 errorMsg: data
             }
@@ -258,8 +258,8 @@ export default handleActions({
     [(actionTypes.trailerInfoTypes.GET_TrailerImage_WAITING)]: (state, action) => {
         return {
             ...initialState,
-            getTruckImage: {
-                ...initialState.getTruckImage,
+            getTrailerImage: {
+                ...initialState.getTrailerImage,
                 isResultStatus: 1
             }
         }
