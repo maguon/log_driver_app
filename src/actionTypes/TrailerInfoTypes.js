@@ -1,0 +1,23 @@
+export const GET_TrailerInfo_SUCCESS = 'GET_TrailerInfo_SUCCESS'
+export const GET_TrailerInfo_WAITING = 'GET_TrailerInfo_WAITING'
+export const GET_TrailerInfo_FAILED = 'GET_TrailerInfo_FAILED'
+export const GET_TrailerInfo_ERROR = 'GET_TrailerInfo_ERROR'
+export const GET_TrailerInfo_SERVICEERROR = 'GET_TrailerInfo_SERVICEERROR' 
+
+export const GET_TrailerRecord_SUCCESS = 'GET_TrailerRecord_SUCCESS'
+export const GET_TrailerRecord_WAITING = 'GET_TrailerRecord_WAITING'
+export const GET_TrailerRecord_FAILED = 'GET_TrailerRecord_FAILED'
+export const GET_TrailerRecord_ERROR = 'GET_TrailerRecord_ERROR'
+export const GET_TrailerRecord_SERVICEERROR = 'GET_TrailerRecord_SERVICEERROR'  
+
+export const GET_TrailerImage_SUCCESS = 'GET_TrailerImage_SUCCESS'
+export const GET_TrailerImage_WAITING = 'GET_TrailerImage_WAITING'
+export const GET_TrailerImage_FAILED = 'GET_TrailerImage_FAILED'
+export const GET_TrailerImage_ERROR = 'GET_TrailerImage_ERROR'
+export const GET_TrailerImage_SERVICEERROR = 'GET_TrailerImage_SERVICEERROR' 
+
+export const GET_TrailerInsurance_SUCCESS = 'GET_TrailerInsurance_SUCCESS'
+export const GET_TrailerInsurance_WAITING = 'GET_TrailerInsurance_WAITING'
+export const GET_TrailerInsurance_FAILED = 'GET_TrailerInsurance_FAILED'
+export const GET_TrailerInsurance_ERROR = 'GET_TrailerInsurance_ERROR'
+export const GET_TrailerInsurance_SERVICEERROR = 'GET_TrailerInsurance_SERVICEERROR' 

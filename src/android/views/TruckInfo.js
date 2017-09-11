@@ -34,8 +34,8 @@ class TruckInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            truckId: 227,//227
-            truckName: '辽M12321'//'辽M12321'
+            truckId: 190,//227
+            truckName: '辽B12319'//'辽M12321'
         }
     }
 
