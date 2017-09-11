@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontTag from '../components/FontTag'
 import InsuranceListItem from '../components/InsuranceListItem'
 import PhotoItem from '../components/camera/PhotoItem'
+import PhotoItemDefault from '../components/camera/PhotoItemDefault'
 import { connect } from 'react-redux'
 import * as trailerInfoAction from '../../actions/TrailerInfoAction'
 import moment from 'moment'
@@ -33,8 +34,8 @@ class TrailerInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            trailerId: 219,//227
-            trailerName: '辽B1233G'//'辽M12321'
+            trailerId: 193,//227
+            trailerName: '辽B1236挂'//'辽M12321'
         }
     }
 
@@ -158,8 +159,8 @@ class TrailerInfo extends Component {
             const { trailerInfo, trailerImageList } = this.props.trailerInfoReducer.data
             let imageHead = (
                 <View key={'head'} style={{ flexDirection: 'row' }}>
-                    {!trailerInfo.driving_image ? <PhotoItemDefault containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={trailerInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!trailerInfo.license_image ? <PhotoItemDefault containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={trailerInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!trailerInfo.driving_image ? <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={trailerInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!trailerInfo.license_image ? <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={trailerInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             )
             let imageBody = []

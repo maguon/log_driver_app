@@ -174,8 +174,8 @@ class TruckInfo extends Component {
             const { truckInfo, truckImageList } = this.props.truckInfoReducer.data
             let imageHead = (
                 <View key={'head'} style={{ flexDirection: 'row' }}>
-                    {!truckInfo.driving_image ? <PhotoItemDefault containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={truckInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!truckInfo.license_image ? <PhotoItemDefault containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={truckInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!truckInfo.driving_image ? <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={truckInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!truckInfo.license_image ? <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={truckInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             )
             let imageBody = []
@@ -253,7 +253,7 @@ class TruckInfo extends Component {
     }
 
     render() {
-       // console.log(this.props.truckInfoReducer)
+        // console.log(this.props.truckInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
