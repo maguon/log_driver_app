@@ -17,10 +17,6 @@ export const getTruckInfo = (param) => async (dispatch) => {
     }
 }
 
-export const resetGetTruckInfo = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInfo, payload: {} })
-}
-
 export const setGetTruckInfoWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_WAITING, payload: {} })
 }
@@ -37,10 +33,6 @@ export const getTruckRecord = (param) => async (dispatch) => {
     } catch (err) {
         dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
     }
-}
-
-export const resetGetTruckRecord = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckRecord, payload: {} })
 }
 
 export const setGetTruckRecordWaiting = (param) => (dispatch) => {
@@ -61,10 +53,32 @@ export const getTruckInsurance = (param) => async (dispatch) => {
     }
 }
 
-export const resetGetTruckInsurance = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.RESET_GET_TruckInsurance, payload: {} })
-}
-
 export const setGetTruckInsuranceWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsurance_WAITING, payload: {} })
 }
+
+export const getTruckImage = (param) => async (dispatch) => {
+    const urls = [`${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`, `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`]
+    try {
+        let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        if (res[0].success && res[1].success) {
+            dispatch({
+                type: actionTypes.truckInfoTypes.GET_TruckImage_SUCCESS, payload: {
+                    data: {
+                        truckInfo: res[0].result[0],
+                        truckImageList: res[1].result[0].images
+                    }
+                }
+            })
+        } else {
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckImage_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckImage_ERROR, payload: { data: err } })
+    }
+}
+
+export const setGetTruckImageWaiting = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckImage_WAITING, payload: {} })
+}
+

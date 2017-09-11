@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontTag from '../components/FontTag'
 import InsuranceListItem from '../components/InsuranceListItem'
 import PhotoItem from '../components/camera/PhotoItem'
+import PhotoItemDefault from '../components/camera/PhotoItemDefault'
 import { connect } from 'react-redux'
 import * as truckInfoAction from '../../actions/TruckInfoAction'
 import moment from 'moment'
@@ -22,14 +23,7 @@ class TruckInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            active: 0,
-            // insuranceList: [{ key: '0' }, { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' },
-            // { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' },
-            // { key: '15' }, { key: '16' }, { key: '17' }, { key: '18' }, { key: '19' }, { key: '20' }, { key: '21' }, { key: '22' },
-            // { key: '23' }, { key: '24' }, { key: '25' }, { key: '26' }, { key: '27' }, { key: '28' }, { key: '29' },
-            // { key: '30' }, { key: '31' }, { key: '32' }, { key: '33' }, { key: '34' }, { key: '35' }, { key: '36' }, { key: '37' },
-            // { key: '38' }, { key: '39' }, { key: '40' }, { key: '41' }, { key: '42' }, { key: '43' }, { key: '44' }, { key: '45' }],
-            //loading: false
+            active: 0
         }
         this.renderTruckInfo = this.renderTruckInfo.bind(this)
         this.renderTruckPhoto = this.renderTruckPhoto.bind(this)
@@ -40,28 +34,25 @@ class TruckInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            truckId: 202,
-            truckName: '辽B12224'
+            truckId: 227,//227
+            truckName: '辽M12321'//'辽M12321'
         }
     }
 
     onPressSegment(index) {
-        // if (this.state.active != index) {
-        //     this.setState({ active: index, insuranceList: [], loading: true })
-        //     InteractionManager.runAfterInteractions(() => this.setState({ loading: false }))
-        // }
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetTruckInfoWaiting()
                 this.setState({ active: 0 })
-                InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
-                    OptionalParam: {
-                        truckId: this.props.initParam.truckId
-                    }
-                }))
+                InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } }))
             }
             if (index == 1) {
+                this.props.setGetTruckImageWaiting()
                 this.setState({ active: 1 })
+                InteractionManager.runAfterInteractions(() => this.props.getTruckImage({
+                    OptionalParam: { truckId: this.props.initParam.truckId },
+                    requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truckName }
+                }))
             }
             if (index == 2) {
                 this.props.setGetTruckInsuranceWaiting()
@@ -169,11 +160,44 @@ class TruckInfo extends Component {
     }
 
     renderTruckPhoto() {
-        return (
-            <View>
-                <PhotoItem />
-            </View>
-        )
+        const { getTruckImage } = this.props.truckInfoReducer
+        if (getTruckImage.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getTruckImage.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            const { truckInfo, truckImageList } = this.props.truckInfoReducer.data
+            let imageHead = (
+                <View key={'head'} style={{ flexDirection: 'row' }}>
+                    {!truckInfo.driving_image ? <PhotoItemDefault containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={truckInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!truckInfo.license_image ? <PhotoItemDefault containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={truckInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>
+            )
+            let imageBody = []
+            for (let i = 0; i < truckImageList.length; i += 2) {
+                const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
+                    <PhotoItem onShowPhoto={() => { }} uri={truckImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    {truckImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => { }} uri={truckImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                </View>)
+                imageBody.push(viewItem)
+            }
+
+            return (
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={[imageHead, ...imageBody]}
+                        renderItem={({ item }) => item}
+                    />
+                </View>
+            )
+        }
     }
 
     renderTruckInsure() {
@@ -196,7 +220,7 @@ class TruckInfo extends Component {
                         showsVerticalScrollIndicator={false}
                         data={truckInsuranceList}
                         ListFooterComponent={<View style={{ height: 10, backgroundColor: '#edf1f4' }} />}
-                        renderItem={({ item }) => <InsuranceListItem data={item} />}
+                        renderItem={({ item, index }) => <InsuranceListItem data={item} key={index} />}
                     />
                 </View>
             )
@@ -222,7 +246,7 @@ class TruckInfo extends Component {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={truckRecordList}
-                        renderItem={({ item }) => <RecordListItem data={item} />}
+                        renderItem={({ item, index }) => <RecordListItem data={item} key={index} />}
                     />
                 </View>
             )
@@ -267,17 +291,11 @@ const mapDispatchToProps = (dispatch) => ({
     getTruckInfo: (param) => {
         dispatch(truckInfoAction.getTruckInfo(param))
     },
-    resetGetTruckInfo: () => {
-        dispatch(truckInfoAction.resetGetTruckInfo())
-    },
     setGetTruckInfoWaiting: () => {
         dispatch(truckInfoAction.setGetTruckInfoWaiting())
     },
     getTruckRecord: (param) => {
         dispatch(truckInfoAction.getTruckRecord(param))
-    },
-    resetGetTruckRecord: () => {
-        dispatch(truckInfoAction.resetGetTruckRecord())
     },
     setGetTruckRecordWaiting: () => {
         dispatch(truckInfoAction.setGetTruckRecordWaiting())
@@ -285,11 +303,14 @@ const mapDispatchToProps = (dispatch) => ({
     getTruckInsurance: (param) => {
         dispatch(truckInfoAction.getTruckInsurance(param))
     },
-    resetGetTruckInsurance: () => {
-        dispatch(truckInfoAction.resetGetTruckInsurance())
-    },
     setGetTruckInsuranceWaiting: () => {
         dispatch(truckInfoAction.setGetTruckInsuranceWaiting())
+    },
+    getTruckImage: (param) => {
+        dispatch(truckInfoAction.getTruckImage(param))
+    },
+    setGetTruckImageWaiting: () => {
+        dispatch(truckInfoAction.setGetTruckImageWaiting())
     }
 })
 

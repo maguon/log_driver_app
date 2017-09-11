@@ -25,6 +25,12 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    getTruckImage:{
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
     }
 }
 
@@ -86,17 +92,6 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.truckInfoTypes.RESET_GET_TruckInfo)]: (state, action) => {
-        return {
-            ...state,
-            getTruckInfo: {
-                isResultStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
-            }
-        }
-    },
 
     [(actionTypes.truckInfoTypes.GET_TruckInsurance_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -151,17 +146,6 @@ export default handleActions({
             getTruckInsurance: {
                 ...initialState.getTruckInsurance,
                 isResultStatus: 1
-            }
-        }
-    },
-    [(actionTypes.truckInfoTypes.RESET_GET_TruckInsurance)]: (state, action) => {
-        return {
-            ...state,
-            getTruckInsurance: {
-                isResultStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
             }
         }
     },
@@ -222,15 +206,63 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.truckInfoTypes.RESET_GET_TruckRecord)]: (state, action) => {
+
+    [(actionTypes.truckInfoTypes.GET_TruckImage_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                isResultStatus: 0,
-                errorMsg: '',
-                failedMsg: '',
-                serviceFailedMsg: ''
+            data: {
+                ...state.data,
+                truckInfo: data.truckInfo,
+                truckImageList: data.truckImageList
+            },
+            getTruckImage: {
+                ...state.getTruckImage,
+                isResultStatus: 2
             }
         }
     },
+    [(actionTypes.truckInfoTypes.GET_TruckImage_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckImage: {
+                ...state.getTruckImage,
+                isResultStatus: 4,
+                failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckImage_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckImage: {
+                ...state.getTruckImage,
+                isResultStatus: 5,
+                serviceFailedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckImage_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            getTruckImage: {
+                ...state.getTruckImage,
+                isResultStatus: 3,
+                errorMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckImage_WAITING)]: (state, action) => {
+        return {
+            ...initialState,
+            getTruckImage: {
+                ...initialState.getTruckImage,
+                isResultStatus: 1
+            }
+        }
+    }
+
 }, initialState)
