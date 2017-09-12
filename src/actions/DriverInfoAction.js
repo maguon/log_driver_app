@@ -22,7 +22,7 @@ export const setGetDriverInfoWaiting = (param) => (dispatch) => {
 }
 
 export const getDriverRecord = (param) => async (dispatch) => {
-    const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
+    const url = `${record_host}/user/${param.requiredParam.userId}/tuser/${param.requiredParam.driverId}/record`
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
@@ -40,15 +40,15 @@ export const setGetDriverRecordWaiting = (param) => (dispatch) => {
 }
 
 export const getDriverImage = (param) => async (dispatch) => {
-    const urls = [`${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`, `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`]
+    const urls = [`${base_host}/drive?${ObjectToUrl(param.OptionalParam)}`, `${record_host}/user/${param.requiredParam.userId}/tuser/${param.requiredParam.driverId}/record`]
     try {
         let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.driverInfoTypes.GET_DriverImage_SUCCESS, payload: {
                     data: {
-                        truckInfo: res[0].result[0],
-                        truckImageList: res[1].result[0].images
+                        driverInfo: res[0].result[0],
+                        driverImageList: res[1].result[0].images
                     }
                 }
             })
