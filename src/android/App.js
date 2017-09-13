@@ -4,7 +4,6 @@ import { Button, Icon } from 'native-base'
 import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-
 import NavBar from './components/bar/NavBar'
 import TopBar from './components/bar/TopBar'
 import TabIcon from './components/TabIcon'
@@ -44,6 +43,12 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
     }
     return style
 }
+
+// const getSceneStyle = () => ({
+//   backgroundColor: '#F5FCFF',
+//   shadowOpacity: 1,
+//   shadowRadius: 3,
+// });
 
 export default class App extends Component {
     constructor(props) {

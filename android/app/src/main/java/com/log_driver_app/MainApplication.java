@@ -3,6 +3,7 @@ package com.log_driver_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AMap3DPackage(),
             new VectorIconsPackage(),
             new PhotoViewPackage(),
             new ImageResizerPackage(),

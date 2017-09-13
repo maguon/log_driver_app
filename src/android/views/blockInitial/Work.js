@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, Switch, Platform} from 'react-native'
-// import MapView from 'react-native-amap3d'
+import MapView from 'react-native-amap3d'
 import commonStyles from '../styles'
 
 export default class Work extends Component {
@@ -36,13 +36,13 @@ export default class Work extends Component {
             value={this.state.showsLabels}/>
         </View>
       </View>
-      {/* <MapView
+       <MapView
         zoomLevel={17}
         tilt={60}
         showsLabels={this.state.showsLabels}
         showsTraffic={this.state.showsTraffic}
         showsBuildings={this.state.showsBuildings}
-        style={styles.map}/> */}
+        style={styles.map}/> 
     </View>
   }
 }
