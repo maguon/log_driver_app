@@ -4,7 +4,6 @@ import * as actionTypes from '../actionTypes'
 const initialState = {
     data: {
         driverInfo: {},
-        driverImageList: [],
         driverRecordList: []
     },
     getDriverInfo: {
@@ -149,8 +148,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                driverInfo: data.driverInfo,
-                driverImageList: data.driverImageList
+                driverInfo: data.driverInfo
             },
             getDriverImage: {
                 ...state.getDriverImage,

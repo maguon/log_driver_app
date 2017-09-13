@@ -14,7 +14,7 @@ import FontTag from '../components/FontTag'
 import PhotoItem from '../components/camera/PhotoItem'
 import { connect } from 'react-redux'
 import * as driverInfoAction from '../../actions/DriverInfoAction'
-import DrivingLicenseTypeList from '../../config/DrivingLicenseType.json'
+import drivingLicenseTypeList from '../../config/drivingLicenseType.json'
 import moment from 'moment'
 
 class DriverInfo extends Component {
@@ -56,8 +56,7 @@ class DriverInfo extends Component {
                 this.props.setGetDriverImageWaiting()
                 this.setState({ active: 1 })
                 InteractionManager.runAfterInteractions(() => this.props.getDriverImage({
-                    OptionalParam: { driveId: this.props.initParam.driverId },
-                    requiredParam: { userId: this.props.userReducer.user.userId, driverId: this.props.initParam.driverId }
+                    OptionalParam: { driveId: this.props.initParam.driverId }
                 }))
             }
             if (index == 2) {
@@ -127,7 +126,7 @@ class DriverInfo extends Component {
                         <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>紧急联系人电话：</Text>{driverInfo.sib_tel ? driverInfo.sib_tel : ''}</Text>
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
-                        <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾照类型：</Text>A1</Text>
+                        <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾照类型：</Text>{this.props.driverInfoReducer.data.driverInfo.license_type ? drivingLicenseTypeList.find((item) => item.id == this.props.driverInfoReducer.data.driverInfo.license_type).value : ''}</Text>
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
                         <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾驶证检证日期：</Text>{driverInfo.license_date ? moment(driverInfo.license_date).format('YYYY-MM-DD') : ''}</Text>

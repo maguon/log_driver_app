@@ -40,20 +40,13 @@ export const setGetDriverRecordWaiting = (param) => (dispatch) => {
 }
 
 export const getDriverImage = (param) => async (dispatch) => {
-    const urls = [`${base_host}/drive?${ObjectToUrl(param.OptionalParam)}`, `${record_host}/user/${param.requiredParam.userId}/tuser/${param.requiredParam.driverId}/record`]
+    const url = `${base_host}/drive?${ObjectToUrl(param.OptionalParam)}`
     try {
-        let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        if (res[0].success && res[1].success) {
-            dispatch({
-                type: actionTypes.driverInfoTypes.GET_DriverImage_SUCCESS, payload: {
-                    data: {
-                        driverInfo: res[0].result[0],
-                        driverImageList: res[1].result[0].images
-                    }
-                }
-            })
+        let res = await httpRequest.get(url)
+        if (res.success) {
+            dispatch({ type: actionTypes.driverInfoTypes.GET_DriverImage_SUCCESS, payload: { data: { driverInfo: res.result[0] } } })
         } else {
-            dispatch({ type: actionTypes.driverInfoTypes.GET_DriverImage_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+            dispatch({ type: actionTypes.driverInfoTypes.GET_DriverImage_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
         dispatch({ type: actionTypes.driverInfoTypes.GET_DriverImage_ERROR, payload: { data: err } })

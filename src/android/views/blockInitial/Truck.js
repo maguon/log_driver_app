@@ -4,8 +4,10 @@ import {
     View,
     TouchableNativeFeedback
 } from 'react-native'
+
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 export default class Truck extends Component {
     render() {
@@ -30,6 +32,17 @@ export default class Truck extends Component {
                             <Text style={{ color: '#fff', fontSize: 11 }}>个人资料</Text>
                         </View>
                     </TouchableNativeFeedback>
+                </View>
+                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 30, paddingVertical: 10,flexDirection:'row',alignItems:'center' }}>
+                    <View>
+                        <MaterialCommunityIcons name='gas-station' size={40} color='#00cade' />
+                    </View>
+                    <View style={{paddingLeft:20,flex:1}}>
+                        <Text>加油记录</Text>
+                    </View>
+                    <View>
+                        <EvilIcons name='chevron-right' size={40} />
+                    </View>
                 </View>
             </View>
         )
