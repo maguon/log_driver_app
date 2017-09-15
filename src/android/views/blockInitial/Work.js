@@ -54,10 +54,10 @@ export default class Work extends Component {
                             <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b' }}>大连 --> 沈阳</Text>
+                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>大连 --> 沈阳</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b' }}>235公里</Text>
+                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>235公里</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
