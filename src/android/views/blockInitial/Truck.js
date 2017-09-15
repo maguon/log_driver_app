@@ -4,7 +4,6 @@ import {
     View,
     TouchableNativeFeedback
 } from 'react-native'
-
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'

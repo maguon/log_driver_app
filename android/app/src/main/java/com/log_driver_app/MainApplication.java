@@ -14,6 +14,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.xiaobu.amap.AMapLocationReactPackage;
 
 
 import java.util.Arrays;
@@ -37,7 +38,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ImageResizerPackage(),
             new ImagePickerPackage(),
             new PickerPackage(),
-            new OrientationPackage()
+            new OrientationPackage(),
+            new AMapLocationReactPackage()
       );
     }
   };
