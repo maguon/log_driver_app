@@ -15,6 +15,7 @@ import Instruct from './views/Instruct'
 import DriverInfo from './views/DriverInfo'
 import TruckInfo from './views/TruckInfo'
 import TrailerInfo from './views/TrailerInfo'
+import BranchInstruct from './views/BranchInstruct'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -94,7 +95,8 @@ export default class App extends Component {
                         </Scene>
                         <Scene key="driverBlock" initial={true} icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                             <Scene key="work" component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
-                            <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="branchInstruct" initial={true} component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                             <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
