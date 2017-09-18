@@ -3,7 +3,7 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getFuelFillingRecord = (param) => (dispatch) => {
+export const getFuelFillingRecord = (param) => async (dispatch) => {
     const urls = [`${base_host}/driveRefuel?${ObjectToUrl(param.OptionalParam)}`]
     try {
         let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
