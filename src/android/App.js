@@ -17,6 +17,7 @@ import TruckInfo from './views/TruckInfo'
 import TrailerInfo from './views/TrailerInfo'
 import BranchInstruct from './views/BranchInstruct'
 import FuelFillingRecord from './views/FuelFillingRecord'
+import FuelFillingApply from './views/FuelFillingApply'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -97,7 +98,8 @@ export default class App extends Component {
                         <Scene key="driverBlock" initial={true} icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                             <Scene key="work" component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
                             <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
-                            <Scene key="fuelFillingRecord" initial={true} component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="fuelFillingApply" initial={true} component={FuelFillingApply} title='加油申请' hideNavBar={false} navBar={NavBar} />
                             <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
