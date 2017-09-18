@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     labelStyle: {
-        fontSize: 12
+        fontSize: 12,
+        fontWeight: 'bold'
     },
     textStyle: {
         fontSize: 12

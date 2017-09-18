@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 12,
+        fontWeight: 'bold'
     },
     textStyle: {
         fontSize: 12,

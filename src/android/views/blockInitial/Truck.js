@@ -32,17 +32,19 @@ export default class Truck extends Component {
                         </View>
                     </TouchableNativeFeedback>
                 </View>
-                <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 30, paddingVertical: 10,flexDirection:'row',alignItems:'center' }}>
-                    <View>
-                        <MaterialCommunityIcons name='gas-station' size={40} color='#00cade' />
+                <TouchableNativeFeedback onPress={Actions.fuelFillingRecord} background={TouchableNativeFeedback.SelectableBackground()}>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 30, paddingVertical: 10, flexDirection: 'row', alignItems: 'center' }}>
+                        <View>
+                            <MaterialCommunityIcons name='gas-station' size={40} color='#00cade' />
+                        </View>
+                        <View style={{ paddingLeft: 20, flex: 1 }}>
+                            <Text>加油记录</Text>
+                        </View>
+                        <View>
+                            <EvilIcons name='chevron-right' size={40} />
+                        </View>
                     </View>
-                    <View style={{paddingLeft:20,flex:1}}>
-                        <Text>加油记录</Text>
-                    </View>
-                    <View>
-                        <EvilIcons name='chevron-right' size={40} />
-                    </View>
-                </View>
+                </TouchableNativeFeedback>
             </View>
         )
     }

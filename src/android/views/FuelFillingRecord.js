@@ -4,15 +4,30 @@ import {
     View
 } from 'react-native'
 import { Icon, Button } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { connect } from 'react-redux'
+import * as FuelFillingRecordAction from '../../actions/FuelFillingRecordAction'
 
-export default class FuelFillingRecord extends Component {
+class FuelFillingRecord extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        this.props.getDriverInfo({
+            OptionalParam: {
+                driveId: this.props.initParam.driverId
+            }
+        })
+    }
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#edf1f4' }}>
                 <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
                     <View>
-                        <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade' }}>
                             <MaterialCommunityIcons name='gas-station' size={20} color='#fff' />
                             <Text style={{ color: '#fff', paddingLeft: 5 }}>加油申报</Text>
                         </Button>
@@ -29,8 +44,8 @@ export default class FuelFillingRecord extends Component {
                         <View>
                             <Text style={{ color: '#00cade', fontSize: 13 }}>2017-08-01</Text>
                         </View>
-                        <View style={{ paddingHorizontal: 20, color: '#a1a4a5' }}>
-                            <Text style={{ fontSize: 13, fontWeight: 'bold' }}>至</Text>
+                        <View style={{ paddingHorizontal: 20 }}>
+                            <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#a1a4a5' }}>至</Text>
                         </View>
                         <View>
                             <Text style={{ color: '#00cade', fontSize: 13 }}>2017-08-30</Text>
@@ -94,7 +109,7 @@ export default class FuelFillingRecord extends Component {
                         <Text style={{ fontSize: 11 }}>审核人：张某某</Text>
                         <Text style={{ color: '#fa7377', fontSize: 13, fontWeight: 'bold' }}>已拒绝</Text>
                     </View>
-                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                             <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
                             <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>2569</Text>
@@ -127,10 +142,10 @@ export default class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row' }}>
                         <Text>
                             <Text style={{ fontSize: 11, fontWeight: 'bold' }}>拒绝原因：</Text>
-                            <Text style={{ fontSize: 11, paddingLeft: 3  }}>辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 3 }}>辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区辽宁大连市甘井子区</Text>
                         </Text>
                     </View>
-                </View> 
+                </View>
                 <View style={{ backgroundColor: '#fff', marginHorizontal: 10, marginTop: 10, borderWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderColor: '#ccc', borderBottomWidth: 0.5, alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11 }}>2017-04-10 13:30</Text>
@@ -171,3 +186,17 @@ export default class FuelFillingRecord extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        fuelFillingRecordReducer: state.fuelFillingRecordReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getgetFuelFillingRecord: (param) => {
+        dispatch(FuelFillingRecordAction.getFuelFillingRecord(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FuelFillingRecord)

@@ -4,6 +4,7 @@ import {
     View,
     ScrollView
 } from 'react-native'
+
 import { Button } from 'native-base'
 import DateTimePicker from '../components/form/DateTimePicker'
 import TextBox from '../components/form/TextBox'
@@ -14,9 +15,9 @@ export default class FuelFillingApply extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
-                    <View style={{ flex: 1, padding: 10 }}>
-                        <View style={{borderBottomWidth:0.5}}>
-                            <Text style={{fontSize:11}}>申报时间：2017-08-30 11：30</Text>
+                    <View style={{ flex: 1 }}>
+                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
+                            <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>申报时间：</Text>2017-08-30 11：30</Text>
                         </View>
                         <DateTimePicker
                             isRequire={true}
@@ -35,26 +36,23 @@ export default class FuelFillingApply extends Component {
                             placeholder='请输入加油量'
                         />
                         <Select
-                            title='关联线路编号：'
+                            title='指令编号：'
                             isRequire={false}
                             value={'请选择'}
                             onValueChange={(param) => { }}
                             onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
-                        <View>
-                            <Text>关联路线：（选择完线路变好自动生成线路，编号和线路可以为空）</Text>
-                        </View>
                         <Select
                             title='加油地：'
-                            isRequire={false}
+                            isRequire={true}
                             value={'请选择'}
                             onValueChange={(param) => { }}
                             onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
-                        <View>
-                            <Text>定位</Text>
+                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
+                            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>定位</Text>
                         </View>
                         <TextBox
                             isRequire={true}
@@ -65,11 +63,12 @@ export default class FuelFillingApply extends Component {
                             placeholder='请输入加油金额'
                         />
                     </View>
-                    <Button onPress={() => { }} full style={{backgroundColor:'#00cade'}}>
-                        <Text style={{color:'#fff'}}>确定</Text>
-                    </Button>
+                    <View style={{ padding: 10 }}>
+                        <Button onPress={() => { }} full style={{ backgroundColor: '#00cade' }}>
+                            <Text style={{ color: '#fff' }}>确定</Text>
+                        </Button>
+                    </View>
                 </ScrollView>
-
             </View>
         )
     }

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 12,
+        fontWeight: 'bold'
     },
     messageSytle: {
         color: 'red',

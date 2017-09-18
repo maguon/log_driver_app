@@ -1,0 +1,5 @@
+export const GET_FuelFillingRecord_SUCCESS = 'GET_FuelFillingRecord_SUCCESS'
+export const GET_FuelFillingRecord_WAITING = 'GET_FuelFillingRecord_WAITING'
+export const GET_FuelFillingRecord_FAILED = 'GET_FuelFillingRecord_FAILED'
+export const GET_FuelFillingRecord_ERROR = 'GET_FuelFillingRecord_ERROR'
+export const GET_FuelFillingRecord_SERVICEERROR = 'GET_FuelFillingRecord_SERVICEERROR'

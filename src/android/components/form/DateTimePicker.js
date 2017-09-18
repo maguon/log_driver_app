@@ -23,11 +23,13 @@ const styles = StyleSheet.create({
     },
     labelStyle: {
         fontSize: 12,
+        fontWeight: 'bold'
         //flex: 4,
         //textAlign: 'right'
     },
     textStyle: {
         fontSize: 12,
+        
         //flex: 12
     },
     messageSytle: {
