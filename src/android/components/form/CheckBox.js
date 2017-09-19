@@ -94,7 +94,7 @@ export default class CheckBox extends Component {
     onCheck(item) {
         this.validate(item)
         this.props.onCheck(item)
-        // this.setState({ modalVisible: false })
+        this.setState({ modalVisible: false })
     }
 
     render() {
