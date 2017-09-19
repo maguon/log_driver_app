@@ -4,7 +4,8 @@ import {
     View,
     Modal,
     TouchableHighlight,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import { validate } from '../../../util/Validator'
@@ -60,7 +61,7 @@ export default class CheckBox extends Component {
             const warnMessageList = validate(value, this.props.verifications)
             this.setState({ warnMessageList })
             const flag = !(warnMessageList.length > 0)
-            this.props.onRequire((value!=this.props.defaultValue )&& flag)
+            this.props.onRequire((value != this.props.defaultValue) && flag)
         } else {
             if (value == this.props.defaultValue) {
                 this.setState({ warnMessageList: [] })
@@ -93,7 +94,7 @@ export default class CheckBox extends Component {
     onCheck(item) {
         this.validate(item)
         this.props.onCheck(item)
-        this.setState({ modalVisible: false })
+        // this.setState({ modalVisible: false })
     }
 
     render() {
@@ -116,30 +117,32 @@ export default class CheckBox extends Component {
                     </View>
                 </TouchableHighlight>
                 <Modal
-                    animationType={"fade"}
+                    animationType={"none"}
                     transparent={true}
                     visible={this.state.modalVisible}
-                    onRequestClose={() => { }}
+                    onRequestClose={() => console.log('close')}
                 >
-                    <View style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        flex: 1
-                    }}>
+                    <TouchableOpacity style={{flex:1}} onPress={() => this.setState({ modalVisible: false })} >
                         <View style={{
-                            backgroundColor: '#fff',
-                            alignSelf: 'stretch',
-                            justifyContent: 'center',
-                            borderWidth: 0.5,
-                            borderColor: '#ccc',
+                            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            flex: 1
                         }}>
-                            <View style={{ borderBottomWidth: 1, borderColor: '#00cade' }}>
-                                <Text style={{ paddingVertical: 10, color: '#00cade', textAlign: 'center' }}>{this.props.listTitle}</Text>
+                            <View style={{
+                                backgroundColor: '#fff',
+                                alignSelf: 'stretch',
+                                justifyContent: 'center',
+                                borderWidth: 0.5,
+                                borderColor: '#ccc',
+                            }}>
+                                <View style={{ borderBottomWidth: 1, borderColor: '#00cade' }}>
+                                    <Text style={{ paddingVertical: 10, color: '#00cade', textAlign: 'center' }}>{this.props.listTitle}</Text>
+                                </View>
+                                {this.renderItem()}
                             </View>
-                            {this.renderItem()}
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </Modal>
             </View>
         )
