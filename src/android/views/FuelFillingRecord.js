@@ -35,6 +35,30 @@ class FuelFillingRecord extends Component {
     }
 
     onSearch(param) {
+        const { total } = this.props.fuelFillingRecordReducer.data
+        let paramPropsLength = Object.keys(param).length
+        console.log(paramPropsLength)
+        if (param.refuelDateStart != total.refuelDateStart
+            || param.refuelDateEnd != total.refuelDateEnd
+            || param.refuelAddressType != total.refuelAddressType
+            || param.checkStatus != total.checkStatus) {
+            this.props.setGetFuelFillingRecordWaiting()
+            InteractionManager.runAfterInteractions(() => {
+                if (param.refuelAddressType == 99) {
+                    delete param.refuelAddressType
+                }
+                if (param.checkStatus == 99) {
+                    delete param.checkStatus
+                }
+                return this.props.getFuelFillingRecord({
+                    OptionalParam: {
+                        driveId: 1,
+                        ...param
+                    }
+                })
+            }
+            )
+        }
 
     }
 
@@ -191,7 +215,17 @@ class FuelFillingRecord extends Component {
                             </Button>
                         </View>
                         <View>
-                            <Button small rounded onPress={() => Actions.fuelFillingSearch({ initParam: { onSearch: this.onSearch } })} style={{ backgroundColor: '#fa7377' }}>
+                            <Button small rounded
+                                onPress={() => Actions.fuelFillingSearch({
+                                    initParam: {
+                                        onSearch: this.onSearch,
+                                        refuelDateStart: this.props.fuelFillingRecordReducer.data.total.refuelDateStart,
+                                        refuelDateEnd: this.props.fuelFillingRecordReducer.data.total.refuelDateEnd,
+                                        refuelAddressType: this.props.fuelFillingRecordReducer.data.total.refuelAddressType,
+                                        checkStatus: this.props.fuelFillingRecordReducer.data.total.checkStatus
+                                    }
+                                })}
+                                style={{ backgroundColor: '#fa7377' }}>
                                 <Icon name='ios-search' style={{ fontSize: 20 }} />
                                 <Text style={{ color: '#fff', paddingLeft: 5 }}>搜索</Text>
                             </Button>
@@ -213,13 +247,13 @@ class FuelFillingRecord extends Component {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                                     <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
-                                    <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{this.props.fuelFillingRecordReducer.data.total.refuel_volume ? this.props.fuelFillingRecordReducer.data.total.refuel_volume : ''}</Text>
+                                    <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{this.props.fuelFillingRecordReducer.data.total.refuel_volume ? this.props.fuelFillingRecordReducer.data.total.refuel_volume : '0'}</Text>
                                     <Text style={{ fontSize: 11, paddingLeft: 3 }}>ml</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                                     <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总额：</Text>
                                     <Text style={{ fontSize: 11, paddingLeft: 3 }}>¥</Text>
-                                    <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{this.props.fuelFillingRecordReducer.data.total.refuel_money ? this.props.fuelFillingRecordReducer.data.total.refuel_money : ''}</Text>
+                                    <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{this.props.fuelFillingRecordReducer.data.total.refuel_money ? this.props.fuelFillingRecordReducer.data.total.refuel_money : '0'}</Text>
                                     <Text style={{ fontSize: 11, paddingLeft: 3 }}>元</Text>
                                 </View>
                             </View>

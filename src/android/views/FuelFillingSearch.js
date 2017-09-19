@@ -17,16 +17,24 @@ export default class FuelFillingSearch extends Component {
         this.state = {
             refuelDateStart: '',
             refuelDateEnd: '',
-            refuelAddressType: '',
-            refuelAddressTypeValue: '',
-            checkStatus: '',
-            checkStatusValue: ''
+            refuelAddressType: 99,
+            checkStatus: 99
         }
         this.onSearch = this.onSearch.bind(this)
     }
 
+    componentWillMount() {
+        this.setState({
+            refuelDateStart: this.props.initParam.refuelDateStart,
+            refuelDateEnd: this.props.initParam.refuelDateEnd,
+            refuelAddressType: this.props.initParam.refuelAddressType,
+            checkStatus: this.props.initParam.checkStatus
+        })
+    }
+
     onSearch() {
-        console.log(this.state)
+        Actions.pop()
+        this.props.initParam.onSearch({...this.state})
     }
 
     render() {
@@ -49,18 +57,18 @@ export default class FuelFillingSearch extends Component {
                         <CheckBox
                             title='加油地：'
                             listTitle='加油地'
-                            value={this.state.refuelAddressTypeValue ? this.state.refuelAddressTypeValue : '请选择'}
+                            value={this.state.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value : ''}
                             itemList={fuelFillingTypeList}
-                            onCheck={(param) => this.setState({ refuelAddressType: param.id, refuelAddressTypeValue: param.value })}
+                            onCheck={(param) => this.setState({ refuelAddressType: param.id })}
                         />
                         <CheckBox
                             title='审核结果：'
                             listTitle='审核结果'
-                            value={this.state.checkStatusValue ? this.state.checkStatusValue : '请选择'}
+                            value={this.state.checkStatus ? fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus).value : ''}
                             itemList={fuelFillingCheckStatusList}
-                            onCheck={(param) => this.setState({ checkStatus: param.id, checkStatusValue: param.value })} />
+                            onCheck={(param) => this.setState({ checkStatus: param.id })} />
                         <View style={{ padding: 10 }}>
-                            <Button onPress={() => { }} full style={{ backgroundColor: '#00cade' }}>
+                            <Button onPress={this.onSearch} full style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
                             </Button>
                         </View>

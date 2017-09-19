@@ -15,6 +15,8 @@ export const getFuelFillingRecord = (param) => async (dispatch) => {
                         total: {
                             refuelDateStart: param.OptionalParam.refuelDateStart,
                             refuelDateEnd: param.OptionalParam.refuelDateEnd,
+                            refuelAddressType: param.OptionalParam.refuelAddressType ? param.OptionalParam.refuelAddressType : 99,
+                            checkStatus: param.OptionalParam.checkStatus ? param.OptionalParam.checkStatus : 99,
                             ...res[1].result[0]
                         }
                     }
