@@ -20,14 +20,21 @@ export default class FuelFillingApply extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            refuelDate: '',
-            refuelVolume: 0,
-            cityRouteId: 0,
-            refuelAddressType: 0,
-            refuelAddress: "string",
-            lng: 0,
-            lat: 0,
-            refuelMoney: 0
+            fuelFillingInfo: {
+                refuelDate: '',
+                refuelVolume: 0,
+                cityRouteId: 0,
+                refuelAddressType: 0,
+                refuelAddress: '',
+                lng: 0,
+                lat: 0,
+                refuelMoney: 0
+            },
+            Validate: {
+                refuelDateValidate: false,
+                refuelVolumeValidate: false,
+                refuelMoneyValidate: false
+            }
         }
         this.onPressPosition = this.onPressPosition.bind(this)
     }
@@ -48,6 +55,7 @@ export default class FuelFillingApply extends Component {
             killProcess: true,
             needDetail: true,
         })
+        //{this.state.refuelAddress ? this.state.refuelAddress : ''}
         console.log('onPressPosition')
     }
 
@@ -61,49 +69,73 @@ export default class FuelFillingApply extends Component {
                         </View>
                         <DateTimePicker
                             isRequire={true}
-                            value={this.state.refuelDate ? this.state.refuelDate : '请选择'}
+                            value={this.state.fuelFillingInfo.refuelDate ? this.state.fuelFillingInfo.refuelDate : '请选择'}
                             title='加油时间：'
                             defaultValue={'请选择'}
                             onRequire={(flag) => { }}
-                            onValueChange={(param) => this.setState({ refuelDate: param })}
+                            onValueChange={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelDate: param }
+                                })
+                            })}
                         />
                         <TextBox
                             isRequire={true}
                             title='加油量：'
-                            value={this.state.refuelVolume ? this.state.refuelVolume : ''}
-                            onValueChange={(param) => this.setState({ refuelVolume: param })}
+                            value={this.state.fuelFillingInfo.refuelVolume ? this.state.fuelFillingInfo.refuelVolume : ''}
+                            onValueChange={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelVolume: param }
+                                })
+                            })}
                             onRequire={(flag) => { }}
                             placeholder='请输入加油量'
                         />
                         <Select
                             title='指令编号：'
                             isRequire={false}
-                            value={this.state.cityRouteId ? this.state.cityRouteId : '请选择'}
+                            value={this.state.fuelFillingInfo.cityRouteId ? this.state.fuelFillingInfo.cityRouteId : '请选择'}
                             showList={Actions.cityRouteList}
-                            onValueChange={(param) => this.setState({ cityRouteId: param })}
+                            onValueChange={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, cityRouteId: param }
+                                })
+                            })}
                             onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
                         <CheckBox
                             title='加油地：'
                             listTitle='加油地'
-                            value={this.state.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value : ''}
-                            itemList={fuelFillingTypeList}
-                            onCheck={(param) => this.setState({ refuelAddressType: param.id })}
+                            value={this.state.fuelFillingInfo.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.fuelFillingInfo.refuelAddressType).value : ''}
+                            itemList={fuelFillingTypeList.filter(item => item.id != 99)}
+                            onCheck={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelAddressType: param.id }
+                                })
+                            })}
                         />
                         <TouchableNativeFeedback
                             onPress={this.onPressPosition}
                             background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>定位：{this.state.refuelAddress ? this.state.refuelAddress : ''}</Text>
-                                <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
+                                <View style={{ flex: 1 }}>
+                                    <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>辽宁省大连市金州区金马路靠近中国建设银行(大连经济技术开发区分行)</Text>
+                                </View>
+                                <View>
+                                    <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
+                                </View>
                             </View>
                         </TouchableNativeFeedback>
                         <TextBox
                             isRequire={true}
                             title='加油金额：'
-                            value={this.state.refuelMoney ? this.state.refuelMoney : ''}
-                            onValueChange={(param) => this.setState({ refuelMoney: param })}
+                            value={this.state.fuelFillingInfo.refuelMoney ? this.state.fuelFillingInfo.refuelMoney : ''}
+                            onValueChange={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelMoney: param }
+                                })
+                            })}
                             onRequire={(flag) => { }}
                             placeholder='请输入加油金额'
                         />
