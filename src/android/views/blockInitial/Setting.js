@@ -3,7 +3,7 @@ import {
     Text,
     View
 } from 'react-native'
-import AMapLocation from 'react-native-amap-location';
+import AMapLocation from 'react-native-amap-location'
 
 export default class Setting extends Component {
     constructor(props) {
@@ -36,6 +36,7 @@ export default class Setting extends Component {
 
     componentDidMount() {
         this.listener = AMapLocation.addEventListener((data) => console.log('data', this.setState({ ...data })));
+        
         AMapLocation.startLocation({
             accuracy: 'HighAccuracy',
             killProcess: true,

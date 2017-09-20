@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    ScrollView
+    ScrollView,
+    TouchableNativeFeedback
 } from 'react-native'
 
-import { Button } from 'native-base'
+import { Button, Icon } from 'native-base'
 import DateTimePicker from '../components/form/DateTimePicker'
 import TextBox from '../components/form/TextBox'
 import Select from '../components/form/Select'
 import moment from 'moment'
 import fuelFillingTypeList from '../../config/fuelFillingType'
 import CheckBox from '../components/form/CheckBox'
+import { Actions } from 'react-native-router-flux'
+import AMapLocation from 'react-native-amap-location'
 
 export default class FuelFillingApply extends Component {
     constructor(props) {
@@ -26,6 +29,26 @@ export default class FuelFillingApply extends Component {
             lat: 0,
             refuelMoney: 0
         }
+        this.onPressPosition = this.onPressPosition.bind(this)
+    }
+
+    onPressPosition() {
+        let listener = AMapLocation.addEventListener((data) => {
+            console.log('daaddressta', data)
+            this.setState({
+                refuelAddress: data.address,
+                lng: data.longitude,
+                lat: data.latitude
+            })
+            AMapLocation.stopLocation()
+            listener.remove()
+        })
+        AMapLocation.startLocation({
+            accuracy: 'HighAccuracy',
+            killProcess: true,
+            needDetail: true,
+        })
+        console.log('onPressPosition')
     }
 
     render() {
@@ -55,8 +78,9 @@ export default class FuelFillingApply extends Component {
                         <Select
                             title='指令编号：'
                             isRequire={false}
-                            value={'请选择'}
-                            onValueChange={(param) => { }}
+                            value={this.state.cityRouteId ? this.state.cityRouteId : '请选择'}
+                            showList={Actions.cityRouteList}
+                            onValueChange={(param) => this.setState({ cityRouteId: param })}
                             onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
@@ -67,9 +91,14 @@ export default class FuelFillingApply extends Component {
                             itemList={fuelFillingTypeList}
                             onCheck={(param) => this.setState({ refuelAddressType: param.id })}
                         />
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
-                            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>定位</Text>
-                        </View>
+                        <TouchableNativeFeedback
+                            onPress={this.onPressPosition}
+                            background={TouchableNativeFeedback.SelectableBackground()}>
+                            <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>定位：{this.state.refuelAddress ? this.state.refuelAddress : ''}</Text>
+                                <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
+                            </View>
+                        </TouchableNativeFeedback>
                         <TextBox
                             isRequire={true}
                             title='加油金额：'
