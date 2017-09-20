@@ -30,13 +30,23 @@ export default class FuelFillingApply extends Component {
                 lat: 0,
                 refuelMoney: 0
             },
-            Validate: {
+            validate: {
                 refuelDateValidate: false,
                 refuelVolumeValidate: false,
                 refuelMoneyValidate: false
             }
         }
         this.onPressPosition = this.onPressPosition.bind(this)
+        this.onCreateRefuel = this.onCreateRefuel.bind(this)
+    }
+
+    onCreateRefuel() {
+        let param = { ...this.state.fuelFillingInfo }
+        for(key in param){
+            if(!param[key]){
+                
+            }
+        }
     }
 
     onPressPosition() {
@@ -65,7 +75,7 @@ export default class FuelFillingApply extends Component {
     }
 
     render() {
-        console.log(this.state.Validate)
+        console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -78,14 +88,14 @@ export default class FuelFillingApply extends Component {
                             value={this.state.fuelFillingInfo.refuelDate ? this.state.fuelFillingInfo.refuelDate : '请选择'}
                             title='加油时间：'
                             defaultValue={'请选择'}
-                            onRequire={(flag) => this.setState((prevState, props) => {
-                                return ({
-                                    Validate: { ...prevState.Validate, refuelDateValidate: flag }
-                                })
-                            })}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelDate: param }
+                                })
+                            })}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    validate: { ...prevState.validate, refuelDateValidate: flag }
                                 })
                             })}
                         />
@@ -95,12 +105,13 @@ export default class FuelFillingApply extends Component {
                             value={this.state.fuelFillingInfo.refuelVolume ? this.state.fuelFillingInfo.refuelVolume : ''}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
-                                    Validate: { ...prevState.fuelFillingInfo, refuelVolumeValidate: param }
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelVolume: param }
+
                                 })
                             })}
                             onRequire={(flag) => this.setState((prevState, props) => {
                                 return ({
-                                    Validate: { ...prevState.Validate, refuelDateValidate: flag }
+                                    validate: { ...prevState.validate, refuelVolumeValidate: flag }
                                 })
                             })}
                             placeholder='请输入加油量'
@@ -115,7 +126,6 @@ export default class FuelFillingApply extends Component {
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, cityRouteId: param }
                                 })
                             })}
-                            onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
                         <CheckBox
@@ -152,14 +162,27 @@ export default class FuelFillingApply extends Component {
                             })}
                             onRequire={(flag) => this.setState((prevState, props) => {
                                 return ({
-                                    Validate: { ...prevState.fuelFillingInfo, refuelMoneyValidate: flag }
+                                    validate: { ...prevState.validate, refuelMoneyValidate: flag }
                                 })
                             })}
                             placeholder='请输入加油金额'
                         />
                     </View>
                     <View style={{ padding: 10 }}>
-                        <Button onPress={() => { }} full style={{ backgroundColor: '#00cade' }}>
+                        <Button full
+                            onPress={() => { }}
+                            disabled={!(
+                                this.state.validate.refuelDateValidate &&
+                                this.state.validate.refuelVolumeValidate &&
+                                this.state.validate.refuelMoneyValidate
+                            )}
+                            style={{
+                                backgroundColor: (
+                                    this.state.validate.refuelDateValidate &&
+                                    this.state.validate.refuelVolumeValidate &&
+                                    this.state.validate.refuelMoneyValidate
+                                ) ? '#00cade' : '#888888'
+                            }}>
                             <Text style={{ color: '#fff' }}>确定</Text>
                         </Button>
                     </View>

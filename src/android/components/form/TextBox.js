@@ -51,7 +51,7 @@ export default class TextBox extends Component {
             const warnMessageList = validate(value, this.props.verifications)
             this.setState({ warnMessageList })
             const flag = !(warnMessageList.length > 0)
-            this.props.onRequire(value && flag)
+            this.props.onRequire(!!value && flag)
         } else {
             if (value === '') {
                 this.setState({ warnMessageList: [] })
