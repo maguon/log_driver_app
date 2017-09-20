@@ -42,10 +42,15 @@ export default class FuelFillingApply extends Component {
     onPressPosition() {
         let listener = AMapLocation.addEventListener((data) => {
             console.log('daaddressta', data)
-            this.setState({
-                refuelAddress: data.address,
-                lng: data.longitude,
-                lat: data.latitude
+            this.setState((prevState, props) => {
+                return ({
+                    fuelFillingInfo: {
+                        ...prevState.fuelFillingInfo,
+                        refuelAddress: data.address,
+                        lng: data.longitude,
+                        lat: data.latitude
+                    }
+                })
             })
             AMapLocation.stopLocation()
             listener.remove()
@@ -60,6 +65,7 @@ export default class FuelFillingApply extends Component {
     }
 
     render() {
+        console.log(this.state.Validate)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -72,7 +78,11 @@ export default class FuelFillingApply extends Component {
                             value={this.state.fuelFillingInfo.refuelDate ? this.state.fuelFillingInfo.refuelDate : '请选择'}
                             title='加油时间：'
                             defaultValue={'请选择'}
-                            onRequire={(flag) => { }}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    Validate: { ...prevState.Validate, refuelDateValidate: flag }
+                                })
+                            })}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelDate: param }
@@ -85,10 +95,14 @@ export default class FuelFillingApply extends Component {
                             value={this.state.fuelFillingInfo.refuelVolume ? this.state.fuelFillingInfo.refuelVolume : ''}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
-                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelVolume: param }
+                                    Validate: { ...prevState.fuelFillingInfo, refuelVolumeValidate: param }
                                 })
                             })}
-                            onRequire={(flag) => { }}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    Validate: { ...prevState.Validate, refuelDateValidate: flag }
+                                })
+                            })}
                             placeholder='请输入加油量'
                         />
                         <Select
@@ -136,7 +150,11 @@ export default class FuelFillingApply extends Component {
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelMoney: param }
                                 })
                             })}
-                            onRequire={(flag) => { }}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    Validate: { ...prevState.fuelFillingInfo, refuelMoneyValidate: flag }
+                                })
+                            })}
                             placeholder='请输入加油金额'
                         />
                     </View>
