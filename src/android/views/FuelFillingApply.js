@@ -15,8 +15,9 @@ import fuelFillingTypeList from '../../config/fuelFillingType'
 import CheckBox from '../components/form/CheckBox'
 import { Actions } from 'react-native-router-flux'
 import AMapLocation from 'react-native-amap-location'
+import { connect } from 'react-redux'
 
-export default class FuelFillingApply extends Component {
+class FuelFillingApply extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -42,11 +43,16 @@ export default class FuelFillingApply extends Component {
 
     onCreateRefuel() {
         let param = { ...this.state.fuelFillingInfo }
-        for(key in param){
-            if(!param[key]){
-                
+        for (key in param) {
+            if (!param[key]) {
+                delete param[key]
             }
         }
+        console.log('param', {
+            ...param,
+            driveId: this.props.userReducer.user.driverId,
+            truckId: this.props.userReducer.user.truckId,
+        })
     }
 
     onPressPosition() {
@@ -75,7 +81,7 @@ export default class FuelFillingApply extends Component {
     }
 
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -170,7 +176,7 @@ export default class FuelFillingApply extends Component {
                     </View>
                     <View style={{ padding: 10 }}>
                         <Button full
-                            onPress={() => { }}
+                            onPress={this.onCreateRefuel}
                             disabled={!(
                                 this.state.validate.refuelDateValidate &&
                                 this.state.validate.refuelVolumeValidate &&
@@ -191,3 +197,15 @@ export default class FuelFillingApply extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userReducer: state.userReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FuelFillingApply)
