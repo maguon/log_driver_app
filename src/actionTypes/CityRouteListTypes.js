@@ -1,0 +1,5 @@
+export const GET_CityRouteList_SUCCESS = 'GET_CityRouteList_SUCCESS'
+export const GET_CityRouteList_WAITING = 'GET_CityRouteList_WAITING'
+export const GET_CityRouteList_FAILED = 'GET_CityRouteList_FAILED'
+export const GET_CityRouteList_ERROR = 'GET_CityRouteList_ERROR'
+export const GET_CityRouteList_SERVICEERROR = 'GET_CityRouteList_SERVICEERROR' 

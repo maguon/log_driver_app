@@ -10,15 +10,21 @@ import DateTimePicker from '../components/form/DateTimePicker'
 import TextBox from '../components/form/TextBox'
 import Select from '../components/form/Select'
 import moment from 'moment'
+import fuelFillingTypeList from '../../config/fuelFillingType'
+import CheckBox from '../components/form/CheckBox'
 
 export default class FuelFillingApply extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            refuelDateStart: '',
-            refuelDateEnd: '',
-            refuelAddressType: 99,
-            checkStatus: 99
+            refuelDate: '',
+            refuelVolume: 0,
+            cityRouteId: 0,
+            refuelAddressType: 0,
+            refuelAddress: "string",
+            lng: 0,
+            lat: 0,
+            refuelMoney: 0
         }
     }
 
@@ -32,17 +38,17 @@ export default class FuelFillingApply extends Component {
                         </View>
                         <DateTimePicker
                             isRequire={true}
-                            value={'请选择'}
+                            value={this.state.refuelDate ? this.state.refuelDate : '请选择'}
                             title='加油时间：'
                             defaultValue={'请选择'}
                             onRequire={(flag) => { }}
-                            onValueChange={(param) => { }}
+                            onValueChange={(param) => this.setState({ refuelDate: param })}
                         />
                         <TextBox
                             isRequire={true}
                             title='加油量：'
-                            value={''}
-                            onValueChange={(param) => { }}
+                            value={this.state.refuelVolume ? this.state.refuelVolume : ''}
+                            onValueChange={(param) => this.setState({ refuelVolume: param })}
                             onRequire={(flag) => { }}
                             placeholder='请输入加油量'
                         />
@@ -54,13 +60,12 @@ export default class FuelFillingApply extends Component {
                             onRequire={(flag) => { }}
                             defaultValue={'请选择'}
                         />
-                        <Select
+                        <CheckBox
                             title='加油地：'
-                            isRequire={true}
-                            value={'请选择'}
-                            onValueChange={(param) => { }}
-                            onRequire={(flag) => { }}
-                            defaultValue={'请选择'}
+                            listTitle='加油地'
+                            value={this.state.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value : ''}
+                            itemList={fuelFillingTypeList}
+                            onCheck={(param) => this.setState({ refuelAddressType: param.id })}
                         />
                         <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
                             <Text style={{ fontSize: 12, fontWeight: 'bold' }}>定位</Text>
@@ -68,8 +73,8 @@ export default class FuelFillingApply extends Component {
                         <TextBox
                             isRequire={true}
                             title='加油金额：'
-                            value={''}
-                            onValueChange={(param) => { }}
+                            value={this.state.refuelMoney ? this.state.refuelMoney : ''}
+                            onValueChange={(param) => this.setState({ refuelMoney: param })}
                             onRequire={(flag) => { }}
                             placeholder='请输入加油金额'
                         />

@@ -5,6 +5,7 @@ import * as truckInfoTypes from './TruckInfoTypes'
 import * as trailerInfoTypes from './TrailerInfoTypes'
 import * as driverInfoTypes from './DriverInfoTypes'
 import * as fuelFillingRecordTypes from './FuelFillingRecordTypes'
+import * as cityRouteListTypes from './CityRouteListTypes'
 
 export {
     homeTypes,
@@ -13,5 +14,6 @@ export {
     truckInfoTypes,
     trailerInfoTypes,
     driverInfoTypes,
-    fuelFillingRecordTypes
+    fuelFillingRecordTypes,
+    cityRouteListTypes
 }   

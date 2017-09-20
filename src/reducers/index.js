@@ -5,6 +5,7 @@ import trailerInfoReducer from './TrailerInfoReducer'
 import driverInfoReducer from './DriverInfoReducer'
 import userReducer from './UserReducer'
 import fuelFillingRecordReducer from './FuelFillingRecordReducer'
+import cityRouteListReducer from './CityRouteListReducer'
 
 export default combineReducers({
     homeReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     trailerInfoReducer,
     driverInfoReducer,
     userReducer,
-    fuelFillingRecordReducer
+    fuelFillingRecordReducer,
+    cityRouteListReducer
 })
