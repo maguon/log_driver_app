@@ -37,7 +37,6 @@ class FuelFillingRecord extends Component {
     onSearch(param) {
         const { total } = this.props.fuelFillingRecordReducer.data
         let paramPropsLength = Object.keys(param).length
-        console.log(paramPropsLength)
         if (param.refuelDateStart != total.refuelDateStart
             || param.refuelDateEnd != total.refuelDateEnd
             || param.refuelAddressType != total.refuelAddressType
