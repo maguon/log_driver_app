@@ -27,11 +27,25 @@ class FuelFillingRecord extends Component {
         this.props.setGetFuelFillingRecordWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getFuelFillingRecord({
             OptionalParam: {
-                driveId: 1,
+                driveId: this.props.userReducer.user.driverId,
                 refuelDateStart: moment().format('YYYY-MM-01'),
                 refuelDateEnd: moment().format('YYYY-MM-DD')
             }
         }))
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isRefresh) {
+            this.props.setGetFuelFillingRecordWaiting()
+            InteractionManager.runAfterInteractions(() => this.props.getFuelFillingRecord({
+                OptionalParam: {
+                    driveId: this.props.userReducer.user.driverId,
+                    refuelDateStart: moment().format('YYYY-MM-01'),
+                    refuelDateEnd: moment().format('YYYY-MM-DD')
+                }
+            }))
+            Actions.refresh({ isRefresh: false })
+        }
     }
 
     onSearch(param) {
@@ -51,7 +65,7 @@ class FuelFillingRecord extends Component {
                 }
                 return this.props.getFuelFillingRecord({
                     OptionalParam: {
-                        driveId: 1,
+                        driveId: this.props.userReducer.user.driverId,
                         ...param
                     }
                 })
@@ -280,6 +294,7 @@ class FuelFillingRecord extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        userReducer: state.userReducer,
         fuelFillingRecordReducer: state.fuelFillingRecordReducer
     }
 }

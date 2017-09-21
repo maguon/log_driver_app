@@ -3,11 +3,13 @@ import {
     Text,
     View,
     ScrollView,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ToastAndroid
 } from 'react-native'
 
 import { Button, Icon } from 'native-base'
 import DateTimePicker from '../components/form/DateTimePicker'
+import TimePicker from '../components/form/TimePicker'
 import TextBox from '../components/form/TextBox'
 import Select from '../components/form/Select'
 import moment from 'moment'
@@ -23,9 +25,10 @@ class FuelFillingApply extends Component {
         super(props)
         this.state = {
             fuelFillingInfo: {
-                refuelDate: '',
+                refuelDate: moment().format('YYYY-MM-DD'),
+                refuelTime: moment().format('HH:mm'),
                 refuelVolume: 0,
-                cityRouteId: 0,
+                dpDemandId: 0,
                 refuelAddressType: 0,
                 refuelAddress: '',
                 lng: 0,
@@ -36,6 +39,7 @@ class FuelFillingApply extends Component {
                 refuelDateValidate: false,
                 refuelVolumeValidate: false,
                 refuelMoneyValidate: false,
+                refuelTimeValidate: false,
                 refuelAddressTypeValidate: false
             }
         }
@@ -43,22 +47,31 @@ class FuelFillingApply extends Component {
         this.onCreateRefuel = this.onCreateRefuel.bind(this)
     }
 
+
+    //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
     componentWillReceiveProps(nextProps) {
-        const { createFuelFillingApply } = this.props.fuelFillingApplyReducer
+        const { createFuelFillingApply } = nextProps.fuelFillingApplyReducer
         /*createFuelFillingApply*/
-        if (createFuelFillingApply.isExecStatus == 2) {
-            if (createFuelFillingApply.isResultStatus == 0) {
-                console.log('createFuelFillingApply', '执行成功')
-            }
-            else if (createFuelFillingApply.isResultStatus == 1) {
-                console.log('createFuelFillingApply异常', createFuelFillingApply.errorMsg)
-            }
-            else if (createFuelFillingApply.isResultStatus == 2) {
-                console.log('createFuelFillingApply执行失败', createFuelFillingApply.failedMsg)
-            }
-            else if (createFuelFillingApply.isResultStatus == 3) {
-                console.log('createFuelFillingApply服务器异常', createFuelFillingApply.serviceFailedMsg)
-            }
+        if (createFuelFillingApply.isResultStatus == 2) {
+            ToastAndroid.show('添加成功', ToastAndroid.SHORT)
+            //console.log('createFuelFillingApply', '执行成功')
+            this.props.resetCreateFuelFillingApply()
+            Actions.pop({ refresh: { isRefresh: true }})
+        }
+        else if (createFuelFillingApply.isResultStatus == 3) {
+            ToastAndroid.show(`执行失败，${createFuelFillingApply.errorMsg}！`, ToastAndroid.SHORT)
+            this.props.resetCreateFuelFillingApply()
+            //console.log('createFuelFillingApply异常', createFuelFillingApply.errorMsg)
+        }
+        else if (createFuelFillingApply.isResultStatus == 4) {
+            ToastAndroid.show(`执行失败，${createFuelFillingApply.failedMsg}！`, ToastAndroid.SHORT)
+            this.props.resetCreateFuelFillingApply()
+            //console.log('createFuelFillingApply执行失败', createFuelFillingApply.failedMsg)
+        }
+        else if (createFuelFillingApply.isResultStatus == 5) {
+            ToastAndroid.show(`执行失败，${createFuelFillingApply.serviceFailedMsg}！`, ToastAndroid.SHORT)
+            this.props.resetCreateFuelFillingApply()
+            //console.log('createFuelFillingApply服务器异常', createFuelFillingApply.serviceFailedMsg)
         }
         /************************************ */
     }
@@ -70,7 +83,7 @@ class FuelFillingApply extends Component {
                 delete param[key]
             }
         }
-
+        param.refuelDate=`${param.refuelDate} ${param.refuelTime}`
         this.props.createFuelFillingApply({
             requiredParam: { userId: this.props.userReducer.user.userId },
             postParam: {
@@ -108,13 +121,13 @@ class FuelFillingApply extends Component {
             <View style={{ flex: 1 }}>
                 <ScrollView>
                     <View style={{ flex: 1 }}>
-                        <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
+                        {/* <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10 }}>
                             <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>申报时间：</Text>{moment().format('YYYY-MM-DD HH:mm')}</Text>
-                        </View>
+                        </View> */}
                         <DateTimePicker
                             isRequire={true}
                             value={this.state.fuelFillingInfo.refuelDate ? this.state.fuelFillingInfo.refuelDate : '请选择'}
-                            title='加油时间：'
+                            title='加油日期：'
                             defaultValue={'请选择'}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
@@ -124,6 +137,22 @@ class FuelFillingApply extends Component {
                             onRequire={(flag) => this.setState((prevState, props) => {
                                 return ({
                                     validate: { ...prevState.validate, refuelDateValidate: flag }
+                                })
+                            })}
+                        />
+                        <TimePicker
+                            isRequire={true}
+                            value={this.state.fuelFillingInfo.refuelTime ? this.state.fuelFillingInfo.refuelTime : '请选择'}
+                            title='加油时间：'
+                            defaultValue={'请选择'}
+                            onValueChange={(param) => this.setState((prevState, props) => {
+                                return ({
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelTime: param }
+                                })
+                            })}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    validate: { ...prevState.validate, refuelTimeValidate: flag }
                                 })
                             })}
                         />
@@ -146,11 +175,11 @@ class FuelFillingApply extends Component {
                         <Select
                             title='指令编号：'
                             isRequire={false}
-                            value={this.state.fuelFillingInfo.cityRouteId ? this.state.fuelFillingInfo.cityRouteId : '请选择'}
+                            value={this.state.fuelFillingInfo.dpDemandId ? this.state.fuelFillingInfo.dpDemandId : '请选择'}
                             showList={Actions.cityRouteList}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
-                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, cityRouteId: param }
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, dpDemandId: param }
                                 })
                             })}
                             defaultValue={'请选择'}
@@ -209,14 +238,16 @@ class FuelFillingApply extends Component {
                                 this.state.validate.refuelDateValidate &&
                                 this.state.validate.refuelVolumeValidate &&
                                 this.state.validate.refuelMoneyValidate &&
-                                this.state.validate.refuelAddressTypeValidate
+                                this.state.validate.refuelAddressTypeValidate &&
+                                this.state.validate.refuelTimeValidate
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.validate.refuelDateValidate &&
                                     this.state.validate.refuelVolumeValidate &&
                                     this.state.validate.refuelMoneyValidate &&
-                                    this.state.validate.refuelAddressTypeValidate
+                                    this.state.validate.refuelAddressTypeValidate &&
+                                    this.state.validate.refuelTimeValidate
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>确定</Text>
@@ -238,6 +269,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     createFuelFillingApply: (param) => {
         dispatch(fuelFillingApplyAction.createFuelFillingApply(param))
+    },
+    resetCreateFuelFillingApply: () => {
+        dispatch(fuelFillingApplyAction.resetCreateFuelFillingApply())
     }
 })
 

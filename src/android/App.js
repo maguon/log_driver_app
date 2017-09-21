@@ -97,8 +97,8 @@ export default class App extends Component {
                             <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
                             <Scene key="trailerInfo" component={TrailerInfo} title='挂车资料' hideNavBar={false} navBar={NavBar} />
                             <Scene key="cityRouteList" component={CityRouteList} title='指令编号' hideNavBar={false} navBar={NavBar} />
-                            <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
-                            <Scene key="fuelFillingApply" initial={true} component={FuelFillingApply} title='加油申报' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="fuelFillingRecord" initial={true} component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} navBar={NavBar} />
                             <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>

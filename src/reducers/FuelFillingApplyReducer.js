@@ -10,8 +10,7 @@ const initialState = {
     }
 }
 
-//isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
-//isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
+//isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
 export default handleActions({
     [(actionTypes.fuelFillingApplyTypes.CREATE_FuelFilling_SUCCESS)]: (state, action) => {
         return {
@@ -60,4 +59,7 @@ export default handleActions({
             }
         }
     },
+    [(actionTypes.fuelFillingApplyTypes.RESET_CREATE_FuelFilling)]: (state, action) => {
+        return { ...initialState }
+    }
 }, initialState)
