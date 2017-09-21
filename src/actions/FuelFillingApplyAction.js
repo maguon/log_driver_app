@@ -6,6 +6,7 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const createFuelFillingApply = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/driveRefuel`
     try {
+        console.log(param)
         let res = await httpRequest.post(url, param.postParam)
         console.log(res)
         if (res.success) {

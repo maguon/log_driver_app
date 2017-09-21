@@ -35,11 +35,32 @@ class FuelFillingApply extends Component {
             validate: {
                 refuelDateValidate: false,
                 refuelVolumeValidate: false,
-                refuelMoneyValidate: false
+                refuelMoneyValidate: false,
+                refuelAddressTypeValidate: false
             }
         }
         this.onPressPosition = this.onPressPosition.bind(this)
         this.onCreateRefuel = this.onCreateRefuel.bind(this)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { createFuelFillingApply } = this.props.fuelFillingApplyReducer
+        /*createFuelFillingApply*/
+        if (createFuelFillingApply.isExecStatus == 2) {
+            if (createFuelFillingApply.isResultStatus == 0) {
+                console.log('createFuelFillingApply', '执行成功')
+            }
+            else if (createFuelFillingApply.isResultStatus == 1) {
+                console.log('createFuelFillingApply异常', createFuelFillingApply.errorMsg)
+            }
+            else if (createFuelFillingApply.isResultStatus == 2) {
+                console.log('createFuelFillingApply执行失败', createFuelFillingApply.failedMsg)
+            }
+            else if (createFuelFillingApply.isResultStatus == 3) {
+                console.log('createFuelFillingApply服务器异常', createFuelFillingApply.serviceFailedMsg)
+            }
+        }
+        /************************************ */
     }
 
     onCreateRefuel() {
@@ -49,6 +70,7 @@ class FuelFillingApply extends Component {
                 delete param[key]
             }
         }
+
         this.props.createFuelFillingApply({
             requiredParam: { userId: this.props.userReducer.user.userId },
             postParam: {
@@ -112,7 +134,6 @@ class FuelFillingApply extends Component {
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelVolume: param }
-
                                 })
                             })}
                             onRequire={(flag) => this.setState((prevState, props) => {
@@ -135,13 +156,20 @@ class FuelFillingApply extends Component {
                             defaultValue={'请选择'}
                         />
                         <CheckBox
+                            isRequire={true}
                             title='加油地：'
                             listTitle='加油地'
-                            value={this.state.fuelFillingInfo.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.fuelFillingInfo.refuelAddressType).value : ''}
+                            defaultValue={'请选择'}
+                            value={this.state.fuelFillingInfo.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.fuelFillingInfo.refuelAddressType).value : '请选择'}
                             itemList={fuelFillingTypeList.filter(item => item.id != 99)}
                             onCheck={(param) => this.setState((prevState, props) => {
                                 return ({
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelAddressType: param.id }
+                                })
+                            })}
+                            onRequire={(flag) => this.setState((prevState, props) => {
+                                return ({
+                                    validate: { ...prevState.validate, refuelAddressTypeValidate: flag }
                                 })
                             })}
                         />
@@ -150,7 +178,7 @@ class FuelFillingApply extends Component {
                             background={TouchableNativeFeedback.SelectableBackground()}>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ flex: 1 }}>
-                                    <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>辽宁省大连市金州区金马路靠近中国建设银行(大连经济技术开发区分行)</Text>
+                                    <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>{this.state.refuelAddress ? this.state.refuelAddress : ''}</Text>
                                 </View>
                                 <View>
                                     <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
@@ -180,13 +208,15 @@ class FuelFillingApply extends Component {
                             disabled={!(
                                 this.state.validate.refuelDateValidate &&
                                 this.state.validate.refuelVolumeValidate &&
-                                this.state.validate.refuelMoneyValidate
+                                this.state.validate.refuelMoneyValidate &&
+                                this.state.validate.refuelAddressTypeValidate
                             )}
                             style={{
                                 backgroundColor: (
                                     this.state.validate.refuelDateValidate &&
                                     this.state.validate.refuelVolumeValidate &&
-                                    this.state.validate.refuelMoneyValidate
+                                    this.state.validate.refuelMoneyValidate &&
+                                    this.state.validate.refuelAddressTypeValidate
                                 ) ? '#00cade' : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>确定</Text>
@@ -200,7 +230,8 @@ class FuelFillingApply extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer
+        userReducer: state.userReducer,
+        fuelFillingApplyReducer: state.fuelFillingApplyReducer
     }
 }
 

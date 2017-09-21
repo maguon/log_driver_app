@@ -6,6 +6,7 @@ import driverInfoReducer from './DriverInfoReducer'
 import userReducer from './UserReducer'
 import fuelFillingRecordReducer from './FuelFillingRecordReducer'
 import cityRouteListReducer from './CityRouteListReducer'
+import fuelFillingApplyReducer from './FuelFillingApplyReducer'
 
 export default combineReducers({
     homeReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     driverInfoReducer,
     userReducer,
     fuelFillingRecordReducer,
-    cityRouteListReducer
+    cityRouteListReducer,
+    fuelFillingApplyReducer
 })
