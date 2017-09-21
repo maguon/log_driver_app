@@ -16,6 +16,7 @@ import CheckBox from '../components/form/CheckBox'
 import { Actions } from 'react-native-router-flux'
 import AMapLocation from 'react-native-amap-location'
 import { connect } from 'react-redux'
+import * as fuelFillingApplyAction from '../../actions/FuelFillingApplyAction'
 
 class FuelFillingApply extends Component {
     constructor(props) {
@@ -48,16 +49,18 @@ class FuelFillingApply extends Component {
                 delete param[key]
             }
         }
-        console.log('param', {
-            ...param,
-            driveId: this.props.userReducer.user.driverId,
-            truckId: this.props.userReducer.user.truckId,
+        this.props.createFuelFillingApply({
+            requiredParam: { userId: this.props.userReducer.user.userId },
+            postParam: {
+                ...param,
+                driveId: this.props.userReducer.user.driverId,
+                truckId: this.props.userReducer.user.truckId,
+            }
         })
     }
 
     onPressPosition() {
         let listener = AMapLocation.addEventListener((data) => {
-            console.log('daaddressta', data)
             this.setState((prevState, props) => {
                 return ({
                     fuelFillingInfo: {
@@ -76,12 +79,9 @@ class FuelFillingApply extends Component {
             killProcess: true,
             needDetail: true,
         })
-        //{this.state.refuelAddress ? this.state.refuelAddress : ''}
-        console.log('onPressPosition')
     }
 
     render() {
-        //console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -205,7 +205,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    createFuelFillingApply: (param) => {
+        dispatch(fuelFillingApplyAction.createFuelFillingApply(param))
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FuelFillingApply)
