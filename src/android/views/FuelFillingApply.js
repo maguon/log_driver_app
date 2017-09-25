@@ -56,7 +56,7 @@ class FuelFillingApply extends Component {
             ToastAndroid.show('添加成功', ToastAndroid.SHORT)
             //console.log('createFuelFillingApply', '执行成功')
             this.props.resetCreateFuelFillingApply()
-            Actions.pop({ refresh: { isRefresh: true }})
+            Actions.pop({ refresh: { isRefresh: true, refreshType: 'create' } })
         }
         else if (createFuelFillingApply.isResultStatus == 3) {
             ToastAndroid.show(`执行失败，${createFuelFillingApply.errorMsg}！`, ToastAndroid.SHORT)
@@ -83,7 +83,7 @@ class FuelFillingApply extends Component {
                 delete param[key]
             }
         }
-        param.refuelDate=`${param.refuelDate} ${param.refuelTime}`
+        param.refuelDate = `${param.refuelDate} ${param.refuelTime}`
         this.props.createFuelFillingApply({
             requiredParam: { userId: this.props.userReducer.user.userId },
             postParam: {
@@ -190,7 +190,7 @@ class FuelFillingApply extends Component {
                             listTitle='加油地'
                             defaultValue={'请选择'}
                             value={this.state.fuelFillingInfo.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.fuelFillingInfo.refuelAddressType).value : '请选择'}
-                            itemList={fuelFillingTypeList.filter(item => item.id != 99)}
+                            itemList={fuelFillingTypeList}
                             onCheck={(param) => this.setState((prevState, props) => {
                                 return ({
                                     fuelFillingInfo: { ...prevState.fuelFillingInfo, refuelAddressType: param.id }

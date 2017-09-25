@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Text, View, StatusBar } from 'react-native'
 import { Header, Title, Button, Icon, Right, Left, Body } from 'native-base'
-// import Icon from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux'
 
 export default class NavBar extends Component {
     constructor(props) {
         super(props)
     }
-    
+
     render() {
         let { title, layout } = this.props
         return (

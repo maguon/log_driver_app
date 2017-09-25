@@ -10,31 +10,29 @@ import CheckBox from '../components/form/CheckBox'
 import { Actions } from 'react-native-router-flux'
 import fuelFillingTypeList from '../../config/fuelFillingType'
 import fuelFillingCheckStatusList from '../../config/fuelFillingCheckStatus'
+import * as FuelFillingRecordAction from '../../actions/FuelFillingRecordAction'
+import { connect } from 'react-redux'
 
-export default class FuelFillingSearch extends Component {
+class FuelFillingSearch extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            refuelDateStart: '',
-            refuelDateEnd: '',
-            refuelAddressType: 99,
-            checkStatus: 99
+            refuelDateStart: null,
+            refuelDateEnd: null,
+            refuelAddressType: null,
+            checkStatus: null
         }
         this.onSearch = this.onSearch.bind(this)
     }
 
     componentWillMount() {
-        this.setState({
-            refuelDateStart: this.props.initParam.refuelDateStart,
-            refuelDateEnd: this.props.initParam.refuelDateEnd,
-            refuelAddressType: this.props.initParam.refuelAddressType,
-            checkStatus: this.props.initParam.checkStatus
-        })
+        const { refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus } = this.props.fuelFillingRecordReducer.data.total
+        this.setState({ refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus })
     }
 
     onSearch() {
+        this.props.changeSearchField({ ...this.state })
         Actions.pop()
-        this.props.initParam.onSearch({...this.state})
     }
 
     render() {
@@ -57,16 +55,20 @@ export default class FuelFillingSearch extends Component {
                         <CheckBox
                             title='加油地：'
                             listTitle='加油地'
-                            value={this.state.refuelAddressType ? fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value : ''}
-                            itemList={fuelFillingTypeList}
-                            onCheck={(param) => this.setState({ refuelAddressType: param.id })}
+                            value={fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType) ?
+                                fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value :
+                                '全部'}
+                            itemList={[{ id: 99, value: '全部' }, ...fuelFillingTypeList]}
+                            onCheck={(param) => this.setState({ refuelAddressType: param.id != 99 ? param.id : null })}
                         />
                         <CheckBox
                             title='审核结果：'
                             listTitle='审核结果'
-                            value={this.state.checkStatus ? fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus).value : ''}
-                            itemList={fuelFillingCheckStatusList}
-                            onCheck={(param) => this.setState({ checkStatus: param.id })} />
+                            value={fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus) ?
+                                fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus).value :
+                                '全部'}
+                            itemList={[{ id: 99, value: '全部' }, ...fuelFillingCheckStatusList]}
+                            onCheck={(param) => this.setState({ checkStatus: param.id != 99 ? param.id : null })} />
                         <View style={{ padding: 10 }}>
                             <Button onPress={this.onSearch} full style={{ backgroundColor: '#00cade' }}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
@@ -78,3 +80,18 @@ export default class FuelFillingSearch extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        fuelFillingRecordReducer: state.fuelFillingRecordReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    changeSearchField: (param) => {
+        dispatch(FuelFillingRecordAction.changeSearchField(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FuelFillingSearch)
