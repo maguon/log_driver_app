@@ -5,7 +5,8 @@ const initialState = {
     data: {
         trailerInfo: {},
         trailerImageList: [],
-        trailerRecordList: [],
+        // trailerRecordList: [],
+        trailerRepairList:[],
         trailerInsuranceList: []
     },
     getTrailerInfo: {
@@ -14,7 +15,13 @@ const initialState = {
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    getTrailerRecord: {
+    // getTrailerRecord: {
+    //     isResultStatus: 0,
+    //     errorMsg: '',
+    //     failedMsg: '',
+    //     serviceFailedMsg: ''
+    // },
+    getTrailerRepairList: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
@@ -150,58 +157,116 @@ export default handleActions({
         }
     },
 
-    [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SUCCESS)]: (state, action) => {
+    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SUCCESS)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         data: {
+    //             ...state.data,
+    //             trailerRecordList: data
+    //         },
+    //         getTrailerRecord: {
+    //             ...state.getTrailerRecord,
+    //             isResultStatus: 2
+    //         }
+    //     }
+    // },
+    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_FAILED)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTrailerRecord: {
+    //             ...state.getTrailerRecord,
+    //             isResultStatus: 4,
+    //             failedMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SERVICEERROR)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTrailerRecord: {
+    //             ...state.getTrailerRecord,
+    //             isResultStatus: 5,
+    //             serviceFailedMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_ERROR)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTrailerRecord: {
+    //             ...state.getTrailerRecord,
+    //             isResultStatus: 3,
+    //             errorMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_WAITING)]: (state, action) => {
+    //     return {
+    //         ...initialState,
+    //         getTrailerRecord: {
+    //             ...initialState.getTrailerRecord,
+    //             isResultStatus: 1
+    //         }
+    //     }
+    // },
+
+
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                trailerRecordList: data
+                trailerRepairList: data
             },
-            getTrailerRecord: {
-                ...state.getTrailerRecord,
+            getTrailerRepairList: {
+                ...state.getTrailerRepairList,
                 isResultStatus: 2
             }
         }
     },
-    [(actionTypes.trailerInfoTypes.GET_TrailerRecord_FAILED)]: (state, action) => {
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTrailerRecord: {
-                ...state.getTrailerRecord,
+            getTrailerRepairList: {
+                ...state.getTrailerRepairList,
                 isResultStatus: 4,
                 failedMsg: data
             }
         }
     },
-    [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTrailerRecord: {
-                ...state.getTrailerRecord,
+            getTrailerRepairList: {
+                ...state.getTrailerRepairList,
                 isResultStatus: 5,
                 serviceFailedMsg: data
             }
         }
     },
-    [(actionTypes.trailerInfoTypes.GET_TrailerRecord_ERROR)]: (state, action) => {
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTrailerRecord: {
-                ...state.getTrailerRecord,
+            getTrailerRepairList: {
+                ...state.getTrailerRepairList,
                 isResultStatus: 3,
                 errorMsg: data
             }
         }
     },
-    [(actionTypes.trailerInfoTypes.GET_TrailerRecord_WAITING)]: (state, action) => {
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_WAITING)]: (state, action) => {
         return {
             ...initialState,
-            getTrailerRecord: {
-                ...initialState.getTrailerRecord,
+            getTrailerRepairList: {
+                ...initialState.getTrailerRepairList,
                 isResultStatus: 1
             }
         }

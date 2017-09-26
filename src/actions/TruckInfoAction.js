@@ -23,7 +23,6 @@ export const setGetTruckInfoWaiting = (param) => (dispatch) => {
 
 export const getTruckRepairList = (param) => async (dispatch) => {
     const url = `${base_host}/truckRepairRel?${ObjectToUrl(param.OptionalParam)}`
-    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
         if (res.success) {

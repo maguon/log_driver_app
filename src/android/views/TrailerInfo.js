@@ -18,6 +18,7 @@ import PhotoItemDefault from '../components/camera/PhotoItemDefault'
 import { connect } from 'react-redux'
 import * as trailerInfoAction from '../../actions/TrailerInfoAction'
 import moment from 'moment'
+import RepairRecordListItem from '../components/RepairRecordListItem'
 
 class TrailerInfo extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class TrailerInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            trailerId: 193,//227
+            trailerId: 230,//227
             trailerName: '辽B1236挂'//'辽M12321'
         }
     }
@@ -69,9 +70,9 @@ class TrailerInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getTrailerInsurance({ OptionalParam: { truckId: this.props.initParam.trailerId, active: 1 } }))
             }
             if (index == 3) {
-                this.props.setGetTrailerRecordWaiting()
+                this.props.setGetTrailerRepairWaiting()
                 this.setState({ active: 3 })
-                InteractionManager.runAfterInteractions(() => this.props.getTrailerRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.trailerName } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTrailerRepairList({ OptionalParam: { truckId : this.props.initParam.trailerId} }))
             }
         }
     }
@@ -212,25 +213,25 @@ class TrailerInfo extends Component {
     }
 
     renderTrailerRecord() {
-        const { getTrailerRecord } = this.props.trailerInfoReducer
-        if (getTrailerRecord.isResultStatus == 1) {
+        const { getTrailerRepairList } = this.props.trailerInfoReducer
+        if (getTrailerRepairList.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator
-                        animating={getTrailerRecord.isResultStatus == 1}
+                        animating={getTrailerRepairList.isResultStatus == 1}
                         style={{ height: 80 }}
                         size="large"
                     />
                 </View>
             )
         } else {
-            const { trailerRecordList } = this.props.trailerInfoReducer.data
+            const { trailerRepairList } = this.props.trailerInfoReducer.data
             return (
                 <View style={{ flex: 1 }}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={trailerRecordList}
-                        renderItem={({ item, index }) => <RecordListItem data={item} key={index} />}
+                        data={trailerRepairList}
+                        renderItem={({ item, index }) => <RepairRecordListItem repairItem={item} key={index} />}
                     />
                 </View>
             )
@@ -250,7 +251,7 @@ class TrailerInfo extends Component {
                 <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
                     <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>车保</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
+                <Button small style={{ flex: 2, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
                     <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>维修记录</Text>
                 </Button>
             </View>
@@ -279,11 +280,17 @@ const mapDispatchToProps = (dispatch) => ({
     setGetTrailerInfoWaiting: () => {
         dispatch(trailerInfoAction.setGetTrailerInfoWaiting())
     },
-    getTrailerRecord: (param) => {
-        dispatch(trailerInfoAction.getTrailerRecord(param))
+    // getTrailerRecord: (param) => {
+    //     dispatch(trailerInfoAction.getTrailerRecord(param))
+    // },
+    // setGetTrailerRecordWaiting: () => {
+    //     dispatch(trailerInfoAction.setGetTrailerRecordWaiting())
+    // },
+    getTrailerRepairList: (param) => {
+        dispatch(trailerInfoAction.getTrailerRepairList(param))
     },
-    setGetTrailerRecordWaiting: () => {
-        dispatch(trailerInfoAction.setGetTrailerRecordWaiting())
+    setGetTrailerRepairWaiting: () => {
+        dispatch(trailerInfoAction.setGetTrailerRepairWaiting())
     },
     getTrailerInsurance: (param) => {
         dispatch(trailerInfoAction.getTrailerInsurance(param))

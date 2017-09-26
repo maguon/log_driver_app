@@ -39,23 +39,22 @@ export const setGetTrailerInfoWaiting = (param) => (dispatch) => {
 //     dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRecord_WAITING, payload: {} })
 // }
 
-export const getTruckRepairList = (param) => async (dispatch) => {
+export const getTrailerRepairList = (param) => async (dispatch) => {
     const url = `${base_host}/truckRepairRel?${ObjectToUrl(param.OptionalParam)}`
-    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_SUCCESS, payload: { data: res.result } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_ERROR, payload: { data: err } })
     }
 }
 
-export const setGetTruckRepairWaiting = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
+export const setGetTrailerRepairWaiting = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_WAITING, payload: {} })
 }
 
 export const getTrailerInsurance = (param) => async (dispatch) => {
