@@ -3,7 +3,8 @@ import {
     Text,
     View,
     DatePickerAndroid,
-    TouchableHighlight
+    TouchableHighlight,
+    InteractionManager
 } from 'react-native'
 import { Icon } from 'native-base'
 import moment from 'moment'
@@ -41,13 +42,28 @@ class Work extends Component {
     componentDidMount() {
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
-            OptionalParam: {
-                truckId: this.props.initParam.truckId
+            mileageInfoParam: {
+                OptionalParam: {
+                    taskStatus: 9,
+                    loadDistance: 5,
+                    noLoadDistance: 5,
+                    driveId: this.props.userReducer.user.driverId,
+                    dateIdStart: this.state.dateIdStart,
+                    dateIdEnd: this.state.dateIdEnd
+                }
+            },
+            taskListParam: {
+                OptionalParam: {
+                    taskStatus: 9,
+                    driveId: this.props.userReducer.user.driverId
+                }
             }
         }))
     }
 
     render() {
+        console.log('workReducer', this.props.workReducer)
+        const { data } = this.props.workReducer
         return (
             <View >
                 <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#b8c6cd', alignItems: 'center' }}>
@@ -89,17 +105,17 @@ class Work extends Component {
                     </TouchableHighlight>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomColor: 'red', borderBottomWidth: 3, paddingVertical: 10 }}>
-                        <Text style={{ color: 'red' }}>12345</Text>
-                        <Text style={{ color: 'red' }}>总里程</Text>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                        <Text style={{fontSize:11}}>{data.mileageInfo.distanceCount ? `${data.mileageInfo.distanceCount}` : '0'}</Text>
+                        <Text style={{fontSize:11}}>总里程</Text>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text>12345</Text>
-                        <Text>重载里程</Text>
+                        <Text style={{fontSize:11}}>{data.mileageInfo.load_distance ? `${data.mileageInfo.load_distance}` : '0'}</Text>
+                        <Text style={{fontSize:11}}>重载里程</Text>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text>12345</Text>
-                        <Text>空载里程</Text>
+                        <Text style={{fontSize:11}}>{data.mileageInfo.no_load_distance ? `${data.mileageInfo.no_load_distance}` : '0'}</Text>
+                        <Text style={{fontSize:11}}>空载里程</Text>
                     </View>
                 </View>
                 <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>

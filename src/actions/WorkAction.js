@@ -3,18 +3,18 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getMileageInfo = (param) => (dispatch) => {
-    const urls = [`${base_host}/truckFirst?${ObjectToUrl(param.OptionalParam)}`, `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`]
+export const getMileageInfo = (param) =>async (dispatch) => {
+    const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
+    console.log('urls', urls)
     try {
         let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        console.log('res', res)
         if (res[0].success && res[1].success) {
-                //taskList:data.taskList,
-                // MileageInfo:data.MileageInfo
             dispatch({
                 type: actionTypes.workTypes.GET_WorkMileageInfo_SUCCESS, payload: {
-                    data: {
-                        truckInfo: res[0].result[0],
-                        truckImageList: res[1].result[0].images
+                    data: {  
+                        mileageInfo: res[0].result[0],
+                        taskList: res[1].result
                     }
                 }
             })

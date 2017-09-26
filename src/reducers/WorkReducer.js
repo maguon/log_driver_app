@@ -3,9 +3,11 @@ import * as actionTypes from '../actionTypes'
 
 const initialState = {
     data: {
-        taskList:[],
-        MileageInfo:{
-
+        taskList: [],
+        mileageInfo: {
+            load_distance: null,
+            no_load_distance: null,
+            distanceCount: null
         }
     },
     getWorkMileageInfo: {
@@ -19,12 +21,18 @@ const initialState = {
 export default handleActions({
     [(actionTypes.workTypes.GET_WorkMileageInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
+        const { load_distance, no_load_distance } = data.mileageInfo
+        let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)
         return {
             ...state,
             data: {
                 ...state.data,
-                taskList:data.taskList,
-                MileageInfo:data.MileageInfo
+                taskList: data.taskList,
+                mileageInfo:  {
+                    load_distance,
+                    no_load_distance,
+                    distanceCount
+                },
             },
             getWorkMileageInfo: {
                 ...state.getWorkMileageInfo,

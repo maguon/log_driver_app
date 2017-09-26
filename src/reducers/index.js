@@ -15,6 +15,7 @@ export default combineReducers({
     trailerInfoReducer,
     driverInfoReducer,
     userReducer,
+    workReducer,
     fuelFillingRecordReducer,
     cityRouteListReducer,
     fuelFillingApplyReducer
