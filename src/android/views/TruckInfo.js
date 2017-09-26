@@ -18,6 +18,8 @@ import PhotoItemDefault from '../components/camera/PhotoItemDefault'
 import { connect } from 'react-redux'
 import * as truckInfoAction from '../../actions/TruckInfoAction'
 import moment from 'moment'
+import RepairRecordListItem from '../components/RepairRecordListItem'
+
 
 class TruckInfo extends Component {
     constructor(props) {
@@ -34,7 +36,7 @@ class TruckInfo extends Component {
 
     static defaultProps = {
         initParam: {
-            truckId: 190,//227
+            truckId: 230,//227
             truckName: '辽B12319'//'辽M12321'
         }
     }
@@ -60,9 +62,9 @@ class TruckInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getTruckInsurance({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } }))
             }
             if (index == 3) {
-                this.props.setGetTruckRecordWaiting()
+                this.props.setGetTruckRepairWaiting()
                 this.setState({ active: 3 })
-                InteractionManager.runAfterInteractions(() => this.props.getTruckRecord({ requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truckName } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTruckRepairList({ OptionalParam: { truckId: this.props.initParam.truckId } }))
             }
         }
     }
@@ -227,33 +229,31 @@ class TruckInfo extends Component {
     }
 
     renderTruckRecord() {
-        const { getTruckRecord } = this.props.truckInfoReducer
-        if (getTruckRecord.isResultStatus == 1) {
+        const { getTruckRepair } = this.props.truckInfoReducer
+        if (getTruckRepair.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator
-                        animating={getTruckRecord.isResultStatus == 1}
+                        animating={getTruckRepair.isResultStatus == 1}
                         style={{ height: 80 }}
                         size="large"
                     />
                 </View>
             )
         } else {
-            const { truckRecordList } = this.props.truckInfoReducer.data
             return (
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 }} >
                     <FlatList
                         showsVerticalScrollIndicator={false}
-                        data={truckRecordList}
-                        renderItem={({ item, index }) => <RecordListItem data={item} key={index} />}
-                    />
+                        data={this.props.truckInfoReducer.data.truckRepairList}
+                        renderItem={({ item, index }) => <RepairRecordListItem key={index} repairItem={item} />}
+                    /> 
                 </View>
             )
         }
     }
 
     render() {
-        // console.log(this.props.truckInfoReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
@@ -265,8 +265,8 @@ class TruckInfo extends Component {
                 <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
                     <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>车保</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
-                    <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>记录</Text>
+                <Button small style={{ flex: 2, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
+                    <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>维修记录</Text>
                 </Button>
             </View>
             <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
@@ -293,11 +293,17 @@ const mapDispatchToProps = (dispatch) => ({
     setGetTruckInfoWaiting: () => {
         dispatch(truckInfoAction.setGetTruckInfoWaiting())
     },
-    getTruckRecord: (param) => {
-        dispatch(truckInfoAction.getTruckRecord(param))
+    // getTruckRecord: (param) => {
+    //     dispatch(truckInfoAction.getTruckRecord(param))
+    // },
+    // setGetTruckRecordWaiting: () => {
+    //     dispatch(truckInfoAction.setGetTruckRecordWaiting())
+    // },
+    getTruckRepairList: (param) => {
+        dispatch(truckInfoAction.getTruckRepairList(param))
     },
-    setGetTruckRecordWaiting: () => {
-        dispatch(truckInfoAction.setGetTruckRecordWaiting())
+    setGetTruckRepairWaiting: () => {
+        dispatch(truckInfoAction.setGetTruckRepairWaiting())
     },
     getTruckInsurance: (param) => {
         dispatch(truckInfoAction.getTruckInsurance(param))

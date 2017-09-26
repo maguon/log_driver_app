@@ -5,7 +5,8 @@ const initialState = {
     data: {
         truckInfo: {},
         truckImageList: [],
-        truckRecordList: [],
+        //truckRecordList: [],
+        truckRepairList: [],
         truckInsuranceList: []
     },
     getTruckInfo: {
@@ -14,7 +15,13 @@ const initialState = {
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    getTruckRecord: {
+    // getTruckRecord: {
+    //     isResultStatus: 0,
+    //     errorMsg: '',
+    //     failedMsg: '',
+    //     serviceFailedMsg: ''
+    // },
+    getTruckRepair: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
@@ -150,58 +157,115 @@ export default handleActions({
         }
     },
 
-    [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
+    // [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         data: {
+    //             ...state.data,
+    //             truckRecordList: data
+    //         },
+    //         getTruckRecord: {
+    //             ...state.getTruckRecord,
+    //             isResultStatus: 2
+    //         }
+    //     }
+    // },
+    // [(actionTypes.truckInfoTypes.GET_TruckRecord_FAILED)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTruckRecord: {
+    //             ...state.getTruckRecord,
+    //             isResultStatus: 4,
+    //             failedMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.truckInfoTypes.GET_TruckRecord_SERVICEERROR)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTruckRecord: {
+    //             ...state.getTruckRecord,
+    //             isResultStatus: 5,
+    //             serviceFailedMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.truckInfoTypes.GET_TruckRecord_ERROR)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         ...state,
+    //         getTruckRecord: {
+    //             ...state.getTruckRecord,
+    //             isResultStatus: 3,
+    //             errorMsg: data
+    //         }
+    //     }
+    // },
+    // [(actionTypes.truckInfoTypes.GET_TruckRecord_WAITING)]: (state, action) => {
+    //     return {
+    //         ...initialState,
+    //         getTruckRecord: {
+    //             ...initialState.getTruckRecord,
+    //             isResultStatus: 1
+    //         }
+    //     }
+    // },
+
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                truckRecordList: data
+                truckRepairList: data
             },
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTruckRepair: {
+                ...state.getTruckRepair,
                 isResultStatus: 2
             }
         }
     },
-    [(actionTypes.truckInfoTypes.GET_TruckRecord_FAILED)]: (state, action) => {
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTruckRepair: {
+                ...state.getTruckRepair,
                 isResultStatus: 4,
                 failedMsg: data
             }
         }
     },
-    [(actionTypes.truckInfoTypes.GET_TruckRecord_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTruckRepair: {
+                ...state.getTruckRepair,
                 isResultStatus: 5,
                 serviceFailedMsg: data
             }
         }
     },
-    [(actionTypes.truckInfoTypes.GET_TruckRecord_ERROR)]: (state, action) => {
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
-            getTruckRecord: {
-                ...state.getTruckRecord,
+            getTruckRepair: {
+                ...state.getTruckRepair,
                 isResultStatus: 3,
                 errorMsg: data
             }
         }
     },
-    [(actionTypes.truckInfoTypes.GET_TruckRecord_WAITING)]: (state, action) => {
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING)]: (state, action) => {
         return {
             ...initialState,
-            getTruckRecord: {
-                ...initialState.getTruckRecord,
+            getTruckRepair: {
+                ...initialState.getTruckRepair,
                 isResultStatus: 1
             }
         }

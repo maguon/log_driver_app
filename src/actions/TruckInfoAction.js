@@ -21,22 +21,34 @@ export const setGetTruckInfoWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_WAITING, payload: {} })
 }
 
-export const getTruckRecord = (param) => async (dispatch) => {
-    const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
+export const getTruckRepairList = (param) => async (dispatch) => {
+    const url = `${base_host}/truckRepairRel?${ObjectToUrl(param.OptionalParam)}`
+    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS, payload: { data: res.result[0].comments } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS, payload: { data: res.result } })
         } else {
-            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_ERROR, payload: { data: err } })
     }
+    // const url = `${record_host}/user/${param.requiredParam.userId}/truck/${param.requiredParam.truckNum}/record`
+    // try {
+    //     let res = await httpRequest.get(url)
+    //     if (res.success) {
+    //         dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS, payload: { data: res.result[0].comments } })
+    //     } else {
+    //         dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_FAILED, payload: { data: res.msg } })
+    //     }
+    // } catch (err) {
+    //     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_ERROR, payload: { data: err } })
+    // }
 }
 
-export const setGetTruckRecordWaiting = (param) => (dispatch) => {
-    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRecord_WAITING, payload: {} })
+export const setGetTruckRepairWaiting = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
 }
 
 export const getTruckInsurance = (param) => async (dispatch) => {

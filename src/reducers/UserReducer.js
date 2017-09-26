@@ -13,7 +13,7 @@ const initialState = {
         userStatus: 1,
         mobile: '18888',
         driverId: 163,
-        truckId: 258
+        truckId: 230//258
         // userId: 0,
         // token: '',
         // userType: 1,

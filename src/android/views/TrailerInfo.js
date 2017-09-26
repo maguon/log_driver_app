@@ -251,7 +251,7 @@ class TrailerInfo extends Component {
                     <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>车保</Text>
                 </Button>
                 <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
-                    <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>记录</Text>
+                    <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>维修记录</Text>
                 </Button>
             </View>
             <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
