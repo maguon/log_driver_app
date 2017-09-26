@@ -49,6 +49,7 @@ class FuelFillingRecord extends Component {
     componentWillReceiveProps(nextProps) {
         const nextPropsTotal = nextProps.fuelFillingRecordReducer.data.total
         const propsTotal = this.props.fuelFillingRecordReducer.data.total
+
         if (nextPropsTotal.refuelDateStart != propsTotal.refuelDateStart
             || nextPropsTotal.refuelDateEnd != propsTotal.refuelDateEnd
             || nextPropsTotal.refuelAddressType != propsTotal.refuelAddressType
@@ -98,7 +99,7 @@ class FuelFillingRecord extends Component {
     }
 
     _onEndReached(info) {
-        if (!this.props.fuelFillingRecordReducer.data.isComplete) {
+        if (!this.props.fuelFillingRecordReducer.data.isComplete&&this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus != 1) {
             const { total } = this.props.fuelFillingRecordReducer.data
             let param = { ...total }
             delete param.refuel_volume
@@ -111,6 +112,10 @@ class FuelFillingRecord extends Component {
                 start: this.props.fuelFillingRecordReducer.data.fuelFillingRecordList.length,
                 size: 12
             })
+        }
+
+        if(this.props.fuelFillingRecordReducer.data.isComplete){
+            
         }
     }
 
@@ -303,8 +308,8 @@ class FuelFillingRecord extends Component {
                 <View>
                     <ActivityIndicator
                         animating={this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus == 1}
-                        style={{ height: 80 }}
-                        size="large"
+                        style={{ height: 40 }}
+                        size="small"
                     />
                 </View>
             )
@@ -315,7 +320,9 @@ class FuelFillingRecord extends Component {
     }
 
     render() {
+        
         // console.log('fuelFillingRecordReducer', this.props.fuelFillingRecordReducer)
+        // console.log('this.refs.fuelFillingFlatList.scrollToEnd', this.refs['fuelFillingFlatList'])
         const { getFuelFillingRecord } = this.props.fuelFillingRecordReducer
         if (getFuelFillingRecord.isResultStatus == 1) {
             return (
@@ -332,6 +339,7 @@ class FuelFillingRecord extends Component {
                 <View style={{ flex: 1, backgroundColor: '#edf1f4' }}>
                     <View style={{ flex: 1 }}>
                         <FlatList
+                            ref='fuelFillingFlatList'
                             showsVerticalScrollIndicator={false}
                             ListHeaderComponent={this.renderHeader}
                             data={this.props.fuelFillingRecordReducer.data.fuelFillingRecordList}
@@ -373,6 +381,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getFuelFillingRecordMore: (param) => {
         dispatch(FuelFillingRecordAction.getFuelFillingRecordMore(param))
+    },
+    setGetFuelFillingRecordMoreWaiting:()=>{
+        dispatch(FuelFillingRecordAction.setGetFuelFillingRecordMoreWaiting())
     },
     changeSearchField: (param) => {
         dispatch(FuelFillingRecordAction.changeSearchField(param))

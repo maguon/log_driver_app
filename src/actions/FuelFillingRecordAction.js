@@ -33,9 +33,7 @@ export const setGetFuelFillingRecordWaiting = (param) => (dispatch) => {
 }
 
 export const getFuelFillingRecordMore = (param) => async (dispatch) => {
-    console.log('param',param)
-    const url = `${base_host}/driveRefuel?${ObjectToUrl(param.OptionalParam)}&start=${param.start}&size=${param.size}`
-    console.log('url',url)
+    const url = `${base_host}/driveRefuel?${ObjectToUrl(param.OptionalParam)}&start=${param.start}&size=${param.size}`  
     dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_WAITING, payload: {} })
     try {
         let res = await httpRequest.get(url)
