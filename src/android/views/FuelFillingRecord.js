@@ -4,7 +4,8 @@ import {
     View,
     FlatList,
     ActivityIndicator,
-    InteractionManager
+    InteractionManager,
+    ToastAndroid
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import { Actions } from 'react-native-router-flux'
@@ -115,7 +116,7 @@ class FuelFillingRecord extends Component {
         }
 
         if(this.props.fuelFillingRecordReducer.data.isComplete){
-            
+            ToastAndroid.show('全部数据已加载完毕', ToastAndroid.SHORT);
         }
     }
 
