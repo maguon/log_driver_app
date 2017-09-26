@@ -23,6 +23,7 @@ export default handleActions({
         const { payload: { data } } = action
         const { load_distance, no_load_distance } = data.mileageInfo
         let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)
+        
         return {
             ...state,
             data: {

@@ -4,7 +4,9 @@ import {
     View,
     DatePickerAndroid,
     TouchableHighlight,
-    InteractionManager
+    InteractionManager,
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import { Icon } from 'native-base'
 import moment from 'moment'
@@ -21,6 +23,7 @@ class Work extends Component {
         }
         this.showPicker = this.showPicker.bind(this)
         this.onSearch = this.onSearch.bind(this)
+        this.renderTaskItem = this.renderTaskItem.bind(this)
     }
 
     async showPicker(options, getDate) {
@@ -35,7 +38,54 @@ class Work extends Component {
     }
 
     onSearch() {
-        console.log('onsearch')
+        this.props.setGetMileageInfoWaiting()
+        InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
+            mileageInfoParam: {
+                OptionalParam: {
+                    taskStatus: 9,
+                    loadDistance: 5,
+                    noLoadDistance: 5,
+                    driveId: this.props.userReducer.user.driverId,
+                    dateIdStart: this.state.dateIdStart,
+                    dateIdEnd: this.state.dateIdEnd
+                }
+            },
+            taskListParam: {
+                OptionalParam: {
+                    taskStatus: 9,
+                    driveId: this.props.userReducer.user.driverId,
+                    dateIdStart: this.state.dateIdStart,
+                    dateIdEnd: this.state.dateIdEnd
+                }
+            }
+        }))
+    }
+
+    renderTaskItem(item, key) {
+        return <View key={key} style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
+            <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''} --> {item.city_route_end ? item.city_route_end : ''}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
+                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
+                <View>
+                    <Text style={{ fontSize: 11 }}>完成时间：{item.task_end_date ? moment(new Date(item.task_end_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                </View>
+                <View>
+                    <Text style={{ fontSize: 11 }}>实际送达：{item.car_count ? `${item.car_count}` : '0'}</Text>
+                </View>
+                {/* <View>
+                    <Text style={{ fontSize: 11 }}>异常：1</Text>
+                </View> */}
+            </View>
+        </View>
     }
 
 
@@ -55,17 +105,19 @@ class Work extends Component {
             taskListParam: {
                 OptionalParam: {
                     taskStatus: 9,
-                    driveId: this.props.userReducer.user.driverId
+                    driveId: this.props.userReducer.user.driverId,
+                    dateIdStart: this.state.dateIdStart,
+                    dateIdEnd: this.state.dateIdEnd
                 }
             }
         }))
     }
 
     render() {
-        console.log('workReducer', this.props.workReducer)
         const { data } = this.props.workReducer
+        const { getWorkMileageInfo } = this.props.workReducer
         return (
-            <View >
+            <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#b8c6cd', alignItems: 'center' }}>
                     <TouchableHighlight
                         style={{ flex: 1 }}
@@ -104,49 +156,36 @@ class Work extends Component {
                         </View>
                     </TouchableHighlight>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={{fontSize:11}}>{data.mileageInfo.distanceCount ? `${data.mileageInfo.distanceCount}` : '0'}</Text>
-                        <Text style={{fontSize:11}}>总里程</Text>
-                    </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={{fontSize:11}}>{data.mileageInfo.load_distance ? `${data.mileageInfo.load_distance}` : '0'}</Text>
-                        <Text style={{fontSize:11}}>重载里程</Text>
-                    </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={{fontSize:11}}>{data.mileageInfo.no_load_distance ? `${data.mileageInfo.no_load_distance}` : '0'}</Text>
-                        <Text style={{fontSize:11}}>空载里程</Text>
-                    </View>
-                </View>
-                <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                {getWorkMileageInfo.isResultStatus == 1 && <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getWorkMileageInfo.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>}
+                {getWorkMileageInfo.isResultStatus != 1 && <View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ fontSize: 11 }}>{data.mileageInfo.distanceCount ? `${data.mileageInfo.distanceCount}` : '0'}</Text>
+                            <Text style={{ fontSize: 11 }}>总里程</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>大连 --> 沈阳</Text>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ fontSize: 11 }}>{data.mileageInfo.load_distance ? `${data.mileageInfo.load_distance}` : '0'}</Text>
+                            <Text style={{ fontSize: 11 }}>重载里程</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>235公里</Text>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ fontSize: 11 }}>{data.mileageInfo.no_load_distance ? `${data.mileageInfo.no_load_distance}` : '0'}</Text>
+                            <Text style={{ fontSize: 11 }}>空载里程</Text>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
-                        <View>
-                            <Text style={{ fontSize: 11 }}>完成时间：201708-01</Text>
-                        </View>
-                        <View>
-                            <Text style={{ fontSize: 11 }}>实际送达：14</Text>
-                        </View>
-                        <View>
-                            <Text style={{ fontSize: 11 }}>异常：1</Text>
-                        </View>
-                    </View>
-                </View>
+                    <FlatList
+                        data={data.taskList}
+                        renderItem={({ item, index }) => this.renderTaskItem(item, index)} />
+                </View>}
             </View>
         )
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
