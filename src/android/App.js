@@ -91,7 +91,7 @@ export default class App extends Component {
                             <Scene key="home"  initial={true}  component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                             {/* <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} /> */}
                         </Scene>
-                        <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                        <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                             <Scene key="truck" initial={true} component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
                             <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} navBar={NavBar} />
                             <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
@@ -101,7 +101,7 @@ export default class App extends Component {
                             <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} navBar={NavBar} />
                             <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} navBar={NavBar} />
                         </Scene>
-                        <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
+                        <Scene key="driverBlock"  initial={true} icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                             <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
                             <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                             <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
