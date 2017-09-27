@@ -49,9 +49,9 @@ class Instruct extends Component {
                         <View style={{ flexDirection: 'row', flex: 1 }}>
                             <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                         </View>
-                        {/* <View style={{ flexDirection: 'row', flex: 1 }}>
-                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
-                        </View> */}
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
+                        </View>
                         <View style={{ flexDirection: 'row', flex: 1 }}>
                             <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
                                 {item.load_task_status == 1 && '已送达'}
@@ -119,14 +119,14 @@ class Instruct extends Component {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}</Text>
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{`${taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
                             </View>
-                            {/* <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 11, color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
-                        </View> */}
+                             <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{`${taskList.reduce((sum, value) => sum + (value.car_exception_count ? value.car_exception_count : 0), 0)}`}</Text></Text>
+                        </View> 
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={{ fontSize: 11, color: '#00cade' }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
                             </View>
