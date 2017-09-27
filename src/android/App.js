@@ -102,8 +102,8 @@ export default class App extends Component {
                             <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="driverBlock"  initial={true} icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                            <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
-                            <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="work"  initial={true}   component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="instruct"component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                             <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >

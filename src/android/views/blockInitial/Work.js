@@ -6,10 +6,12 @@ import {
     TouchableHighlight,
     InteractionManager,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableNativeFeedback
 } from 'react-native'
 import { Icon } from 'native-base'
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux'
 import * as workAction from '../../../actions/WorkAction'
@@ -62,30 +64,35 @@ class Work extends Component {
     }
 
     renderTaskItem(item, key) {
-        return <View key={key} style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
-            <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+        return <TouchableNativeFeedback
+            key={key}
+            onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}
+            background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
+                <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''} --> {item.city_route_end ? item.city_route_end : ''}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
+                    </View>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''} --> {item.city_route_end ? item.city_route_end : ''}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
-                </View>
-            </View>
-            <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
-                <View>
-                    <Text style={{ fontSize: 11 }}>完成时间：{item.task_end_date ? moment(new Date(item.task_end_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
-                </View>
-                <View>
-                    <Text style={{ fontSize: 11 }}>实际送达：{item.car_count ? `${item.car_count}` : '0'}</Text>
-                </View>
-                {/* <View>
+                <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
+                    <View>
+                        <Text style={{ fontSize: 11 }}>完成时间：{item.task_end_date ? moment(new Date(item.task_end_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 11 }}>实际送达：{item.car_count ? `${item.car_count}` : '0'}</Text>
+                    </View>
+                    {/* <View>
                     <Text style={{ fontSize: 11 }}>异常：1</Text>
                 </View> */}
+                </View>
             </View>
-        </View>
+        </TouchableNativeFeedback>
     }
 
 
