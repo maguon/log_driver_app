@@ -19,7 +19,7 @@ class BranchInstruct extends Component {
 
     componentDidMount() {
         this.props.setGetRouteLoadTaskListWaiting()
-        InteractionManager.runAfterInteractions(this.props.getRouteLoadTaskList({
+        InteractionManager.runAfterInteractions(()=>this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: this.props.initParam.routeLoadInfo.id
             }

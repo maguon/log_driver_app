@@ -22,7 +22,7 @@ class Instruct extends Component {
 
     componentDidMount() {
         this.props.setGetRouteTaskListWaiting()
-        InteractionManager.runAfterInteractions(this.props.getRouteTaskList({
+        InteractionManager.runAfterInteractions(()=>this.props.getRouteTaskList({
             OptionalParam: { dpRouteTaskId: this.props.initParam.routeInfo.id }
         }))
     }
