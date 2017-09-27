@@ -3,7 +3,9 @@ import {
     Text,
     View,
     TouchableNativeFeedback,
-    FlatList
+    FlatList,
+    InteractionManager,
+    ActivityIndicator
 } from 'react-native'
 import { Icon } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,6 +13,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { connect } from 'react-redux'
 import * as instructAction from '../../actions/InstructAction'
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux'
 
 class Instruct extends Component {
     constructor(props) {
@@ -18,14 +21,16 @@ class Instruct extends Component {
     }
 
     componentDidMount() {
-        this.props.getRouteTaskList({ OptionalParam: { dpRouteTaskId: this.props.initParam.routeInfo.id } })
+        this.props.setGetRouteTaskListWaiting()
+        InteractionManager.runAfterInteractions(this.props.getRouteTaskList({
+            OptionalParam: { dpRouteTaskId: this.props.initParam.routeInfo.id }
+        }))
     }
-
 
     renderTaskItem(item, key) {
         return <TouchableNativeFeedback
             key={key}
-            onPress={() => { }}
+            onPress={() => Actions.branchInstruct({ initParam: { routeLoadInfo: item } })}
             background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
                 <View style={{ flex: 1 }}>
@@ -68,58 +73,71 @@ class Instruct extends Component {
     render() {
         const { routeInfo } = this.props.initParam
         const { taskList } = this.props.instructReducer.data
-        return (
-            <View>
-                <View style={{ backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                    <View>
-                        <Text style={{ fontSize: 11, color: '#8b959b' }}>
-                            指令编号：{routeInfo.id ? `${routeInfo.id}` : ''}
-                        </Text>
-                    </View>
-                    <View>
-                        <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', paddingTop: 10, alignItems: 'center' }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+        const { getRouteTaskList } = this.props.instructReducer
+        if (getRouteTaskList.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getRouteTaskList.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                        <View>
+                            <Text style={{ fontSize: 11, color: '#8b959b' }}>
+                                指令编号：{routeInfo.id ? `${routeInfo.id}` : ''}
+                            </Text>
+                        </View>
+                        <View>
+                            <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', paddingTop: 10, alignItems: 'center' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''} --> {routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
+                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}><Text style={{ color: '#d69aa5' }}>{routeInfo.distance ? `${routeInfo.distance}` : ''}</Text>公里</Text>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                                <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''} --> {routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
                             </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                                <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}><Text style={{ color: '#d69aa5' }}>{routeInfo.distance ? `${routeInfo.distance}` : ''}</Text>公里</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
                             </View>
                         </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
-                        </View>
-                        {/* <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
+                            </View>
+                            {/* <View style={{ flexDirection: 'row' }}>
                             <Text style={{ fontSize: 11, color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
                         </View> */}
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 11, color: '#00cade' }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontSize: 11, color: '#00cade' }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
+                            </View>
                         </View>
                     </View>
+                    <FlatList
+                        data={taskList}
+                        renderItem={({ item, index }) => this.renderTaskItem(item, key)} />
                 </View>
-                <FlatList
-                    data={taskList}
-                    renderItem={({ item, index }) => this.renderTaskItem(item, key)} />
-            </View>
-        )
+            )
+        }
     }
 }
 

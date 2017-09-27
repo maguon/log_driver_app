@@ -9,6 +9,7 @@ import fuelFillingRecordReducer from './FuelFillingRecordReducer'
 import cityRouteListReducer from './CityRouteListReducer'
 import fuelFillingApplyReducer from './FuelFillingApplyReducer'
 import instructReducer from './InstructReducer'
+import branchInstructReducer from './BranchInstructReducer'
 
 export default combineReducers({
     homeReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     fuelFillingRecordReducer,
     cityRouteListReducer,
     fuelFillingApplyReducer,
-    instructReducer
+    instructReducer,
+    branchInstructReducer
 })

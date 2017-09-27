@@ -5,8 +5,16 @@ import {
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { connect } from 'react-redux'
 
 export default class BranchInstruct extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        console.log(this.props.initParam)
+    }
     render() {
         return (
             <View>

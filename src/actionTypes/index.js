@@ -6,6 +6,7 @@ import * as driverInfoTypes from './DriverInfoTypes'
 import * as fuelFillingRecordTypes from './FuelFillingRecordTypes'
 import * as cityRouteListTypes from './CityRouteListTypes'
 import * as fuelFillingApplyTypes from './FuelFillingApplyTypes'
+import * as branchInstructTypes from './BranchInstructTypes'
 import * as instructTypes from './InstructTypes'
 
 export {
@@ -17,5 +18,6 @@ export {
     fuelFillingRecordTypes,
     cityRouteListTypes,
     fuelFillingApplyTypes,
-    instructTypes
+    instructTypes,
+    branchInstructTypes
 }   
