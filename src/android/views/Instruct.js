@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    FlatList
 } from 'react-native'
 import { Icon } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -18,12 +19,55 @@ class Instruct extends Component {
 
     componentDidMount() {
         this.props.getRouteTaskList({ OptionalParam: { dpRouteTaskId: this.props.initParam.routeInfo.id } })
-        console.log(this.props.initParam)
+    }
+
+
+    renderTaskItem(item, key) {
+        return <TouchableNativeFeedback
+            key={key}
+            onPress={() => { }}
+            background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
+                <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''} --> {item.city_name ? item.city_name : ''} - {item.short_name ? item.short_name : ''}</Text>
+                        </View>
+                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
+                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>经销商一</Text>
+                        </View> */}
+                    </View>
+                    <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'left', flex: 1 }}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
+                        </View>
+                        {/* <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
+                        </View> */}
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
+                                {item.load_task_status == 1 && '已送达'}
+                                {item.load_task_status == 3 && '已装车'}
+                                {item.load_task_status == 7 && '已到达'}
+                                {item.load_task_status == 8 && '取消任务'}
+                                {item.load_task_status == 9 && '已完成'}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+                <View>
+                    <EvilIcons name='chevron-right' size={40} color='#8b959b' />
+                </View>
+            </View>
+        </TouchableNativeFeedback>
     }
 
     render() {
-        console.log(this.props.instructReducer)
         const { routeInfo } = this.props.initParam
+        const { taskList } = this.props.instructReducer.data
         return (
             <View>
                 <View style={{ backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
@@ -48,62 +92,32 @@ class Instruct extends Component {
                     <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：2017-09-08</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：张三丰</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：14</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>16</Text></Text>
+                            <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
+                        {/* <View style={{ flexDirection: 'row' }}>
                             <Text style={{ fontSize: 11, color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
-                        </View>
+                        </View> */}
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 11, color: '#00cade' }}>完成</Text>
+                            <Text style={{ fontSize: 11, color: '#00cade' }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
                         </View>
                     </View>
                 </View>
-                <TouchableNativeFeedback
-                    onPress={() => { }}
-                    background={TouchableNativeFeedback.SelectableBackground()}>
-                    <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
-                        <View style={{ flex: 1 }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>大连 --> 沈阳</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>经销商一</Text>
-                                </View>
-                            </View>
-                            <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-                                <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'left', flex: 1 }}>计划运送：14</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>16</Text></Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>1</Text></Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', flex: 1 }}>
-                                    <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>已送达</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View>
-                            <EvilIcons name='chevron-right' size={40} color='#8b959b' />
-                        </View>
-                    </View>
-                </TouchableNativeFeedback>
+                <FlatList
+                    data={taskList}
+                    renderItem={({ item, index }) => this.renderTaskItem(item, key)} />
             </View>
         )
     }
