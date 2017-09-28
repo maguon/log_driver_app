@@ -26,7 +26,7 @@ class BranchInstructExecuting extends Component {
     }
 
     renderListItem(item, key) {
-        return <View key={key} style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+        return <View key={key} style={{ flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc', alignItems: 'center' }}>
             <View style={{ flexDirection: 'row', flex: 7 }}>
                 <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
                 <Text style={{ color: '#ccc', fontSize: 11, paddingLeft: 10 }}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
@@ -34,10 +34,14 @@ class BranchInstructExecuting extends Component {
             <View style={{ flexDirection: 'row', flex: 2 }}>
                 <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
+            {key == 0 && <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 10, alignItems: 'center' }}>
                 <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
                 <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>
-            </View>
+            </View>}
+            {key == 1 && <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 5, alignItems: 'center' }}>
+                <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25 }} />
+                <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 5, fontSize: 25 }} />
+            </View>}
         </View>
     }
 
