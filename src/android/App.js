@@ -20,6 +20,7 @@ import FuelFillingRecord from './views/FuelFillingRecord'
 import FuelFillingApply from './views/FuelFillingApply'
 import FuelFillingSearch from './views/FuelFillingSearch'
 import InstructExecuting from './views/InstructExecuting'
+import BranchInstructExecuting from './views/BranchInstructExecuting'
 import CityRouteList from './views/select/CityRouteList'
 
 const styles = StyleSheet.create({
@@ -88,10 +89,11 @@ export default class App extends Component {
                     >
                         <Scene key="login"  component={Login} hideNavBar hideTabBar /> */}
                     <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                        <Scene key="homeBlock"  initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                            <Scene key="home"  component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
-                            <Scene key="instructExecuting"  initial={true}  component={InstructExecuting} title='调度指令' hideNavBar={false} navBar={NavBar} />
-                            
+                        <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="home" component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="instructExecuting" initial={true} component={InstructExecuting} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' hideNavBar={false} navBar={NavBar} />
+
                             {/* <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} /> */}
                         </Scene>
                         <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
@@ -100,13 +102,13 @@ export default class App extends Component {
                             <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} navBar={NavBar} />
                             <Scene key="trailerInfo" component={TrailerInfo} title='挂车资料' hideNavBar={false} navBar={NavBar} />
                             <Scene key="cityRouteList" component={CityRouteList} title='指令编号' hideNavBar={false} navBar={NavBar} />
-                            <Scene key="fuelFillingRecord"  component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
+                            <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} navBar={NavBar} />
                             <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} navBar={NavBar} />
                             <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} navBar={NavBar} />
                         </Scene>
-                        <Scene key="driverBlock"  icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                            <Scene key="work"  initial={true}   component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
-                            <Scene key="instruct"component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                        <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
+                            <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                             <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
