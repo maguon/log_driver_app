@@ -54,7 +54,7 @@ class Instruct extends Component {
                         </View>
                         <View style={{ flexDirection: 'row', flex: 1 }}>
                             <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
-                                {item.load_task_status == 1 && '已送达'}
+                                {item.load_task_status == 1 && '未装车'}
                                 {item.load_task_status == 3 && '已装车'}
                                 {item.load_task_status == 7 && '已到达'}
                                 {item.load_task_status == 8 && '取消任务'}

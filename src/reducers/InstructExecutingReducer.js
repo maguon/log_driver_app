@@ -75,7 +75,7 @@ export default handleActions({
     },
     [(actionTypes.instructExecutingTypes.Change_LoadTaskStatus_WAITING)]: (state, action) => {
         return {
-            ...initialState,
+            ...state,
             changeLoadTaskStatus: {
                 ...initialState.changeLoadTaskStatus,
                 isResultStatus: 1
@@ -108,7 +108,7 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                taskList: data
+                loadTaskList: data
             },
             getLoadTaskList: {
                 ...state.getLoadTaskList,

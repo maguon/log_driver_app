@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View
+    View,
+    TouchableNativeFeedback,
+    FlatList
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -15,10 +17,88 @@ class InstructExecuting extends Component {
     constructor(props) {
         super(props)
         this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
+        this.renderLoadTaskItem = this.renderLoadTaskItem.bind(this)
     }
 
     componentDidMount() {
+        this.props.setGetLoadTaskListWaiting()
+        this.props.getLoadTaskList({
+            OptionalParam: {
+                dpRouteTaskId: this.props.initParam.taskInfo.id
+            }
+        })
+    }
 
+    renderLoadTaskItem(item, key) {
+        if (item.load_task_status != 1) {
+
+            return <TouchableNativeFeedback
+                key={key}
+                onPress={() => { }}
+                background={TouchableNativeFeedback.SelectableBackground()}>
+                <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
+                    <View style={{ flex: 1 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''} --> {item.city_name ? item.city_name : ''} - {item.short_name ? item.short_name : ''}</Text>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                            <View style={{ flexDirection: 'row', flex: 1 }}>
+                                <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'left', flex: 1 }}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', flex: 1 }}>
+                                <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', flex: 1 }}>
+                                <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', flex: 1 }}>
+                                <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
+                                    {item.load_task_status == 1 && '未装车'}
+                                    {item.load_task_status == 3 && '已装车'}
+                                    {item.load_task_status == 7 && '已到达'}
+                                    {item.load_task_status == 8 && '取消任务'}
+                                    {item.load_task_status == 9 && '已完成'}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View>
+                        <EvilIcons name='chevron-right' size={40} color='#8b959b' />
+                    </View>
+                </View>
+            </TouchableNativeFeedback>
+        }
+        else {
+            return <View style={{  borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''} --> {item.city_name ? item.city_name : ''} - {item.short_name ? item.short_name : ''}</Text>
+                    </View>
+                </View>
+                <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'left', flex: 1 }}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
+                            {item.load_task_status == 1 && '未装车'}
+                            {item.load_task_status == 3 && '已装车'}
+                            {item.load_task_status == 7 && '已到达'}
+                            {item.load_task_status == 8 && '取消任务'}
+                            {item.load_task_status == 9 && '已完成'}
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        }
     }
 
     componentWillMount() {
@@ -69,7 +149,8 @@ class InstructExecuting extends Component {
 
     render() {
         console.log(this.props.instructExecutingReducer)
-        const { taskInfo } = this.props.instructExecutingReducer.data
+        const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
+        console.log(loadTaskList)
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
@@ -97,7 +178,7 @@ class InstructExecuting extends Component {
                             {taskInfo.task_status == 2 && <Button small rounded style={{ backgroundColor: '#00cade' }} onPress={() => this.changeLoadTaskStatus(3)}>
                                 <Text style={{ color: '#fff' }}>执行</Text>
                             </Button>}
-                            {taskInfo.task_status == 3 && <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }} onPress={() => {}}>
+                            {taskInfo.task_status == 3 && <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }} onPress={() => { }}>
                                 <Text style={{ color: '#fff' }}>等待发车</Text>
                             </Button>}
                             {taskInfo.task_status == 4 && <Button small rounded style={{ backgroundColor: '#00cade' }} onPress={() => this.changeLoadTaskStatus(9)}>
@@ -118,7 +199,7 @@ class InstructExecuting extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：14</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{`${loadTaskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}`}</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ fontSize: 11, color: '#8b959b' }}>当前状态：
@@ -134,6 +215,9 @@ class InstructExecuting extends Component {
                         </View>
                     </View>
                 </View>
+                <FlatList
+                    data={loadTaskList}
+                    renderItem={({ item, index }) => this.renderLoadTaskItem(item, index)} />
             </View>
         )
     }
@@ -156,6 +240,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setTaskInfo: (param) => {
         dispatch(instructExecutingAction.setTaskInfo(param))
+    },
+    getLoadTaskList: (param) => {
+        dispatch(instructExecutingAction.getLoadTaskList(param))
+    },
+    setGetLoadTaskListWaiting: () => {
+        dispatch(instructExecutingAction.setGetLoadTaskListWaiting())
     }
 })
 
