@@ -1,0 +1,5 @@
+export const GET_RouteLoadTaskListExecuting_SUCCESS = 'GET_RouteLoadTaskListExecuting_SUCCESS'
+export const GET_RouteLoadTaskListExecuting_WAITING = 'GET_RouteLoadTaskListExecuting_WAITING'
+export const GET_RouteLoadTaskListExecuting_FAILED = 'GET_RouteLoadTaskListExecuting_FAILED'
+export const GET_RouteLoadTaskListExecuting_ERROR = 'GET_RouteLoadTaskListExecuting_ERROR'
+export const GET_RouteLoadTaskListExecuting_SERVICEERROR = 'GET_RouteLoadTaskListExecuting_SERVICEERROR'  

@@ -9,6 +9,7 @@ import * as fuelFillingApplyTypes from './FuelFillingApplyTypes'
 import * as branchInstructTypes from './BranchInstructTypes'
 import * as instructTypes from './InstructTypes'
 import * as instructExecutingTypes from './InstructExecutingTypes'
+import * as branchInstructExecutingTypes from './BranchInstructExecutingTypes'
 
 export {
     homeTypes,
@@ -21,5 +22,6 @@ export {
     fuelFillingApplyTypes,
     instructTypes,
     branchInstructTypes,
-    instructExecutingTypes
+    instructExecutingTypes,
+    branchInstructExecutingTypes
 }   

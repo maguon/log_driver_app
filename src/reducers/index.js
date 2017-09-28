@@ -11,6 +11,7 @@ import fuelFillingApplyReducer from './FuelFillingApplyReducer'
 import instructReducer from './InstructReducer'
 import branchInstructReducer from './BranchInstructReducer'
 import instructExecutingReducer from './InstructExecutingReducer'
+import branchInstructExecutingReducer from './BranchInstructExecutingReducer'
 
 export default combineReducers({
     homeReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
     fuelFillingApplyReducer,
     instructReducer,
     branchInstructReducer,
-    instructExecutingReducer
+    instructExecutingReducer,
+    branchInstructExecutingReducer
 })
