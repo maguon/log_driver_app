@@ -8,6 +8,7 @@ import * as cityRouteListTypes from './CityRouteListTypes'
 import * as fuelFillingApplyTypes from './FuelFillingApplyTypes'
 import * as branchInstructTypes from './BranchInstructTypes'
 import * as instructTypes from './InstructTypes'
+import * as instructExecutingTypes from './InstructExecutingTypes'
 
 export {
     homeTypes,
@@ -19,5 +20,6 @@ export {
     cityRouteListTypes,
     fuelFillingApplyTypes,
     instructTypes,
-    branchInstructTypes
+    branchInstructTypes,
+    instructExecutingTypes
 }   

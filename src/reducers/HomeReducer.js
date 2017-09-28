@@ -3,7 +3,11 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
     data: {
-        title: 'Home'
+        mileageInfo: {
+            load_distance: null,
+            no_load_distance: null,
+            distanceCount: null
+        }
     }
 }
 

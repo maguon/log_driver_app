@@ -19,6 +19,7 @@ import BranchInstruct from './views/BranchInstruct'
 import FuelFillingRecord from './views/FuelFillingRecord'
 import FuelFillingApply from './views/FuelFillingApply'
 import FuelFillingSearch from './views/FuelFillingSearch'
+import InstructExecuting from './views/InstructExecuting'
 import CityRouteList from './views/select/CityRouteList'
 
 const styles = StyleSheet.create({
@@ -87,8 +88,10 @@ export default class App extends Component {
                     >
                         <Scene key="login"  component={Login} hideNavBar hideTabBar /> */}
                     <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                        <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                            <Scene key="home"  initial={true}  component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                        <Scene key="homeBlock"  initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="home"  component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="instructExecuting"  initial={true}  component={InstructExecuting} title='调度指令' hideNavBar={false} navBar={NavBar} />
+                            
                             {/* <Scene key="instruct" initial={true} component={Instruct} title='调度指令' hideNavBar={false} navBar={TopBar} /> */}
                         </Scene>
                         <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
@@ -101,7 +104,7 @@ export default class App extends Component {
                             <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} navBar={NavBar} />
                             <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} navBar={NavBar} />
                         </Scene>
-                        <Scene key="driverBlock"  initial={true} icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
+                        <Scene key="driverBlock"  icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                             <Scene key="work"  initial={true}   component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
                             <Scene key="instruct"component={Instruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
                             <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} navBar={NavBar} />
