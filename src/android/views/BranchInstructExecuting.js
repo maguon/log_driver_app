@@ -26,11 +26,12 @@ class BranchInstructExecuting extends Component {
 
     componentDidMount() {
         const { loadTaskInfo } = this.props.initParam
-        this.props.getRouteLoadTaskList({
+        this.props.setGetRouteLoadTaskListWaiting()
+        InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: loadTaskInfo.id
             }
-        })
+        }))
     }
 
     changeLoadTaskStatus() {
@@ -100,54 +101,67 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        console.log(this.props.initParam)
-        console.log(this.props.branchInstructExecutingReducer)
+        //     console.log(this.props.initParam)
+        //     console.log(this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
-        const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
-        return (
-            <View style={{ flex: 1 }}>
-                <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-                    <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', margin: 10, padding: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
-                            <Text style={{ paddingHorizontal: 5 }}>--></Text>
-                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}</Text>
-                            <Text style={{ paddingLeft: 20, color: '#00cade' }}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <MaterialIcons name='my-location' style={{ fontSize: 15, color: '#d69aa5' }} />
-                            <Text style={{ paddingLeft: 10 }}>当前位置</Text>
-                        </View>
-                    </View>
+        const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
+
+        if (getRouteLoadTaskList.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getRouteLoadTaskList.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
                 </View>
-                <View style={{
-                    flexDirection: 'row',
-                    padding: 10,
-                    backgroundColor: '#eff3f5',
-                    justifyContent: 'space-between',
-                    borderColor: '#ccc',
-                    borderBottomWidth: 0.5,
-                    borderTopWidth: 0.5
-                }}>
-                    <View>
-                        <Text style={{ color: '#8b959b' }}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
+            )
+        } else {
+            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+            return (
+                <View style={{ flex: 1 }}>
+                    <View style={{ height: 200, backgroundColor: '#8b959b' }}>
+                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', margin: 10, padding: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
+                                <Text style={{ paddingHorizontal: 5 }}>--></Text>
+                                <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}</Text>
+                                <Text style={{ paddingLeft: 20, color: '#00cade' }}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <MaterialIcons name='my-location' style={{ fontSize: 15, color: '#d69aa5' }} />
+                                <Text style={{ paddingLeft: 10 }}>当前位置</Text>
+                            </View>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
-                    </View>
-                    {/* <View>
+                    <View style={{
+                        flexDirection: 'row',
+                        padding: 10,
+                        backgroundColor: '#eff3f5',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderBottomWidth: 0.5,
+                        borderTopWidth: 0.5
+                    }}>
+                        <View>
+                            <Text style={{ color: '#8b959b' }}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
+                        </View>
+                        <View>
+                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
+                        </View>
+                        {/* <View>
                         <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{loadTaskInfo.car_exception_count ? `${loadTaskInfo.car_exception_count}` : '0'}</Text></Text>
                     </View> */}
+                    </View>
+                    <FlatList
+                        data={routeLoadTaskList}
+                        renderItem={({ item, index }) => this.renderListItem(item, index)}
+                        ListFooterComponent={this.renderFooter()} />
                 </View>
-                <FlatList
-                    data={routeLoadTaskList}
-                    renderItem={({ item, index }) => this.renderListItem(item, index)}
-                    ListFooterComponent={this.renderFooter()} />
-            </View>
-        )
+            )
+        }
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {

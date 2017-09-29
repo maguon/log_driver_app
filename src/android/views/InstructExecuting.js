@@ -121,7 +121,7 @@ class InstructExecuting extends Component {
                 task_end_date: "2017-09-28T09:03:25.000Z",
                 date_id: 20170928,
                 car_count: 0,
-                task_status: 9,
+                task_status: 1,
                 created_on: "2017-09-28T08:59:36.000Z",
                 updated_on: "2017-09-28T09:03:25.000Z",
                 route_op_name: "超级管理员",
