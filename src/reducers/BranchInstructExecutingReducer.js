@@ -235,6 +235,16 @@ export default handleActions({
     },
 
 
+    [(actionTypes.branchInstructExecutingTypes.SET_LoadTaskInfo)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                loadTaskInfo: {...data}
+            }
+        }
+    },
 
 
     [(actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS)]: (state, action) => {

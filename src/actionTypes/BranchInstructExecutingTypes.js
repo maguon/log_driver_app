@@ -26,3 +26,6 @@ export const Change_CarLoadStatus_FAILED = 'Change_CarLoadStatus_FAILED'
 export const Change_CarLoadStatus_ERROR = 'Change_CarLoadStatus_ERROR'
 export const Change_CarLoadStatus_SERVICEERROR = 'Change_CarLoadStatus_SERVICEERROR'
 export const RESET_Change_CarLoadStatus = 'RESET_Change_CarLoadStatus'
+
+
+export const SET_LoadTaskInfo = 'SET_LoadTaskInfo'

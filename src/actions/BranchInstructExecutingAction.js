@@ -98,4 +98,6 @@ export const resetChangeCarLoadStatus = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.RESET_Change_CarLoadStatus, payload: {} })
 }
 
-
+export const setLoadTaskInfo = (param) => (dispatch) => {
+    dispatch({ type: actionTypes.branchInstructExecutingTypes.SET_LoadTaskInfo, payload: { data: param } })
+}

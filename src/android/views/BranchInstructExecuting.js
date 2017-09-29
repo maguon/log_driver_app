@@ -17,13 +17,30 @@ class BranchInstructExecuting extends Component {
         this.renderListItem = this.renderListItem.bind(this)
         this.renderFooter = this.renderFooter.bind(this)
         this.changeCarLoadStatus = this.changeCarLoadStatus.bind(this)
+        this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
+    }
+
+    componentWillMount() {
+        this.props.setLoadTaskInfo(this.props.initParam.loadTaskInfo)
     }
 
     componentDidMount() {
-        console.log(this.props.initParam)
+        const { loadTaskInfo } = this.props.initParam
         this.props.getRouteLoadTaskList({
             requiredParam: {
-                dpRouteLoadTaskId: this.props.initParam.loadTaskInfo.id
+                dpRouteLoadTaskId: loadTaskInfo.id
+            }
+        })
+    }
+
+    changeLoadTaskStatus() {
+        const { user } = this.props.userReducer
+        const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+        this.props.changeLoadTaskStatus({
+            requiredParam: {
+                userId: user.userId,
+                dpRouteLoadTaskId: loadTaskInfo.id,
+                loadTaskStatus: 7
             }
         })
     }
@@ -43,14 +60,14 @@ class BranchInstructExecuting extends Component {
     }
 
     renderFooter() {
-        const { routeLoadTaskList } = this.props.branchInstructExecutingReducer.data
-        const { loadTaskInfo } = this.props.initParam
+        const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+        // const { loadTaskInfo } = this.props.initParam
         const total = routeLoadTaskList.reduce((sum, value) => {
             return sum && value.car_load_status == 2 //&& value.exception_status != 1
         }, true)
         if (total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: '#00cade' }}>
                     <Text style={{ color: '#fff' }}>完成</Text>
                 </Button>
             </View>
@@ -85,8 +102,8 @@ class BranchInstructExecuting extends Component {
     render() {
         console.log(this.props.initParam)
         console.log(this.props.branchInstructExecutingReducer)
-        const { loadTaskInfo } = this.props.initParam
-        const { routeLoadTaskList } = this.props.branchInstructExecutingReducer.data
+        //const { loadTaskInfo } = this.props.initParam
+        const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -157,6 +174,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setChangeLoadTaskStatusWaiting: () => {
         dispatch(branchInstructExecutingAction.setChangeLoadTaskStatusWaiting())
+    },
+    setLoadTaskInfo: (param) => {
+        dispatch(branchInstructExecutingAction.setLoadTaskInfo(param))
     }
 })
 
