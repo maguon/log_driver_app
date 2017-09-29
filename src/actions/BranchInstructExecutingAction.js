@@ -74,14 +74,14 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 }
 
 export const changeCarLoadStatus = (param) => async (dispatch) => {
-    const url = `${base_host}/userId/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}`
+    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}`
     //Json传truckId
     console.log('url', url)
     try {
         let res = await httpRequest.put(url, param.putParam)
         console.log('res', res)
         if (res.success) {
-            dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: res.result } })
+            dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })
         } else {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_FAILED, payload: { data: res.msg } })
         }

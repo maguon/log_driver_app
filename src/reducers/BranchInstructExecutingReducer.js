@@ -164,14 +164,18 @@ export default handleActions({
 
     [(actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
+        let routeLoadTaskList = [...state.data.routeLoadTaskList]
+        routeLoadTaskList = routeLoadTaskList.map((item) => {
+            if (item.id == data) {
+                item.car_load_status = 2
+            }
+            return item
+        })
         return {
             ...state,
             data: {
                 ...state.data,
-                routeLoadTaskList: [...state.data.routeLoadTaskList.filter((item) => item.id != data), {
-                    ...state.data.routeLoadTaskList.find((item) => item.id == data),
-                    car_load_status: 1
-                }]
+                routeLoadTaskList: routeLoadTaskList
             },
             changeCarLoadStatus: {
                 ...state.changeCarLoadStatus,

@@ -16,9 +16,11 @@ class BranchInstructExecuting extends Component {
         super(props)
         this.renderListItem = this.renderListItem.bind(this)
         this.renderFooter = this.renderFooter.bind(this)
+        this.changeCarLoadStatus = this.changeCarLoadStatus.bind(this)
     }
 
     componentDidMount() {
+        console.log(this.props.initParam)
         this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: this.props.initParam.loadTaskInfo.id
@@ -26,18 +28,33 @@ class BranchInstructExecuting extends Component {
         })
     }
 
+    changeCarLoadStatus(param) {
+        const { user } = this.props.userReducer
+        this.props.changeCarLoadStatus({
+            requiredParam: {
+                userId: user.userId,
+                dpRouteTaskDetailId: param,
+                carLoadStatus: 2
+            },
+            putParam: {
+                truckId: user.truckId,
+            }
+        })
+    }
+
     renderFooter() {
         const { routeLoadTaskList } = this.props.branchInstructExecutingReducer.data
+        const { loadTaskInfo } = this.props.initParam
         const total = routeLoadTaskList.reduce((sum, value) => {
-            return sum && value.car_load_status == 2 && value.exception_status != 1
+            return sum && value.car_load_status == 2 //&& value.exception_status != 1
         }, true)
-        if (total) {
+        if (total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
                 <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
                     <Text style={{ color: '#fff' }}>完成</Text>
                 </Button>
             </View>
-        } else {
+        } else if (!total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
                 <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
                     <Text style={{ color: '#fff' }}>完成</Text>
@@ -55,11 +72,11 @@ class BranchInstructExecuting extends Component {
             <View style={{ flexDirection: 'row', flex: 2 }}>
                 <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 10, alignItems: 'center' }}>
-                {item.car_load_status == 2 && <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 2 && '已送达'}</Text>}
-                {item.car_load_status == 1 && <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25 }} />}
-                {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
-                {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />}
+            <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
+                {item.car_load_status == 2 && <Text style={{ color: '#00cade', fontSize: 11, marginVertical: 10 }}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 1 && <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25, marginVertical: 5 }} onPress={() => this.changeCarLoadStatus(item.id)} />}
+                {/* {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
+                {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />} */}
             </View>
         </View>
     }
@@ -117,7 +134,8 @@ class BranchInstructExecuting extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        branchInstructExecutingReducer: state.branchInstructExecutingReducer
+        branchInstructExecutingReducer: state.branchInstructExecutingReducer,
+        userReducer: state.userReducer
     }
 }
 
@@ -127,6 +145,18 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setGetRouteLoadTaskListWaiting: () => {
         dispatch(branchInstructExecutingAction.setGetRouteLoadTaskListWaiting())
+    },
+    changeCarLoadStatus: (param) => {
+        dispatch(branchInstructExecutingAction.changeCarLoadStatus(param))
+    },
+    setChangeCarLoadStatusWaiting: () => {
+        dispatch(branchInstructExecutingAction.setChangeCarLoadStatusWaiting())
+    },
+    changeLoadTaskStatus: (param) => {
+        dispatch(branchInstructExecutingAction.changeLoadTaskStatus(param))
+    },
+    setChangeLoadTaskStatusWaiting: () => {
+        dispatch(branchInstructExecutingAction.setChangeLoadTaskStatusWaiting())
     }
 })
 
