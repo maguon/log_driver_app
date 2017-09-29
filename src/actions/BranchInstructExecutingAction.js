@@ -24,7 +24,7 @@ export const setGetRouteLoadTaskListWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_WAITING, payload: {} })
 }
 
-export const changeCarExceptionRel = (param) => (dispatch) => {
+export const changeCarExceptionRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     //Json传carId
     console.log('url', url)
@@ -49,7 +49,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.RESET_Change_CarExceptionRel, payload: {} })
 }
 
-export const changeLoadTaskStatus = (param) => (dispatch) => {
+export const changeLoadTaskStatus = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
     console.log('url', url)
     try {
@@ -73,7 +73,7 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.RESET_Change_ExecutingLoadTaskStatus, payload: {} })
 }
 
-export const changeCarLoadStatus = (param) => (dispatch) => {
+export const changeCarLoadStatus = (param) => async (dispatch) => {
     const url = `${base_host}/userId/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}`
     //Json传truckId
     console.log('url', url)

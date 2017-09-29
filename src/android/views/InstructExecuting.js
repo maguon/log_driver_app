@@ -51,9 +51,9 @@ class InstructExecuting extends Component {
                             <View style={{ flexDirection: 'row', flex: 1 }}>
                                 <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                             </View>
-                            <View style={{ flexDirection: 'row', flex: 1 }}>
+                            {/* <View style={{ flexDirection: 'row', flex: 1 }}>
                                 <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
-                            </View>
+                            </View> */}
                             <View style={{ flexDirection: 'row', flex: 1 }}>
                                 <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
                                     {item.load_task_status == 1 && '未装车'}
@@ -85,9 +85,9 @@ class InstructExecuting extends Component {
                     <View style={{ flexDirection: 'row', flex: 1 }}>
                         <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                     </View>
-                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                    {/* <View style={{ flexDirection: 'row', flex: 1 }}>
                         <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
-                    </View>
+                    </View> */}
                     <View style={{ flexDirection: 'row', flex: 1 }}>
                         <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>
                             {item.load_task_status == 1 && '未装车'}
@@ -109,21 +109,21 @@ class InstructExecuting extends Component {
     static defaultProps = {
         initParam: {
             taskInfo: {
-                id: 10174,
+                id: 10179,
                 user_id: 1,
                 truck_id: 257,
                 drive_id: 161,
                 route_start_id: 100,
                 route_end_id: 101,
                 distance: 5,
-                task_plan_date: "2017-09-26T06:33:00.000Z",
-                task_start_date: "2017-09-26T06:58:32.000Z",
-                task_end_date: "2017-09-26T06:58:41.000Z",
-                date_id: 20170926,
+                task_plan_date: "2017-09-28T08:59:00.000Z",
+                task_start_date: "2017-09-28T09:03:05.000Z",
+                task_end_date: "2017-09-28T09:03:25.000Z",
+                date_id: 20170928,
                 car_count: 0,
-                task_status: 4,
-                created_on: "2017-09-26T06:33:16.000Z",
-                updated_on: "2017-09-26T06:58:40.000Z",
+                task_status: 9,
+                created_on: "2017-09-28T08:59:36.000Z",
+                updated_on: "2017-09-28T09:03:25.000Z",
                 route_op_name: "超级管理员",
                 truck_num: "新123456",
                 trail_number: 14,

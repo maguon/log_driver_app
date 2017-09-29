@@ -37,7 +37,7 @@ class BranchInstruct extends Component {
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
                 <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
-                <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>
+                {/* <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text> */}
             </View>
         </View>
     }
@@ -89,9 +89,9 @@ class BranchInstruct extends Component {
                         <View>
                             <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
                         </View>
-                        <View>
+                        {/* <View>
                             <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{routeLoadInfo.car_exception_count ? `${routeLoadInfo.car_exception_count}` : '0'}</Text></Text>
-                        </View>
+                        </View> */}
                     </View>
                     <FlatList
                         data={routeLoadTaskList}

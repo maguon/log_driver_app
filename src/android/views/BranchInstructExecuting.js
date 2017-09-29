@@ -15,6 +15,7 @@ class BranchInstructExecuting extends Component {
     constructor(props) {
         super(props)
         this.renderListItem = this.renderListItem.bind(this)
+        this.renderFooter = this.renderFooter.bind(this)
     }
 
     componentDidMount() {
@@ -23,6 +24,26 @@ class BranchInstructExecuting extends Component {
                 dpRouteLoadTaskId: this.props.initParam.loadTaskInfo.id
             }
         })
+    }
+
+    renderFooter() {
+        const { routeLoadTaskList } = this.props.branchInstructExecutingReducer.data
+        const total = routeLoadTaskList.reduce((sum, value) => {
+            return sum && value.car_load_status == 2 && value.exception_status != 1
+        }, true)
+        if (total) {
+            return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                    <Text style={{ color: '#fff' }}>完成</Text>
+                </Button>
+            </View>
+        } else {
+            return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
+                    <Text style={{ color: '#fff' }}>完成</Text>
+                </Button>
+            </View>
+        }
     }
 
     renderListItem(item, key) {
@@ -34,14 +55,12 @@ class BranchInstructExecuting extends Component {
             <View style={{ flexDirection: 'row', flex: 2 }}>
                 <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
             </View>
-            {key == 0 && <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 10, alignItems: 'center' }}>
-                <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
-                <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>
-            </View>}
-            {key == 1 && <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 5, alignItems: 'center' }}>
-                <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25 }} />
-                <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 5, fontSize: 25 }} />
-            </View>}
+            <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', marginVertical: 10, alignItems: 'center' }}>
+                {item.car_load_status == 2 && <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 1 && <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25 }} />}
+                {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
+                {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />}
+            </View>
         </View>
     }
 
@@ -82,18 +101,14 @@ class BranchInstructExecuting extends Component {
                     <View>
                         <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
                     </View>
-                    <View>
+                    {/* <View>
                         <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{loadTaskInfo.car_exception_count ? `${loadTaskInfo.car_exception_count}` : '0'}</Text></Text>
-                    </View>
+                    </View> */}
                 </View>
                 <FlatList
                     data={routeLoadTaskList}
-                    renderItem={({ item, index }) => this.renderListItem(item, index)} />
-                {/* <View style={{ justifyContent: 'flex-end', alignSelf: 'flex-end', paddingTop: 10, paddingRight: 10 }}>
-                    <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
-                        <Text style={{ color: '#fff' }}>完成</Text>
-                    </Button>
-                </View> */}
+                    renderItem={({ item, index }) => this.renderListItem(item, index)}
+                    ListFooterComponent={this.renderFooter()} />
             </View>
         )
     }
