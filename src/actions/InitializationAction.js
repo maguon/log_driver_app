@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/21.
  */
 import { Actions } from 'react-native-router-flux'
-import * as actionTypes from './actionTypes'
+import * as actionTypes from '../actionTypes'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'
 import httpRequest from '../util/HttpRequest'

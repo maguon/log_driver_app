@@ -27,5 +27,58 @@ const initialState = {
 }
 
 export default handleActions({
-
+    [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            isResultStatus: 0,
+            isExecStatus: 2,
+            user: data
+        }
+    },
+    [actionTypes.loginTypes.LOGIN_FAILED]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            isResultStatus: 2,
+            isExecStatus: 2,
+            failedMsg: data
+        }
+    },
+    [actionTypes.loginTypes.LOGIN_WAITING]: (state, action) => {
+        return {
+            ...state,
+            isExecStatus: 1,
+        }
+    },
+    [actionTypes.loginTypes.LOGIN_ERROR]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            isResultStatus: 1,
+            isExecStatus: 2,
+            errorMsg: data
+        }
+    },
+    [actionTypes.loginTypes.RESET_LOGIN]: (state, action) => {
+        return {
+            ...state,
+            isExecStatus: 0,
+        }
+    },
+    [actionTypes.loginTypes.CLEAN_LOGIN]: (state, action) => {
+        return {
+            user: {
+                userId: 0,
+                token: '',
+                userType: 1,
+                userStatus: 1,
+                phone: ''
+            },
+            isResultStatus: 0,
+            isExecStatus: 0,
+            errorMsg: '',
+            failedMsg: ''
+        }
+    }
 }, initialState)
