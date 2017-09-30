@@ -88,6 +88,7 @@ class Initialization extends Component {
     }
 
     render() {
+        console.log(this.props.InitializationReducer)
         const { version, lastVersion, force_update, url } = this.props.InitializationReducer.getVersion.data
         const { isExecStatus, isResultStatus } = this.props.InitializationReducer.getVersion
         return (
@@ -109,7 +110,7 @@ class Initialization extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        InitializationReducer: state.InitializationReducer
+        InitializationReducer: state.initializationReducer
     }
 }
 

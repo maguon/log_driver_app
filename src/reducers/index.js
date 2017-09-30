@@ -12,6 +12,7 @@ import instructReducer from './InstructReducer'
 import branchInstructReducer from './BranchInstructReducer'
 import instructExecutingReducer from './InstructExecutingReducer'
 import branchInstructExecutingReducer from './BranchInstructExecutingReducer'
+import initializationReducer from './InitializationReducer'
 
 export default combineReducers({
     homeReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
     instructReducer,
     branchInstructReducer,
     instructExecutingReducer,
-    branchInstructExecutingReducer
+    branchInstructExecutingReducer,
+    initializationReducer
 })

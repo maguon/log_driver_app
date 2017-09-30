@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state) => {
+    return {
+        LoginReducer: state.userReducer
+    }
+}
+
 const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
     const style = {
         flex: 1,
@@ -90,7 +96,7 @@ export default class App extends Component {
                         }}
                     >
                         <Scene key="login" component={Login} hideNavBar hideTabBar />
-                        <Scene key="main" initial={true} tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
+                        <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instructExecuting" component={InstructExecuting} title='调度指令' hideNavBar={false} navBar={NavBar} />

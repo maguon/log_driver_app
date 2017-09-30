@@ -26,5 +26,6 @@ export {
     branchInstructTypes,
     instructExecutingTypes,
     branchInstructExecutingTypes,
-    initializationTypes
+    initializationTypes,
+    loginTypes
 }   
