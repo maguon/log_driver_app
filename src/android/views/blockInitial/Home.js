@@ -4,7 +4,9 @@ import {
     View,
     FlatList,
     Button,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ActivityIndicator,
+    InteractionManager
 } from 'react-native'
 import { connect } from 'react-redux'
 import { Icon } from 'native-base'
@@ -22,7 +24,8 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.getMileageInfo({
+        this.props.setGetMileageInfoWaiting()
+        InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
                     taskStatus: 9,
@@ -41,7 +44,7 @@ class Home extends Component {
                     dateIdEnd: moment().format('YYYY-MM-DD')
                 }
             }
-        })
+        }))
     }
 
     changeTaskStatus() {
@@ -51,7 +54,7 @@ class Home extends Component {
 
     renderTaskItem(item, key) {
         console.log(item)
-        return <TouchableNativeFeedback onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
+        return <TouchableNativeFeedback key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -140,50 +143,63 @@ class Home extends Component {
 
     render() {
         const { taskList, mileageInfo } = this.props.homeReducer.data
-        return (
-            <View style={{ flex: 1 }}>
-                <FlatList
-                    ListHeaderComponent={<View>
-                        <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: '#00cade', fontSize: 11 }}>重载里程</Text>
-                                    <Text style={{ color: '#00cade' }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
+        const { getHomeMileageInfo } = this.props.homeReducer
+        if (getHomeMileageInfo.isResultStatus == 1) {
+            return (
+                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <ActivityIndicator
+                        animating={getHomeMileageInfo.isResultStatus == 1}
+                        style={{ height: 80 }}
+                        size="large"
+                    />
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        ListHeaderComponent={<View>
+                            <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ color: '#00cade', fontSize: 11 }}>重载里程</Text>
+                                        <Text style={{ color: '#00cade' }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ color: '#00cade', fontSize: 11 }}>本月里程</Text>
+                                        <Text style={{ color: '#00cade' }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
+                                        <Text style={{ color: '#00cade', fontSize: 11 }}>公里</Text>
+                                    </View>
+                                </View>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ color: '#00cade', fontSize: 11 }}>空载里程</Text>
+                                        <Text style={{ color: '#00cade' }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
+                                    </View>
                                 </View>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: '#00cade', fontSize: 11 }}>本月里程</Text>
-                                    <Text style={{ color: '#00cade' }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
-                                    <Text style={{ color: '#00cade', fontSize: 11 }}>公里</Text>
+                            <View>
+                                <View style={{ flexDirection: 'row', backgroundColor: '#b0bfc6', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
+                                        <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>大连—>沈阳</Text>
+                                    </View>
+                                    <View>
+                                        <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
+                                    </View>
+                                </View>
+                                <View style={{ height: 150, backgroundColor: 'red' }}>
                                 </View>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: '#00cade', fontSize: 11 }}>空载里程</Text>
-                                    <Text style={{ color: '#00cade' }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View>
-                            <View style={{ flexDirection: 'row', backgroundColor: '#b0bfc6', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                                    <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>大连—>沈阳</Text>
-                                </View>
-                                <View>
-                                    <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
-                                </View>
-                            </View>
-                            <View style={{ height: 150, backgroundColor: 'red' }}>
-                            </View>
-                        </View>
-                    </View>}
-                    data={taskList}
-                    renderItem={({ item, index }) => this.renderTaskItem(item, index)}
-                />
-            </View>
-        )
+                        </View>}
+                        data={taskList}
+                        renderItem={({ item, index }) => this.renderTaskItem(item, index)}
+                    />
+                </View>
+            )
+        }
     }
 }
 

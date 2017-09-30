@@ -15,6 +15,12 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    changeTaskStatus: {
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
     }
 }
 
@@ -24,7 +30,7 @@ export default handleActions({
     [(actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         const { load_distance, no_load_distance } = data.mileageInfo
-        let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)       
+        let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)
         return {
             ...state,
             data: {
@@ -86,6 +92,76 @@ export default handleActions({
     },
 
 
-
+    [(actionTypes.homeTypes.Change_HomeTaskStatus_SUCCESS)]: (state, action) => {
+        const { payload: { data } } = action
+        let newTaskList = [...state.data.taskList]
+        newTaskList = newTaskList.map((item) => {
+            if (item.id == data.taskId) {
+                return { ...item, task_status: taskStatus }
+            }
+            return item
+        })
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                taskList: newTaskList
+            },
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.homeTypes.Change_HomeTaskStatus_FAILED)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 4,
+                failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.homeTypes.Change_HomeTaskStatus_SERVICEERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 5,
+                serviceFailedMsg: data
+            }
+        }
+    },
+    [(actionTypes.homeTypes.Change_HomeTaskStatus_ERROR)]: (state, action) => {
+        const { payload: { data } } = action
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 3,
+                errorMsg: data
+            }
+        }
+    },
+    [(actionTypes.homeTypes.Change_HomeTaskStatus_WAITING)]: (state, action) => {
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...initialState.changeTaskStatus,
+                isResultStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.RESET_Change_HomeTaskStatus)]: (state, action) => {
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...initialState.changeTaskStatus
+            }
+        }
+    },
 
 }, initialState)
