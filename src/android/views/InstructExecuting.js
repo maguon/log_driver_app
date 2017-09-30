@@ -106,35 +106,35 @@ class InstructExecuting extends Component {
         this.props.setTaskInfo(this.props.initParam.taskInfo)
     }
 
-    static defaultProps = {
-        initParam: {
-            taskInfo: {
-                id: 10179,
-                user_id: 1,
-                truck_id: 257,
-                drive_id: 161,
-                route_start_id: 100,
-                route_end_id: 101,
-                distance: 5,
-                task_plan_date: "2017-09-28T08:59:00.000Z",
-                task_start_date: "2017-09-28T09:03:05.000Z",
-                task_end_date: "2017-09-28T09:03:25.000Z",
-                date_id: 20170928,
-                car_count: 0,
-                task_status: 1,
-                created_on: "2017-09-28T08:59:36.000Z",
-                updated_on: "2017-09-28T09:03:25.000Z",
-                route_op_name: "超级管理员",
-                truck_num: "新123456",
-                trail_number: 14,
-                drive_name: "测试用户司机",
-                tel: "10000000000",
-                city_route_start: "大连",
-                city_route_end: "沈阳",
-                car_exception_count: 0
-            }
-        }
-    }
+    // static defaultProps = {
+    //     initParam: {
+    //         taskInfo: {
+    //             id: 10179,
+    //             user_id: 1,
+    //             truck_id: 257,
+    //             drive_id: 161,
+    //             route_start_id: 100,
+    //             route_end_id: 101,
+    //             distance: 5,
+    //             task_plan_date: "2017-09-28T08:59:00.000Z",
+    //             task_start_date: "2017-09-28T09:03:05.000Z",
+    //             task_end_date: "2017-09-28T09:03:25.000Z",
+    //             date_id: 20170928,
+    //             car_count: 0,
+    //             task_status: 1,
+    //             created_on: "2017-09-28T08:59:36.000Z",
+    //             updated_on: "2017-09-28T09:03:25.000Z",
+    //             route_op_name: "超级管理员",
+    //             truck_num: "新123456",
+    //             trail_number: 14,
+    //             drive_name: "测试用户司机",
+    //             tel: "10000000000",
+    //             city_route_start: "大连",
+    //             city_route_end: "沈阳",
+    //             car_exception_count: 0
+    //         }
+    //     }
+    // }
 
     changeLoadTaskStatus(param) {
         const { user } = this.props.userReducer

@@ -5,13 +5,9 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getMileageInfo = (param) => async (dispatch) => {
     const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
-    console.log('urls',urls)
     try {
         let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-    console.log('res',res)
-
         if (res[0].success && res[1].success) {
-             console.log('res[0].success && res[1].success',res[0].success && res[1].success)
             dispatch({
                 type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
                     data: {
@@ -28,12 +24,34 @@ export const getMileageInfo = (param) => async (dispatch) => {
             dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
-    console.log('err',err)
-        
         dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_ERROR, payload: { data: err } })
     }
 }
 
 export const setGetMileageInfoWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_WAITING, payload: {} })
+}
+
+export const changeTaskStatus = (param) => async (dispatch) => {
+    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
+    console.log('url', url)
+    try {
+        let res = await httpRequest.put(url, {})
+        console.log('res', res)
+        if (res.success) {
+            dispatch({ type: actionTypes.homeTypes.Change_HomeTaskStatus_SUCCESS, payload: { data: { taskId: param.requiredParam.taskId, taskStatus: param.requiredParam.taskStatus } } })
+        } else {
+            dispatch({ type: actionTypes.homeTypes.Change_HomeTaskStatus_FAILED, payload: { data: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.homeTypes.Change_HomeTaskStatus_ERROR, payload: { data: err } })
+    }
+}
+
+export const setChangeTaskStatusWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.homeTypes.Change_HomeTaskStatus_WAITING, payload: {} })
+}
+
+export const resetChangeTaskStatus = () => (dispatch) => {
+    dispatch({ type: actionTypes.homeTypes.RESET_Change_HomeTaskStatus, payload: {} })
 }

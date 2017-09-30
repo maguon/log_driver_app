@@ -23,10 +23,8 @@ const initialState = {
 export default handleActions({
     [(actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
-        console.log('data',data)
         const { load_distance, no_load_distance } = data.mileageInfo
-        let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)
-        
+        let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)       
         return {
             ...state,
             data: {
@@ -85,5 +83,9 @@ export default handleActions({
                 isResultStatus: 1
             }
         }
-    }
+    },
+
+
+
+
 }, initialState)
