@@ -10,6 +10,8 @@ import * as branchInstructTypes from './BranchInstructTypes'
 import * as instructTypes from './InstructTypes'
 import * as instructExecutingTypes from './InstructExecutingTypes'
 import * as branchInstructExecutingTypes from './BranchInstructExecutingTypes'
+import * as initializationTypes from './InitializationTypes'
+import * as loginTypes from './LoginTypes'
 
 export {
     homeTypes,
@@ -23,5 +25,6 @@ export {
     instructTypes,
     branchInstructTypes,
     instructExecutingTypes,
-    branchInstructExecutingTypes
+    branchInstructExecutingTypes,
+    initializationTypes
 }   

@@ -1,0 +1,6 @@
+export const LOGIN_WAITING = 'LOGIN_WAITING'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const RESET_LOGIN = 'RESET_LOGIN'
+export const CLEAN_LOGIN = 'CLEAN_LOGIN'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
