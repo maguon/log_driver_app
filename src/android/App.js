@@ -23,6 +23,7 @@ import InstructExecuting from './views/InstructExecuting'
 import BranchInstructExecuting from './views/BranchInstructExecuting'
 import CityRouteList from './views/select/CityRouteList'
 import Login from './views/Login'
+import Password from './views/Password'
 import Initialization from './views/Initialization'
 
 const styles = StyleSheet.create({
@@ -89,7 +90,7 @@ export default class App extends Component {
                                 && props.LoginReducer.user.userId
                                 && props.LoginReducer.user.userStatus
                                 && props.LoginReducer.user.userType) {
-                                return 'main'
+                                return 'login'
                             } else {
                                 return 'login'
                             }
@@ -119,6 +120,7 @@ export default class App extends Component {
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="password" component={Password}  title='修改密码' hideNavBar={false} navBar={NavBar} />
                             </Scene>
                         </Scene>
                     </Scene>

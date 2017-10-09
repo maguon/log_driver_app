@@ -12,6 +12,7 @@ import * as instructExecutingTypes from './InstructExecutingTypes'
 import * as branchInstructExecutingTypes from './BranchInstructExecutingTypes'
 import * as initializationTypes from './InitializationTypes'
 import * as loginTypes from './LoginTypes'
+import * as passwordTypes from './PasswordTypes'
 
 export {
     homeTypes,
@@ -27,5 +28,6 @@ export {
     instructExecutingTypes,
     branchInstructExecutingTypes,
     initializationTypes,
-    loginTypes
+    loginTypes,
+    passwordTypes
 }   

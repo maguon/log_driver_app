@@ -28,16 +28,15 @@ export default class Login extends Component {
                     source={{ uri: 'login_back' }}
                     style={{ width: window.width, height: window.width / 9 * 16 }} />
                 <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ borderRadius: 100, backgroundColor: 'rgba(255,255,255,1)', width: 120, height: 120, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ borderRadius: 60, backgroundColor: 'rgba(255,255,255,1)',borderColor:'rgba(255,255,255,0.5)',borderWidth:20, width: 120, height: 120, justifyContent: 'center', alignItems: 'center' }}>
                         <Image
-                            source={{ uri: 'honya_logo_144' }}
+                            source={{ uri: 'logo' }}
                             style={{ width: 80, height: 80 }} />
                     </View>
                     <View>
                         <Image
                             source={{ uri: 'app_name' }}
-                            style={{ width: 171, height: 38, marginTop: 20 }} />
-                        {/*<Text style={{ color: '#00b9cd', marginTop: 20, fontSize: 26, fontWeight: '100' }}>物联存车</Text>*/}
+                            style={{ width: 125, height: 38, marginTop: 20 }} />
                     </View>
                     <View>
                         <Item rounded style={{ backgroundColor: 'rgba(255,255,255,0.15)', width: window.width / 4 * 3, borderWidth: 0, marginTop: 50 }}>

@@ -1,80 +1,144 @@
-import React, { Component } from 'react'
-import {
-    Text,
-    View
-} from 'react-native'
-import AMapLocation from 'react-native-amap-location'
+/**
+ * Created by lingxue on 2017/4/17.
+ */
+import React, { Component, PropTypes } from 'react'
+import { View, Picker, Modal, StyleSheet, Text, Linking } from 'react-native'
+import { Provider, connect } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import ReduxThunk from 'redux-thunk'
+import reducers from '../../../reducers/index'
+import localStorageKey from '../../../util/LocalStorageKey'
+import { Actions } from 'react-native-router-flux'
+import localStorage from '../../../util/LocalStorage'
+import { Button, Container, Content, Header, Icon, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast } from 'native-base'
+import ConfirmModal from '../../components/ConfirmModal'
+import * as app from '../../../android_app.json'
+import * as LoginAction from '../../../actions/LoginAction'
 
-export default class Setting extends Component {
+
+class Setting extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            accuracy: 29,
-            adCode: "310114",
-            address: "上海市嘉定区嘉三路靠近同济大学嘉定校区华楼",
-            altitude: 0,
-            bearing: 0,
-            city: "上海市",
-            cityCode: "021",
-            country: "中国",
-            district: "嘉定区",
-            latitude: 31.285728,
-            locationDetail: "-1",
-            locationType: 4,
-            longitude: 121.217404,
-            poiName: "同济大学嘉定校区华楼",
-            provider: "lbs",
-            province: "上海市",
-            satellites: 0,
-            speed: 0,
-            street: "嘉松北路",
-            streetNum: "6128号",
-            errorInfo: '',
-            errorCode: ''
+            confirmModalVisible: false
         }
+        this.onBarcodeReceived = this.onBarcodeReceived.bind(this)
+        this.onPressIcon = this.onPressIcon.bind(this)
+        this.onPressTextInput = this.onPressTextInput.bind(this)
+        this.linkDownload = this.linkDownload.bind(this)
     }
 
-    componentDidMount() {
-        this.listener = AMapLocation.addEventListener((data) => console.log('data', this.setState({ ...data })));
-        
-        AMapLocation.startLocation({
-            accuracy: 'HighAccuracy',
-            killProcess: true,
-            needDetail: true,
-        });
+    onBarcodeReceived(param) {
+        Actions.searchVinAtSettingBlock({ vin: param })
+    }
+    onPressIcon() {
+        Actions.searchVinAtSettingBlock()
+    }
+    onPressTextInput() {
+        Actions.searchVinAtSettingBlock()
     }
 
-    componentWillUnmount() {
-        AMapLocation.stopLocation();
-        this.listener.remove();
+    linkDownload(url) {
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url)
+            } else {
+                return Linking.openURL(url)
+            }
+        }).catch(err => console.error('An error occurred', err))
+    }
+
+    exitApp() {
+        this.setState({ confirmModalVisible: true })
+    }
+
+    onPressOk() {
+        this.setState({ confirmModalVisible: false })
+        localStorage.saveKey(localStorageKey.USER, { mobile: this.props.userReducer.user.mobile })
+        this.props.cleanLogin()
+        Actions.login()
+    }
+
+    onPressCancel() {
+        this.setState({ confirmModalVisible: false })
     }
 
     render() {
+        let viewStyle = { backgroundColor: '#00cade' }
+        let { lastVersion, version, url } = this.props.InitializationReducer.getVersion.data
+        let versionArr = version.split('.')
+        let lastVersionArr = lastVersion.split('.')
+
+       // console.log(this.props.InitializationReducer)
         return (
-            <View>
-                <Text>{this.state.accuracy}</Text>
-                <Text>{this.state.adCode}</Text>
-                <Text>{this.state.address}</Text>
-                <Text>{this.state.altitude}</Text>
-                <Text>{this.state.bearing}</Text>
-                <Text>{this.state.city}</Text>
-                <Text>{this.state.cityCode}</Text>
-                <Text>{this.state.country}</Text>
-                <Text>{this.state.district}</Text>
-                <Text>{this.state.latitude}</Text>
-                <Text>{this.state.locationDetail}</Text>
-                <Text>{this.state.locationType}</Text>
-                <Text>{this.state.longitude}</Text>
-                <Text>{this.state.poiName}</Text>
-                <Text>{this.state.provider}</Text>
-                <Text>{this.state.province}</Text>
-                <Text>{this.state.satellites}</Text>
-                <Text>{this.state.speed}</Text>
-                <Text>{this.state.street}</Text>
-                <Text>{this.state.streetNum}</Text>
-                <Text>{this.state.errorInfo}</Text>
-                <Text>{this.state.errorCode}</Text>
-            </View>
+            <Container style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                    <List>
+                        {/* <ListItem onPress={() => { Actions.recordList() }}>
+                            <Left>
+                                <Icon name="md-person" style={{ color: '#00cade' }} />
+                                <Text>工作记录</Text>
+                            </Left>
+                            <Body></Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem> */}
+                         <ListItem onPress={() => { Actions.password() }}>
+                            <Left>
+                                <Icon name="ios-lock" style={{ color: '#00cade' }} />
+                                <Text>修改密码</Text>
+                            </Left>
+                            <Body></Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem> 
+                        <ListItem style={{ justifyContent: 'space-between' }}>
+                            <Text>版本信息：v{app.version} </Text>
+                            {(versionArr[0] < lastVersionArr[0] || versionArr[1] < lastVersionArr[1] || versionArr[2] < lastVersionArr[2])
+                                && <Text
+                                    onPress={() => this.linkDownload(url)}
+                                    style={{
+                                        backgroundColor: 'red',
+                                        color: '#fff',
+                                        borderRadius: 5,
+                                        textAlign: 'center',
+                                        paddingHorizontal: 4
+                                    }}>new </Text>}
+                        </ListItem>
+                    </List>
+                    <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>
+                        <Text style={{ color: '#fff' }}>退出登录</Text>
+                    </Button>
+                </View>
+                <ConfirmModal
+                    title='确认退出应用？'
+                    isVisible={this.state.confirmModalVisible}
+                    onPressOk={this.onPressOk.bind(this)}
+                    onPressCancel={this.onPressCancel.bind(this)}
+                />
+
+            </Container>
+
         )
     }
 }
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        userReducer: state.userReducer,
+        InitializationReducer: state.initializationReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    cleanLogin: () => {
+        dispatch(LoginAction.cleanLogin())
+    }
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Setting)
