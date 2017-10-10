@@ -1,72 +1,107 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image, Dimensions, StatusBar } from 'react-native'
+import { View, Image, Dimensions, ToastAndroid } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from '../../reducers/index'
 import * as LoginAction from '../../actions/LoginAction'
 import { Actions } from 'react-native-router-flux'
-import { Button, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem } from 'native-base'
+import LoginLayout from '../components/Login'
+import localStorageKey from '../../util/LocalStorageKey'
+import localStorage from '../../util/LocalStorage'
 
 
-
-const window = Dimensions.get('window')
-
-
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props)
+        this.login = this.login.bind(this)
+        this.state = {
+            textUserName: '',
+            textPassword: ''
+        }
+        this.changPassword = this.changPassword.bind(this)
+        this.changUserName = this.changUserName.bind(this)
+
+    }
+    componentDidMount() {
+        localStorage.loadKey(localStorageKey.USER, (err, res) => {
+            if (err) {
+            }
+            else {
+                this.setState({ textUserName: res.mobile })
+            }
+        })
+    }
+
+    login(param) {
+        this.props.login(
+            {
+                postParam: {
+                    mobile: this.state.textUserName,
+                    password: this.state.textPassword
+                }
+            }
+        )
+    }
+
+    changUserName(userName) {
+        this.setState({ textUserName: userName })
+    }
+
+    changPassword(password) {
+        this.setState({ textPassword: password })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let { loginInfo } = nextProps
+        /*loginInfo执行状态*/
+        if (loginInfo.isExecStatus == 1) {
+            //console.log('loginInfo开始执行')
+        } else if (loginInfo.isExecStatus == 2) {
+            //console.log('loginInfo执行完毕')
+            if (loginInfo.isResultStatus == 0) {
+                this.props.resetLogin()
+            } else if (loginInfo.isResultStatus == 1) {
+            //console.log('loginInfo执行失败')
+                this.props.resetLogin()
+                ToastAndroid.showWithGravity('系统错误，请检查网络并重新进入APP', ToastAndroid.SHORT, ToastAndroid.CENTER)
+            } else if (loginInfo.isResultStatus == 2) {
+            //console.log('loginInfo执行失败')  
+                this.props.resetLogin()
+                ToastAndroid.showWithGravity(loginInfo.failedMsg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+            }
+        }
+
+        return true
     }
 
     render() {
-        let { login, changPassword, changUserName, textUserName, textPassword } = this.props
-        // console.log(window)
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <StatusBar hidden={true} />
-                <Image
-                    source={{ uri: 'login_back' }}
-                    style={{ width: window.width, height: window.width / 9 * 16 }} />
-                <View style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ borderRadius: 60, backgroundColor: 'rgba(255,255,255,1)',borderColor:'rgba(255,255,255,0.5)',borderWidth:20, width: 120, height: 120, justifyContent: 'center', alignItems: 'center' }}>
-                        <Image
-                            source={{ uri: 'logo' }}
-                            style={{ width: 80, height: 80 }} />
-                    </View>
-                    <View>
-                        <Image
-                            source={{ uri: 'app_name' }}
-                            style={{ width: 125, height: 38, marginTop: 20 }} />
-                    </View>
-                    <View>
-                        <Item rounded style={{ backgroundColor: 'rgba(255,255,255,0.15)', width: window.width / 4 * 3, borderWidth: 0, marginTop: 50 }}>
-                            <Icon active name='md-person' style={{ color: '#00b9cd', marginLeft: 10 }} />
-                            <Input placeholder='请输入用户名'
-                                placeholderTextColor='#00b9cd'
-                                style={{ color: '#00b9cd' }}
-                                onChangeText={(text) => changUserName(text)}
-                                value={textUserName} />
-                        </Item>
-                        <Item rounded style={{ backgroundColor: 'rgba(255,255,255,0.15)', width: window.width / 4 * 3, borderWidth: 0, marginTop: 20 }}>
-                            <Icon active name='md-lock' style={{ color: '#00b9cd', marginLeft: 10 }} />
-                            <Input placeholder='请输入密码'
-                                placeholderTextColor='#00b9cd'
-                                style={{ color: '#00b9cd' }}
-                                secureTextEntry
-                                onChangeText={(text) => changPassword(text)}
-                                value={textPassword} />
-                        </Item>
-                        <Button style={{ marginTop: 50, width: window.width / 4 * 3, borderRadius: 25, backgroundColor: '#26c6da', justifyContent: 'center' }}
-                            onPress={login}>
-                            <Text>登录</Text>
-                        </Button>
-                    </View>
-                </View>
-            </View>
 
-        )
+        return <LoginLayout
+            login={this.login}
+            textUserName={this.state.textUserName}
+            textPassword={this.state.textPassword}
+            changUserName={this.changUserName}
+            changPassword={this.changPassword}
+        />
+    }
 
+}
+
+const mapStateToProps = (state) => {
+    return {
+        loginInfo: state.userReducer
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    login: (param) => {
+        dispatch(LoginAction.login(param))
+    },
+    resetLogin: () => {
+        dispatch(LoginAction.resetLogin())
+    }
+})
 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

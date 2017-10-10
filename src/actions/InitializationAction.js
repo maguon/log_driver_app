@@ -1,7 +1,7 @@
 /**
  * Created by lingxue on 2017/4/21.
  */
-import { Actions } from 'react-native-router-flux'
+//import { Actions } from 'react-native-router-flux'
 import * as actionTypes from '../actionTypes'
 import localStorageKey from '../util/LocalStorageKey'
 import localStorage from '../util/LocalStorage'
@@ -44,6 +44,7 @@ export const validateToken = () => (dispatch) => {
             }
         }
         else {
+            console.log('localStorageRes',localStorageRes)
             if (localStorageRes.token && localStorageRes.userId) {
                 //判断userId与token是否为空，如果都不为空,请求更换token 
                 httpRequest

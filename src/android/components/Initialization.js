@@ -13,7 +13,7 @@ const Initialization = ({ version, lastVersion, force_update, url, linkDownload,
     return (
         <View style={styles.container}>
             <StatusBar hidden={true} />
-            <Image source={{ uri: 'welcom_back' }}
+            <Image source={{ uri: 'init_back' }}
                 style={styles.image}
             />
             {isExecStatus == 2

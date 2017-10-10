@@ -90,7 +90,7 @@ export default class App extends Component {
                                 && props.LoginReducer.user.userId
                                 && props.LoginReducer.user.userStatus
                                 && props.LoginReducer.user.userType) {
-                                return 'login'
+                                return 'main'
                             } else {
                                 return 'login'
                             }

@@ -47,17 +47,17 @@ class Initialization extends Component {
         let { InitializationReducer } = nextProps
 
         if (InitializationReducer.valdateToken.isExecStatus == 1) {
-           // console.log('welcome.valdateToken', '开始执行')
+            // console.log('welcome.valdateToken', '开始执行')
         } else if (InitializationReducer.valdateToken.isExecStatus == 2) {
             if (InitializationReducer.valdateToken.isResultStatus == 0) {
                 this.props.resetInitialization()
                 Actions.mainRoot()
-              //  console.log('welcome.valdateToken 执行成功', InitializationReducer.getVersion.data)
+                console.log('welcome.valdateToken 执行成功', InitializationReducer.getVersion.data)
             } else if (InitializationReducer.valdateToken.isResultStatus == 1) {
                 //console.log('welcome.valdateToken 执行错误', InitializationReducer.getVersion.errorMsg)
             }
             else if (InitializationReducer.valdateToken.isResultStatus == 2) {
-              //  console.log('welcome.valdateToken 执行失败', InitializationReducer.getVersion.failedMsg)
+                console.log('welcome.valdateToken 执行失败', InitializationReducer.getVersion.failedMsg)
                 this.props.resetInitialization()
                 Actions.mainRoot()
             }
@@ -67,7 +67,7 @@ class Initialization extends Component {
           //  console.log('welcome.getVersion', '开始执行')
         } else if (InitializationReducer.getVersion.isExecStatus == 2) {
             if (InitializationReducer.getVersion.isResultStatus == 0) {
-              //  console.log('welcome.getVersion执行成功', InitializationReducer.getVersion.data)
+                console.log('welcome.getVersion执行成功', InitializationReducer.getVersion.data)
                 let versionArr = InitializationReducer.getVersion.data.version.split('.')
                 let lastVersionArr = InitializationReducer.getVersion.data.lastVersion.split('.')
                 if (!((versionArr[0] < lastVersionArr[0] || versionArr[1] < lastVersionArr[1] || versionArr[2] < lastVersionArr[2]) && InitializationReducer.getVersion.data.force_update == 1)) {

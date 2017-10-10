@@ -1,13 +1,11 @@
 package com.log_driver_app;
 
 import android.app.Application;
-
 import com.facebook.react.ReactApplication;
+import com.jeepeng.react.xgpush.PushPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.photoview.PhotoViewPackage;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.facebook.react.ReactNativeHost;
@@ -15,7 +13,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.xiaobu.amap.AMapLocationReactPackage;
-
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,28 +27,22 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new AMap3DPackage(),
-            new VectorIconsPackage(),
-            new PhotoViewPackage(),
-            new ImageResizerPackage(),
-            new ImagePickerPackage(),
-            new PickerPackage(),
-            new OrientationPackage(),
-            new AMapLocationReactPackage()
-      );
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new PushPackage(),  new AMap3DPackage(),
+          new VectorIconsPackage(), new PhotoViewPackage(), 
+          new PickerPackage(), new OrientationPackage(), new AMapLocationReactPackage());
     }
   };
+
 
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
-  }
+  };
 
   @Override
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-  }
+  };
 }
