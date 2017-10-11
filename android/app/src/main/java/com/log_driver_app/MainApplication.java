@@ -1,6 +1,5 @@
 package com.log_driver_app;
 
-import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.jeepeng.react.xgpush.PushPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
@@ -13,11 +12,12 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.xiaobu.amap.AMapLocationReactPackage;
+import android.support.multidex.MultiDexApplication;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override

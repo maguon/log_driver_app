@@ -110,7 +110,7 @@
             android:exported="true">
             <intent-filter>
                 <!-- 【必须】 请修改为当前APP包名 .PUSH_ACTION, 如demo的包名为：com.qq.xgdemo -->
-                <action android:name="com.jeepeng.push.PUSH_ACTION" />
+                <action android:name="com.log_driver_app.PUSH_ACTION" />
             </intent-filter>
         </service>
         <!-- 【必须】 增强xg_service存活率 -->
@@ -121,17 +121,17 @@
         <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo-->
         <provider
             android:name="com.tencent.android.tpush.XGPushProvider"
-            android:authorities="com.jeepeng.push.AUTH_XGPUSH"
+            android:authorities="com.log_driver_app.AUTH_XGPUSH"
             android:exported="true"/>
         <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo-->
         <provider
             android:name="com.tencent.android.tpush.SettingsContentProvider"
-            android:authorities="com.jeepeng.push.TPUSH_PROVIDER"
+            android:authorities="com.log_driver_app.TPUSH_PROVIDER"
             android:exported="false" />
         <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo-->
         <provider
             android:name="com.tencent.mid.api.MidProvider"
-            android:authorities="com.jeepeng.push.TENCENT.MID.V3"
+            android:authorities="com.log_driver_app.TENCENT.MID.V3"
             android:exported="true" >
         </provider>
 
