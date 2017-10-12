@@ -11,7 +11,8 @@ const initialState = {
         // userStatus: 1,
         // mobile: '18888',
         // driverId: 161,
-        // truckId: 257//258
+        // truckId: 257//258,
+        // deviceToken:
         // userId: 0,
         // token: '',
         // userType: 1,
@@ -27,6 +28,7 @@ const initialState = {
 export default handleActions({
     [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
+        console.log(data)
         return {
             ...state,
             isResultStatus: 0,
@@ -36,6 +38,7 @@ export default handleActions({
     },
     [actionTypes.loginTypes.LOGIN_FAILED]: (state, action) => {
         const { payload: { data } } = action
+         console.log(data)
         return {
             ...state,
             isResultStatus: 2,

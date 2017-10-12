@@ -5,7 +5,8 @@ import { Actions } from 'react-native-router-flux'
 import InitializationLayout from '../components/Initialization'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
-import { Linking, ToastAndroid } from 'react-native'
+import { Linking, ToastAndroid,Platform } from 'react-native'
+import XGPush from 'react-native-xinge-push';
 
 class Initialization extends Component {
     constructor(props) {
@@ -13,12 +14,62 @@ class Initialization extends Component {
         this.linkDownload = this.linkDownload.bind(this)
         this.validateToken = this.validateToken.bind(this)
         this.getAppLastVersion = this.getAppLastVersion.bind(this)
+        this.initPush()
+    }
+
+     async initPush() {
+        let accessId;
+        let accessKey;
+        if (Platform.OS === 'ios') {
+            accessId = 2100267013; // 请将1111111111修改为APP的AccessId，10位数字
+            accessKey = "A7XR278C4CTR"; // 请将YOUR_ACCESS_KEY修改为APP的AccessKey
+        } else {
+            accessId = 2100267013;
+            accessKey = "A7XR278C4CTR";
+        }
+        // 初始化
+        XGPush.init(accessId, accessKey);
+
+        // 注册
+        XGPush.register('jeepeng')
+            .then(result => {
+                // do something
+                // 或者在 onRegister 里处理，效果一样
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     componentDidMount() {
         // localStorage.removeKey(localStorageKey.USER)
+            XGPush.addEventListener('message', this._onMessage);
+    XGPush.addEventListener('notification', this._onNotification);
         this.getAppLastVersion()
+     
     }
+
+      /**
+   * 透传消息到达
+   * @param message
+   * @private
+   */
+  _onMessage(message) {
+    alert('收到透传消息: ' + message.content);
+  }
+  
+  /**
+   * 通知到达
+   * @param notification
+   * @private
+   */
+  _onNotification(notification) {
+    if(notification.clicked === true) {
+      alert('app处于后台时收到通知' + JSON.stringify(notification));
+    } else {
+      alert('app处于前台时收到通知' + JSON.stringify(notification));
+    }
+  }
 
     getAppLastVersion() {
         this.props.getAppLastVersion({
@@ -64,7 +115,7 @@ class Initialization extends Component {
         }
 
         if (InitializationReducer.getVersion.isExecStatus == 1) {
-          //  console.log('welcome.getVersion', '开始执行')
+            //  console.log('welcome.getVersion', '开始执行')
         } else if (InitializationReducer.getVersion.isExecStatus == 2) {
             if (InitializationReducer.getVersion.isResultStatus == 0) {
                 console.log('welcome.getVersion执行成功', InitializationReducer.getVersion.data)
@@ -75,11 +126,11 @@ class Initialization extends Component {
                     this.props.resetGetVersion()
                 }
             } else if (InitializationReducer.getVersion.isResultStatus == 1) {
-              //  console.log('welcome.getVersion执行错误', InitializationReducer.getVersion.errorMsg)
+                //  console.log('welcome.getVersion执行错误', InitializationReducer.getVersion.errorMsg)
                 ToastAndroid.showWithGravity('获取版本信息失败，请检测网络', ToastAndroid.SHORT, ToastAndroid.CENTER)
             }
             else if (InitializationReducer.getVersion.isResultStatus == 2) {
-              //  console.log('welcome.getVersion执行失败', InitializationReducer.getVersion.failedMsg)
+                //  console.log('welcome.getVersion执行失败', InitializationReducer.getVersion.failedMsg)
                 ToastAndroid.showWithGravity('获取版本信息失败，请检测网络', ToastAndroid.SHORT, ToastAndroid.CENTER)
             }
         }

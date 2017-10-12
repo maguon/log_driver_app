@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import reducers from './reducers'
 import App from './android/App'
+import { View } from 'react-native'
 
 const store = compose(
     applyMiddleware(ReduxThunk)
@@ -12,12 +13,13 @@ const store = compose(
 class Android_main extends Component {
     constructor(props) {
         super(props)
+
     }
 
     render() {
         return (
             <Provider store={store}>
-                <App />
+                 <App /> 
             </Provider>
         )
     }

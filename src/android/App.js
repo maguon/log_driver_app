@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Button, Icon } from 'native-base'
 import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
+import XGPush from 'react-native-xinge-push';
 
 import NavBar from './components/bar/NavBar'
 import TopBar from './components/bar/TopBar'
