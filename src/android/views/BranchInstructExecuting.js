@@ -33,7 +33,7 @@ class BranchInstructExecuting extends Component {
                 dpRouteLoadTaskId: loadTaskInfo.id
             },
             OptionalParam: {
-                receiveId: 102,//this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
+                receiveId: this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
             }
         }))
     }

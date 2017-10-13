@@ -23,6 +23,9 @@ class BranchInstruct extends Component {
         InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: this.props.initParam.routeLoadInfo.id
+            },
+             OptionalParam: {
+                receiveId: 102//this.props.initParam.routeLoadInfo.receive_id,
             }
         }))
     }
@@ -64,14 +67,14 @@ class BranchInstruct extends Component {
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
                         <MapView
                             zoomLevel={16}
-                            coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                            coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat&&this.props.branchInstructReducer.data.loadTaskInfo.lng?{ latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
                             showsZoomControls={false}
                             style={{ flex: 1 }}
                         >
                             <Marker
                                 image='flag'
                                 title=''
-                                coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                                coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat&&this.props.branchInstructReducer.data.loadTaskInfo.lng?{ latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
                             />
                         </MapView>
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row',  padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
