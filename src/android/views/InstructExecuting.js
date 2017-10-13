@@ -14,6 +14,8 @@ import { connect } from 'react-redux'
 import * as instructExecutingAction from '../../actions/InstructExecutingAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
+import StepIndicator from '../components/StepIndicator'
+
 
 class InstructExecuting extends Component {
     constructor(props) {
@@ -119,8 +121,23 @@ class InstructExecuting extends Component {
         })
     }
 
+    getStepIndicatorCurrent(index) {
+        if (index <= 1) {
+            return 0
+        }else if(index <= 2){
+            return 1
+        }else if(index <= 3){
+            return 2
+        }else if(index <= 4){
+            return 3
+        }else if(index <= 9){
+            return 4
+        }
+    }
+
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
+        console.log(taskInfo)
         const { getLoadTaskList } = this.props.instructExecutingReducer
         if (getLoadTaskList.isResultStatus == 1) {
             return (
@@ -135,6 +152,13 @@ class InstructExecuting extends Component {
         } else {
             return (
                 <View style={{ flex: 1 }}>
+                    <StepIndicator
+                        stepList={[{ step: '1', title: '下达' }
+                            , { step: '2', title: '接受' }
+                            , { step: '3', title: '装车' }
+                            , { step: '4', title: '在途' }
+                            , { step: '5', title: '完成' }]}
+                        current={this.getStepIndicatorCurrent(taskInfo.task_status)} />
                     <View style={{ backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
                         <View>
                             <Text style={{ fontSize: 11, color: '#8b959b' }}>

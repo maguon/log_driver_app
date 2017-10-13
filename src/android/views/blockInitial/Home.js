@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as homeAction from '../../../actions/HomeAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
-import {MapView, Marker} from 'react-native-amap3d'
+import { MapView, Marker } from 'react-native-amap3d'
 
 class Home extends Component {
     constructor(props) {
@@ -54,7 +54,7 @@ class Home extends Component {
 
 
     renderTaskItem(item, key) {
-        console.log(item)
+       // console.log(item)
         return <TouchableNativeFeedback key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
@@ -144,6 +144,7 @@ class Home extends Component {
 
     render() {
         const { taskList, mileageInfo } = this.props.homeReducer.data
+        console.log('this.props.homeReducer.data', this.props.homeReducer.data)
         const { getHomeMileageInfo } = this.props.homeReducer
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
