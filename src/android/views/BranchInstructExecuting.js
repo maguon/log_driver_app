@@ -31,6 +31,9 @@ class BranchInstructExecuting extends Component {
         InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: loadTaskInfo.id
+            },
+            OptionalParam: {
+                receiveId: 102,//this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
             }
         }))
     }
@@ -103,7 +106,7 @@ class BranchInstructExecuting extends Component {
 
     render() {
         //     console.log(this.props.initParam)
-        //     console.log(this.props.branchInstructExecutingReducer)
+        console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
 
@@ -125,14 +128,14 @@ class BranchInstructExecuting extends Component {
 
                         <MapView
                             zoomLevel={16}
-                            coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                            coordinate={loadTaskInfo.lat&&loadTaskInfo.lng?{ latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
                             showsZoomControls={false}
                             style={{ flex: 1 }}
                         >
                             <Marker
                                 image='flag'
-                                title=''
-                                coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                                title={loadTaskInfo.short_name}
+                                coordinate={loadTaskInfo.lat&&loadTaskInfo.lng?{ latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
                             />
                         </MapView>
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>

@@ -57,10 +57,4 @@ export const setGetDriverImageWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.driverInfoTypes.GET_DriverImage_WAITING, payload: {} })
 }
 
-const sum = (field1, field2) => field1 + field2
-
-const field = (field1) => (field2) => sum(field1, field2)
-
-field(1)(2)
-
 

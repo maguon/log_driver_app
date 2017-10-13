@@ -40,7 +40,11 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                routeLoadTaskList: data
+                routeLoadTaskList: data.routeLoadTaskList,
+                loadTaskInfo:{
+                   ...state.data.loadTaskInfo,
+                   ...data.coordinate
+                }
             },
             getRouteLoadTaskList: {
                 ...state.getRouteLoadTaskList,

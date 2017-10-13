@@ -34,10 +34,8 @@ export const setGetMileageInfoWaiting = (param) => (dispatch) => {
 
 export const changeTaskStatus = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
-    console.log('url', url)
     try {
         let res = await httpRequest.put(url, {})
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.homeTypes.Change_HomeTaskStatus_SUCCESS, payload: { data: { taskId: param.requiredParam.taskId, taskStatus: param.requiredParam.taskStatus } } })
         } else {
