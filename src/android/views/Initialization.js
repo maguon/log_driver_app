@@ -14,6 +14,7 @@ class Initialization extends Component {
         this.linkDownload = this.linkDownload.bind(this)
         this.validateToken = this.validateToken.bind(this)
         this.getAppLastVersion = this.getAppLastVersion.bind(this)
+        this._getInitialNotification=this._getInitialNotification.bind(this)
         this.initPush()
     }
 
@@ -41,10 +42,10 @@ class Initialization extends Component {
             });
     }
 
-    componentDidMount() {
-        // localStorage.removeKey(localStorageKey.USER)
-            XGPush.addEventListener('message', this._onMessage);
-    XGPush.addEventListener('notification', this._onNotification);
+     componentDidMount() {
+         // localStorage.removeKey(localStorageKey.USER)
+         XGPush.addEventListener('message', this._onMessage);
+         XGPush.addEventListener('notification', this._onNotification);
         this.getAppLastVersion()
      
     }
@@ -55,7 +56,8 @@ class Initialization extends Component {
    * @private
    */
   _onMessage(message) {
-    alert('收到透传消息: ' + message.content);
+    console.log('收到透传消息: ' + message.content);
+   // alert('收到透传消息: ' + message.content);
   }
   
   /**
@@ -65,11 +67,25 @@ class Initialization extends Component {
    */
   _onNotification(notification) {
     if(notification.clicked === true) {
+      console.log('app处于后台时收到通知' + JSON.stringify(notification));
       alert('app处于后台时收到通知' + JSON.stringify(notification));
     } else {
+      console.log('app处于前台时收到通知' + JSON.stringify(notification));
       alert('app处于前台时收到通知' + JSON.stringify(notification));
     }
   }
+
+
+    /**
+   * 获取初始通知（点击通知后）
+   * @private
+   */
+  _getInitialNotification() {
+    XGPush.getInitialNotification().then((result) => {
+      alert(JSON.stringify(result));
+    });
+  }
+  
 
     getAppLastVersion() {
         this.props.getAppLastVersion({

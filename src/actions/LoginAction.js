@@ -13,17 +13,18 @@ export const login = (params) => (dispatch) => {
             //console.log(err)
             dispatch({ type: actionTypes.loginTypes.LOGIN_ERROR, payload: { data: err } })
         } else {
-            console.log(res)
+           // console.log(res)
             if (res.success) {
-                 console.log('success', res)
+                //console.log('success', res)
                 //判断请求是否成功，如果成功，更新token
-                if (res.result.type == 10 ) {
+                if (res.result.type == 10) {
                     let user = {
                         userId: res.result.userId,
                         token: res.result.accessToken,
                         userType: res.result.type,
                         userStatus: res.result.userStatus,
-                        mobile: res.result.phone
+                        mobile: res.result.phone,
+                        deviceToken: params.OptionalParam.deviceToken
                     }
                     requestHeaders.set('auth-token', res.result.accessToken)
                     requestHeaders.set('user-type', res.result.type)
@@ -36,7 +37,7 @@ export const login = (params) => (dispatch) => {
                 }
             } else {
                 //登录失败重新登录
-                console.log(err)
+                //console.log(err)
                 dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: { data: res.msg } })
             }
         }

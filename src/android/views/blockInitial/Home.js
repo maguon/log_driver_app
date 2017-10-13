@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as homeAction from '../../../actions/HomeAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
+import {MapView, Marker} from 'react-native-amap3d'
 
 class Home extends Component {
     constructor(props) {
@@ -190,7 +191,19 @@ class Home extends Component {
                                         <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
                                     </View>
                                 </View>
-                                <View style={{ height: 150, backgroundColor: 'red' }}>
+                                <View style={{ height: 180 }}>
+                                    <MapView
+                                        zoomLevel={16}
+                                        coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                                        showsZoomControls={false}
+                                        style={{ flex: 1 }}
+                                    >
+                                        <Marker
+                                            image='flag'
+                                            title=''
+                                            coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                                        />
+                                    </MapView>
                                 </View>
                             </View>
                         </View>}

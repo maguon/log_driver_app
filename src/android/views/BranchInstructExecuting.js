@@ -10,6 +10,7 @@ import { Icon, Button } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { connect } from 'react-redux'
 import * as branchInstructExecutingAction from '../../actions/BranchInstructExecutingAction'
+import { MapView, Marker } from 'react-native-amap3d'
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -121,17 +122,24 @@ class BranchInstructExecuting extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', margin: 10, padding: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
-                                <Text style={{ paddingHorizontal: 5 }}>--></Text>
-                                <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}</Text>
-                                <Text style={{ paddingLeft: 20, color: '#00cade' }}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <MaterialIcons name='my-location' style={{ fontSize: 15, color: '#d69aa5' }} />
-                                <Text style={{ paddingLeft: 10 }}>当前位置</Text>
-                            </View>
+
+                        <MapView
+                            zoomLevel={16}
+                            coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                            showsZoomControls={false}
+                            style={{ flex: 1 }}
+                        >
+                            <Marker
+                                image='flag'
+                                title=''
+                                coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                            />
+                        </MapView>
+                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
+                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
+                            <Text style={{ paddingHorizontal: 5 }}>--></Text>
+                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}</Text>
+                            <Text style={{ paddingLeft: 20, color: '#00cade' }}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
                         </View>
                     </View>
                     <View style={{

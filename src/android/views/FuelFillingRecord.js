@@ -256,7 +256,7 @@ class FuelFillingRecord extends Component {
             <View>
                 <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
                     <View>
-                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade' }}>
+                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade',justifyContent:'space-around',paddingHorizontal:10 }}>
                             <MaterialCommunityIcons name='gas-station' size={20} color='#fff' />
                             <Text style={{ color: '#fff', paddingLeft: 5 }}>加油申报</Text>
                         </Button>
@@ -264,9 +264,9 @@ class FuelFillingRecord extends Component {
                     <View>
                         <Button small rounded
                             onPress={Actions.fuelFillingSearch}
-                            style={{ backgroundColor: '#fa7377' }}>
+                            style={{ backgroundColor: '#fa7377',justifyContent:'space-between' }}>
                             <Icon name='ios-search' style={{ fontSize: 20 }} />
-                            <Text style={{ color: '#fff', paddingLeft: 5 }}>搜索</Text>
+                            <Text style={{ color: '#fff', paddingRight: 10 }}>搜索</Text>
                         </Button>
                     </View>
                 </View>

@@ -90,7 +90,8 @@
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <!-- 【注意】 如果被打开的activity是启动模式为SingleTop，SingleTask或SingleInstance，请根据通知的异常自查列表第8点处理-->
         <activity
-            android:name="com.tencent.android.tpush.XGPushActivity"
+            android:name="com.tencent.android.tpush.XGPushActivity"  
+            android:theme="@android:style/Theme.Translucent" 
             android:exported="false" >
             <intent-filter>
                 <!-- 若使用AndroidStudio，请设置android:name="android.intent.action"-->

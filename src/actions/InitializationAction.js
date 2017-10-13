@@ -29,11 +29,11 @@ export const getAppLastVersion = (param) => async (dispatch) => {
 
 //验证localStorage中的token，请求更换token,请求更新userInformation
 export const validateToken = () => (dispatch) => {
-     //console.log(localStorage)
+    //console.log(localStorage)
     localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
         if (localStorageErr) {
             if (localStorageErr.name == 'NotFoundError') {
-             //   console.log('NotFoundError')
+                //   console.log('NotFoundError')
                 //跳转到登录页面
                 dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: {} })
             }
@@ -44,7 +44,7 @@ export const validateToken = () => (dispatch) => {
             }
         }
         else {
-            console.log('localStorageRes',localStorageRes)
+            //console.log('localStorageRes', localStorageRes)
             if (localStorageRes.token && localStorageRes.userId) {
                 //判断userId与token是否为空，如果都不为空,请求更换token 
                 httpRequest
@@ -61,7 +61,8 @@ export const validateToken = () => (dispatch) => {
                                     token: changeTokenRes.result.accessToken,
                                     userType: changeTokenRes.result.type,
                                     userStatus: changeTokenRes.result.userStatus,
-                                    mobile:changeTokenRes.result.phone,
+                                    mobile: changeTokenRes.result.phone,
+                                    deviceToken: localStorageRes.deviceToken
                                 })
                                 requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
                                 requestHeaders.set('user-type', changeTokenRes.result.type)
@@ -73,7 +74,8 @@ export const validateToken = () => (dispatch) => {
                                             token: changeTokenRes.result.accessToken,
                                             userType: changeTokenRes.result.type,
                                             userStatus: changeTokenRes.result.userStatus,
-                                            mobile: changeTokenRes.result.phone
+                                            mobile: changeTokenRes.result.phone,
+                                            deviceToken: localStorageRes.deviceToken
                                         }
                                     }
                                 })
