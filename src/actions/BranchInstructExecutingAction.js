@@ -5,11 +5,8 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
     const url = `${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`
-    console.log('url', url)
     try {
         let res = await httpRequest.get(url)
-        console.log('res', res)
-
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_SUCCESS, payload: { data: res.result } })
         } else {
@@ -26,11 +23,8 @@ export const setGetRouteLoadTaskListWaiting = (param) => (dispatch) => {
 
 export const changeCarExceptionRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
-    //Json传carId
-    console.log('url', url)
     try {
         let res = await httpRequest.post(url, param.postParam)
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarExceptionRel_SUCCESS, payload: { data: res.result } })
         } else {
@@ -51,10 +45,8 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
-    console.log('url', url)
     try {
         let res = await httpRequest.put(url, param.putParam)
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
         } else {
@@ -75,11 +67,8 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}`
-    //Json传truckId
-    console.log('url', url)
     try {
         let res = await httpRequest.put(url, param.putParam)
-        console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })
         } else {
