@@ -29,6 +29,7 @@ export const getAppLastVersion = (param) => async (dispatch) => {
 
 //验证localStorage中的token，请求更换token,请求更新userInformation
 export const validateToken = () => (dispatch) => {
+    //localStorage.removeKey(localStorageKey.USER)
     //console.log(localStorage)
     localStorage.loadKey(localStorageKey.USER, (localStorageErr, localStorageRes) => {
         if (localStorageErr) {
@@ -55,31 +56,44 @@ export const validateToken = () => (dispatch) => {
                         }
                         else {
                             if (changeTokenRes.success) {
-                                //判断请求是否成功，如果成功，更新token
-                                localStorage.saveKey(localStorageKey.USER, {
-                                    userId: changeTokenRes.result.userId,
-                                    token: changeTokenRes.result.accessToken,
-                                    userType: changeTokenRes.result.type,
-                                    userStatus: changeTokenRes.result.userStatus,
-                                    mobile: changeTokenRes.result.phone,
-                                    deviceToken: localStorageRes.deviceToken
-                                })
-                                requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
-                                requestHeaders.set('user-type', changeTokenRes.result.type)
-                                requestHeaders.set('user-name', changeTokenRes.result.phone)
-                                dispatch({
-                                    type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
-                                        data: {
-                                            userId: changeTokenRes.result.userId,
-                                            token: changeTokenRes.result.accessToken,
-                                            userType: changeTokenRes.result.type,
-                                            userStatus: changeTokenRes.result.userStatus,
-                                            mobile: changeTokenRes.result.phone,
-                                            deviceToken: localStorageRes.deviceToken
+                                //console.log(`${base_host}/user/${changeTokenRes.result.userId}`)
+                                httpRequest.getCallBack(`${base_host}/user/${changeTokenRes.result.userId}`, (userErr, userRes) => {
+                                    if (userErr) {
+                                        dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: { data: '无法获取司机ID！' } })
+                                    } else {
+                                        if (userRes.success) {
+                                            //判断请求是否成功，如果成功，更新token
+                                            localStorage.saveKey(localStorageKey.USER, {
+                                                userId: changeTokenRes.result.userId,
+                                                token: changeTokenRes.result.accessToken,
+                                                userType: changeTokenRes.result.type,
+                                                userStatus: changeTokenRes.result.userStatus,
+                                                mobile: changeTokenRes.result.phone,
+                                                deviceToken: localStorageRes.deviceToken,
+                                                driverId: userRes.result[0].drive_id
+                                            })
+                                            requestHeaders.set('auth-token', changeTokenRes.result.accessToken)
+                                            requestHeaders.set('user-type', changeTokenRes.result.type)
+                                            requestHeaders.set('user-name', changeTokenRes.result.phone)
+                                            dispatch({
+                                                type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: {
+                                                    data: {
+                                                        userId: changeTokenRes.result.userId,
+                                                        token: changeTokenRes.result.accessToken,
+                                                        userType: changeTokenRes.result.type,
+                                                        userStatus: changeTokenRes.result.userStatus,
+                                                        mobile: changeTokenRes.result.phone,
+                                                        deviceToken: localStorageRes.deviceToken,
+                                                        driverId: userRes.result[0].drive_id
+                                                    }
+                                                }
+                                            })
+                                            dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
+                                        } else {
+                                            dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_FAILED, payload: { data: '无法获取司机ID！' } })
                                         }
                                     }
                                 })
-                                dispatch({ type: actionTypes.initializationTypes.VALIDATE_TOKEN_SUCCESS, payload: {} })
                             }
                             else {
                                 //判断请求是否成功，如果失败，跳转到登录页

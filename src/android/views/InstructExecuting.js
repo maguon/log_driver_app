@@ -124,13 +124,13 @@ class InstructExecuting extends Component {
     getStepIndicatorCurrent(index) {
         if (index <= 1) {
             return 0
-        }else if(index <= 2){
+        } else if (index <= 2) {
             return 1
-        }else if(index <= 3){
+        } else if (index <= 3) {
             return 2
-        }else if(index <= 4){
+        } else if (index <= 4) {
             return 3
-        }else if(index <= 9){
+        } else if (index <= 9) {
             return 4
         }
     }

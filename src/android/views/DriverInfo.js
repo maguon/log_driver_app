@@ -27,42 +27,37 @@ class DriverInfo extends Component {
         this.renderDriverPhoto = this.renderDriverPhoto.bind(this)
         this.renderDriverRecord = this.renderDriverRecord.bind(this)
         this.onPressSegment = this.onPressSegment.bind(this)
-
-    }
-
-    static defaultProps = {
-        initParam: {
-            driverId: 125
-        }
     }
 
     componentDidMount() {
+        const { user } = this.props.userReducer
         this.props.setGetDriverInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({
             OptionalParam: {
-                driveId: this.props.initParam.driverId
+                driveId: user.driverId
             }
         }))
     }
 
     onPressSegment(index) {
+        const { user } = this.props.userReducer
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetDriverInfoWaiting()
                 this.setState({ active: 0 })
-                InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({ OptionalParam: { driveId: this.props.initParam.driverId } }))
+                InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({ OptionalParam: { driveId: user.driverId } }))
             }
             if (index == 1) {
                 this.props.setGetDriverImageWaiting()
                 this.setState({ active: 1 })
                 InteractionManager.runAfterInteractions(() => this.props.getDriverImage({
-                    OptionalParam: { driveId: this.props.initParam.driverId }
+                    OptionalParam: { driveId: user.driverId }
                 }))
             }
             if (index == 2) {
                 this.props.setGetDriverRecordWaiting()
                 this.setState({ active: 2 })
-                InteractionManager.runAfterInteractions(() => this.props.getDriverRecord({ requiredParam: { userId: this.props.userReducer.user.userId, driverId: this.props.initParam.driverId } }))
+                InteractionManager.runAfterInteractions(() => this.props.getDriverRecord({ requiredParam: { userId: user.userId, driverId: user.driverId } }))
             }
         }
     }
@@ -205,6 +200,7 @@ class DriverInfo extends Component {
 
     render() {
         console.log(this.props.driverInfoReducer)
+        console.log(this.props.userReducer)
         return (<View style={{ flex: 1 }}>
             <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
                 <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>

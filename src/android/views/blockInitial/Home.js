@@ -144,7 +144,8 @@ class Home extends Component {
 
     render() {
         const { taskList, mileageInfo } = this.props.homeReducer.data
-        console.log('this.props.homeReducer.data', this.props.homeReducer.data)
+        // console.log('this.props.homeReducer.data', this.props.homeReducer.data)
+        // console.log('this.props.userReducer', this.props.userReducer)
         const { getHomeMileageInfo } = this.props.homeReducer
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (

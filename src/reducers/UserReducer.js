@@ -28,7 +28,7 @@ const initialState = {
 export default handleActions({
     [actionTypes.loginTypes.LOGIN_SUCCESS]: (state, action) => {
         const { payload: { data } } = action
-        console.log(data)
+        //console.log(data)
         return {
             ...state,
             isResultStatus: 0,
@@ -38,7 +38,7 @@ export default handleActions({
     },
     [actionTypes.loginTypes.LOGIN_FAILED]: (state, action) => {
         const { payload: { data } } = action
-         console.log(data)
+        //console.log(data)
         return {
             ...state,
             isResultStatus: 2,
