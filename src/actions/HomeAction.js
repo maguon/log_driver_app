@@ -4,24 +4,32 @@ import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getMileageInfo = (param) => async (dispatch) => {
-    const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
     try {
-        let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        if (res[0].success && res[1].success) {
-            dispatch({
-                type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
-                    data: {
-                        mileageInfo: res[0].result.length > 0 ? res[0].result[0] : {
-                            load_distance: null,
-                            no_load_distance: null,
-                            distanceCount: null
-                        },
-                        taskList: res[1].result
+        const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
+        const getDriverRes = await httpRequest.get(getDriverUrl)
+        if (getDriverRes.success) {
+            param.mileageInfoParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
+            param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
+            const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
+            const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+            if (res[0].success && res[1].success) {
+                dispatch({
+                    type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
+                        data: {
+                            mileageInfo: res[0].result.length > 0 ? res[0].result[0] : {
+                                load_distance: null,
+                                no_load_distance: null,
+                                distanceCount: null
+                            },
+                            taskList: res[1].result
+                        }
                     }
-                }
-            })
+                })
+            } else {
+                dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+            }
         } else {
-            dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+            dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getDriverRes.msg } })
         }
     } catch (err) {
         dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_ERROR, payload: { data: err } })

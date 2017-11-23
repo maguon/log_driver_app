@@ -86,11 +86,12 @@ export default class App extends Component {
                         tabs={true}
                         type={ActionConst.RESET}
                         selector={(props) => {
-                            if (props.LoginReducer.user.mobile
-                                && props.LoginReducer.user.token
-                                && props.LoginReducer.user.userId
-                                && props.LoginReducer.user.userStatus
-                                && props.LoginReducer.user.userType) {
+                            const { user } = props.LoginReducer.data
+                            if (user.mobile
+                                && user.token
+                                && user.userId
+                                && user.userStatus
+                                && user.userType) {
                                 return 'main'
                             } else {
                                 return 'login'

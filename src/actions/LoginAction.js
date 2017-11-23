@@ -6,60 +6,57 @@ import { base_host } from '../config/Host'
 import requestHeaders from '../util/RequestHeaders'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const login = (params) => (dispatch) => {
-    
-    httpRequest.postCallBack(`${base_host}/mobileUserLogin?${ObjectToUrl(params.OptionalParam)}`, params.postParam, (err, res) => {
-        if (err) {
-            //登录失败重新登录
-            //console.log(err)
-            dispatch({ type: actionTypes.loginTypes.LOGIN_ERROR, payload: { data: err } })
-        } else {
-           // console.log(res)
-            if (res.success) {
-                //console.log('success', res)
-                //判断请求是否成功，如果成功，更新token
-                if (res.result.type == 10) {
-                    httpRequest.getCallBack(`${base_host}/user/${res.result.userId}`,(userErr,userRes)=>{
-                        if(userErr){
-                            dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: { data: '无法获取司机ID！' } })
-                        }else{
-                            if(userRes.success){
-                                let user = {
-                                    userId: res.result.userId,
-                                    token: res.result.accessToken,
-                                    userType: res.result.type,
-                                    userStatus: res.result.userStatus,
-                                    mobile: res.result.phone,
-                                    deviceToken: params.OptionalParam.deviceToken,
-                                    driverId:userRes.result[0].drive_id
-                                }
-                                requestHeaders.set('auth-token', res.result.accessToken)
-                                requestHeaders.set('user-type', res.result.type)
-                                requestHeaders.set('user-name', res.result.phone)
-                                localStorage.saveKey(localStorageKey.USER, user)
-                                dispatch({ type: actionTypes.loginTypes.LOGIN_SUCCESS, payload: { data: user } })
-                            }else{
-                                dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: { data: '无法获取司机ID！' } })
-                            }
-                        }
-                    })
+
+//登录
+export const login = (param, tryCount = 1, currentStep = 1) => async (dispatch) => {
+    try {
+        const url = `${base_host}/mobileUserLogin?${ObjectToUrl(param.OptionalParam)}`
+        const res = await httpRequest.post(url, param.postParam)
+        if (res.success) {
+            //判断请求是否成功，如果成功，更新token
+            if (res.result.type == 10) {
+
+                const user = {
+                    userId: res.result.userId,
+                    token: res.result.accessToken,
+                    userType: res.result.type,
+                    userStatus: res.result.userStatus,
+                    mobile: res.result.phone
                 }
-                else {
-                    dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: { data: '身份错误！' } })
-                }
-            } else {
-                //登录失败重新登录
-                //console.log(err)
-                dispatch({ type: actionTypes.loginTypes.LOGIN_FAILED, payload: { data: res.msg } })
+                requestHeaders.set('auth-token', res.result.accessToken)
+                requestHeaders.set('user-type', res.result.type)
+                requestHeaders.set('user-name', res.result.phone)
+                localStorage.save({
+                    key: localStorageKey.USER,
+                    data: user
+                })
+                dispatch({ type: actionTypes.loginTypes.Login_Success, payload: { user, step: currentStep } })
             }
+            else {
+                dispatch({ type: actionTypes.loginTypes.Login_Failed, payload: { failedMsg: '身份错误！', step: currentStep } })
+            }
+        } else {
+            //登录失败重新登录
+            dispatch({ type: actionTypes.loginTypes.Login_Failed, payload: { failedMsg: res.msg, step: currentStep } })
         }
-    })
+    } catch (err) {
+        if (err.message == 'Network request failed') {
+            //尝试20次
+            if (tryCount < 20) {
+                await sleep(1000)
+                initApp(param, tryCount + 1, currentStep)(dispatch)
+            } else {
+                dispatch({ type: actionTypes.loginTypes.Login_NetWorkError, payload: { networkError: err.message, step: currentStep } })
+            }
+        } else {
+            dispatch({ type: actionTypes.loginTypes.Login_Error, payload: { errorMsg: err.message, step: currentStep } })
+        }
+    }
 }
 
-export const resetLogin = () => (dispatch) => {
-    dispatch({ type: actionTypes.loginTypes.RESET_LOGIN, payload: {} })
+export const loginFlowWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.loginTypes.LoginFlow_Waiting, payload: {} })
 }
-
 
 export const cleanLogin = () => (dispatch) => {
     dispatch({ type: actionTypes.loginTypes.CLEAN_LOGIN, payload: {} })

@@ -2,23 +2,36 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as InitializationAction from '../../actions/InitializationAction'
 import { Actions } from 'react-native-router-flux'
-import InitializationLayout from '../components/Initialization'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
-import { Linking, ToastAndroid,Platform } from 'react-native'
+import {
+    Linking,
+    ToastAndroid,
+    Platform,
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    Image,
+    StatusBar
+} from 'react-native'
 import XGPush from 'react-native-xinge-push';
+import { Button } from 'native-base'
 
+const window = Dimensions.get('window')
+const ImageWidth = window.width
+const ImageHeight = window.width / 9 * 16
 class Initialization extends Component {
     constructor(props) {
         super(props)
         this.linkDownload = this.linkDownload.bind(this)
         this.validateToken = this.validateToken.bind(this)
         this.getAppLastVersion = this.getAppLastVersion.bind(this)
-        this._getInitialNotification=this._getInitialNotification.bind(this)
+        this._getInitialNotification = this._getInitialNotification.bind(this)
         this.initPush()
     }
 
-     async initPush() {
+    async initPush() {
         let accessId;
         let accessKey;
         if (Platform.OS === 'ios') {
@@ -42,58 +55,58 @@ class Initialization extends Component {
             });
     }
 
-     componentDidMount() {
-         // localStorage.removeKey(localStorageKey.USER)
-         XGPush.addEventListener('message', this._onMessage);
-         XGPush.addEventListener('notification', this._onNotification);
+    componentDidMount() {
+        // localStorage.removeKey(localStorageKey.USER)
+        XGPush.addEventListener('message', this._onMessage);
+        XGPush.addEventListener('notification', this._onNotification);
         this.getAppLastVersion()
-     
+
     }
 
-      /**
-   * 透传消息到达
-   * @param message
-   * @private
-   */
-  _onMessage(message) {
-    console.log('收到透传消息: ' + message.content);
-   // alert('收到透传消息: ' + message.content);
-  }
-  
-  /**
-   * 通知到达
-   * @param notification
-   * @private
-   */
-  _onNotification(notification) {
-    if(notification.clicked === true) {
-      console.log('app处于后台时收到通知' + JSON.stringify(notification));
-      alert('app处于后台时收到通知' + JSON.stringify(notification));
-    } else {
-      console.log('app处于前台时收到通知' + JSON.stringify(notification));
-      alert('app处于前台时收到通知' + JSON.stringify(notification));
+    /**
+ * 透传消息到达
+ * @param message
+ * @private
+ */
+    _onMessage(message) {
+        console.log('收到透传消息: ' + message.content);
+        // alert('收到透传消息: ' + message.content);
     }
-  }
+
+    /**
+     * 通知到达
+     * @param notification
+     * @private
+     */
+    _onNotification(notification) {
+        if (notification.clicked === true) {
+            console.log('app处于后台时收到通知' + JSON.stringify(notification));
+            alert('app处于后台时收到通知' + JSON.stringify(notification));
+        } else {
+            console.log('app处于前台时收到通知' + JSON.stringify(notification));
+            alert('app处于前台时收到通知' + JSON.stringify(notification));
+        }
+    }
 
 
     /**
    * 获取初始通知（点击通知后）
    * @private
    */
-  _getInitialNotification() {
-    XGPush.getInitialNotification().then((result) => {
-      alert(JSON.stringify(result));
-    });
-  }
-  
+    _getInitialNotification() {
+        XGPush.getInitialNotification().then((result) => {
+            alert(JSON.stringify(result));
+        });
+    }
+
 
     getAppLastVersion() {
-        this.props.getAppLastVersion({
+        this.props.initApp({
             optionalParam: {
-                app: 2,
+                app: 4,
                 type: 1
             }
-        })
+        }, 1, 1)
     }
 
     validateToken() {
@@ -111,73 +124,77 @@ class Initialization extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let { InitializationReducer } = nextProps
-
-        if (InitializationReducer.valdateToken.isExecStatus == 1) {
-            // console.log('welcome.valdateToken', '开始执行')
-        } else if (InitializationReducer.valdateToken.isExecStatus == 2) {
-            if (InitializationReducer.valdateToken.isResultStatus == 0) {
-                this.props.resetInitialization()
+        const { initAPP, loadLocalStorage, validateToken, validateVersion, getDriverId } = nextProps.InitializationReducer
+        if (initAPP.step == 1) {
+            if (validateVersion.isResultStatus == 3) {
+                ToastAndroid.showWithGravity(`${validateVersion.errorMsg}`, ToastAndroid.SHORT, ToastAndroid.CENTER)
+            } else if (validateVersion.isResultStatus == 4) {
                 Actions.mainRoot()
-                console.log('welcome.valdateToken 执行成功', InitializationReducer.getVersion.data)
-            } else if (InitializationReducer.valdateToken.isResultStatus == 1) {
-                //console.log('welcome.valdateToken 执行错误', InitializationReducer.getVersion.errorMsg)
+            } else if (validateVersion.isResultStatus == 5) {
+                ToastAndroid.showWithGravity(`${validateVersion.networkError}`, ToastAndroid.SHORT, ToastAndroid.CENTER)
             }
-            else if (InitializationReducer.valdateToken.isResultStatus == 2) {
-                console.log('welcome.valdateToken 执行失败', InitializationReducer.getVersion.failedMsg)
-                this.props.resetInitialization()
+        } else if (initAPP.step == 2) {
+            if (loadLocalStorage.isResultStatus == 3 || loadLocalStorage.isResultStatus == 4 || loadLocalStorage.isResultStatus == 5) {
                 Actions.mainRoot()
             }
-        }
-
-        if (InitializationReducer.getVersion.isExecStatus == 1) {
-            //  console.log('welcome.getVersion', '开始执行')
-        } else if (InitializationReducer.getVersion.isExecStatus == 2) {
-            if (InitializationReducer.getVersion.isResultStatus == 0) {
-                console.log('welcome.getVersion执行成功', InitializationReducer.getVersion.data)
-                let versionArr = InitializationReducer.getVersion.data.version.split('.')
-                let lastVersionArr = InitializationReducer.getVersion.data.lastVersion.split('.')
-                if (!((versionArr[0] < lastVersionArr[0] || versionArr[1] < lastVersionArr[1] || versionArr[2] < lastVersionArr[2]) && InitializationReducer.getVersion.data.force_update == 1)) {
-                    this.props.validateToken()
-                    this.props.resetGetVersion()
-                }
-            } else if (InitializationReducer.getVersion.isResultStatus == 1) {
-                //  console.log('welcome.getVersion执行错误', InitializationReducer.getVersion.errorMsg)
-                ToastAndroid.showWithGravity('获取版本信息失败，请检测网络', ToastAndroid.SHORT, ToastAndroid.CENTER)
-            }
-            else if (InitializationReducer.getVersion.isResultStatus == 2) {
-                //  console.log('welcome.getVersion执行失败', InitializationReducer.getVersion.failedMsg)
-                ToastAndroid.showWithGravity('获取版本信息失败，请检测网络', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        } else if (initAPP.step == 3) {
+            if (validateToken.isResultStatus == 2 || validateToken.isResultStatus == 3 || validateToken.isResultStatus == 4) {
+                Actions.mainRoot()
+            } else if (validateToken.isResultStatus == 5) {
+                ToastAndroid.showWithGravity(`${validateToken.networkError}`, ToastAndroid.SHORT, ToastAndroid.CENTER)
             }
         }
-
-
     }
 
     render() {
-        console.log(this.props.InitializationReducer)
-        const { version, lastVersion, force_update, url } = this.props.InitializationReducer.getVersion.data
-        const { isExecStatus, isResultStatus } = this.props.InitializationReducer.getVersion
+        const { data, initAPP, loadLocalStorage, validateToken, validateVersion } = this.props.InitializationReducer
         return (
-            <InitializationLayout
-                version={version}
-                lastVersion={lastVersion}
-                force_update={force_update}
-                url={url}
-                isExecStatus={isExecStatus}
-                isResultStatus={isResultStatus}
-                linkDownload={this.linkDownload}
-                validateToken={this.validateToken}
-                getAppLastVersion={this.getAppLastVersion}
-            />
+            <View style={styles.container}>
+                <StatusBar hidden={true} />
+                <Image source={{ uri: 'init_back' }}
+                    style={styles.image}
+                />
+                {(validateVersion.isResultStatus == 3 || validateToken.isResultStatus == 3) && <Button block onPress={() => { }}
+                    style={{ position: 'absolute', bottom: 50, width: window.width / 4 * 3, backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 25 }}>
+                    <Text style={styles.buttonTiltle}>联系管理员</Text>
+                </Button>}
+                {(validateVersion.isResultStatus == 5 || validateToken.isResultStatus == 5) && <Button block onPress={() => this.initApp()}
+                    style={{ position: 'absolute', bottom: 50, width: window.width / 4 * 3, backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 25 }}>
+                    <Text style={styles.buttonTiltle}>重试</Text>
+                </Button>}
+
+                {initAPP.isResultStatus == 2 && data.version.force_update == 1 && <Button block
+                    onPress={() => this.linkDownload(data.version.url)}
+                    style={{ position: 'absolute', bottom: 50, width: window.width / 4 * 3, backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 25 }}>
+                    <Text style={styles.buttonTiltle}>立即更新</Text>
+                </Button>}
+            </View>
         )
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    image: {
+        width: ImageWidth,
+        height: ImageHeight
+    },
+    buttonTiltle: {
+        fontSize: 18,
+        color: '#0078a7'
+    }
+})
+
 
 const mapStateToProps = (state) => {
     return {
-        InitializationReducer: state.initializationReducer
+        InitializationReducer: state.initializationReducer,
+        userReducer: state.userReducer
     }
 }
 
@@ -193,7 +210,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetGetVersion: () => {
         dispatch(InitializationAction.resetGetVersion())
-    }
+    },
+    initApp: (param, tryCount = 1, currentStep = 1) => {
+        dispatch(InitializationAction.initApp(param, tryCount, currentStep))
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Initialization)

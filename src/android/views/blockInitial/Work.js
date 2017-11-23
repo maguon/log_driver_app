@@ -40,6 +40,7 @@ class Work extends Component {
     }
 
     onSearch() {
+        const {user} =this.props.userReducer.data
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -47,7 +48,7 @@ class Work extends Component {
                     taskStatus: 9,
                     loadDistance: 5,
                     noLoadDistance: 5,
-                    driveId: this.props.userReducer.user.driverId,
+                    // driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
                 }
@@ -55,9 +56,14 @@ class Work extends Component {
             taskListParam: {
                 OptionalParam: {
                     taskStatus: 9,
-                    driveId: this.props.userReducer.user.driverId,
+                    //driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
+                }
+            },
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
                 }
             }
         }))
@@ -97,6 +103,7 @@ class Work extends Component {
 
 
     componentDidMount() {
+        const {user} =this.props.userReducer.data
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -104,7 +111,7 @@ class Work extends Component {
                     taskStatus: 9,
                     loadDistance: 5,
                     noLoadDistance: 5,
-                    driveId: this.props.userReducer.user.driverId,
+                    //driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
                 }
@@ -112,9 +119,14 @@ class Work extends Component {
             taskListParam: {
                 OptionalParam: {
                     taskStatus: 9,
-                    driveId: this.props.userReducer.user.driverId,
+                    //driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
+                }
+            },
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
                 }
             }
         }))

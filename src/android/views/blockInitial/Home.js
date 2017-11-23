@@ -26,13 +26,13 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.setGetMileageInfoWaiting()
+        const {user} =this.props.userReducer.data
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
                     taskStatus: 9,
                     loadDistance: 5,
                     noLoadDistance: 5,
-                    driveId: this.props.userReducer.user.driverId,
                     dateIdStart: moment().format('YYYY-MM-01'),
                     dateIdEnd: moment().format('YYYY-MM-DD')
                 }
@@ -40,9 +40,13 @@ class Home extends Component {
             taskListParam: {
                 OptionalParam: {
                     taskStatusArr: '1,2,3,4,9',
-                    driveId: this.props.userReducer.user.driverId,
                     dateIdStart: moment().format('YYYY-MM-01'),
                     dateIdEnd: moment().format('YYYY-MM-DD')
+                }
+            },
+            getDriverId: {
+                requiredParam: {
+                userId: user.userId
                 }
             }
         }))
@@ -144,9 +148,8 @@ class Home extends Component {
 
     render() {
         const { taskList, mileageInfo } = this.props.homeReducer.data
-        // console.log('this.props.homeReducer.data', this.props.homeReducer.data)
-        // console.log('this.props.userReducer', this.props.userReducer)
         const { getHomeMileageInfo } = this.props.homeReducer
+      //  console.log(this.props.userReducer)
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

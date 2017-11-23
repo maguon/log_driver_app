@@ -1,5 +1,5 @@
 const localStorageKey = {
-    USER: 'user'
+    USER: 'log-driver-app-user'
     // WELCOME_FLAG: 'welcome',
     // WELCOME_FLAG_SHOWN: 1,
     // WELCOME_FLAG_SHOWN_NOT: 0,
