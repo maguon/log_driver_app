@@ -26,7 +26,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.setGetMileageInfoWaiting()
-        const {user} =this.props.userReducer.data
+        const { user } = this.props.userReducer.data
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
@@ -46,7 +46,7 @@ class Home extends Component {
             },
             getDriverId: {
                 requiredParam: {
-                userId: user.userId
+                    userId: user.userId
                 }
             }
         }))
@@ -58,7 +58,7 @@ class Home extends Component {
 
 
     renderTaskItem(item, key) {
-       // console.log(item)
+        // console.log(item)
         return <TouchableNativeFeedback key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
@@ -149,7 +149,7 @@ class Home extends Component {
     render() {
         const { taskList, mileageInfo } = this.props.homeReducer.data
         const { getHomeMileageInfo } = this.props.homeReducer
-      //  console.log(this.props.userReducer)
+        //  console.log(this.props.userReducer)
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

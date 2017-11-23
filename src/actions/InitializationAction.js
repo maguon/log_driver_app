@@ -138,7 +138,7 @@ export const validateToken = (param, tryCount = 1, currentStep = 3) => async (di
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/token/${param.requiredParam.token}`
         const res = await httpRequest.get(url)
-        console.log('res', res)
+       // console.log('res', res)
         if (res.success) {
             //判断请求是否成功，如果成功，更新token
             localStorage.save({

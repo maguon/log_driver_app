@@ -42,38 +42,63 @@ class TruckInfo extends Component {
     }
 
     onPressSegment(index) {
+        const { user } = this.props.userReducer.data
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetTruckInfoWaiting()
                 this.setState({ active: 0 })
-                InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({ OptionalParam: { truckId: this.props.initParam.truckId } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
             if (index == 1) {
                 this.props.setGetTruckImageWaiting()
                 this.setState({ active: 1 })
                 InteractionManager.runAfterInteractions(() => this.props.getTruckImage({
-                    OptionalParam: { truckId: this.props.initParam.truckId },
-                    requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.truckName }
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
                 }))
             }
             if (index == 2) {
                 this.props.setGetTruckInsuranceWaiting()
                 this.setState({ active: 2 })
-                InteractionManager.runAfterInteractions(() => this.props.getTruckInsurance({ OptionalParam: { truckId: this.props.initParam.truckId, active: 1 } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTruckInsurance({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
             if (index == 3) {
                 this.props.setGetTruckRepairWaiting()
                 this.setState({ active: 3 })
-                InteractionManager.runAfterInteractions(() => this.props.getTruckRepairList({ OptionalParam: { truckId: this.props.initParam.truckId } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTruckRepairList({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
         }
     }
 
     componentDidMount() {
+        const { user } = this.props.userReducer.data
         this.props.setGetTruckInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getTruckInfo({
-            OptionalParam: {
-                truckId: this.props.initParam.truckId
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
+                }
             }
         }))
     }
@@ -88,6 +113,12 @@ class TruckInfo extends Component {
                         style={{ height: 80 }}
                         size="large"
                     />
+                </View>
+            )
+        } else if (getTruckInfo.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
                 </View>
             )
         } else {
@@ -172,6 +203,12 @@ class TruckInfo extends Component {
                     />
                 </View>
             )
+        } else if (getTruckImage.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
         } else {
             const { truckInfo, truckImageList } = this.props.truckInfoReducer.data
             let imageHead = (
@@ -213,6 +250,12 @@ class TruckInfo extends Component {
                     />
                 </View>
             )
+        } else if (getTruckInsurance.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
         } else {
             const { truckInsuranceList } = this.props.truckInfoReducer.data
             return (
@@ -240,6 +283,12 @@ class TruckInfo extends Component {
                     />
                 </View>
             )
+        } else if (getTruckRepair.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
         } else {
             return (
                 <View style={{ flex: 1 }} >
@@ -247,7 +296,7 @@ class TruckInfo extends Component {
                         showsVerticalScrollIndicator={false}
                         data={this.props.truckInfoReducer.data.truckRepairList}
                         renderItem={({ item, index }) => <RepairRecordListItem key={index} repairItem={item} />}
-                    /> 
+                    />
                 </View>
             )
         }
@@ -293,12 +342,6 @@ const mapDispatchToProps = (dispatch) => ({
     setGetTruckInfoWaiting: () => {
         dispatch(truckInfoAction.setGetTruckInfoWaiting())
     },
-    // getTruckRecord: (param) => {
-    //     dispatch(truckInfoAction.getTruckRecord(param))
-    // },
-    // setGetTruckRecordWaiting: () => {
-    //     dispatch(truckInfoAction.setGetTruckRecordWaiting())
-    // },
     getTruckRepairList: (param) => {
         dispatch(truckInfoAction.getTruckRepairList(param))
     },

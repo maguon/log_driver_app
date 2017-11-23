@@ -41,7 +41,7 @@ const initialState = {
     }
 }
 
-//isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)] 
+//isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误),6(未绑定)] 
 export default handleActions({
     [(actionTypes.truckInfoTypes.GET_TruckInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -68,6 +68,18 @@ export default handleActions({
             }
         }
     },
+    [(actionTypes.truckInfoTypes.GET_TruckInfo_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTruckInfo: {
+                ...state.getTruckInfo,
+                isResultStatus: 6
+            }
+        }
+    },
+
+
+
     [(actionTypes.truckInfoTypes.GET_TruckInfo_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -125,6 +137,15 @@ export default handleActions({
             }
         }
     },
+    [(actionTypes.truckInfoTypes.GET_TruckInsurance_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTruckInsurance: {
+                ...state.getTruckInsurance,
+                isResultStatus: 6
+            }
+        }
+    },
     [(actionTypes.truckInfoTypes.GET_TruckInsurance_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -157,63 +178,6 @@ export default handleActions({
         }
     },
 
-    // [(actionTypes.truckInfoTypes.GET_TruckRecord_SUCCESS)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         data: {
-    //             ...state.data,
-    //             truckRecordList: data
-    //         },
-    //         getTruckRecord: {
-    //             ...state.getTruckRecord,
-    //             isResultStatus: 2
-    //         }
-    //     }
-    // },
-    // [(actionTypes.truckInfoTypes.GET_TruckRecord_FAILED)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTruckRecord: {
-    //             ...state.getTruckRecord,
-    //             isResultStatus: 4,
-    //             failedMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.truckInfoTypes.GET_TruckRecord_SERVICEERROR)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTruckRecord: {
-    //             ...state.getTruckRecord,
-    //             isResultStatus: 5,
-    //             serviceFailedMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.truckInfoTypes.GET_TruckRecord_ERROR)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTruckRecord: {
-    //             ...state.getTruckRecord,
-    //             isResultStatus: 3,
-    //             errorMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.truckInfoTypes.GET_TruckRecord_WAITING)]: (state, action) => {
-    //     return {
-    //         ...initialState,
-    //         getTruckRecord: {
-    //             ...initialState.getTruckRecord,
-    //             isResultStatus: 1
-    //         }
-    //     }
-    // },
-
     [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -236,6 +200,15 @@ export default handleActions({
                 ...state.getTruckRepair,
                 isResultStatus: 4,
                 failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckRepairRelList_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTruckRepair: {
+                ...state.getTruckRepair,
+                isResultStatus: 6
             }
         }
     },
@@ -294,6 +267,15 @@ export default handleActions({
                 ...state.getTruckImage,
                 isResultStatus: 4,
                 failedMsg: data
+            }
+        }
+    },
+    [(actionTypes.truckInfoTypes.GET_TruckImage_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTruckImage: {
+                ...state.getTruckImage,
+                isResultStatus: 6
             }
         }
     },
