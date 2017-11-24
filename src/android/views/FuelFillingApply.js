@@ -77,6 +77,7 @@ class FuelFillingApply extends Component {
     }
 
     onCreateRefuel() {
+        const {user} =this.props.userReducer.data
         let param = { ...this.state.fuelFillingInfo }
         for (key in param) {
             if (!param[key]) {
@@ -85,18 +86,19 @@ class FuelFillingApply extends Component {
         }
         param.refuelDate = `${param.refuelDate} ${param.refuelTime}`
         this.props.createFuelFillingApply({
-            requiredParam: { userId: this.props.userReducer.user.userId },
+            requiredParam: { userId: user.userId },
             postParam: {
-                ...param,
-                driveId: this.props.userReducer.user.driverId,
-                truckId: this.props.userReducer.user.truckId,
+                ...param
             }
         })
     }
 
     onPressPosition() {
+
         let listener = AMapLocation.addEventListener((data) => {
             this.setState((prevState, props) => {
+                console.log('prevState',prevState)
+                console.log('data',data)
                 return ({
                     fuelFillingInfo: {
                         ...prevState.fuelFillingInfo,

@@ -54,9 +54,9 @@ export const getTrailerRepairList = (param) => async (dispatch) => {
                 } else {
                     if (getTruckRes.result[0].trail_id) {
                         const url = `${base_host}/truckRepairRel?${ObjectToUrl({ truckId: getTruckRes.result[0].trail_id })}`
-                        console.log('url', url)
+                        //console.log('url', url)
                         const res = await httpRequest.get(url)
-                        console.log('res', res)
+                        //console.log('res', res)
                         if (res.success) {
                             dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_SUCCESS, payload: { data: res.result } })
                         } else {
@@ -94,9 +94,9 @@ export const getTrailerInsurance = (param) => async (dispatch) => {
                 } else {
                     if (getTruckRes.result[0].trail_id) {
                         const url = `${base_host}/truckInsureRel?${ObjectToUrl({ truckId: getTruckRes.result[0].trail_id })}`
-                        console.log('url', url)
+                        //console.log('url', url)
                         const res = await httpRequest.get(url)
-                        console.log('res', res)
+                        //console.log('res', res)
                         if (res.success) {
                             dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerInsurance_SUCCESS, payload: { data: res.result } })
                         } else {
@@ -135,9 +135,9 @@ export const getTrailerImage = (param) => async (dispatch) => {
                     if (getTruckRes.result[0].trail_id) {
                         const urls = [`${base_host}/truckTrailer?${ObjectToUrl({ truckId: getTruckRes.result[0].trail_id})}`, 
                         `${record_host}/user/${param.getDriverId.requiredParam.userId}/truck/${getTruckRes.result[0].trail_id}/record`]
-                        console.log('urls',urls)
+                        //console.log('urls',urls)
                         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-                        console.log('res',res)
+                        //console.log('res',res)
                         if (res[0].success && res[1].success) {
                             dispatch({
                                 type: actionTypes.trailerInfoTypes.GET_TrailerImage_SUCCESS, payload: {

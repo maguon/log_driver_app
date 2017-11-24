@@ -27,7 +27,7 @@ class FuelFillingRecord extends Component {
         this.renderCommon = this.renderCommon.bind(this)
         this._onEndReached = this._onEndReached.bind(this)
         this.renderHeader = this.renderHeader.bind(this)
-        this.renderFooter=this.renderFooter.bind(this)
+        this.renderFooter = this.renderFooter.bind(this)
     }
 
     componentWillMount() {
@@ -35,12 +35,19 @@ class FuelFillingRecord extends Component {
     }
 
     componentDidMount() {
+        const { user } = this.props.userReducer.data
         this.props.setGetFuelFillingRecordWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getFuelFillingRecord({
-            OptionalParam: {
-                driveId: this.props.userReducer.user.driverId,
-                refuelDateStart: this.props.fuelFillingRecordReducer.data.total.refuelDateStart,
-                refuelDateEnd: this.props.fuelFillingRecordReducer.data.total.refuelDateEnd,
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
+                }
+            },
+            getFuelFillingRecord: {
+                OptionalParam: {
+                    refuelDateStart: this.props.fuelFillingRecordReducer.data.total.refuelDateStart,
+                    refuelDateEnd: this.props.fuelFillingRecordReducer.data.total.refuelDateEnd,
+                }
             },
             start: 0,
             size: 12
@@ -50,7 +57,7 @@ class FuelFillingRecord extends Component {
     componentWillReceiveProps(nextProps) {
         const nextPropsTotal = nextProps.fuelFillingRecordReducer.data.total
         const propsTotal = this.props.fuelFillingRecordReducer.data.total
-
+        const { user } = nextProps.userReducer.data
         if (nextPropsTotal.refuelDateStart != propsTotal.refuelDateStart
             || nextPropsTotal.refuelDateEnd != propsTotal.refuelDateEnd
             || nextPropsTotal.refuelAddressType != propsTotal.refuelAddressType
@@ -65,9 +72,15 @@ class FuelFillingRecord extends Component {
             delete param.refuel_volume
             delete param.refuel_money
             InteractionManager.runAfterInteractions(() => this.props.getFuelFillingRecord({
-                OptionalParam: {
-                    driveId: this.props.userReducer.user.driverId,
-                    ...param
+                getDriverId: {
+                    requiredParam: {
+                        userId: user.userId
+                    }
+                },
+                getFuelFillingRecord: {
+                    OptionalParam: {
+                        ...param
+                    }
                 },
                 start: 0,
                 size: 12
@@ -82,10 +95,16 @@ class FuelFillingRecord extends Component {
                     && propsTotal.checkStatus == null) {
                     this.props.setGetFuelFillingRecordWaiting()
                     InteractionManager.runAfterInteractions(() => this.props.getFuelFillingRecord({
-                        OptionalParam: {
-                            driveId: this.props.userReducer.user.driverId,
-                            refuelDateStart: propsTotal.refuelDateStart,
-                            refuelDateEnd: propsTotal.refuelDateEnd
+                        getDriverId: {
+                            requiredParam: {
+                                userId: user.userId
+                            }
+                        },
+                        getFuelFillingRecord: {
+                            OptionalParam: {
+                                refuelDateStart: propsTotal.refuelDateStart,
+                                refuelDateEnd: propsTotal.refuelDateEnd
+                            }
                         },
                         start: 0,
                         size: 12
@@ -100,22 +119,31 @@ class FuelFillingRecord extends Component {
     }
 
     _onEndReached(info) {
-        if (!this.props.fuelFillingRecordReducer.data.isComplete&&this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus != 1) {
+        
+        const { user } = this.props.userReducer.data
+        
+        if (!this.props.fuelFillingRecordReducer.data.isComplete && this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus != 1) {
             const { total } = this.props.fuelFillingRecordReducer.data
             let param = { ...total }
             delete param.refuel_volume
             delete param.refuel_money
             this.props.getFuelFillingRecordMore({
-                OptionalParam: {
-                    driveId: this.props.userReducer.user.driverId,
-                    ...param,
+                getDriverId: {
+                    requiredParam: {
+                        userId: user.userId
+                    }
+                },
+                getFuelFillingRecord: {
+                    OptionalParam: {
+                        ...param
+                    }
                 },
                 start: this.props.fuelFillingRecordReducer.data.fuelFillingRecordList.length,
                 size: 12
             })
         }
 
-        if(this.props.fuelFillingRecordReducer.data.isComplete){
+        if (this.props.fuelFillingRecordReducer.data.isComplete) {
             ToastAndroid.show('全部数据已加载完毕', ToastAndroid.SHORT);
         }
     }
@@ -148,14 +176,14 @@ class FuelFillingRecord extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>--></Text>
+                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
                     <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>-</Text>
+                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
                     <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
                 </View>
             </View>
@@ -190,14 +218,14 @@ class FuelFillingRecord extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>--></Text>
+                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
                     <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>-</Text>
+                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
                     <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -237,14 +265,14 @@ class FuelFillingRecord extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>--></Text>
+                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
                     <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>-</Text>
+                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
                     <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
                 </View>
             </View>
@@ -256,7 +284,7 @@ class FuelFillingRecord extends Component {
             <View>
                 <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
                     <View>
-                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade',justifyContent:'space-around',paddingHorizontal:10 }}>
+                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade', justifyContent: 'space-around', paddingHorizontal: 10 }}>
                             <MaterialCommunityIcons name='gas-station' size={20} color='#fff' />
                             <Text style={{ color: '#fff', paddingLeft: 5 }}>加油申报</Text>
                         </Button>
@@ -264,7 +292,7 @@ class FuelFillingRecord extends Component {
                     <View>
                         <Button small rounded
                             onPress={Actions.fuelFillingSearch}
-                            style={{ backgroundColor: '#fa7377',justifyContent:'space-between' }}>
+                            style={{ backgroundColor: '#fa7377', justifyContent: 'space-between' }}>
                             <Icon name='ios-search' style={{ fontSize: 20 }} />
                             <Text style={{ color: '#fff', paddingRight: 10 }}>搜索</Text>
                         </Button>
@@ -321,10 +349,8 @@ class FuelFillingRecord extends Component {
     }
 
     render() {
-        
-        // console.log('fuelFillingRecordReducer', this.props.fuelFillingRecordReducer)
-        // console.log('this.refs.fuelFillingFlatList.scrollToEnd', this.refs['fuelFillingFlatList'])
         const { getFuelFillingRecord } = this.props.fuelFillingRecordReducer
+        console.log('this.props.fuelFillingRecordReducer',this.props.fuelFillingRecordReducer)
         if (getFuelFillingRecord.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -383,7 +409,7 @@ const mapDispatchToProps = (dispatch) => ({
     getFuelFillingRecordMore: (param) => {
         dispatch(FuelFillingRecordAction.getFuelFillingRecordMore(param))
     },
-    setGetFuelFillingRecordMoreWaiting:()=>{
+    setGetFuelFillingRecordMoreWaiting: () => {
         dispatch(FuelFillingRecordAction.setGetFuelFillingRecordMoreWaiting())
     },
     changeSearchField: (param) => {

@@ -37,7 +37,7 @@ export default handleActions({
         return {
             ...state,
             data: {
-                ...state.data,
+                ...initialState.data,
                 total: {
                     ...state.data.total,
                     ...data.total
