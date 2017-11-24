@@ -5,7 +5,6 @@ const initialState = {
     data: {
         trailerInfo: {},
         trailerImageList: [],
-        // trailerRecordList: [],
         trailerRepairList:[],
         trailerInsuranceList: []
     },
@@ -15,12 +14,6 @@ const initialState = {
         failedMsg: '',
         serviceFailedMsg: ''
     },
-    // getTrailerRecord: {
-    //     isResultStatus: 0,
-    //     errorMsg: '',
-    //     failedMsg: '',
-    //     serviceFailedMsg: ''
-    // },
     getTrailerRepairList: {
         isResultStatus: 0,
         errorMsg: '',
@@ -99,6 +92,15 @@ export default handleActions({
             }
         }
     },
+    [(actionTypes.trailerInfoTypes.GET_TrailerInfo_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTrailerInfo: {
+                ...state.getTrailerInfo,
+                isResultStatus: 6
+            }
+        }
+    },
 
     [(actionTypes.trailerInfoTypes.GET_TrailerInsurance_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -111,6 +113,15 @@ export default handleActions({
             getTrailerInsurance: {
                 ...state.getTrailerInsurance,
                 isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.trailerInfoTypes.GET_TrailerInsurance_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTrailerInsurance: {
+                ...state.getTrailerInsurance,
+                isResultStatus: 6
             }
         }
     },
@@ -157,64 +168,6 @@ export default handleActions({
         }
     },
 
-    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SUCCESS)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         data: {
-    //             ...state.data,
-    //             trailerRecordList: data
-    //         },
-    //         getTrailerRecord: {
-    //             ...state.getTrailerRecord,
-    //             isResultStatus: 2
-    //         }
-    //     }
-    // },
-    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_FAILED)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTrailerRecord: {
-    //             ...state.getTrailerRecord,
-    //             isResultStatus: 4,
-    //             failedMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_SERVICEERROR)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTrailerRecord: {
-    //             ...state.getTrailerRecord,
-    //             isResultStatus: 5,
-    //             serviceFailedMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_ERROR)]: (state, action) => {
-    //     const { payload: { data } } = action
-    //     return {
-    //         ...state,
-    //         getTrailerRecord: {
-    //             ...state.getTrailerRecord,
-    //             isResultStatus: 3,
-    //             errorMsg: data
-    //         }
-    //     }
-    // },
-    // [(actionTypes.trailerInfoTypes.GET_TrailerRecord_WAITING)]: (state, action) => {
-    //     return {
-    //         ...initialState,
-    //         getTrailerRecord: {
-    //             ...initialState.getTrailerRecord,
-    //             isResultStatus: 1
-    //         }
-    //     }
-    // },
-
-
     [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -226,6 +179,15 @@ export default handleActions({
             getTrailerRepairList: {
                 ...state.getTrailerRepairList,
                 isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTrailerRepairList: {
+                ...state.getTrailerRepairList,
+                isResultStatus: 6
             }
         }
     },
@@ -284,6 +246,15 @@ export default handleActions({
             getTrailerImage: {
                 ...state.getTrailerImage,
                 isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.trailerInfoTypes.GET_TrailerImage_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getTrailerImage: {
+                ...state.getTrailerImage,
+                isResultStatus: 6
             }
         }
     },

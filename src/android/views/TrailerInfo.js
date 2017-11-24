@@ -41,38 +41,66 @@ class TrailerInfo extends Component {
     }
 
     componentDidMount() {
+        const { user } = this.props.userReducer.data
         this.props.setGetTrailerInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getTrailerInfo({
-            OptionalParam: {
-                truckId: this.props.initParam.trailerId
+            // OptionalParam: {
+            //     truckId: this.props.initParam.trailerId
+            // },
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
+                }
             }
         }))
     }
 
     onPressSegment(index) {
+        const { user } = this.props.userReducer.data
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetTrailerInfoWaiting()
                 this.setState({ active: 0 })
-                InteractionManager.runAfterInteractions(() => this.props.getTrailerInfo({ OptionalParam: { truckId: this.props.initParam.trailerId } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTrailerInfo({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
             if (index == 1) {
                 this.props.setGetTrailerImageWaiting()
                 this.setState({ active: 1 })
                 InteractionManager.runAfterInteractions(() => this.props.getTrailerImage({
-                    OptionalParam: { truckId: this.props.initParam.trailerId },
-                    requiredParam: { userId: this.props.userReducer.user.userId, truckNum: this.props.initParam.trailerName }
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
                 }))
             }
             if (index == 2) {
                 this.props.setGetTrailerInsuranceWaiting()
                 this.setState({ active: 2 })
-                InteractionManager.runAfterInteractions(() => this.props.getTrailerInsurance({ OptionalParam: { truckId: this.props.initParam.trailerId, active: 1 } }))
+                InteractionManager.runAfterInteractions(() => this.props.getTrailerInsurance({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
             if (index == 3) {
                 this.props.setGetTrailerRepairWaiting()
                 this.setState({ active: 3 })
-                InteractionManager.runAfterInteractions(() => this.props.getTrailerRepairList({ OptionalParam: { truckId : this.props.initParam.trailerId} }))
+                InteractionManager.runAfterInteractions(() => this.props.getTrailerRepairList({
+                    getDriverId: {
+                        requiredParam: {
+                            userId: user.userId
+                        }
+                    }
+                }))
             }
         }
     }
@@ -89,7 +117,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        } else {
+        } else if (getTrailerInfo.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
+        }else {
             const { trailerInfo } = this.props.trailerInfoReducer.data
             return (
                 <View style={{}}>
@@ -156,7 +190,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        } else {
+        }  else if (getTrailerImage.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
+        }else {
             const { trailerInfo, trailerImageList } = this.props.trailerInfoReducer.data
             let imageHead = (
                 <View key={'head'} style={{ flexDirection: 'row' }}>
@@ -197,7 +237,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        } else {
+        }  else if (getTrailerInsurance.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
+        }else {
             const { trailerInsuranceList } = this.props.trailerInfoReducer.data
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1 }}>
@@ -224,7 +270,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        } else {
+        }  else if (getTrailerRepairList.isResultStatus == 6) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>未绑定车头</Text>
+                </View>
+            )
+        }else {
             const { trailerRepairList } = this.props.trailerInfoReducer.data
             return (
                 <View style={{ flex: 1 }}>

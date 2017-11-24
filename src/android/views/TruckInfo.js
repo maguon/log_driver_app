@@ -34,13 +34,6 @@ class TruckInfo extends Component {
         this.onPressSegment = this.onPressSegment.bind(this)
     }
 
-    static defaultProps = {
-        initParam: {
-            truckId: 230,//227
-            truckName: '辽B12319'//'辽M12321'
-        }
-    }
-
     onPressSegment(index) {
         const { user } = this.props.userReducer.data
         if (this.state.active != index) {
