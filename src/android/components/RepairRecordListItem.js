@@ -16,7 +16,7 @@ export default class RepairRecordListItem extends Component {
         return (
             <View style={{ paddingVertical: 5, paddingHorizontal: 5, borderRadius: 2, borderWidth: 0.5, marginHorizontal: 10, marginVertical: 10, borderColor: '#e3e3e3' }}>
                 <View style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3', paddingVertical: 5 }}>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD hh:mm:ss')} 至 {moment(new Date(item.end_date)).format('YYYY-MM-DD hh:mm:ss')}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD HH:mm:ss')} 至 {moment(new Date(item.end_date)).format('YYYY-MM-DD HH:mm:ss')}</Text>
                 </View>
                 <View>
                     <Text style={{ fontSize: 12, paddingVertical: 5, fontWeight: 'bold' }}>维修原因：</Text>
@@ -38,7 +38,7 @@ export default class RepairRecordListItem extends Component {
         return (
             <View style={{ paddingVertical: 5, paddingHorizontal: 5, borderRadius: 2, borderWidth: 0.5, marginHorizontal: 10, marginVertical: 10, borderColor: '#e3e3e3' }}>
                 <View style={{ borderBottomWidth: 0.5, borderColor: '#e3e3e3', paddingVertical: 5,flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD hh:mm:ss')}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{moment(new Date(item.repair_date)).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     <Text style={{ fontSize: 12, fontWeight: 'bold',color: '#f27d80' }}>正在维修</Text>
                 </View>
                 <View>
