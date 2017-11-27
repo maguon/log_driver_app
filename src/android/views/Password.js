@@ -24,10 +24,12 @@ class Password extends Component {
     }
 
     changePassword() {
+        console.log('userReducer',this.props.userReducer)
+        const {user}=this.props.userReducer.data
         if (this.state.newPassword == this.state.againPassword) {
             this.props.changePassword({
                 requiredParam: {
-                    userId: this.props.user.userId
+                    userId: user.userId
                 },
                 putParam: {
                     originPassword: this.state.originPassword,
@@ -42,12 +44,16 @@ class Password extends Component {
 
 
     shouldComponentUpdate(nextProps, nextState) {
-        let { isResult, isSuccess } = nextProps.password
+        const {user}=nextProps.userReducer.data
+        const { isResult, isSuccess } = nextProps.password
         if (isResult) {
             if (isSuccess) {
                 ToastAndroid.showWithGravity('修改成功，请重新登录', ToastAndroid.SHORT, ToastAndroid.CENTER)
                 this.props.resetPassword()
-                localStorage.saveKey(localStorageKey.USER, { mobile: this.props.user.mobile })
+                localStorage.save({
+                    key:localStorageKey.USER,
+                    data: { mobile: user.mobile }
+                })
                 this.props.cleanLogin()
                 Actions.login()
             }
@@ -91,7 +97,7 @@ class Password extends Component {
 const mapStateToProps = (state) => {
     return {
         password: state.PasswordReducer,
-        user: state.userReducer.user
+        userReducer: state.userReducer
 
     }
 }

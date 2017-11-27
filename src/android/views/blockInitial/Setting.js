@@ -39,13 +39,15 @@ class Setting extends Component {
     }
 
     linkDownload(url) {
-        Linking.canOpenURL(url).then(supported => {
-            if (!supported) {
-                console.log('Can\'t handle url: ' + url)
-            } else {
-                return Linking.openURL(url)
-            }
-        }).catch(err => console.error('An error occurred', err))
+        if (url) {
+            Linking.canOpenURL(url).then(supported => {
+                if (!supported) {
+                    console.log('Can\'t handle url: ' + url)
+                } else {
+                    return Linking.openURL(url)
+                }
+            }).catch(err => console.error('An error occurred', err))
+        }
     }
 
     exitApp() {
@@ -53,8 +55,12 @@ class Setting extends Component {
     }
 
     onPressOk() {
+        const {user} =this.props.userReducer.data
         this.setState({ confirmModalVisible: false })
-        localStorage.saveKey(localStorageKey.USER, { mobile: this.props.userReducer.user.mobile })
+        localStorage.save({
+            key:localStorageKey.USER,
+            data:{ mobile: user.mobile }
+        })
         this.props.cleanLogin()
         Actions.login()
     }
@@ -65,11 +71,9 @@ class Setting extends Component {
 
     render() {
         let viewStyle = { backgroundColor: '#00cade' }
-        let { lastVersion, version, url } = this.props.InitializationReducer.getVersion.data
-        let versionArr = version.split('.')
-        let lastVersionArr = lastVersion.split('.')
+        const { version } = this.props.InitializationReducer.data
+        console.log(this.props.InitializationReducer)
 
-       // console.log(this.props.InitializationReducer)
         return (
             <Container style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
@@ -84,7 +88,7 @@ class Setting extends Component {
                                 <Icon name="ios-arrow-forward" />
                             </Right>
                         </ListItem> */}
-                         <ListItem onPress={() => { Actions.password() }}>
+                        <ListItem onPress={() => { Actions.password() }}>
                             <Left>
                                 <Icon name="ios-lock" style={{ color: '#00cade' }} />
                                 <Text>修改密码</Text>
@@ -93,12 +97,12 @@ class Setting extends Component {
                             <Right>
                                 <Icon name="ios-arrow-forward" />
                             </Right>
-                        </ListItem> 
+                        </ListItem>
                         <ListItem style={{ justifyContent: 'space-between' }}>
-                            <Text>版本信息：v{app.version} </Text>
-                            {(versionArr[0] < lastVersionArr[0] || versionArr[1] < lastVersionArr[1] || versionArr[2] < lastVersionArr[2])
+                            <Text>版本信息：v{version.currentVersion ? `${version.currentVersion}` : ''} </Text>
+                            {version.force_update == 2
                                 && <Text
-                                    onPress={() => this.linkDownload(url)}
+                                    onPress={() => this.linkDownload(version.url)}
                                     style={{
                                         backgroundColor: 'red',
                                         color: '#fff',

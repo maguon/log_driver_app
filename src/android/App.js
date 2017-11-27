@@ -26,6 +26,7 @@ import CityRouteList from './views/select/CityRouteList'
 import Login from './views/Login'
 import Password from './views/Password'
 import Initialization from './views/Initialization'
+import Orientation from 'react-native-orientation'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -70,6 +71,10 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
 export default class App extends Component {
     constructor(props) {
         super(props)
+    }
+
+    componentWillMount() {
+        Orientation.lockToPortrait()
     }
 
     render() {
