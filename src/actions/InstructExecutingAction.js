@@ -4,9 +4,13 @@ import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const changeLoadTaskStatus = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
+   
     try {
-        let res = await httpRequest.put(url, {})
+        const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
+        console.log('url',url)
+        const res = await httpRequest.put(url, {})
+        console.log('res',res)
+        
         if (res.success) {
             dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_SUCCESS, payload: { data: param.requiredParam.taskStatus } })
         } else {
@@ -27,9 +31,14 @@ export const setTaskInfo = (param) => (dispatch) => {
 
 
 export const getLoadTaskList = (param) => async (dispatch) => {
-    const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
+    
     try {
-        let res = await httpRequest.get(url)
+        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
+        console.log('url',url)
+        
+        const res = await httpRequest.get(url)
+        console.log('res',res)
+        
         if (res.success) {
             dispatch({ type: actionTypes.instructExecutingTypes.GET_LoadTaskList_SUCCESS, payload: { data: res.result } })
         } else {

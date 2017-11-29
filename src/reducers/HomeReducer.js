@@ -8,8 +8,10 @@ const initialState = {
             load_distance: null,
             no_load_distance: null,
             distanceCount: null
-        }
+        },
+        truckDispatch:{}
     },
+    //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误),6(未绑定)] 
     getHomeMileageInfo: {
         isResultStatus: 0,
         errorMsg: '',
@@ -24,8 +26,7 @@ const initialState = {
     }
 }
 
-//isResultStatus(执行结果状态):[0(成功)，1(错误)，2(执行失败),3(服务器错误)] 
-//isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
+
 export default handleActions({
     [(actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
@@ -41,6 +42,7 @@ export default handleActions({
                     no_load_distance,
                     distanceCount
                 },
+                truckDispatch: data.truckDispatch
             },
             getHomeMileageInfo: {
                 ...state.getHomeMileageInfo,
@@ -87,6 +89,15 @@ export default handleActions({
             getHomeMileageInfo: {
                 ...initialState.getHomeMileageInfo,
                 isResultStatus: 1
+            }
+        }
+    },
+    [(actionTypes.homeTypes.GET_HomeMileageInfo_Unbind)]: (state, action) => {
+        return {
+            ...state,
+            getHomeMileageInfo: {
+                ...initialState.getHomeMileageInfo,
+                isResultStatus: 6
             }
         }
     },

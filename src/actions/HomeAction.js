@@ -7,26 +7,49 @@ export const getMileageInfo = (param) => async (dispatch) => {
     try {
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
+        console.log('getDriverRes', getDriverRes)
         if (getDriverRes.success) {
-            param.mileageInfoParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
-            param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
-            const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
-            const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-            if (res[0].success && res[1].success) {
-                dispatch({
-                    type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
-                        data: {
-                            mileageInfo: res[0].result.length > 0 ? res[0].result[0] : {
-                                load_distance: null,
-                                no_load_distance: null,
-                                distanceCount: null
-                            },
-                            taskList: res[1].result
-                        }
+            const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
+            const getTruckRes = await httpRequest.get(getTruckUrl)
+            console.log('getTruckRes', getTruckRes)
+            if (getTruckRes.success) {
+                if (getTruckRes.result.length == 0) {
+                    dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_Unbind, payload: {} })
+                } else {
+                    param.mileageInfoParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
+                    param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
+                    param.truckDispatchParam.OptionalParam.truckId = getTruckRes.result[0].id
+                    const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`,
+                    `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`,
+                    `${base_host}/truckDispatch?${ObjectToUrl(param.truckDispatchParam.OptionalParam)}`]
+                    console.log('urls', urls)
+                    const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+                    console.log('res', res)
+                    if (res[0].success && res[1].success && res[2].success) {
+                        dispatch({
+                            type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
+                                data: {
+                                    mileageInfo: res[0].result.length > 0 ? res[0].result[0] : {
+                                        load_distance: null,
+                                        no_load_distance: null,
+                                        distanceCount: null
+                                    },
+                                    taskList: res[1].result,
+                                    truckDispatch: res[2].result[0]
+                                }
+                            }
+                        })
+                    } else {
+                        dispatch({
+                            type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED,
+                            payload: {
+                                data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}${res[2].msg ? res[2].msg : ''}`
+                            }
+                        })
                     }
-                })
+                }
             } else {
-                dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+                dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getTruckRes.msg } })
             }
         } else {
             dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getDriverRes.msg } })

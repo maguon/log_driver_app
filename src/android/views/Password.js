@@ -24,7 +24,7 @@ class Password extends Component {
     }
 
     changePassword() {
-        console.log('userReducer',this.props.userReducer)
+       // console.log('userReducer',this.props.userReducer)
         const {user}=this.props.userReducer.data
         if (this.state.newPassword == this.state.againPassword) {
             this.props.changePassword({

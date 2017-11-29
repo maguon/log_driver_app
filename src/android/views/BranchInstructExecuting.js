@@ -4,7 +4,8 @@ import {
     View,
     FlatList,
     InteractionManager,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -39,7 +40,7 @@ class BranchInstructExecuting extends Component {
     }
 
     changeLoadTaskStatus() {
-        const { user } = this.props.userReducer
+        const { user } = this.props.userReducer.data
         const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
         this.props.changeLoadTaskStatus({
             requiredParam: {
@@ -51,7 +52,7 @@ class BranchInstructExecuting extends Component {
     }
 
     changeCarLoadStatus(param) {
-        const { user } = this.props.userReducer
+        const { user } = this.props.userReducer.data
         this.props.changeCarLoadStatus({
             requiredParam: {
                 userId: user.userId,
@@ -96,7 +97,9 @@ class BranchInstructExecuting extends Component {
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
                 {item.car_load_status == 2 && <Text style={{ color: '#00cade', fontSize: 11, marginVertical: 10 }}>{item.car_load_status == 2 && '已送达'}</Text>}
-                {item.car_load_status == 1 && <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25, marginVertical: 5 }} onPress={() => this.changeCarLoadStatus(item.id)} />}
+                {item.car_load_status == 1 && <TouchableOpacity onPress={() => this.changeCarLoadStatus(item.id)}>
+                    <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25, marginVertical: 5 }} />
+                </TouchableOpacity>}
                 {/* {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
                 {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />} */}
             </View>
@@ -128,14 +131,14 @@ class BranchInstructExecuting extends Component {
 
                         <MapView
                             zoomLevel={16}
-                            coordinate={loadTaskInfo.lat&&loadTaskInfo.lng?{ latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
+                            coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             showsZoomControls={false}
                             style={{ flex: 1 }}
                         >
                             <Marker
                                 image='flag'
                                 title={loadTaskInfo.short_name}
-                                coordinate={loadTaskInfo.lat&&loadTaskInfo.lng?{ latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
+                                coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             />
                         </MapView>
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>

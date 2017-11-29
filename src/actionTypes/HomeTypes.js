@@ -2,6 +2,7 @@ export const GET_HomeMileageInfo_SUCCESS = 'GET_HomeMileageInfo_SUCCESS'
 export const GET_HomeMileageInfo_WAITING = 'GET_HomeMileageInfo_WAITING'
 export const GET_HomeMileageInfo_FAILED = 'GET_HomeMileageInfo_FAILED'
 export const GET_HomeMileageInfo_ERROR = 'GET_HomeMileageInfo_ERROR'
+export const GET_HomeMileageInfo_Unbind = 'GET_HomeMileageInfo_Unbind'
 export const GET_HomeMileageInfo_SERVICEERROR = 'GET_HomeMileageInfo_SERVICEERROR' 
 
 export const Change_HomeTaskStatus_SUCCESS = 'Change_HomeTaskStatus_SUCCESS'

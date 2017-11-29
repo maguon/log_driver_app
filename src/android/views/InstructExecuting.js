@@ -5,7 +5,8 @@ import {
     TouchableNativeFeedback,
     FlatList,
     InteractionManager,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -16,7 +17,6 @@ import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import StepIndicator from '../components/StepIndicator'
 
-
 class InstructExecuting extends Component {
     constructor(props) {
         super(props)
@@ -25,6 +25,7 @@ class InstructExecuting extends Component {
     }
 
     componentDidMount() {
+        console.log('this.props.initParam', this.props.initParam)
         this.props.setGetLoadTaskListWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getLoadTaskList({
             OptionalParam: {
@@ -35,10 +36,7 @@ class InstructExecuting extends Component {
 
     renderLoadTaskItem(item, key) {
         if (item.load_task_status != 1) {
-            return <TouchableNativeFeedback
-                key={key}
-                onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}
-                background={TouchableNativeFeedback.SelectableBackground()}>
+            return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
                     <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row' }}>
@@ -71,7 +69,7 @@ class InstructExecuting extends Component {
                         <EvilIcons name='chevron-right' size={40} color='#8b959b' />
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </TouchableOpacity>
         }
         else {
             return <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
@@ -110,8 +108,9 @@ class InstructExecuting extends Component {
 
 
     changeLoadTaskStatus(param) {
-        const { user } = this.props.userReducer
+        const { user } = this.props.userReducer.data
         const { taskInfo } = this.props.instructExecutingReducer.data
+        //console.log
         this.props.changeLoadTaskStatus({
             requiredParam: {
                 userId: user.userId,
@@ -195,7 +194,7 @@ class InstructExecuting extends Component {
                         <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
-                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指令执行时间：{taskInfo.task_start_date ? moment(new Date(taskInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指令执行时间：{taskInfo.task_plan_date ? moment(new Date(taskInfo.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
