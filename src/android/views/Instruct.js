@@ -111,6 +111,16 @@ class Instruct extends Component {
                                 <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
                             </View>
+                            {/* <View style={{ flexDirection: 'row' }}>
+                                <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
+                            </View> */}
+                        </View>
+                        <View style={{ flexDirection: 'row', paddingBottom:10, justifyContent: 'space-between' }}>
+                            {/* <View style={{ flexDirection: 'row' }}>
+                                <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
+                                <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
+                            </View> */}
                             <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>

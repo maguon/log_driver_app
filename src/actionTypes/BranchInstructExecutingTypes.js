@@ -21,6 +21,7 @@ export const RESET_Change_ExecutingLoadTaskStatus = 'RESET_Change_ExecutingLoadT
 
 
 export const Change_CarLoadStatus_SUCCESS = 'Change_CarLoadStatus_SUCCESS'
+export const Change_CarLoadStatus_Unbind = 'Change_CarLoadStatus_Unbind'
 export const Change_CarLoadStatus_WAITING = 'Change_CarLoadStatus_WAITING'
 export const Change_CarLoadStatus_FAILED = 'Change_CarLoadStatus_FAILED'
 export const Change_CarLoadStatus_ERROR = 'Change_CarLoadStatus_ERROR'

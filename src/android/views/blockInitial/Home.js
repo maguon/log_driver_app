@@ -24,10 +24,15 @@ class Home extends Component {
         this.renderTaskItem = this.renderTaskItem.bind(this)
         this.changeTaskStatus = this.changeTaskStatus.bind(this)
         this.renderListHeader = this.renderListHeader.bind(this)
+        this.initView = this.initView.bind(this)
     }
 
     componentDidMount() {
         this.props.setGetMileageInfoWaiting()
+        this.initView()
+    }
+
+    initView() {
         const { user } = this.props.userReducer.data
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -61,9 +66,17 @@ class Home extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { isPopRefresh } = nextProps
+        if (isPopRefresh) {
+            this.initView()
+            Actions.refresh({ isPopRefresh: !isPopRefresh })
+        }
+    }
+
 
     renderListHeader() {
-        const { mileageInfo,truckDispatch } = this.props.homeReducer.data
+        const { mileageInfo, truckDispatch } = this.props.homeReducer.data
         return (
             <View>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -127,7 +140,7 @@ class Home extends Component {
                         <Text style={{ color: '#8e9fa3', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}—>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-                        <Text style={{ color: '#8e9fa3', paddingRight: 50, fontSize: 11 }}>
+                        <Text style={{ color: '#8e9fa3', paddingRight: 10, fontSize: 11 }}>
                             {item.task_status == 1 && '未接受'}
                             {item.task_status == 2 && '已接受'}
                             {item.task_status == 3 && '已执行'}
@@ -145,7 +158,7 @@ class Home extends Component {
                         {/* <Text style={{ color: '#8e9fa3', paddingRight: 50, fontSize: 11 }}>指定装载：{item.plan_count ? `${item.plan_count}` : '0'}</Text> */}
                     </View>
                 </View>
-                <View style={{
+                {/* <View style={{
                     position: 'absolute',
                     right: 10, top: 10
                 }}>
@@ -197,7 +210,7 @@ class Home extends Component {
                             <Text style={{ color: '#fff', fontSize: 11 }}>完成</Text>
                         </View>
                     </TouchableOpacity>}
-                </View>
+                </View> */}
             </View>
         </TouchableOpacity>
     }
@@ -205,8 +218,8 @@ class Home extends Component {
     render() {
         const { taskList } = this.props.homeReducer.data
         const { getHomeMileageInfo } = this.props.homeReducer
-        console.log(this.props.userReducer)
-        console.log(this.props.homeReducer)
+       // console.log(this.props.userReducer)
+        //console.log(this.props.homeReducer)
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

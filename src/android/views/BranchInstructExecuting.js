@@ -20,6 +20,7 @@ class BranchInstructExecuting extends Component {
         this.renderFooter = this.renderFooter.bind(this)
         this.changeCarLoadStatus = this.changeCarLoadStatus.bind(this)
         this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
+        this.initView=this.initView.bind(this)
     }
 
     componentWillMount() {
@@ -27,8 +28,12 @@ class BranchInstructExecuting extends Component {
     }
 
     componentDidMount() {
-        const { loadTaskInfo } = this.props.initParam
         this.props.setGetRouteLoadTaskListWaiting()
+        this.initView()
+    }
+
+    initView(){
+        const { loadTaskInfo } = this.props.initParam
         InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
             requiredParam: {
                 dpRouteLoadTaskId: loadTaskInfo.id
@@ -58,9 +63,6 @@ class BranchInstructExecuting extends Component {
                 userId: user.userId,
                 dpRouteTaskDetailId: param,
                 carLoadStatus: 2
-            },
-            putParam: {
-                truckId: user.truckId,
             }
         })
     }
@@ -109,7 +111,7 @@ class BranchInstructExecuting extends Component {
 
     render() {
         //     console.log(this.props.initParam)
-        console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
+        //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
 

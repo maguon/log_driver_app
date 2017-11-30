@@ -6,17 +6,17 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`, `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`]
     try {
-        let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_SUCCESS,
                 payload: {
                     data: {
-                        routeLoadTaskList:res[0].result,
+                        routeLoadTaskList: res[0].result,
                         coordinate: {
-                            lng:res[1].result[0].lng,
+                            lng: res[1].result[0].lng,
                             lat: res[1].result[0].lat
-                        } 
+                        }
                     }
                 }
             })
@@ -77,14 +77,31 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 }
 
 export const changeCarLoadStatus = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}`
     try {
-        let res = await httpRequest.put(url, param.putParam)
-        if (res.success) {
-            dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })
+        const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
+        const getDriverRes = await httpRequest.get(getDriverUrl)
+        if (getDriverRes.success) {
+            const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
+            const getTruckRes = await httpRequest.get(getTruckUrl)
+            if (getTruckRes.success) {
+                if (getTruckRes.result.length == 0) {
+                    dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_Unbind, payload: {} })
+                } else {
+                    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}?${ObjectToUrl({ truckId: getTruckRes.result[0].id })}`
+                    const res = await httpRequest.put(url, {})
+                    if (res.success) {
+                        dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })
+                    } else {
+                        dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_FAILED, payload: { data: res.msg } })
+                    }
+                }
+            } else {
+                dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_FAILED, payload: { data: getTruckRes.msg } })
+            }
         } else {
-            dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_FAILED, payload: { data: res.msg } })
+            dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_FAILED, payload: { data: getDriverRes.msg } })
         }
+
     } catch (err) {
         dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_ERROR, payload: { data: err } })
     }

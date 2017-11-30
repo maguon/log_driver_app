@@ -8,6 +8,10 @@ export default class NavBar extends Component {
         super(props)
     }
 
+    static defaultProps = {
+        isRequirePopRefresh: false
+    }
+
     render() {
         let { title, layout } = this.props
         return (
@@ -16,7 +20,7 @@ export default class NavBar extends Component {
                 <Header androidStatusBarColor='#00cade' style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#00cade' }}>
                     <Title>{title}</Title>
                     <View style={{ position: 'absolute', left: 0 }}>
-                        <Button transparent onPress={Actions.pop}>
+                        <Button transparent onPress={() => Actions.pop({ refresh: { isPopRefresh: this.props.isRequirePopRefresh } })}>
                             <Icon name="ios-arrow-back" size={30} color='#ffffff' />
                         </Button>
                     </View>

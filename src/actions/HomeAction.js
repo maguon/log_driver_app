@@ -7,11 +7,11 @@ export const getMileageInfo = (param) => async (dispatch) => {
     try {
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
-        console.log('getDriverRes', getDriverRes)
+       // console.log('getDriverRes', getDriverRes)
         if (getDriverRes.success) {
             const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
             const getTruckRes = await httpRequest.get(getTruckUrl)
-            console.log('getTruckRes', getTruckRes)
+           // console.log('getTruckRes', getTruckRes)
             if (getTruckRes.success) {
                 if (getTruckRes.result.length == 0) {
                     dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_Unbind, payload: {} })
@@ -22,9 +22,9 @@ export const getMileageInfo = (param) => async (dispatch) => {
                     const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`,
                     `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`,
                     `${base_host}/truckDispatch?${ObjectToUrl(param.truckDispatchParam.OptionalParam)}`]
-                    console.log('urls', urls)
+                    //console.log('urls', urls)
                     const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-                    console.log('res', res)
+                    //console.log('res', res)
                     if (res[0].success && res[1].success && res[2].success) {
                         dispatch({
                             type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
