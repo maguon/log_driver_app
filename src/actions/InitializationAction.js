@@ -116,7 +116,7 @@ export const loadLocalStorage = (param = null, tryCount = 1, currentStep = 2) =>
             }, 1, currentStep + 1)(dispatch)
         }
         else {
-            localStorage.remove({ key: localStorageKey.USER })
+            //localStorage.remove({ key: localStorageKey.USER })
             dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Failed, payload: { step: currentStep } })
         }
     } catch (err) {
