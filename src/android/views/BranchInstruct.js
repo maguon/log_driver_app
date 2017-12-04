@@ -24,8 +24,8 @@ class BranchInstruct extends Component {
             requiredParam: {
                 dpRouteLoadTaskId: this.props.initParam.routeLoadInfo.id
             },
-             OptionalParam: {
-                receiveId: 102//this.props.initParam.routeLoadInfo.receive_id,
+            OptionalParam: {
+                receiveId: this.props.initParam.routeLoadInfo.receive_id,
             }
         }))
     }
@@ -51,6 +51,8 @@ class BranchInstruct extends Component {
         const { routeLoadInfo } = this.props.initParam
         const { routeLoadTaskList } = this.props.branchInstructReducer.data
         const { getRouteLoadTaskList } = this.props.branchInstructReducer
+        // console.log('this.props.branchInstructReducer',this.props.branchInstructReducer)
+        // console.log('routeLoadInfo',routeLoadInfo)
         if (getRouteLoadTaskList.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -65,23 +67,28 @@ class BranchInstruct extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-                        <MapView
-                            zoomLevel={16}
-                            coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat&&this.props.branchInstructReducer.data.loadTaskInfo.lng?{ latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
+                        {this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng&&<MapView
+                            locationEnabled
+                            zoomLevel={14}
+                            coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng ? { latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             showsZoomControls={false}
+                            rotateEnabled={true}
+                            showsCompass={true}
                             style={{ flex: 1 }}
                         >
                             <Marker
                                 image='flag'
                                 title=''
-                                coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat&&this.props.branchInstructReducer.data.loadTaskInfo.lng?{ latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng }:{ latitude: 38.92, longitude: 121.60 }}
+                                coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng ? { latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             />
-                        </MapView>
-                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row',  padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
+                        </MapView>}
+                        {(!this.props.branchInstructReducer.data.loadTaskInfo.lat ||!this.props.branchInstructReducer.data.loadTaskInfo.lng)&&<View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text style={{color:'#fff'}}>未设置目的地经纬度</Text>
+                        </View>}
+                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
                             <Text style={{ color: '#00cade' }}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
                             <Text style={{ paddingHorizontal: 5 }}>--></Text>
-                            <Text style={{ color: '#00cade' }}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}</Text>
-                            <Text style={{ paddingLeft: 20, color: '#00cade' }}>{routeLoadInfo.short_name ? routeLoadInfo.short_name : ''}</Text>
+                            <Text style={{ color: '#00cade' }}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{

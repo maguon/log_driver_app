@@ -6,7 +6,8 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`, `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`]
     try {
-        let res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        //console.log('res',res)
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.branchInstructTypes.GET_RouteLoadTaskList_SUCCESS,

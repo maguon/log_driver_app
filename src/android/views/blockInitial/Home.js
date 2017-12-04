@@ -94,7 +94,6 @@ class Home extends Component {
 
     renderListHeader() {
         const { mileageInfo, truckDispatch } = this.props.homeReducer.data
-        //console.log('truckDispatch', truckDispatch)
         return (
             <View>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -137,7 +136,7 @@ class Home extends Component {
                         <MapView
                             locationEnabled
                             locationInterval={10000}
-                            zoomLevel={16}
+                            zoomLevel={14}
                             rotateEnabled={true}
                             showsCompass={true}
                             coordinate={{latitude: this.state.latitude, longitude: this.state.longitude }}
@@ -244,8 +243,6 @@ class Home extends Component {
     render() {
         const { taskList } = this.props.homeReducer.data
         const { getHomeMileageInfo } = this.props.homeReducer
-        // console.log(this.props.userReducer)
-        // console.log(this.props.homeReducer)
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

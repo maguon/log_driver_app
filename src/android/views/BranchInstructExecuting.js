@@ -20,7 +20,7 @@ class BranchInstructExecuting extends Component {
         this.renderFooter = this.renderFooter.bind(this)
         this.changeCarLoadStatus = this.changeCarLoadStatus.bind(this)
         this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
-        this.initView=this.initView.bind(this)
+        this.initView = this.initView.bind(this)
     }
 
     componentWillMount() {
@@ -32,7 +32,7 @@ class BranchInstructExecuting extends Component {
         this.initView()
     }
 
-    initView(){
+    initView() {
         const { loadTaskInfo } = this.props.initParam
         InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
             requiredParam: {
@@ -130,11 +130,13 @@ class BranchInstructExecuting extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-
-                        <MapView
-                            zoomLevel={16}
+                        {loadTaskInfo.lat && loadTaskInfo.lng && <MapView
+                            locationEnabled
+                            zoomLevel={14}
                             coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             showsZoomControls={false}
+                            rotateEnabled={true}
+                            showsCompass={true}
                             style={{ flex: 1 }}
                         >
                             <Marker
@@ -142,12 +144,14 @@ class BranchInstructExecuting extends Component {
                                 title={loadTaskInfo.short_name}
                                 coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             />
-                        </MapView>
+                        </MapView>}
+                        {(!loadTaskInfo.lat ||!loadTaskInfo.lng)&&<View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                            <Text style={{color:'#fff'}}>未设置目的地经纬度</Text>
+                        </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
                             <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
                             <Text style={{ paddingHorizontal: 5 }}>--></Text>
-                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}</Text>
-                            <Text style={{ paddingLeft: 20, color: '#00cade' }}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{

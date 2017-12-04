@@ -92,9 +92,7 @@ export const getTrailerInsurance = (param) => async (dispatch) => {
                 } else {
                     if (getTruckRes.result[0].trail_id) {
                         const url = `${base_host}/truckInsureRel?${ObjectToUrl({ truckId: getTruckRes.result[0].trail_id })}`
-                        //console.log('url', url)
                         const res = await httpRequest.get(url)
-                        //console.log('res', res)
                         if (res.success) {
                             dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerInsurance_SUCCESS, payload: { data: res.result } })
                         } else {

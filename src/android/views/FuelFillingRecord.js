@@ -119,9 +119,7 @@ class FuelFillingRecord extends Component {
     }
 
     _onEndReached(info) {
-
         const { user } = this.props.userReducer.data
-
         if (!this.props.fuelFillingRecordReducer.data.isComplete && this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus != 1) {
             const { total } = this.props.fuelFillingRecordReducer.data
             let param = { ...total }
@@ -346,7 +344,6 @@ class FuelFillingRecord extends Component {
 
     render() {
         const { getFuelFillingRecord } = this.props.fuelFillingRecordReducer
-        console.log('this.props.fuelFillingRecordReducer', this.props.fuelFillingRecordReducer)
         if (getFuelFillingRecord.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

@@ -12,7 +12,6 @@ export const getMileageInfo = (param) => async (dispatch) => {
             param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
             const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
             const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-            console.log('res',res)
             if (res[0].success && res[1].success) {
                 dispatch({
                     type: actionTypes.workTypes.GET_WorkMileageInfo_SUCCESS, payload: {
