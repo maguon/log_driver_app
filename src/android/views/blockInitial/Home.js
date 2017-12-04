@@ -17,10 +17,15 @@ import * as homeAction from '../../../actions/HomeAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import { MapView, Marker } from 'react-native-amap3d'
+import AMapLocation from 'react-native-amap-location'
 
 class Home extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            latitude: 39.97837,
+            longitude: 116.31363
+        }
         this.renderTaskItem = this.renderTaskItem.bind(this)
         this.changeTaskStatus = this.changeTaskStatus.bind(this)
         this.renderListHeader = this.renderListHeader.bind(this)
@@ -28,8 +33,15 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        // this.listener = AMapLocation.addEventListener((data) => console.log('data', data))
+        // AMapLocation.startLocation({
+        //   accuracy: 'HighAccuracy',
+        //   killProcess: true,
+        //   needDetail: true,
+        // });
         this.props.setGetMileageInfoWaiting()
         this.initView()
+
     }
 
     initView() {
@@ -66,6 +78,11 @@ class Home extends Component {
 
     }
 
+    componentWillUnmount() {
+        // AMapLocation.stopLocation()
+        // this.listener.remove()
+    }
+
     componentWillReceiveProps(nextProps) {
         const { isPopRefresh } = nextProps
         if (isPopRefresh) {
@@ -77,6 +94,7 @@ class Home extends Component {
 
     renderListHeader() {
         const { mileageInfo, truckDispatch } = this.props.homeReducer.data
+        //console.log('truckDispatch', truckDispatch)
         return (
             <View>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -101,28 +119,37 @@ class Home extends Component {
                     </View>
                 </View>
                 <View>
+
                     <View style={{ flexDirection: 'row', backgroundColor: '#b0bfc6', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        {!!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>大连—>沈阳</Text>
-                        </View>
-                        <View>
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
+                        </View>}
+                        {!!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}—>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
+                        </View>}
+                        {!!truckDispatch.task_start && <View>
                             <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
-                        </View>
+                        </View>}
                     </View>
                     <View style={{ height: 180 }}>
                         <MapView
+                            locationEnabled
+                            locationInterval={10000}
                             zoomLevel={16}
-                            coordinate={{ latitude: 41.8, longitude: 123.4 }}
+                            rotateEnabled={true}
+                            showsCompass={true}
+                            coordinate={{latitude: this.state.latitude, longitude: this.state.longitude }}
+                            onLocation={({ nativeEvent }) => {
+                                this.setState({
+                                    latitude: nativeEvent.latitude,
+                                    longitude: nativeEvent.longitude,
+                                })
+                            }}
                             showsZoomControls={false}
                             style={{ flex: 1 }}
-                        >
-                            <Marker
-                                image='flag'
-                                title=''
-                                coordinate={{ latitude: 41.8, longitude: 123.4 }}
-                            />
-                        </MapView>
+                        />
                     </View>
                 </View>
             </View>
@@ -131,7 +158,6 @@ class Home extends Component {
 
 
     renderTaskItem(item, key) {
-        // console.log(item)
         return <TouchableOpacity key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
@@ -218,8 +244,8 @@ class Home extends Component {
     render() {
         const { taskList } = this.props.homeReducer.data
         const { getHomeMileageInfo } = this.props.homeReducer
-       // console.log(this.props.userReducer)
-        //console.log(this.props.homeReducer)
+        // console.log(this.props.userReducer)
+        // console.log(this.props.homeReducer)
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

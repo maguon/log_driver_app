@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    TouchableNativeFeedback,
     FlatList,
     InteractionManager,
     ActivityIndicator,

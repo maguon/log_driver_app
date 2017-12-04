@@ -3,11 +3,10 @@ import {
     Text,
     View,
     DatePickerAndroid,
-    TouchableHighlight,
     InteractionManager,
     FlatList,
     ActivityIndicator,
-    TouchableNativeFeedback
+    TouchableOpacity
 } from 'react-native'
 import { Icon } from 'native-base'
 import moment from 'moment'
@@ -70,10 +69,9 @@ class Work extends Component {
     }
 
     renderTaskItem(item, key) {
-        return <TouchableNativeFeedback
+        return <TouchableOpacity
             key={key}
-            onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}
-            background={TouchableNativeFeedback.SelectableBackground()}>
+            onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}>
             <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -98,7 +96,7 @@ class Work extends Component {
                 </View> */}
                 </View>
             </View>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
     }
 
 
@@ -138,9 +136,8 @@ class Work extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#b8c6cd', alignItems: 'center' }}>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         style={{ flex: 1 }}
-                        underlayColor='rgba(0,0,0,0)'
                         onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' }, (param) => this.setState({ dateIdStart: param }))}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                             <View>
@@ -150,13 +147,12 @@ class Work extends Component {
                                 <Icon name='md-calendar' style={{ fontSize: 20, color: '#fff' }} />
                             </View>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <View style={{ paddingHorizontal: 10 }}>
                         <Text style={{ fontSize: 11, color: '#fff' }}>至</Text>
                     </View>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         style={{ flex: 1 }}
-                        underlayColor='rgba(0,0,0,0)'
                         onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' }, (param) => this.setState({ dateIdEnd: param }))}>
                         <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
                             <View>
@@ -166,14 +162,13 @@ class Work extends Component {
                                 <Icon name='md-calendar' style={{ fontSize: 20, color: '#fff' }} />
                             </View>
                         </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        underlayColor='rgba(0,0,0,0)'
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         onPress={this.onSearch}>
                         <View style={{ paddingLeft: 10 }}>
                             <Icon name='ios-search' style={{ fontSize: 20, color: '#fff' }} />
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 {getWorkMileageInfo.isResultStatus == 1 && <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator

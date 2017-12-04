@@ -35,7 +35,7 @@ export const setGetRouteLoadTaskListWaiting = (param) => (dispatch) => {
 export const changeCarExceptionRel = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     try {
-        let res = await httpRequest.post(url, param.postParam)
+        const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarExceptionRel_SUCCESS, payload: { data: res.result } })
         } else {
@@ -57,7 +57,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 export const changeLoadTaskStatus = (param) => async (dispatch) => {
     const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
     try {
-        let res = await httpRequest.put(url, param.putParam)
+        const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
         } else {

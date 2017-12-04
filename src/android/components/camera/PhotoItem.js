@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Dimensions,
-    TouchableHighlight,
+    TouchableOpacity,
     Image
 } from 'react-native'
 import { Icon, Spinner } from 'native-base'
@@ -28,7 +28,7 @@ export default class PhotoItem extends Component {
 
     render() {
         return (
-            <TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={this.props.onShowPhoto}>
+            <TouchableOpacity onPress={this.props.onShowPhoto}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, justifyContent: 'center', alignItems: 'center', ...this.props.containerSytle }}>
                     <Image source={{ uri: `${file_host}/image/${this.props.uri}` }}
                         style={{ width: this.props.width, height: this.props.width / 16 * 9, borderColor: '#e4e4e4', borderWidth: 1 }}
@@ -39,7 +39,7 @@ export default class PhotoItem extends Component {
                         <Text style={{ textAlign: 'center', fontSize: 10, paddingVertical: 4, color: '#fff' }}>{this.props.title}</Text>
                     </View>}
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         )
     }
 }

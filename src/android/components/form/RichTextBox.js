@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableHighlight,
+    TouchableOpacity,
     DatePickerAndroid
 } from 'react-native'
 
@@ -91,8 +91,7 @@ export default class RichTextBox extends Component {
 
     render() {
         return (
-            <TouchableHighlight
-                underlayColor='rgba(0,0,0,0.1)'
+            <TouchableOpacity
                 onPress={this.showRichText}>
                 <View style={this.props.containerSytle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -106,7 +105,7 @@ export default class RichTextBox extends Component {
                             style={this.props.iconSytle} />
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         )
     }
 }

@@ -119,9 +119,9 @@ class FuelFillingRecord extends Component {
     }
 
     _onEndReached(info) {
-        
+
         const { user } = this.props.userReducer.data
-        
+
         if (!this.props.fuelFillingRecordReducer.data.isComplete && this.props.fuelFillingRecordReducer.getFuelFillingRecordMore.isResultStatus != 1) {
             const { total } = this.props.fuelFillingRecordReducer.data
             let param = { ...total }
@@ -172,19 +172,18 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_demand_id ? item.dp_demand_id : ''}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
                         <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
-                    <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
-                    <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
+                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
+                    <Text style={{ fontSize: 11, fontWeight: '100' }}>
+                            {item.refuel_address ? item.refuel_address : ''}
+                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                        </Text></Text>
                 </View>
             </View>
         )
@@ -214,24 +213,22 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_demand_id ? item.dp_demand_id : ''}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
                         <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
-                    <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
-                    <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
+                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
+                    <Text style={{ fontSize: 11, fontWeight: '100' }}>
+                            {item.refuel_address ? item.refuel_address : ''}
+                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                        </Text></Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text>
-                        <Text style={{ fontSize: 11, fontWeight: 'bold' }}>拒绝原因：</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.check_reason ? item.check_reason : ''}</Text>
+                        <Text style={{ fontSize: 11, fontWeight: 'bold' }}>拒绝原因：<Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.check_reason ? item.check_reason : ''}</Text></Text>
                     </Text>
                 </View>
             </View>
@@ -261,19 +258,18 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_demand_id ? item.dp_demand_id : ''}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
                         <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：</Text>
-                    <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value : ''}</Text>
-                    <Text style={{ fontSize: 11, paddingHorizontal: 5 }}>{item.refuel_address ? '-' : ''}</Text>
-                    <Text style={{ fontSize: 11 }}>{item.refuel_address ? item.refuel_address : ''}</Text>
+                    <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
+                    <Text style={{ fontSize: 11, fontWeight: '100' }}>
+                            {item.refuel_address ? item.refuel_address : ''}
+                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                        </Text></Text>
                 </View>
             </View>
         )
@@ -350,7 +346,7 @@ class FuelFillingRecord extends Component {
 
     render() {
         const { getFuelFillingRecord } = this.props.fuelFillingRecordReducer
-        console.log('this.props.fuelFillingRecordReducer',this.props.fuelFillingRecordReducer)
+        console.log('this.props.fuelFillingRecordReducer', this.props.fuelFillingRecordReducer)
         if (getFuelFillingRecord.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

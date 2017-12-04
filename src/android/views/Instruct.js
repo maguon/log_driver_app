@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
-    TouchableNativeFeedback,
+    TouchableOpacity,
     FlatList,
     InteractionManager,
     ActivityIndicator
@@ -28,10 +28,9 @@ class Instruct extends Component {
     }
 
     renderTaskItem(item, key) {
-        return <TouchableNativeFeedback
+        return <TouchableOpacity
             key={key}
-            onPress={() => Actions.branchInstruct({ initParam: { routeLoadInfo: item } })}
-            background={TouchableNativeFeedback.SelectableBackground()}>
+            onPress={() => Actions.branchInstruct({ initParam: { routeLoadInfo: item } })}>
             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -67,7 +66,7 @@ class Instruct extends Component {
                     <EvilIcons name='chevron-right' size={40} color='#8b959b' />
                 </View>
             </View>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
     }
 
     render() {

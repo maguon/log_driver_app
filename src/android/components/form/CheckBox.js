@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Modal,
-    TouchableHighlight,
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
@@ -79,14 +78,13 @@ export default class CheckBox extends Component {
     renderItem() {
         return this.props.itemList.map((item, i) => {
             return (
-                <TouchableHighlight
+                <TouchableOpacity
                     key={i}
-                    underlayColor='rgba(0,0,0,0.1)'
                     onPress={() => this.onCheck(item)}>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd' }}>
                         <Text style={{ textAlign: 'center', paddingVertical: 10 }}>{item.value}</Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
             )
         })
     }
@@ -100,8 +98,7 @@ export default class CheckBox extends Component {
     render() {
         return (
             <View>
-                <TouchableHighlight
-                    underlayColor='rgba(0,0,0,0.1)'
+                <TouchableOpacity
                     onPress={() => this.setState({ modalVisible: true })}>
                     <View style={this.props.containerSytle}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
@@ -115,7 +112,7 @@ export default class CheckBox extends Component {
                                 style={{ fontSize: 18, color: '#7a7a7a' }} />
                         </View>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Modal
                     animationType={"none"}
                     transparent={true}

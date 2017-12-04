@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Modal, TouchableHighlight, StyleSheet } from 'react-native'
+import { Text, View, Modal, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 const ConfirmModal = ({ onPressOk, onPressCancel, isVisible,title }) => {
@@ -17,19 +17,19 @@ const ConfirmModal = ({ onPressOk, onPressCancel, isVisible,title }) => {
                         {title}
                </Text>
                     <View style={styles.horizontalLine} />
-                    <TouchableHighlight underlayColor='transparent'
+                    <TouchableOpacity 
                         onPress={onPressOk}>
                         <Text style={styles.buttonText}>
                             确定
                    </Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <View style={styles.horizontalLine} />
-                    <TouchableHighlight underlayColor='transparent'
+                    <TouchableOpacity 
                         onPress={onPressCancel}>
                         <Text style={styles.buttonText}>
                             取消
                    </Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
             </View>
 

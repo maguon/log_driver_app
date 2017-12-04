@@ -3,10 +3,9 @@ import {
     Text,
     View,
     ScrollView,
-    TouchableNativeFeedback,
+    TouchableOpacity,
     ToastAndroid
 } from 'react-native'
-
 import { Button, Icon } from 'native-base'
 import DateTimePicker from '../components/form/DateTimePicker'
 import TimePicker from '../components/form/TimePicker'
@@ -28,7 +27,7 @@ class FuelFillingApply extends Component {
                 refuelDate: moment().format('YYYY-MM-DD'),
                 refuelTime: moment().format('HH:mm'),
                 refuelVolume: 0,
-                dpDemandId: 0,
+                dpRouteTaskId: 0,
                 refuelAddressType: 0,
                 refuelAddress: '',
                 lng: 0,
@@ -46,6 +45,11 @@ class FuelFillingApply extends Component {
         this.onPressPosition = this.onPressPosition.bind(this)
         this.onCreateRefuel = this.onCreateRefuel.bind(this)
     }
+
+    componentDidMount() {
+        this.onPressPosition()
+    }
+
 
 
     //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
@@ -77,7 +81,7 @@ class FuelFillingApply extends Component {
     }
 
     onCreateRefuel() {
-        const {user} =this.props.userReducer.data
+        const { user } = this.props.userReducer.data
         let param = { ...this.state.fuelFillingInfo }
         for (key in param) {
             if (!param[key]) {
@@ -94,11 +98,8 @@ class FuelFillingApply extends Component {
     }
 
     onPressPosition() {
-
         let listener = AMapLocation.addEventListener((data) => {
             this.setState((prevState, props) => {
-                console.log('prevState',prevState)
-                console.log('data',data)
                 return ({
                     fuelFillingInfo: {
                         ...prevState.fuelFillingInfo,
@@ -119,6 +120,7 @@ class FuelFillingApply extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
@@ -177,11 +179,11 @@ class FuelFillingApply extends Component {
                         <Select
                             title='指令编号：'
                             isRequire={false}
-                            value={this.state.fuelFillingInfo.dpDemandId ? this.state.fuelFillingInfo.dpDemandId : '请选择'}
+                            value={this.state.fuelFillingInfo.dpRouteTaskId ? this.state.fuelFillingInfo.dpRouteTaskId : '请选择'}
                             showList={Actions.cityRouteList}
                             onValueChange={(param) => this.setState((prevState, props) => {
                                 return ({
-                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, dpDemandId: param }
+                                    fuelFillingInfo: { ...prevState.fuelFillingInfo, dpRouteTaskId: param }
                                 })
                             })}
                             defaultValue={'请选择'}
@@ -204,18 +206,17 @@ class FuelFillingApply extends Component {
                                 })
                             })}
                         />
-                        <TouchableNativeFeedback
-                            onPress={this.onPressPosition}
-                            background={TouchableNativeFeedback.SelectableBackground()}>
+                        <TouchableOpacity
+                            onPress={this.onPressPosition}>
                             <View style={{ borderBottomWidth: 0.5, borderColor: '#ddd', padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ flex: 1 }}>
-                                    <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>{this.state.refuelAddress ? this.state.refuelAddress : ''}</Text>
+                                    <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>{this.state.fuelFillingInfo.refuelAddress ? this.state.fuelFillingInfo.refuelAddress : ''}</Text>
                                 </View>
                                 <View>
                                     <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
                                 </View>
                             </View>
-                        </TouchableNativeFeedback>
+                        </TouchableOpacity>
                         <TextBox
                             isRequire={true}
                             title='加油金额：'

@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableHighlight,
+    TouchableOpacity,
     DatePickerAndroid
 } from 'react-native'
 import FontTag from '../../components/tag/FontTag'
@@ -118,8 +118,7 @@ export default class TagSelect extends Component {
 
     renderEnable() {
         return (
-            <TouchableHighlight
-                underlayColor='rgba(0,0,0,0.1)'
+            <TouchableOpacity
                 onPress={this.showList}>
                 <View style={this.props.containerSytle}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
@@ -137,7 +136,7 @@ export default class TagSelect extends Component {
                     </View>
                     {this.renderValidateMessage()}
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         )
     }
 
