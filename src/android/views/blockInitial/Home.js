@@ -4,7 +4,6 @@ import {
     View,
     FlatList,
     Button,
-    TouchableNativeFeedback,
     ActivityIndicator,
     InteractionManager,
     TouchableOpacity
@@ -90,6 +89,7 @@ class Home extends Component {
             Actions.refresh({ isPopRefresh: !isPopRefresh })
         }
     }
+
 
 
     renderListHeader() {

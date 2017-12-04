@@ -26,6 +26,7 @@ import CityRouteList from './views/select/CityRouteList'
 import Login from './views/Login'
 import Password from './views/Password'
 import Initialization from './views/Initialization'
+import DriverQRCode from './views/DriverQRCode'
 import Orientation from 'react-native-orientation'
 
 const styles = StyleSheet.create({
@@ -106,9 +107,10 @@ export default class App extends Component {
                         <Scene key="login" component={Login} hideNavBar hideTabBar />
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instructExecuting" component={InstructExecuting} isRequirePopRefresh={true} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck" initial={true} component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
@@ -133,7 +135,6 @@ export default class App extends Component {
                     </Scene>
                 </Scene>
             </Router>
-
         )
     }
 }
