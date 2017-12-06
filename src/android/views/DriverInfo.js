@@ -16,6 +16,8 @@ import { connect } from 'react-redux'
 import * as driverInfoAction from '../../actions/DriverInfoAction'
 import drivingLicenseTypeList from '../../config/drivingLicenseType.json'
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux'
+import { file_host } from '../../config/Host'
 
 class DriverInfo extends Component {
     constructor(props) {
@@ -54,7 +56,7 @@ class DriverInfo extends Component {
                         }
                     }
                 }))
-            }else if (index == 1) {
+            } else if (index == 1) {
                 this.props.setGetDriverImageWaiting()
                 this.setState({ active: 1 })
                 InteractionManager.runAfterInteractions(() => this.props.getDriverImage({
@@ -64,10 +66,10 @@ class DriverInfo extends Component {
                         }
                     }
                 }))
-            }else if (index == 2) {
+            } else if (index == 2) {
                 this.props.setGetDriverRecordWaiting()
                 this.setState({ active: 2 })
-                InteractionManager.runAfterInteractions(() => this.props.getDriverRecord({ 
+                InteractionManager.runAfterInteractions(() => this.props.getDriverRecord({
                     getDriverId: {
                         requiredParam: {
                             userId: user.userId
@@ -167,13 +169,21 @@ class DriverInfo extends Component {
             const { driverInfo, driverRecordList } = this.props.driverInfoReducer.data
             let imageHead = [(
                 <View key={'head1'} style={{ flexDirection: 'row' }}>
-                    {!driverInfo.drive_image ? <PhotoItemDefault title='身份证正面' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='身份证正面' uri={driverInfo.drive_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!driverInfo.driver_image_re ? <PhotoItemDefault title='身份证背面' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='身份证背面' uri={driverInfo.driver_image_re} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!driverInfo.drive_image ?
+                        <PhotoItemDefault title='身份证正面' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PhotoItem title='身份证正面' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${driverInfo.drive_image}`], index: 0 } })} uri={driverInfo.drive_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!driverInfo.driver_image_re ?
+                        <PhotoItemDefault title='身份证背面' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                        <PhotoItem title='身份证背面' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${driverInfo.driver_image_re}`], index: 0 } })} uri={driverInfo.driver_image_re} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             ), (
                 <View key={'head2'} style={{ flexDirection: 'row' }}>
-                    {!driverInfo.op_license_image ? <PhotoItemDefault title='驾驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='驾驶证' uri={driverInfo.op_license_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!driverInfo.driver_avatar_image ? <PhotoItemDefault title='个人照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='个人照片' uri={driverInfo.driver_avatar_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!driverInfo.op_license_image ?
+                        <PhotoItemDefault title='驾驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PhotoItem title='驾驶证' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${driverInfo.op_license_image}`], index: 0 } })} uri={driverInfo.op_license_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!driverInfo.driver_avatar_image ?
+                        <PhotoItemDefault title='个人照片' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                        <PhotoItem title='个人照片' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${driverInfo.driver_avatar_image}`], index: 0 } })} uri={driverInfo.driver_avatar_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             )]
             return (

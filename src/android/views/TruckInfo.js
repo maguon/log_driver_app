@@ -19,7 +19,8 @@ import { connect } from 'react-redux'
 import * as truckInfoAction from '../../actions/TruckInfoAction'
 import moment from 'moment'
 import RepairRecordListItem from '../components/RepairRecordListItem'
-
+import { Actions } from 'react-native-router-flux'
+import { file_host } from '../../config/Host'
 
 class TruckInfo extends Component {
     constructor(props) {
@@ -204,17 +205,22 @@ class TruckInfo extends Component {
             )
         } else {
             const { truckInfo, truckImageList } = this.props.truckInfoReducer.data
+            const truckImageUrlList = truckImageList.map(item => `${file_host}/image/${item.url}`)
             let imageHead = (
                 <View key={'head'} style={{ flexDirection: 'row' }}>
-                    {!truckInfo.driving_image ? <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={truckInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!truckInfo.license_image ? <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={truckInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!truckInfo.driving_image ?
+                        <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PhotoItem title='行驶证' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${truckInfo.driving_image}`], index: 0 } })} uri={truckInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!truckInfo.license_image ?
+                        <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                        <PhotoItem title='营运证' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${truckInfo.license_image}`], index: 0 } })} uri={truckInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             )
             let imageBody = []
             for (let i = 0; i < truckImageList.length; i += 2) {
                 const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
-                    <PhotoItem onShowPhoto={() => { }} uri={truckImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    {truckImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => { }} uri={truckImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    <PhotoItem onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: truckImageUrlList, index: i } })} uri={truckImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    {truckImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: truckImageUrlList, index: i+1 } })} uri={truckImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>)
                 imageBody.push(viewItem)
             }

@@ -19,6 +19,8 @@ import { connect } from 'react-redux'
 import * as trailerInfoAction from '../../actions/TrailerInfoAction'
 import moment from 'moment'
 import RepairRecordListItem from '../components/RepairRecordListItem'
+import { Actions } from 'react-native-router-flux'
+import { file_host } from '../../config/Host'
 
 class TrailerInfo extends Component {
     constructor(props) {
@@ -123,7 +125,7 @@ class TrailerInfo extends Component {
                     <Text>未绑定车头</Text>
                 </View>
             )
-        }else {
+        } else {
             const { trailerInfo } = this.props.trailerInfoReducer.data
             return (
                 <View style={{}}>
@@ -190,25 +192,30 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        }  else if (getTrailerImage.isResultStatus == 6) {
+        } else if (getTrailerImage.isResultStatus == 6) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text>未绑定车头</Text>
                 </View>
             )
-        }else {
+        } else {
             const { trailerInfo, trailerImageList } = this.props.trailerInfoReducer.data
+            const trailerImageUrlList = trailerImageList.map(item => `${file_host}/image/${item.url}`)
             let imageHead = (
                 <View key={'head'} style={{ flexDirection: 'row' }}>
-                    {!trailerInfo.driving_image ? <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> : <PhotoItem title='行驶证' uri={trailerInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
-                    {!trailerInfo.license_image ? <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> : <PhotoItem title='营运证' uri={trailerInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    {!trailerInfo.driving_image ?
+                        <PhotoItemDefault title='行驶证' containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} /> :
+                        <PhotoItem title='行驶证' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${trailerInfo.driving_image}`], index: 0 } })} uri={trailerInfo.driving_image} type={1} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />}
+                    {!trailerInfo.license_image ?
+                        <PhotoItemDefault title='营运证' containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} /> :
+                        <PhotoItem title='营运证' onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: [`${file_host}/image/${trailerInfo.license_image}`], index: 0 } })} uri={trailerInfo.license_image} type={1} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>
             )
             let imageBody = []
             for (let i = 0; i < trailerImageList.length; i += 2) {
                 const viewItem = (<View key={i} style={{ flexDirection: 'row' }}>
-                    <PhotoItem onShowPhoto={() => { }} uri={trailerImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
-                    {trailerImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => { }} uri={trailerImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
+                    <PhotoItem onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: trailerImageUrlList, index: i } })} uri={trailerImageList[i].url} containerSytle={{ marginLeft: 10, marginRight: 5, marginTop: 10 }} />
+                    {trailerImageList.length != (i + 1) && <PhotoItem onShowPhoto={() => Actions.singlePhotoView({ initParam: { imageUrlList: trailerImageUrlList, index: i + 1 } })} uri={trailerImageList[i + 1].url} containerSytle={{ marginLeft: 5, marginRight: 10, marginTop: 10 }} />}
                 </View>)
                 imageBody.push(viewItem)
             }
@@ -237,13 +244,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        }  else if (getTrailerInsurance.isResultStatus == 6) {
+        } else if (getTrailerInsurance.isResultStatus == 6) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text>未绑定车头</Text>
                 </View>
             )
-        }else {
+        } else {
             const { trailerInsuranceList } = this.props.trailerInfoReducer.data
             return (
                 <View style={{ backgroundColor: '#edf1f4', flex: 1 }}>
@@ -270,13 +277,13 @@ class TrailerInfo extends Component {
                     />
                 </View>
             )
-        }  else if (getTrailerRepairList.isResultStatus == 6) {
+        } else if (getTrailerRepairList.isResultStatus == 6) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text>未绑定车头</Text>
                 </View>
             )
-        }else {
+        } else {
             const { trailerRepairList } = this.props.trailerInfoReducer.data
             return (
                 <View style={{ flex: 1 }}>

@@ -28,6 +28,7 @@ import Password from './views/Password'
 import Initialization from './views/Initialization'
 import DriverQRCode from './views/DriverQRCode'
 import Orientation from 'react-native-orientation'
+import SinglePhotoView from './views/SinglePhotoView'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -121,6 +122,7 @@ export default class App extends Component {
                                 <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="singlePhotoView"  component={SinglePhotoView} hideNavBar={true}  hideTabBar={true}/>
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                                 <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
