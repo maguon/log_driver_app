@@ -35,7 +35,9 @@ class Instruct extends Component {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''} --> {item.city_name ? item.city_name : ''} - {item.short_name ? item.short_name : ''}</Text>
+                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''}</Text>
+                            <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                            <Text style={{ fontSize: 15, color: '#8b959b', paddingLeft: 5, fontWeight: 'bold' }}>{item.city_name ? item.city_name : ''}{item.short_name ? `(${item.short_name})` : ''}</Text>
                         </View>
                         {/* <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                             <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>经销商一</Text>
@@ -98,7 +100,9 @@ class Instruct extends Component {
                                     <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''} --> {routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
+                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''}</Text>
+                                    <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                                    <Text style={{ fontSize: 15, color: '#8b959b',paddingLeft: 5, fontWeight: 'bold' }}>{routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                                     <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}><Text style={{ color: '#d69aa5' }}>{routeInfo.distance ? `${routeInfo.distance}` : ''}</Text>公里</Text>

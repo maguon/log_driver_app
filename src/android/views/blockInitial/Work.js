@@ -78,7 +78,9 @@ class Work extends Component {
                         <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''} --> {item.city_route_end ? item.city_route_end : ''}</Text>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
+                        <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold',paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
@@ -106,7 +108,7 @@ class Work extends Component {
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
-                    taskStatus: 9,
+                    taskStatus: 10,
                     loadDistance: 5,
                     noLoadDistance: 5,
                     //driveId: this.props.userReducer.user.driverId,
@@ -116,7 +118,7 @@ class Work extends Component {
             },
             taskListParam: {
                 OptionalParam: {
-                    taskStatus: 9,
+                    taskStatus: 10,
                     //driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd

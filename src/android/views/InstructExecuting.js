@@ -21,7 +21,7 @@ class InstructExecuting extends Component {
         super(props)
         this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
         this.renderLoadTaskItem = this.renderLoadTaskItem.bind(this)
-        this.initView=this.initView.bind(this)
+        this.initView = this.initView.bind(this)
     }
 
     componentDidMount() {
@@ -73,7 +73,7 @@ class InstructExecuting extends Component {
         }
     }
 
-    initView(){
+    initView() {
         InteractionManager.runAfterInteractions(() => this.props.getLoadTaskList({
             OptionalParam: {
                 dpRouteTaskId: this.props.initParam.taskInfo.id
@@ -122,7 +122,9 @@ class InstructExecuting extends Component {
             return <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''} --> {item.city_name ? item.city_name : ''} - {item.short_name ? item.short_name : ''}</Text>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''}</Text>
+                        <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold',paddingLeft: 5 }}>{item.city_name ? item.city_name : ''}{item.short_name ? `(${item.short_name})` : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10 }}>
@@ -152,7 +154,7 @@ class InstructExecuting extends Component {
 
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
-       // console.log(taskInfo)
+        // console.log(taskInfo)
         const { getLoadTaskList } = this.props.instructExecutingReducer
         if (getLoadTaskList.isResultStatus == 1) {
             return (
@@ -186,7 +188,9 @@ class InstructExecuting extends Component {
                                     <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{taskInfo.city_route_start ? taskInfo.city_route_start : ''} --> {taskInfo.city_route_end ? taskInfo.city_route_end : ''}</Text>
+                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{taskInfo.city_route_start ? taskInfo.city_route_start : ''} </Text>
+                                    <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                                    <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold', paddingLeft: 5 }}> {taskInfo.city_route_end ? taskInfo.city_route_end : ''}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                                     <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}><Text style={{ color: '#d69aa5' }}>{taskInfo.distance ? `${taskInfo.distance}` : '0'}</Text>公里</Text>
@@ -194,16 +198,16 @@ class InstructExecuting extends Component {
                             </View>
                             <View>
                                 {taskInfo.task_status == 1 && <Button small rounded style={{ backgroundColor: '#00cade' }} onPress={() => this.changeLoadTaskStatus(2)}>
-                                    <Text style={{ color: '#fff' }}>接受</Text>
+                                    <Text style={{ color: '#fff', fontSize: 11, padding: 5 }}>接受</Text>
                                 </Button>}
                                 {taskInfo.task_status == 2 && <Button small rounded style={{ backgroundColor: '#00cade' }} onPress={() => this.changeLoadTaskStatus(3)}>
-                                    <Text style={{ color: '#fff' }}>执行</Text>
+                                    <Text style={{ color: '#fff', fontSize: 11, padding: 5 }}>执行</Text>
                                 </Button>}
                                 {taskInfo.task_status == 3 && <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
-                                    <Text style={{ color: '#fff' }}>等待发车</Text>
+                                    <Text style={{ color: '#fff', fontSize: 11, padding: 5 }}>等待发车</Text>
                                 </Button>}
                                 {taskInfo.task_status == 4 && <Button small rounded style={{ backgroundColor: '#00cade' }} onPress={() => this.changeLoadTaskStatus(9)}>
-                                    <Text style={{ color: '#fff' }}>完成</Text>
+                                    <Text style={{ color: '#fff', fontSize: 11, padding: 5 }}>完成</Text>
                                 </Button>}
                             </View>
                         </View>
@@ -217,7 +221,7 @@ class InstructExecuting extends Component {
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指令调度：{taskInfo.route_op_name ? taskInfo.route_op_name : ''}</Text>
                             </View> */}
                         </View>
-                        <View style={{ flexDirection: 'row', paddingBottom:10, justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', paddingBottom: 10, justifyContent: 'space-between' }}>
                             {/* <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指令执行时间：{taskInfo.task_plan_date ? moment(new Date(taskInfo.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>

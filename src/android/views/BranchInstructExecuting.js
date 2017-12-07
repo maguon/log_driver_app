@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { connect } from 'react-redux'
 import * as branchInstructExecutingAction from '../../actions/BranchInstructExecutingAction'
 import { MapView, Marker } from 'react-native-amap3d'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -150,8 +151,8 @@ class BranchInstructExecuting extends Component {
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
                             <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
-                            <Text style={{ paddingHorizontal: 5 }}>--></Text>
-                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
+                            <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                            <Text style={{ color: '#00cade',paddingLeft: 5 }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{

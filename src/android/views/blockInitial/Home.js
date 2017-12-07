@@ -126,7 +126,9 @@ class Home extends Component {
                         </View>}
                         {!!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}—>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}</Text>
+                            <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#fff' }} />
+                            <Text style={{ color: '#fff', paddingLeft: 5, fontSize: 11 }}>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
                         </View>}
                         {!!truckDispatch.task_start && <View>
                             <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
@@ -139,7 +141,7 @@ class Home extends Component {
                             zoomLevel={14}
                             rotateEnabled={true}
                             showsCompass={true}
-                            coordinate={{latitude: this.state.latitude, longitude: this.state.longitude }}
+                            coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
                             onLocation={({ nativeEvent }) => {
                                 this.setState({
                                     latitude: nativeEvent.latitude,
@@ -160,9 +162,11 @@ class Home extends Component {
         return <TouchableOpacity key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <MaterialCommunityIcon name='truck' style={{ color: '#00cade', paddingHorizontal: 5 }} size={20} />
-                        <Text style={{ color: '#8e9fa3', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}—>{item.city_route_end ? item.city_route_end : ''}</Text>
+                        <Text style={{ color: '#8e9fa3', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
+                        <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
+                        <Text style={{ color: '#8e9fa3', fontWeight: 'bold', paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ color: '#8e9fa3', paddingRight: 10, fontSize: 11 }}>

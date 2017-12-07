@@ -171,9 +171,9 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
+                        {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
+                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -212,9 +212,9 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
+                        {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
+                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -257,9 +257,9 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
                         <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingHorizontal: 10 }}>{item.route_start ? '-->' : '无'}</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_end ? item.route_end : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>({item.dp_route_task_id ? item.dp_route_task_id : ''})</Text>
+                        {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
+                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
