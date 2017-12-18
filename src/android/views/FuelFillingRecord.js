@@ -158,7 +158,7 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
                         <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{item.refuel_volume ? item.refuel_volume : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>ml</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>升</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总额：</Text>
@@ -199,7 +199,7 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
                         <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{item.refuel_volume ? item.refuel_volume : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>ml</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>升</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总额：</Text>
@@ -244,7 +244,7 @@ class FuelFillingRecord extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
                         <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{item.refuel_volume ? item.refuel_volume : ''}</Text>
-                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>ml</Text>
+                        <Text style={{ fontSize: 11, paddingLeft: 3 }}>升</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总额：</Text>
@@ -309,7 +309,7 @@ class FuelFillingRecord extends Component {
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                                 <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总量：</Text>
                                 <Text style={{ fontSize: 13, color: '#fa7377', paddingLeft: 3 }}>{this.props.fuelFillingRecordReducer.data.total.refuel_volume ? this.props.fuelFillingRecordReducer.data.total.refuel_volume : '0'}</Text>
-                                <Text style={{ fontSize: 11, paddingLeft: 3 }}>ml</Text>
+                                <Text style={{ fontSize: 11, paddingLeft: 3 }}>升</Text>
                             </View>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                                 <Text style={{ fontSize: 11, borderColor: '#ccc', fontWeight: 'bold' }}>加油总额：</Text>

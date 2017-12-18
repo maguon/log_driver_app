@@ -1,0 +1,11 @@
+export const GET_VCODE_FAILED = 'GET_VCODE_FAILED'
+export const GET_VCODE_SUCCESS = 'GET_VCODE_SUCCESS'
+export const GET_VCODE_WAITING = 'GET_VCODE_WAITING'
+export const GET_VCODE_ERROR = 'GET_VCODE_ERROR'
+export const Reset_GET_VCODE = 'Reset_GET_VCODE'
+
+export const Retrieve_SUCCESS = 'Retrieve_SUCCESS'
+export const Retrieve_FAILED = 'Retrieve_FAILED'
+export const Retrieve_WAITING = 'Retrieve_WAITING'
+export const Retrieve_ERROR = 'Retrieve_ERROR'
+export const Reset_Retrieve = 'Reset_Retrieve'

@@ -29,6 +29,7 @@ import Initialization from './views/Initialization'
 import DriverQRCode from './views/DriverQRCode'
 import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/SinglePhotoView'
+import RetrievePassword from './views/RetrievePassword'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -101,11 +102,15 @@ export default class App extends Component {
                                 && user.userType) {
                                 return 'main'
                             } else {
-                                return 'login'
+                                return 'loginBlock'
                             }
                         }}
                     >
-                        <Scene key="login" component={Login} hideNavBar hideTabBar />
+                        {/* <Scene key="login" component={Login} hideNavBar hideTabBar /> */}
+                        <Scene key="loginBlock" >
+                            <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
+                            <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
+                        </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />

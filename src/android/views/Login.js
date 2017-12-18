@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image, Dimensions, ToastAndroid, Platform, StatusBar } from 'react-native'
+import { View, Image, Dimensions, ToastAndroid, Platform, StatusBar, TouchableOpacity } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
@@ -77,7 +77,7 @@ class Login extends Component {
             ToastAndroid.showWithGravity(`${login.networkError}`, ToastAndroid.SHORT, ToastAndroid.CENTER)
         } else if (login.isResultStatus == 3) {
             ToastAndroid.showWithGravity(`${login.errorMsg}`, ToastAndroid.SHORT, ToastAndroid.CENTER)
-        } 
+        }
 
     }
 
@@ -122,6 +122,9 @@ class Login extends Component {
                             <Text>登录</Text>
                         </Button>
                     </View>
+                    <TouchableOpacity style={{ alignSelf: 'flex-end', paddingTop: 10, paddingRight: 10 }} onPress={() => Actions.retrievePassword()}>
+                        <Text style={{ color: '#fff', fontSize: 12 }}>找回密码</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

@@ -13,6 +13,7 @@ import * as branchInstructExecutingTypes from './BranchInstructExecutingTypes'
 import * as initializationTypes from './InitializationTypes'
 import * as loginTypes from './LoginTypes'
 import * as passwordTypes from './PasswordTypes'
+import * as retrievePasswordTypes from './RetrievePasswordTypes'
 
 export {
     homeTypes,
@@ -29,5 +30,6 @@ export {
     branchInstructExecutingTypes,
     initializationTypes,
     loginTypes,
-    passwordTypes
+    passwordTypes,
+    retrievePasswordTypes
 }   
