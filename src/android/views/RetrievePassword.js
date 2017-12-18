@@ -92,14 +92,14 @@ class RetrievePassword extends Component {
                 }
             })
         } else {
-           //ToastAndroid.show('请输入手机号', ToastAndroid.SHORT)
-           Alert.alert(
-            '找回密码',
-            `请输入手机号!`,
-            [
-                { text: '确认', onPress: () => { } }
-            ]
-        )
+            //ToastAndroid.show('请输入手机号', ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `请输入手机号!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
         }
     }
 
@@ -115,14 +115,14 @@ class RetrievePassword extends Component {
                 }
             })
         } else {
-           // ToastAndroid.show('两次输入的密码不同，请重新输入', ToastAndroid.SHORT)
-           Alert.alert(
-            '找回密码',
-            `两次输入的密码不同，请重新输入!`,
-            [
-                { text: '确认', onPress: () => { } }
-            ]
-        )
+            // ToastAndroid.show('两次输入的密码不同，请重新输入', ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `两次输入的密码不同，请重新输入!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
         }
     }
 
@@ -204,7 +204,7 @@ class RetrievePassword extends Component {
                     </Button>
                     <Button
                         full
-                        style={ { backgroundColor: '#00cade',marginTop:10 }} onPress={Actions.pop}>
+                        style={{ backgroundColor: '#00cade', marginTop: 10 }} onPress={Actions.pop}>
                         <Text style={{ color: '#fff' }}>返回</Text>
                     </Button>
                 </View>
