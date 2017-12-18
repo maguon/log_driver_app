@@ -22,8 +22,8 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            latitude: 39.97837,
-            longitude: 116.31363
+            latitude: 0,
+            longitude: 0
         }
         this.renderTaskItem = this.renderTaskItem.bind(this)
         this.changeTaskStatus = this.changeTaskStatus.bind(this)
@@ -94,6 +94,7 @@ class Home extends Component {
 
     renderListHeader() {
         const { mileageInfo, truckDispatch } = this.props.homeReducer.data
+        console.log(this.props.homeReducer.data)
         return (
             <View>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -123,6 +124,10 @@ class Home extends Component {
                         {!!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
                             <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
+                        </View>}
+                        {!truckDispatch.current_city&& <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>该车辆暂时不能接受调度任务</Text>
                         </View>}
                         {!!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />

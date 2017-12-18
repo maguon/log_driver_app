@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, ToastAndroid } from 'react-native'
+import { Text, View, TextInput, ToastAndroid, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { Icon, Button } from 'native-base'
 import * as RetrievePasswordAction from '../../actions/RetrievePasswordAction'
@@ -26,25 +26,59 @@ class RetrievePassword extends Component {
         if (getVCode.isResultStatus == 2) {
             this.props.resetGetVCode()
         } else if (getVCode.isResultStatus == 3) {
-            ToastAndroid.show(`获取验证码失败：${getVCode.errorMsg}`, ToastAndroid.SHORT)
+            //ToastAndroid.show(`获取验证码失败：${getVCode.errorMsg}`, ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `获取验证码失败：${getVCode.errorMsg}!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
             this.setState({ isStop: true })
             this.props.resetGetVCode()
         } else if (getVCode.isResultStatus == 4) {
-            ToastAndroid.show(`获取验证码失败：${getVCode.failedMsg}`, ToastAndroid.SHORT)
+            //ToastAndroid.show(`获取验证码失败：${getVCode.failedMsg}`, ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `获取验证码失败：${getVCode.failedMsg}!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
             this.setState({ isStop: true })
             this.props.resetGetVCode()
         }
 
 
         if (retrieve.isResultStatus == 2) {
-            ToastAndroid.show(`密码重置成功！`, ToastAndroid.SHORT)
+            //ToastAndroid.show(`密码重置成功！`, ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                '密码找回成功！',
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
             this.props.resetRetrieve()
-            Actions.pop()
         } else if (retrieve.isResultStatus == 3) {
-            ToastAndroid.show(`获取验证码失败：${retrieve.errorMsg}`, ToastAndroid.SHORT)
+            //ToastAndroid.show(`获取验证码失败：${retrieve.errorMsg}`, ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `获取验证码失败：${retrieve.errorMsg}!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
             this.props.resetRetrieve()
         } else if (retrieve.isResultStatus == 4) {
-            ToastAndroid.show(`获取验证码失败：${retrieve.failedMsg}`, ToastAndroid.SHORT)
+            //ToastAndroid.show(`获取验证码失败：${retrieve.failedMsg}`, ToastAndroid.SHORT)
+            Alert.alert(
+                '找回密码',
+                `获取验证码失败：${retrieve.failedMsg}!`,
+                [
+                    { text: '确认', onPress: () => { } }
+                ]
+            )
             this.props.resetRetrieve()
         }
     }
@@ -58,7 +92,14 @@ class RetrievePassword extends Component {
                 }
             })
         } else {
-            ToastAndroid.show('请输入手机号', ToastAndroid.SHORT)
+           //ToastAndroid.show('请输入手机号', ToastAndroid.SHORT)
+           Alert.alert(
+            '找回密码',
+            `请输入手机号!`,
+            [
+                { text: '确认', onPress: () => { } }
+            ]
+        )
         }
     }
 
@@ -74,9 +115,15 @@ class RetrievePassword extends Component {
                 }
             })
         } else {
-            ToastAndroid.show('两次输入的密码不同，请重新输入', ToastAndroid.SHORT)
+           // ToastAndroid.show('两次输入的密码不同，请重新输入', ToastAndroid.SHORT)
+           Alert.alert(
+            '找回密码',
+            `两次输入的密码不同，请重新输入!`,
+            [
+                { text: '确认', onPress: () => { } }
+            ]
+        )
         }
-
     }
 
     countDown(time) {
@@ -154,6 +201,11 @@ class RetrievePassword extends Component {
                         disabled={!(this.state.firstPassword && this.state.secondPassword && this.state.vCode && this.state.mobile)}
                         style={this.state.firstPassword && this.state.secondPassword && this.state.vCode && this.state.mobile ? { backgroundColor: '#00cade' } : {}} onPress={this.retrieve}>
                         <Text style={{ color: '#fff' }}>确认</Text>
+                    </Button>
+                    <Button
+                        full
+                        style={ { backgroundColor: '#00cade',marginTop:10 }} onPress={Actions.pop}>
+                        <Text style={{ color: '#fff' }}>返回</Text>
                     </Button>
                 </View>
             </View>
