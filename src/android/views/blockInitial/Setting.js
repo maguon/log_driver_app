@@ -2,18 +2,20 @@
  * Created by lingxue on 2017/4/17.
  */
 import React, { Component, PropTypes } from 'react'
-import { View, Picker, Modal, StyleSheet, Text, Linking } from 'react-native'
+import { View, Picker, Modal, StyleSheet, Text, Linking, Image } from 'react-native'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
+import { file_host } from '../../../config/Host'
 import ReduxThunk from 'redux-thunk'
 import reducers from '../../../reducers/index'
 import localStorageKey from '../../../util/LocalStorageKey'
 import { Actions } from 'react-native-router-flux'
 import localStorage from '../../../util/LocalStorage'
-import { Button, Container, Content, Header, Icon, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast } from 'native-base'
+import { Button, Container, Content, Header, Icon, Left, Body, Right, Title, List, ListItem, Thumbnail, Toast, Separator } from 'native-base'
 import ConfirmModal from '../../components/ConfirmModal'
 import * as app from '../../../android_app.json'
 import * as LoginAction from '../../../actions/LoginAction'
+import * as SettingAction from '../../../actions/SettingAction'
 
 
 class Setting extends Component {
@@ -27,6 +29,18 @@ class Setting extends Component {
         this.onPressTextInput = this.onPressTextInput.bind(this)
         this.linkDownload = this.linkDownload.bind(this)
     }
+
+    componentDidMount() {
+        const { user } = this.props.userReducer.data
+        this.props.getPersonalInfo({
+            getDriverId: {
+                requiredParam: {
+                    userId: user.userId
+                }
+            }
+        })
+    }
+
 
     onBarcodeReceived(param) {
         Actions.searchVinAtSettingBlock({ vin: param })
@@ -55,11 +69,11 @@ class Setting extends Component {
     }
 
     onPressOk() {
-        const {user} =this.props.userReducer.data
+        const { user } = this.props.userReducer.data
         this.setState({ confirmModalVisible: false })
         localStorage.save({
-            key:localStorageKey.USER,
-            data:{ mobile: user.mobile }
+            key: localStorageKey.USER,
+            data: { mobile: user.mobile }
         })
         this.props.cleanLogin()
         Actions.login()
@@ -72,22 +86,27 @@ class Setting extends Component {
     render() {
         let viewStyle = { backgroundColor: '#00cade' }
         const { version } = this.props.InitializationReducer.data
-        console.log(this.props.InitializationReducer)
-
+        const { personalInfo } = this.props.settingReducer.data
+        //console.log(this.props.InitializationReducer)
+        console.log('this.props', this.props)
         return (
             <Container style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
                     <List>
-                        {/* <ListItem onPress={() => { Actions.recordList() }}>
+                        <Separator bordered />
+                        <ListItem avatar onPress={Actions.personalInfo}>
                             <Left>
-                                <Icon name="md-person" style={{ color: '#00cade' }} />
-                                <Text>工作记录</Text>
+                                <Thumbnail source={personalInfo.avatar_image ? { uri: `${file_host}/image/${personalInfo.avatar_image}` } : { uri: `personalicon` }} />
                             </Left>
-                            <Body></Body>
-                            <Right>
-                                <Icon name="ios-arrow-forward" />
+                            <Body style={{ borderBottomWidth: 0 }}>
+                                <Text>{personalInfo.real_name ? personalInfo.real_name : ''}</Text>
+                                <Text>{personalInfo.mobile ? personalInfo.mobile : ''}</Text>
+                            </Body>
+                            <Right style={{ borderBottomWidth: 0 }}>
+
                             </Right>
-                        </ListItem> */}
+                        </ListItem>
+                        <Separator bordered />
                         <ListItem onPress={() => { Actions.password() }}>
                             <Left>
                                 <Icon name="ios-lock" style={{ color: '#00cade' }} />
@@ -98,7 +117,7 @@ class Setting extends Component {
                                 <Icon name="ios-arrow-forward" />
                             </Right>
                         </ListItem>
-                        <ListItem style={{ justifyContent: 'space-between' }}>
+                        <ListItem style={{ justifyContent: 'space-between' }} style={{ borderBottomWidth: 0 }}>
                             <Text>版本信息：v{version.currentVersion ? `${version.currentVersion}` : ''} </Text>
                             {version.force_update == 2
                                 && <Text
@@ -112,9 +131,11 @@ class Setting extends Component {
                                     }}>new </Text>}
                         </ListItem>
                     </List>
-                    <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>
-                        <Text style={{ color: '#fff' }}>退出登录</Text>
-                    </Button>
+                    <Separator bordered style={{ flex: 1, paddingLeft: 0, marginLeft: 0 }}>
+                        <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>
+                            <Text style={{ color: '#fff' }}>退出登录</Text>
+                        </Button>
+                    </Separator>
                 </View>
                 <ConfirmModal
                     title='确认退出应用？'
@@ -122,9 +143,7 @@ class Setting extends Component {
                     onPressOk={this.onPressOk.bind(this)}
                     onPressCancel={this.onPressCancel.bind(this)}
                 />
-
             </Container>
-
         )
     }
 }
@@ -134,13 +153,17 @@ class Setting extends Component {
 const mapStateToProps = (state) => {
     return {
         userReducer: state.userReducer,
-        InitializationReducer: state.initializationReducer
+        InitializationReducer: state.initializationReducer,
+        settingReducer: state.settingReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
         dispatch(LoginAction.cleanLogin())
+    },
+    getPersonalInfo: (param) => {
+        dispatch(SettingAction.getPersonalInfo(param))
     }
 })
 

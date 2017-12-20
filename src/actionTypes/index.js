@@ -14,6 +14,8 @@ import * as initializationTypes from './InitializationTypes'
 import * as loginTypes from './LoginTypes'
 import * as passwordTypes from './PasswordTypes'
 import * as retrievePasswordTypes from './RetrievePasswordTypes'
+import * as settingTypes from './SettingTypes'
+import * as personalInfoTypes from './PersonalInfoTypes'
 
 export {
     homeTypes,
@@ -31,5 +33,7 @@ export {
     initializationTypes,
     loginTypes,
     passwordTypes,
-    retrievePasswordTypes
+    retrievePasswordTypes,
+    settingTypes,
+    personalInfoTypes
 }   
