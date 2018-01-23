@@ -112,8 +112,8 @@ export default class App extends Component {
                             <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
                             <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
                         </Scene>
-                        <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                        <Scene key="main" tabs={true}  tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
+                            <Scene key="homeBlock" icon={TabIcon} initial={true}  online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instructExecuting" component={InstructExecuting} isRequirePopRefresh={true} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
@@ -135,7 +135,7 @@ export default class App extends Component {
                                 <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="settingBlock" initial={true}  icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
+                            <Scene key="settingBlock"  icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="password" component={Password} title='修改密码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="personalInfo" component={PersonalInfo} title='个人中心' hideNavBar={false} hideTabBar={true} navBar={NavBar} />

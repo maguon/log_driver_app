@@ -3,7 +3,6 @@ import { Text, View, Modal, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 const ConfirmModal = ({ onPressOk, onPressCancel, isVisible,title }) => {
-
     return (
         <Modal
             animationType='fade'

@@ -103,7 +103,7 @@ class Initialization extends Component {
     getAppLastVersion() {
         this.props.initApp({
             optionalParam: {
-                app: 4,
+                app: 0,
                 type: 1
             }
         }, 1, 1)
