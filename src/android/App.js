@@ -31,6 +31,8 @@ import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/SinglePhotoView'
 import RetrievePassword from './views/RetrievePassword'
 import PersonalInfo from './views/PersonalInfo'
+import ApplyAccidentTruck from './views/ApplyAccidentTruck'
+import TruckResponsibilityList from './views/TruckResponsibilityList'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -113,14 +115,16 @@ export default class App extends Component {
                             <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true}  tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} initial={true}  online='ios-home' outline='ios-home-outline' >
+                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instructExecuting" component={InstructExecuting} isRequirePopRefresh={true} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                                <Scene key="truck" initial={true} component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="truckBlock" icon={TabIcon}  initial={true} online='ios-bus' outline='ios-bus-outline' >
+                                <Scene key="truck" component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="applyAccidentTruck" initial={true}  component={ApplyAccidentTruck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="truckResponsibilityList" component={TruckResponsibilityList} title='货车管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="trailerInfo" component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
