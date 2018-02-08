@@ -16,7 +16,7 @@ export default class AccidentListOperation extends Component {
     constructor(props) {
         super(props);
         this.state = { modalVisible: false };
-        this.setModalVisible=this.setModalVisible.bind(this)
+        this.setModalVisible = this.setModalVisible.bind(this)
     }
 
     setModalVisible(visible) {
@@ -26,7 +26,7 @@ export default class AccidentListOperation extends Component {
     render() {
         return (
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <Button transparent onPress={() => Alert.alert()}>
+                <Button transparent onPress={() => this.setModalVisible(true)}>
                     <Icon name='md-search' color='#fff' />
                 </Button>
                 <Button transparent onPress={() => { }}>
