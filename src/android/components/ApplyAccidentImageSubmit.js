@@ -11,7 +11,7 @@ import { submit } from 'redux-form'
 
 const ApplyAccidentSubmit = props => {
     return (
-        <Button transparent onPress={applyAccident}>
+        <Button transparent onPress={()=>{}}>
             <Text style={styles.text}>完成</Text>
         </Button>
     )

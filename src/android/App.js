@@ -41,6 +41,7 @@ import ApplyAccidentImage from './views/ApplyAccidentImage'
 import AccidentInfo from './views/AccidentInfo'
 import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
 import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
+import AccidentListOperation from './components/AccidentListOperation'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -134,7 +135,6 @@ export default class App extends Component {
                                 <Scene key="applyAccident"
                                     component={ApplyAccident}
                                     title='事故申报'
-                                    
                                     hideNavBar={false}
                                     hideTabBar
                                     navBar={NavBar}
@@ -152,14 +152,17 @@ export default class App extends Component {
                                 <Scene key="accidentList"
                                     component={AccidentList}
                                     title='事故列表'
+                                    initial={true}
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
-                                    LeftButton={LeftButton} />
+                                    LeftButton={LeftButton}
+                                    RightButton={AccidentListOperation} />
                                 <Scene key="accidentInfo"
                                     hideTabBar
                                     component={AccidentInfo}
                                     title='事故详情'
+                                    
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />
