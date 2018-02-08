@@ -16,6 +16,8 @@ import * as passwordTypes from './PasswordTypes'
 import * as retrievePasswordTypes from './RetrievePasswordTypes'
 import * as settingTypes from './SettingTypes'
 import * as personalInfoTypes from './PersonalInfoTypes'
+import * as applyAccidentImageTypes from './ApplyAccidentImageTypes'
+import * as applyAccidentTypes from './ApplyAccidentTypes'
 
 export {
     homeTypes,
@@ -35,5 +37,10 @@ export {
     passwordTypes,
     retrievePasswordTypes,
     settingTypes,
-    personalInfoTypes
+    personalInfoTypes,
+
+
+
+    applyAccidentImageTypes,
+    applyAccidentTypes
 }   

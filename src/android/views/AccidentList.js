@@ -16,27 +16,27 @@ const renderItem = props => {
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.123456778</Text>
-                <Text style={[globalStyles.midText, styles.itemHeaderStatus]}>待处理</Text>
+                <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
+                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} style={styles.itemBlockMaterialIcon}/>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>辽B23456</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-time-outline' style={styles.itemBlockIcon} />
+                    <Icon name='ios-time-outline' style={styles.itemBlockIcon}  style={styles.itemBlockIcon}/>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>2017-05-12 11:30</Text>
                 </View>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                <MaterialCommunityIcons name='alert-circle' size={14} color={'#bbb'} />
+                    <Icon name='ios-pin' style={styles.itemBlockIcon} />
                     <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故地点：</Text>大连市开发区金马路十元国际东门</Text>
                 </View>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                <MaterialCommunityIcons name='alert-circle' size={14} color={'#bbb'} />
+                    <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'}  style={styles.itemBlockMaterialIcon}/>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故描述：</Text>有后门，右后叶子板凹坑变形</Text>
                 </View>
             </View>
@@ -44,7 +44,7 @@ const renderItem = props => {
     )
 }
 
-const ApplyAccidentTruck = props => {
+const AccidentList = props => {
     return (
         <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
             <FlatList
@@ -56,7 +56,7 @@ const ApplyAccidentTruck = props => {
     )
 }
 
-export default ApplyAccidentTruck
+export default AccidentList
 
 const styles = StyleSheet.create({
     itemContainer: {
@@ -81,19 +81,25 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 5
     },
-    itemHeaderStatus: {
+    itemWarnColor:{
         color: '#fe7378'
     },
     itemBlockIcon: {
         color: '#bbb',
-        fontSize: 16
+        fontSize: 16,
+        width:20,
+        textAlign:'center'
+    },
+    itemBlockMaterialIcon:{
+        width:20,
+        textAlign:'center'
     },
     itemBlock: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     itemBlockText: {
-        paddingLeft: 5 
+        paddingLeft: 5
     },
     itemBlockTitle: {
 

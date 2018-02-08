@@ -1,0 +1,5 @@
+export const upload_ImageAtApplyAccident_success = 'upload_ImageAtApplyAccident_success'
+export const upload_ImageAtApplyAccident_partSuccess = 'upload_ImageAtApplyAccident_partSuccess'
+export const upload_ImageAtApplyAccident_waiting = 'upload_ImageAtApplyAccident_waiting'
+export const upload_ImageAtApplyAccident_failed = 'upload_ImageAtApplyAccident_failed'
+export const upload_ImageAtApplyAccident_error = 'upload_ImageAtApplyAccident_error'

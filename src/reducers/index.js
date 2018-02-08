@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 import homeReducer from './HomeReducer'
 import truckInfoReducer from './TruckInfoReducer'
 import trailerInfoReducer from './TrailerInfoReducer'
@@ -16,8 +17,12 @@ import initializationReducer from './InitializationReducer'
 import PasswordReducer from './PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
 import settingReducer from './SettingReducer'
+import applyAccidentImageReducer from './ApplyAccidentImageReducer'
+import imageEditorForAccidentReducer from './ImageEditorForAccidentReducer'
+import applyAccidentReducer from './ApplyAccidentReducer'
 
 export default combineReducers({
+    form: formReducer,
     homeReducer,
     truckInfoReducer,
     trailerInfoReducer,
@@ -34,5 +39,9 @@ export default combineReducers({
     initializationReducer,
     PasswordReducer,
     retrievePasswordReducer,
-    settingReducer
+    settingReducer,
+
+    applyAccidentImageReducer,
+    imageEditorForAccidentReducer,
+    applyAccidentReducer
 })

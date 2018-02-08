@@ -1,6 +1,8 @@
 package com.log_driver_app;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.jeepeng.react.xgpush.PushPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new ImagePickerPackage(),
+            new ImageResizerPackage(),
             new PushPackage(),  new AMap3DPackage(),
           new VectorIconsPackage(), new PhotoViewPackage(), 
           new PickerPackage(), new OrientationPackage(), new AMapLocationReactPackage());

@@ -5,7 +5,7 @@ import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 're
 import { connect } from 'react-redux'
 import XGPush from 'react-native-xinge-push';
 
-import NavBar from './components/bar/NavBar'
+
 import TopBar from './components/bar/TopBar'
 import TabIcon from './components/TabIcon'
 import Home from './views/blockInitial/Home'
@@ -31,8 +31,16 @@ import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/SinglePhotoView'
 import RetrievePassword from './views/RetrievePassword'
 import PersonalInfo from './views/PersonalInfo'
-import ApplyAccidentTruck from './views/ApplyAccidentTruck'
-import TruckResponsibilityList from './views/TruckResponsibilityList'
+
+import NavBar from './components/share/bar/NavBar'
+import LeftButton from './components/share/bar/LeftButton'
+import ApplyAccident from './views/ApplyAccident'
+import AccidentList from './views/AccidentList'
+import ResponsibilityList from './views/ResponsibilityList'
+import ApplyAccidentImage from './views/ApplyAccidentImage'
+import AccidentInfo from './views/AccidentInfo'
+import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
+import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -114,17 +122,54 @@ export default class App extends Component {
                             <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
                             <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
                         </Scene>
-                        <Scene key="main" tabs={true}  tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
+                        <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instructExecuting" component={InstructExecuting} isRequirePopRefresh={true} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" icon={TabIcon}  initial={true} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock" icon={TabIcon} initial={true} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck" component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="applyAccidentTruck" initial={true}  component={ApplyAccidentTruck} title='货车管理' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="truckResponsibilityList" component={TruckResponsibilityList} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                                <Scene key="applyAccident"
+                                    component={ApplyAccident}
+                                    title='事故申报'
+                                    
+                                    hideNavBar={false}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyAccidentSubmit} />
+                                <Scene key="applyAccidentImage"
+                                    component={ApplyAccidentImage}
+                                    title='上传事故照片'
+                                    initial={true}
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyAccidentImageSubmit} />
+                                <Scene key="accidentList"
+                                    component={AccidentList}
+                                    title='事故列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="accidentInfo"
+                                    hideTabBar
+                                    component={AccidentInfo}
+                                    title='事故详情'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
+                                <Scene key="responsibilityList"
+                                    component={ResponsibilityList}
+                                    title='货车管理'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                                 <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="trailerInfo" component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
@@ -132,14 +177,14 @@ export default class App extends Component {
                                 <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="singlePhotoView"  component={SinglePhotoView} hideNavBar={true}  hideTabBar={true}/>
+                                <Scene key="singlePhotoView" component={SinglePhotoView} hideNavBar={true} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                                 <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="settingBlock"  icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
+                            <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="password" component={Password} title='修改密码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="personalInfo" component={PersonalInfo} title='个人中心' hideNavBar={false} hideTabBar={true} navBar={NavBar} />

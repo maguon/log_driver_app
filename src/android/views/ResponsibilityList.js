@@ -4,10 +4,10 @@ import {
     View
 } from 'react-native'
 
-const TruckResponsibilityList = props => {
+const ResponsibilityList = props => {
     return (<View>
-        <Text>TruckResponsibilityList</Text>
+        <Text>ResponsibilityList</Text>
     </View>)
 }
 
-export default TruckResponsibilityList
+export default ResponsibilityList
