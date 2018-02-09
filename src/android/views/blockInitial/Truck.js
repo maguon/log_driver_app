@@ -92,7 +92,7 @@ export default class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={Actions.truckResponsibilityList}>
+                            <TouchableOpacity style={styles.item} onPress={Actions.AccidentResponsibilityList}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='truck'  size={14} color={'#bbb'}/>
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车责任</Text>

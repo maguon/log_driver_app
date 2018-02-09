@@ -36,12 +36,14 @@ import NavBar from './components/share/bar/NavBar'
 import LeftButton from './components/share/bar/LeftButton'
 import ApplyAccident from './views/ApplyAccident'
 import AccidentList from './views/AccidentList'
-import ResponsibilityList from './views/ResponsibilityList'
+import AccidentResponsibilityList from './views/AccidentResponsibilityList'
 import ApplyAccidentImage from './views/ApplyAccidentImage'
 import AccidentInfo from './views/AccidentInfo'
+import AccidentResponsibilityInfo from './views/AccidentResponsibilityInfo'
 import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
 import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 import AccidentListOperation from './components/AccidentListOperation'
+import SelectAddress from './views/select/SelectAddress'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -130,12 +132,13 @@ export default class App extends Component {
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" icon={TabIcon} initial={true} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock" initial={true}  icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck" component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
                                 <Scene key="applyAccident"
                                     component={ApplyAccident}
                                     title='事故申报'
                                     hideNavBar={false}
+                                    
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
@@ -143,7 +146,6 @@ export default class App extends Component {
                                 <Scene key="applyAccidentImage"
                                     component={ApplyAccidentImage}
                                     title='上传事故照片'
-                                    initial={true}
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
@@ -152,7 +154,6 @@ export default class App extends Component {
                                 <Scene key="accidentList"
                                     component={AccidentList}
                                     title='事故列表'
-                                    initial={true}
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
@@ -162,14 +163,28 @@ export default class App extends Component {
                                     hideTabBar
                                     component={AccidentInfo}
                                     title='事故详情'
-                                    
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />
-                                <Scene key="responsibilityList"
-                                    component={ResponsibilityList}
-                                    title='货车管理'
+                                <Scene key="accidentResponsibilityList"
+                                    component={AccidentResponsibilityList}
+                                    title='事故责任列表'
                                     hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="accidentResponsibilityInfo"
+                                    component={AccidentResponsibilityInfo}
+                                    title='事故责任详情'                                   
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="selectAddress"
+                                    component={SelectAddress}
+                                    title='事故责任详情'                                   
+                                    hideNavBar={false}
+                                    initial={true}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

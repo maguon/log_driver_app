@@ -18,6 +18,7 @@ import * as settingTypes from './SettingTypes'
 import * as personalInfoTypes from './PersonalInfoTypes'
 import * as applyAccidentImageTypes from './ApplyAccidentImageTypes'
 import * as applyAccidentTypes from './ApplyAccidentTypes'
+import * as selectAddressTypes from './SelectAddressTypes'
 
 export {
     homeTypes,
@@ -42,5 +43,6 @@ export {
 
 
     applyAccidentImageTypes,
-    applyAccidentTypes
+    applyAccidentTypes,
+    selectAddressTypes
 }   
