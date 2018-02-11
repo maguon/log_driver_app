@@ -17,6 +17,7 @@ import CheckBox from '../components/share/CheckBox'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import * as selectAccidentTypeAction from '../../actions/SelectAccidentTypeAction'
+import * as cityRouteListAction from '../../actions/CityRouteListAction'
 import DisposableList from '../views/select/DisposableList'
 import { Actions } from 'react-native-router-flux'
 
@@ -24,41 +25,61 @@ const margin = 15
 const { width } = Dimensions.get('window')
 const ApplyAccident = props => {
     const { parent,
-        getSccidentTypeWaiting,
-        getSccidentType } = props
+        getAccidentTypeWaiting,
+        getAccidentType,
+        getCityRouteList,
+        getCityRouteListWaiting } = props
+
     console.log('state', props.state)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
-                {/*                 
-                <View style={styles.body}>
-                    <View style={styles.item}>
-                        <Text style={[globalStyles.midText, {}]} >调度任务：大连->长春（112321）</Text>
-                    </View>
-                </View> */}
                 <Field name='dpRouteTask'
                     label='调度任务：'
-                    component={Select} />
+                    component={Select}
+                    getList={getCityRouteList}
+                    getListWaiting={getCityRouteListWaiting}
+                    showList={({ onSelect }) => {
+                        return Actions.listCennect({
+                            mapStateToProps: routeMapStateToProps,
+                            mapDispatchToProps: routeMapDispatchToProps,
+                            List: DisposableList,
+                            title: '调度任务',
+                            onSelect: (param) => {
+                                Actions.pop()
+                                onSelect(param)
+                            }
+                        })
+                    }} />
                 <Field name='accidentType'
                     label='车辆类型：'
                     isRequired={true}
                     component={Select}
-                    getList={getSccidentType}
-                    getListWaiting={getSccidentTypeWaiting}
+                    getList={getAccidentType}
+                    getListWaiting={getAccidentTypeWaiting}
                     showList={({ onSelect }) => {
                         return Actions.listCennect({
                             mapStateToProps: accidentTypeMapStateToProps,
                             mapDispatchToProps: accidentTypeMapDispatchToProps,
                             List: DisposableList,
+                            title: '车辆类型',
                             onSelect: (param) => {
-                                console.log(param)
+                                Actions.pop()
+                                onSelect(param)
                             }
                         })
                     }} />
                 <Field name='address'
                     label='事故地点：'
                     isRequired={true}
-                    component={Select} />
+                    component={Select}
+                    getList={() => { }}
+                    getListWaiting={() => { }}
+                    showList={({ onSelect }) => {
+                        return Actions.selectAddress({
+                            onSelect
+                        })
+                    }} />
                 <Field name='accidentDate'
                     label='发生时间：'
                     component={DatePicker} />
@@ -71,10 +92,30 @@ const ApplyAccident = props => {
     )
 }
 
+const routeMapStateToProps = (state) => {
+    return {
+        listReducer: {
+            Action: state.cityRouteListReducer.getCityRouteList,
+            data: {
+                list: state.cityRouteListReducer.data.cityRouteList.map(item => {
+                    return {
+                        id: item.id,
+                        value: `${item.city_route_start} --> ${item.city_route_end} (${item.id})`
+                    }
+                })
+            }
+        }
+    }
+}
+
+const routeMapDispatchToProps = (dispatch) => ({
+
+})
+
 const accidentTypeMapStateToProps = (state) => {
     return {
         listReducer: {
-            Action: state.selectAccidentTypeReducer.getSccidentType,
+            Action: state.selectAccidentTypeReducer.getAccidentType,
             data: {
                 list: state.selectAccidentTypeReducer.data.typeList
             }
@@ -94,11 +135,17 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getSccidentTypeWaiting: () => {
-        dispatch(selectAccidentTypeAction.getSccidentTypeWaiting())
+    getAccidentTypeWaiting: () => {
+        dispatch(selectAccidentTypeAction.getAccidentTypeWaiting())
     },
-    getSccidentType: () => {
-        dispatch(selectAccidentTypeAction.getSccidentType())
+    getAccidentType: () => {
+        dispatch(selectAccidentTypeAction.getAccidentType())
+    },
+    getCityRouteList: () => {
+        dispatch(cityRouteListAction.getCityRouteList())
+    },
+    getCityRouteListWaiting: () => {
+        dispatch(cityRouteListAction.getCityRouteListWaiting())
     }
 })
 

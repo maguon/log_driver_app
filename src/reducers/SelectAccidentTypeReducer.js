@@ -5,7 +5,7 @@ const initialState = {
     data: {
         typeList: []
     },
-    getSccidentType: {
+    getAccidentType: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: ''
@@ -21,8 +21,8 @@ export default handleActions({
             data: {
                 typeList
             },
-            getSccidentType: {
-                ...state.getSccidentType,
+            getAccidentType: {
+                ...state.getAccidentType,
                 isResultStatus: 2
             }
         }
@@ -31,8 +31,8 @@ export default handleActions({
         const { payload: { errorMsg } } = action
         return {
             ...state,
-            getSccidentType: {
-                ...state.getSccidentType,
+            getAccidentType: {
+                ...state.getAccidentType,
                 isResultStatus: 3,
                 errorMsg
             }
@@ -42,8 +42,8 @@ export default handleActions({
         const { payload: { failedMsg } } = action
         return {
             ...state,
-            getSccidentType: {
-                ...state.getSccidentType,
+            getAccidentType: {
+                ...state.getAccidentType,
                 isResultStatus: 4,
                 failedMsg
             }
@@ -52,8 +52,8 @@ export default handleActions({
     [actionTypes.selectAccidentTypeActionTypes.get_AccidentType_waiting]: (state, action) => {
         return {
             ...state,
-            getSccidentType: {
-                ...state.getSccidentType,
+            getAccidentType: {
+                ...state.getAccidentType,
                 isResultStatus: 1
             }
         }

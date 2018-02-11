@@ -5,14 +5,11 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 
 
-export const getSccidentType = (parent) => async (dispatch, getState) => {
-    console.log(getState())
+export const getAccidentType = (parent) => async (dispatch, getState) => {
     const { truckReducer: { data: { driverInfo: { truck_id, truck_num } } } } = getState()
     try {
         const url = `${base_host}/truckFirst?truckId=${truck_id}`
-        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
         if (res.success) {
             dispatch({
                 type: actionTypes.selectAccidentTypeActionTypes.get_AccidentType_success, payload: {
@@ -25,7 +22,7 @@ export const getSccidentType = (parent) => async (dispatch, getState) => {
                         id: res.result[0].trail_id,
                         value: `挂车(${res.result[0].trail_num})`,
                         type: 1,
-                        num: trail_num
+                        num: res.result[0].trail_num
                     }]
                 }
             })
@@ -39,6 +36,6 @@ export const getSccidentType = (parent) => async (dispatch, getState) => {
 
 
 
-export const getSccidentTypeWaiting = (parent) => (dispatch) => {
+export const getAccidentTypeWaiting = (parent) => (dispatch) => {
     dispatch({ type: actionTypes.selectAccidentTypeActionTypes.get_AccidentType_waiting, payload: {} })
 }

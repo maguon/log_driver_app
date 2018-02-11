@@ -3,9 +3,11 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getCityRouteList = (param) => async (dispatch) => {
+export const getCityRouteList = (param) => async (dispatch, getState) => {
     try {
-        const getDriverUrl = `${base_host}/user/${param.getDriverId.userId}`
+        const { userReducer: { data: { user: { userId } } } } = getState()
+        const getDriverUrl = `${base_host}/user/${userId}`
+        console.log('getDriverUrl',getDriverUrl)
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
             const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
@@ -31,4 +33,9 @@ export const getCityRouteList = (param) => async (dispatch) => {
     } catch (err) {
         dispatch({ type: actionTypes.cityRouteListTypes.GET_CityRouteList_ERROR, payload: { data: err } })
     }
+}
+
+
+export const getCityRouteListWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.cityRouteListTypes.GET_CityRouteList_WAITING, payload: {} })
 }
