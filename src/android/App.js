@@ -136,7 +136,7 @@ export default class App extends Component {
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
-                                    initial={true}
+                                    
                                     component={Truck}
                                     title='货车管理'
                                     hideNavBar={false}
@@ -197,7 +197,7 @@ export default class App extends Component {
                                     component={SelectAddress}
                                     title='选择位置'
                                     hideNavBar={false}
-
+                                    initial={true}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
