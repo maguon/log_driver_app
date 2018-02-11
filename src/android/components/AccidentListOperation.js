@@ -36,7 +36,7 @@ class AccidentListOperation extends Component {
                 <Button transparent onPress={() => this.setModalVisible(true)}>
                     <Icon name='md-search' color='#fff' />
                 </Button>
-                <Button transparent onPress={() => { }}>
+                <Button transparent onPress={Actions.applyAccident}>
                     <Icon name='md-add' color='#fff' />
                 </Button>
                 <Modal

@@ -20,6 +20,8 @@ import settingReducer from './SettingReducer'
 import applyAccidentImageReducer from './ApplyAccidentImageReducer'
 import imageEditorForAccidentReducer from './ImageEditorForAccidentReducer'
 import applyAccidentReducer from './ApplyAccidentReducer'
+import selectAddressReducer from './SelectAddressReducer'
+import truckReducer from './TruckReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -43,5 +45,7 @@ export default combineReducers({
 
     applyAccidentImageReducer,
     imageEditorForAccidentReducer,
-    applyAccidentReducer
+    applyAccidentReducer,
+    selectAddressReducer,
+    truckReducer
 })

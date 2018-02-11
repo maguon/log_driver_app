@@ -11,10 +11,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { ListItem, Left, Thumbnail, Body, Right, Content, Container, Separator, Icon } from 'native-base'
 import globalStyles from '../../GlobalStyles'
+import { connect } from 'react-redux'
+import * as truckAction from '../../../actions/TruckAction'
+import FontTag from '../../components/FontTag'
 
+class Truck extends Component {
+    constructor(props) {
+        super(props)
+    }
 
-export default class Truck extends Component {
+    componentDidMount() {
+        this.props.getDriverInfo()
+    }
+
     render() {
+        const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
+            driverInfo: { company_name, operate_type } } } } = this.props
+        console.log(this.props)
         return (
             <Container>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#4edbf0' }}>
@@ -31,38 +44,31 @@ export default class Truck extends Component {
                         <Text style={{ color: '#fff', fontSize: 11 }}>个人资料</Text>
                     </TouchableOpacity>
                 </View>
-                <Content showsVerticalScrollIndicator={false}>
+                <Content showsVerticalScrollIndicator={false} >
                     <ListItem avatar style={{ marginLeft: 0, padding: 15, borderBottomWidth: 0.3, borderBottomColor: '#ddd' }}>
                         <Left>
-                            <Thumbnail source={{ uri: `personalicon` }} />
+                            <Thumbnail source={{ uri: avatar_image ? `${avatar_image}` : `personalicon` }} />
                         </Left>
                         <Body style={{ borderBottomWidth: 0 }}>
                             <View>
-                                <Text>王宝泉</Text>
+                                <Text>{real_name ? `${real_name}` : ''}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text>吉安物流</Text>
-                                <Text>13322221110</Text>
+                                <Text>{company_name ? `${company_name}` : ''} {mobile ? `${mobile}` : ''}</Text>
                             </View>
                         </Body>
+                        <Right style={{ borderBottomWidth: 0 }}>
+                            {operate_type == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />}
+                            {operate_type == 2 && <FontTag size={26} title='协' color='#73de8a' fontColor='#fff' />}
+                            {operate_type == 3 && <FontTag size={26} title='供' color='#efbb7a' fontColor='#fff' />}
+                            {operate_type == 4 && <FontTag size={26} title='包' color='#e08ddd' fontColor='#fff' />}
+                        </Right>
                     </ListItem>
-                    <View style={{ padding: 5, backgroundColor: '#f8fafb' }}  >
+                    <View style={{ padding: 5 }}  >
                         <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item}>
+                            <TouchableOpacity style={styles.item} >
                                 <Left style={styles.itemLeft}>
-                                    <Icon name="ios-person" style={styles.itemIcon} />
-                                    <Text style={[globalStyles.midText, styles.itemTitle]}>我的资料</Text>
-                                </Left>
-                                <Body></Body>
-                                <Right>
-                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
-                                </Right>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item}>
-                                <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'}/>
+                                    <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>商品车质损申报</Text>
                                 </Left>
                                 <Body></Body>
@@ -70,9 +76,9 @@ export default class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={Actions.trukcAccidentList}>
+                            <TouchableOpacity style={styles.item} onPress={Actions.accidentList}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'}/>
+                                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车事故申报</Text>
                                 </Left>
                                 <Body></Body>
@@ -94,7 +100,7 @@ export default class Truck extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.item} onPress={Actions.AccidentResponsibilityList}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='truck'  size={14} color={'#bbb'}/>
+                                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车责任</Text>
                                 </Left>
                                 <Body></Body>
@@ -118,7 +124,7 @@ export default class Truck extends Component {
                         <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} >
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='car-wash'  size={14} color={'#bbb'}/>
+                                    <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>洗车费</Text>
                                 </Left>
                                 <Body></Body>
@@ -133,6 +139,20 @@ export default class Truck extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        truckReducer: state.truckReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getDriverInfo: () => {
+        dispatch(truckAction.getDriverInfo())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Truck)
 
 const styles = StyleSheet.create({
     item: {

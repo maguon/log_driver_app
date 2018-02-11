@@ -132,13 +132,18 @@ export default class App extends Component {
                                 <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" initial={true}  icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
-                                <Scene key="truck" component={Truck} title='货车管理' hideNavBar={false} navBar={TopBar} />
+                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                                <Scene key="truck"
+                                    initial={true}
+                                    component={Truck}
+                                    title='货车管理'
+                                    hideNavBar={false}
+                                    navBar={NavBar} />
                                 <Scene key="applyAccident"
                                     component={ApplyAccident}
                                     title='事故申报'
                                     hideNavBar={false}
-                                    
+
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
@@ -175,16 +180,16 @@ export default class App extends Component {
                                     LeftButton={LeftButton} />
                                 <Scene key="accidentResponsibilityInfo"
                                     component={AccidentResponsibilityInfo}
-                                    title='事故责任详情'                                   
+                                    title='事故责任详情'
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key="selectAddress"
                                     component={SelectAddress}
-                                    title='事故责任详情'                                   
+                                    title='选择位置'
                                     hideNavBar={false}
-                                    initial={true}
+
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

@@ -19,6 +19,7 @@ import * as personalInfoTypes from './PersonalInfoTypes'
 import * as applyAccidentImageTypes from './ApplyAccidentImageTypes'
 import * as applyAccidentTypes from './ApplyAccidentTypes'
 import * as selectAddressTypes from './SelectAddressTypes'
+import * as truckTypes from './TruckTypes'
 
 export {
     homeTypes,
@@ -44,5 +45,6 @@ export {
 
     applyAccidentImageTypes,
     applyAccidentTypes,
-    selectAddressTypes
+    selectAddressTypes,
+    truckTypes
 }   

@@ -12,7 +12,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import globalStyles from '../GlobalStyles'
 import Select from '../components/share/Select'
 import RichTextBox from '../components/share/RichTextBox'
+import DatePicker from '../components/share/DatePicker'
+import CheckBox from '../components/share/CheckBox'
 import { reduxForm, Field } from 'redux-form'
+import { connect } from 'react-redux'
 
 const margin = 15
 const { width } = Dimensions.get('window')
@@ -20,13 +23,30 @@ const ApplyAccident = props => {
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
-                <Field name='address' label='事故地点：' component={Select} />
+                {/*                 
                 <View style={styles.body}>
                     <View style={styles.item}>
                         <Text style={[globalStyles.midText, {}]} >调度任务：大连->长春（112321）</Text>
                     </View>
-                </View>
-                <Field name='accidentExplain' label='事故描述：' component={RichTextBox} />
+                </View> */}
+                <Field name='dpRouteTask'
+                    label='调度任务：'
+                    component={Select} />
+                <Field name='accidentType'
+                    label='车辆类型：'
+                    isRequired={true}
+                    component={Select} />
+                <Field name='address'
+                    label='事故地点：'
+                    isRequired={true}
+                    component={Select} />
+                <Field name='accidentDate'
+                    label='发生时间：'
+                    component={DatePicker} />
+                <Field name='accidentExplain'
+                    label='事故描述：'
+                    isRequired={true}
+                    component={RichTextBox} />
             </Content>
         </Container>
     )

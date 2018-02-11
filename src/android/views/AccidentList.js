@@ -12,7 +12,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import globalStyles from '../GlobalStyles'
 
 const renderItem = props => {
-    console.log('props', props)
     return (
         <View style={styles.itemContainer}>
             <View style={styles.itemHeader}>
