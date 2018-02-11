@@ -16,10 +16,17 @@ import DatePicker from '../components/share/DatePicker'
 import CheckBox from '../components/share/CheckBox'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+import * as selectAccidentTypeAction from '../../actions/SelectAccidentTypeAction'
+import DisposableList from '../views/select/DisposableList'
+import { Actions } from 'react-native-router-flux'
 
 const margin = 15
 const { width } = Dimensions.get('window')
 const ApplyAccident = props => {
+    const { parent,
+        getSccidentTypeWaiting,
+        getSccidentType } = props
+    console.log('state', props.state)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
@@ -35,7 +42,19 @@ const ApplyAccident = props => {
                 <Field name='accidentType'
                     label='车辆类型：'
                     isRequired={true}
-                    component={Select} />
+                    component={Select}
+                    getList={getSccidentType}
+                    getListWaiting={getSccidentTypeWaiting}
+                    showList={({ onSelect }) => {
+                        return Actions.listCennect({
+                            mapStateToProps: accidentTypeMapStateToProps,
+                            mapDispatchToProps: accidentTypeMapDispatchToProps,
+                            List: DisposableList,
+                            onSelect: (param) => {
+                                console.log(param)
+                            }
+                        })
+                    }} />
                 <Field name='address'
                     label='事故地点：'
                     isRequired={true}
@@ -52,13 +71,43 @@ const ApplyAccident = props => {
     )
 }
 
-export default reduxForm({
+const accidentTypeMapStateToProps = (state) => {
+    return {
+        listReducer: {
+            Action: state.selectAccidentTypeReducer.getSccidentType,
+            data: {
+                list: state.selectAccidentTypeReducer.data.typeList
+            }
+        }
+    }
+}
+
+const accidentTypeMapDispatchToProps = (dispatch) => ({
+
+})
+
+
+const mapStateToProps = (state) => {
+    return {
+        state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getSccidentTypeWaiting: () => {
+        dispatch(selectAccidentTypeAction.getSccidentTypeWaiting())
+    },
+    getSccidentType: () => {
+        dispatch(selectAccidentTypeAction.getSccidentType())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'applyAccidentForm',
     onSubmit: (values, dispatch, props) => {
         console.log('onSubmit')
     }
-})(ApplyAccident)
-
+})(ApplyAccident))
 
 const styles = StyleSheet.create({
     errText: {

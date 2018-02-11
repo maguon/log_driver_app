@@ -20,6 +20,7 @@ import * as applyAccidentImageTypes from './ApplyAccidentImageTypes'
 import * as applyAccidentTypes from './ApplyAccidentTypes'
 import * as selectAddressTypes from './SelectAddressTypes'
 import * as truckTypes from './TruckTypes'
+import * as selectAccidentTypeActionTypes from './SelectAccidentTypeActionTypes'
 
 export {
     homeTypes,
@@ -46,5 +47,6 @@ export {
     applyAccidentImageTypes,
     applyAccidentTypes,
     selectAddressTypes,
-    truckTypes
+    truckTypes,
+    selectAccidentTypeActionTypes
 }   

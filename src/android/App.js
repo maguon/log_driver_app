@@ -44,6 +44,8 @@ import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
 import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 import AccidentListOperation from './components/AccidentListOperation'
 import SelectAddress from './views/select/SelectAddress'
+import ListCennect from './views/select/ListCennect'
+
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -148,6 +150,12 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
                                     RightButton={ApplyAccidentSubmit} />
+                                <Scene key="listCennect"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    hideNavBar={false} />
                                 <Scene key="applyAccidentImage"
                                     component={ApplyAccidentImage}
                                     title='上传事故照片'
