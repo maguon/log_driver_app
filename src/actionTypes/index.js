@@ -21,7 +21,7 @@ import * as applyAccidentTypes from './ApplyAccidentTypes'
 import * as selectAddressTypes from './SelectAddressTypes'
 import * as truckTypes from './TruckTypes'
 import * as selectAccidentTypeActionTypes from './SelectAccidentTypeActionTypes'
-//import * as selectDpRouteTaskTypes from './SelectDpRouteTaskTypes'
+import * as accidentListTypes from './AccidentListTypes'
 
 export {
     homeTypes,
@@ -50,5 +50,5 @@ export {
     selectAddressTypes,
     truckTypes,
     selectAccidentTypeActionTypes,
-   // selectDpRouteTaskTypes
+    accidentListTypes
 }   

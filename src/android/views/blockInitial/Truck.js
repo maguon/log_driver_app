@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     TouchableNativeFeedback,
-    TouchableOpacity
+    TouchableOpacity,
+    InteractionManager
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -14,6 +15,9 @@ import globalStyles from '../../GlobalStyles'
 import { connect } from 'react-redux'
 import * as truckAction from '../../../actions/TruckAction'
 import FontTag from '../../components/FontTag'
+import * as accidentListAction from '../../../actions/AccidentListAction'
+
+
 
 class Truck extends Component {
     constructor(props) {
@@ -26,7 +30,7 @@ class Truck extends Component {
 
     render() {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
-            driverInfo: { company_name, operate_type } } } } = this.props
+            driverInfo: { company_name, operate_type } } },getAccidentList,getAccidentListWaiting } = this.props
         console.log(this.props)
         return (
             <Container>
@@ -76,7 +80,11 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={Actions.accidentList}>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getAccidentListWaiting()
+                                Actions.accidentList()
+                                InteractionManager.runAfterInteractions(getAccidentList)
+                            }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车事故申报</Text>
@@ -149,6 +157,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     getDriverInfo: () => {
         dispatch(truckAction.getDriverInfo())
+    },
+    getAccidentList: () => {
+        dispatch(accidentListAction.getAccidentList())
+    },
+    getAccidentListWaiting: () => {
+        dispatch(accidentListAction.getAccidentListWaiting())
     }
 })
 

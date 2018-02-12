@@ -3,69 +3,105 @@ import {
     Text,
     View,
     FlatList,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native'
 import { Container } from 'native-base'
-import { Icon } from 'native-base'
-import {connect} from 'react-redux'
+import { Icon, Spinner } from 'native-base'
+import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import globalStyles from '../GlobalStyles'
+import globalStyles, { styleColor } from '../GlobalStyles'
+import * as accidentListAction from '../../actions/AccidentListAction'
+import moment from 'moment'
 
 const renderItem = props => {
+    const { item: { id, address, accident_explain, accident_status, accident_date, truck_num }, index } = props
+    console.log('props', props)
     return (
-        <View style={styles.itemContainer}>
+        <View key={index} style={styles.itemContainer}>
             <View style={styles.itemHeader}>
-                <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.123456778</Text>
-                <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>
+                <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.{id ? `${id}` : ''}</Text>
+                {accident_status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>}
+                {accident_status == 2 && <Text style={[globalStyles.midText]}>处理中</Text>}
+                {accident_status == 3 && <Text style={[globalStyles.midText]}>已处理</Text>}
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} style={styles.itemBlockMaterialIcon}/>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>辽B23456</Text>
+                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{truck_num ? `${truck_num}` : ''}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-time-outline' style={styles.itemBlockIcon}  style={styles.itemBlockIcon}/>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>2017-05-12 11:30</Text>
+                    <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{accident_date ? `${moment(accident_date).format('YYYY-MM-DD')}` : ''}</Text>
                 </View>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
                     <Icon name='ios-pin' style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故地点：</Text>大连市开发区金马路十元国际东门</Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故地点：</Text>{address ? `${address}` : ''}</Text>
                 </View>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'}  style={styles.itemBlockMaterialIcon}/>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故描述：</Text>有后门，右后叶子板凹坑变形</Text>
+                    <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'} style={styles.itemBlockMaterialIcon} />
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}</Text>
                 </View>
             </View>
         </View>
     )
 }
 
-const AccidentList = props => {
-   // console.log('props',props)
+const ListFooterComponent = () => {
     return (
-        <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={[1, 2, 3, 4, 5]}
-                renderItem={renderItem}
-            />
-        </Container>
+        <View style={styles.footerContainer}>
+            <ActivityIndicator color={styleColor} styleAttr='Small' />
+            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
+        </View>
     )
+}
+
+const AccidentList = props => {
+    console.log('props', props)
+    const { accidentListReducer: { data: { accidentList,isComplete }, getAccidentList }, 
+    accidentListReducer, getAccidentListMore } = props
+    if (getAccidentList.isResultStatus == 1) {
+        return (
+            <Container>
+                <Spinner color={styleColor} />
+            </Container>
+        )
+    }
+    else {
+        return (
+            <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={() => {
+                        if (getAccidentList.isResultStatus == 2 && !isComplete) {
+                            getAccidentListMore()
+                        }
+                    }}
+                    ListFooterComponent={accidentListReducer.getAccidentListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
+                    data={accidentList}
+                    renderItem={renderItem}
+                />
+            </Container>
+        )
+    }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        state
+        accidentListReducer: state.accidentListReducer
     }
 }
 
-const mapDispatchToProps = (dispatch,ownProps) => ({
-
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    getAccidentListMore: () => {
+        dispatch(accidentListAction.getAccidentListMore())
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccidentList)
@@ -93,18 +129,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 5
     },
-    itemWarnColor:{
+    itemWarnColor: {
         color: '#fe7378'
     },
     itemBlockIcon: {
         color: '#bbb',
         fontSize: 16,
-        width:20,
-        textAlign:'center'
+        width: 20,
+        textAlign: 'center'
     },
-    itemBlockMaterialIcon:{
-        width:20,
-        textAlign:'center'
+    itemBlockMaterialIcon: {
+        width: 20,
+        textAlign: 'center'
     },
     itemBlock: {
         flexDirection: 'row',

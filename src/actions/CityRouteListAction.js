@@ -7,7 +7,6 @@ export const getCityRouteList = (param) => async (dispatch, getState) => {
     try {
         const { userReducer: { data: { user: { userId } } } } = getState()
         const getDriverUrl = `${base_host}/user/${userId}`
-        console.log('getDriverUrl',getDriverUrl)
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
             const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
