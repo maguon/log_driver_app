@@ -17,6 +17,8 @@ import { file_host } from '../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  applyAccidentImageAction from '../../actions/ApplyAccidentImageAction'
 import * as routerDirection from '../../util/RouterDirection'
+import {Actions} from 'react-native-router-flux'
+
 
 const window = Dimensions.get('window')
 const containerWidth = window.width / 2
@@ -31,15 +33,15 @@ const renderItem = props => {
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() => routerDirection.singlePhotoView(parent)({ initParam: { imageUrlList: demageImageList.map(url => `${file_host}/image/${url.url}`), index } })} >
-                <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
+                onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url}`), index } })} >
+                <ImageItem imageUrl={`${file_host}/image/${item}`} />
             </TouchableOpacity>
         )
     }
 }
 
 const renderItemCameraButton = props => {
-    const { index, uploadAccidentImageWaiting, uploadAccidentImage} = props
+    const { index, uploadAccidentImageWaiting, uploadAccidentImage } = props
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
@@ -56,7 +58,7 @@ const renderListEmpty = props => {
         <View>
             <View style={styles.cameraButtonContainer}>
                 <CameraButton
-                    getImage={(cameraReses) => uploadAccidentImage({ cameraReses})}
+                    getImage={(cameraReses) => uploadAccidentImage({ cameraReses })}
                     _cameraStart={uploadAccidentImageWaiting} />
             </View>
             <View style={styles.titleContainer}>
@@ -73,16 +75,16 @@ const ApplyAccidentImage = props => {
     const { parent,
         uploadAccidentImageWaiting,
         uploadAccidentImage,
-        applyAccidentImageReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
+        applyAccidentImageReducer: { data: { accidentImageList }, uploadAccidentImage: { isResultStatus } } } = props
     return (
         <Container >
             <FlatList
                 style={styles.flatList}
                 showsVerticalScrollIndicator={false}
-                data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
+                data={accidentImageList.length > 0 ? [...accidentImageList, 'isCameraButton'] : accidentImageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting, uploadAccidentImage })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
+                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList: accidentImageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}

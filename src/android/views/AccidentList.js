@@ -45,7 +45,7 @@ const renderItem = props => {
 }
 
 const AccidentList = props => {
-    console.log('props',props)
+   // console.log('props',props)
     return (
         <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
             <FlatList
