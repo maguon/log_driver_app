@@ -6,6 +6,8 @@ import {
 import { MapView, Marker } from 'react-native-amap3d'
 import { Button } from 'native-base'
 import globalStyles from '../../GlobalStyles'
+import { connect } from 'react-redux'
+import * as selectAddressAction from '../../../actions/SelectAddressAction'
 
 class SelectAddress extends Component {
     constructor(props) {
@@ -21,7 +23,9 @@ class SelectAddress extends Component {
 
 
     render() {
-        const { onSelect } = this.props
+        const { onSelect, getAddress, selectAddressReducer: { data: {
+            addressInfo
+        } } } = this.props
         return (
             <View style={{ flex: 1 }}>
                 <MapView
@@ -36,6 +40,15 @@ class SelectAddress extends Component {
                             onlongitude: nativeEvent.longitude,
                             active: true
                         })
+                        if (this.state.active) {
+                            getAddress({
+                                location: `${nativeEvent.longitude},${nativeEvent.latitude}`,
+                                key: '22d16ea40b6fdb3ebc3daa1b48db3287',
+                                extensions: 'all',
+                                batch: 'false',
+                                radius: '1000'
+                            })
+                        }
                     }}
                     coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
                     onLocation={({ nativeEvent }) => {
@@ -43,6 +56,15 @@ class SelectAddress extends Component {
                             latitude: nativeEvent.latitude,
                             longitude: nativeEvent.longitude,
                         })
+                        if (!this.state.active) {
+                            getAddress({
+                                location: `${nativeEvent.longitude},${nativeEvent.latitude}`,
+                                key: '22d16ea40b6fdb3ebc3daa1b48db3287',
+                                extensions: 'all',
+                                batch: 'false',
+                                radius: '1000'
+                            })
+                        }
                     }}
                     showsZoomControls={false}
                     style={{ flex: 1 }}>
@@ -54,13 +76,17 @@ class SelectAddress extends Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ padding: 5, flex: 5 }}>
                         <Text style={[globalStyles.midText, { padding: 5, fontWeight: 'bold' }]}>
-                        {this.state.active ? this.state.onlatitude : this.state.latitude}
+                            {addressInfo.formatted_address ? `${addressInfo.formatted_address}` : ''}
                         </Text>
                         <Text style={[globalStyles.midText, { padding: 5 }]}>
-                        {this.state.active ? this.state.onlongitude : this.state.longitude}</Text>
+                            {addressInfo.addressComponent ? `${addressInfo.addressComponent.city}${addressInfo.addressComponent.district}${addressInfo.addressComponent.streetNumber.street}${addressInfo.addressComponent.streetNumber.number}` : ''}</Text>
                     </View>
                     <View>
-                        <Button style={{ flex: 1 }} transparent onPress={() => { }}>
+                        <Button style={{ flex: 1 }} transparent onPress={() => onSelect({
+                            value: addressInfo.addressComponent ? `${addressInfo.addressComponent.city}${addressInfo.addressComponent.district}${addressInfo.addressComponent.streetNumber.street}${addressInfo.addressComponent.streetNumber.number}` : '',
+                            lng: this.state.active ? this.state.onlongitude : this.state.longitude,
+                            lat: this.state.active ? this.state.onlatitude : this.state.latitude
+                        })}>
                             <Text style={[globalStyles.midText, globalStyles.styleColor]}>确定</Text>
                         </Button>
                     </View>
@@ -70,4 +96,16 @@ class SelectAddress extends Component {
     }
 }
 
-export default SelectAddress
+const mapStateToProps = (state) => {
+    return {
+        selectAddressReducer: state.selectAddressReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    getAddress: (param) => {
+        dispatch(selectAddressAction.getAddress(param))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectAddress)

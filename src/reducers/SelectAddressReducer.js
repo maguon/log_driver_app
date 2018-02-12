@@ -3,7 +3,7 @@ import * as actionTypes from '../actionTypes'
 
 const initialState = {
     data: {
-        AddressInfo: {}
+        addressInfo: {}
     },
     getAddress: {
         isResultStatus: 0,
@@ -15,11 +15,11 @@ const initialState = {
 
 export default handleActions({
     [actionTypes.selectAddressTypes.get_addressAtMap_success]: (state, action) => {
-        const { payload: { AddressInfo } } = action
+        const { payload: { addressInfo } } = action
         return {
             ...state,
             data: {
-                AddressInfo
+                addressInfo
             },
             getAddress: {
                 ...state.getAddress,

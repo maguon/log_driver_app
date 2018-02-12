@@ -18,11 +18,12 @@ const RichTextBox = props => {
         label = '',
         labelStyle = {},
         textStyle = {},
+        isRequired=false,
         containerStyle = {},
         meta: { error, touched } } = props
     return (
         <View style={[styles.item, containerStyle]}>
-            <Label style={[styles.label, globalStyles.midText, labelStyle]}>{label}</Label>
+            <Label style={[styles.label, globalStyles.midText, labelStyle]}>{isRequired && <Text style={styles.errText}>*</Text>}{label}</Label>
             <Input
                 multiline={true}
                 style={[styles.inputArea, globalStyles.midText, textStyle]}
@@ -52,6 +53,9 @@ const styles = StyleSheet.create({
     itemSelect: {
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    errText: {
+        color: 'red'
     },
     inputArea: {
         height: 200,

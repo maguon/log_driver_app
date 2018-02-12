@@ -18,26 +18,32 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import * as selectAccidentTypeAction from '../../actions/SelectAccidentTypeAction'
 import * as cityRouteListAction from '../../actions/CityRouteListAction'
+import * as applyAccidentAction from '../../actions/ApplyAccidentAction'
 import DisposableList from '../views/select/DisposableList'
 import { Actions } from 'react-native-router-flux'
+import { requiredObj, required } from '../../util/Validator'
+import moment from 'moment'
 
 const margin = 15
 const { width } = Dimensions.get('window')
+
+const validateRequired = required('必选')
+
 const ApplyAccident = props => {
     const { parent,
         getAccidentTypeWaiting,
         getAccidentType,
         getCityRouteList,
         getCityRouteListWaiting } = props
-
-    console.log('state', props.state)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
                 <Field name='dpRouteTask'
                     label='调度任务：'
+                    isRequired={true}
                     component={Select}
                     getList={getCityRouteList}
+                    validate={[validateRequired]}
                     getListWaiting={getCityRouteListWaiting}
                     showList={({ onSelect }) => {
                         return Actions.listCennect({
@@ -55,6 +61,7 @@ const ApplyAccident = props => {
                     label='车辆类型：'
                     isRequired={true}
                     component={Select}
+                    validate={[validateRequired]}
                     getList={getAccidentType}
                     getListWaiting={getAccidentTypeWaiting}
                     showList={({ onSelect }) => {
@@ -73,6 +80,7 @@ const ApplyAccident = props => {
                     label='事故地点：'
                     isRequired={true}
                     component={Select}
+                    validate={[validateRequired]}
                     getList={() => { }}
                     getListWaiting={() => { }}
                     showList={({ onSelect }) => {
@@ -86,6 +94,7 @@ const ApplyAccident = props => {
                 <Field name='accidentExplain'
                     label='事故描述：'
                     isRequired={true}
+                    validate={[validateRequired]}
                     component={RichTextBox} />
             </Content>
         </Container>
@@ -130,7 +139,9 @@ const accidentTypeMapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        state
+        initialValues: {
+            accidentDate:moment().format('YYYY-MM-DD')
+        }
     }
 }
 
@@ -152,7 +163,8 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'applyAccidentForm',
     onSubmit: (values, dispatch, props) => {
-        console.log('onSubmit')
+        dispatch(applyAccidentAction.applyAccident(values))
+        console.log('onSubmitvalues',values)
     }
 })(ApplyAccident))
 
