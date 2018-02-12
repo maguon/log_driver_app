@@ -8,8 +8,11 @@ import AccidentEditor from '../components/accidentInfo/AccidentEditor'
 import ImageEditorForAccident from '../components/accidentInfo/ImageEditorForAccident'
 import ImageListForAccident from '../components/accidentInfo/ImageListForAccident'
 import globalStyles from '../GlobalStyles'
+import { connect } from 'react-redux'
 
 const AccidentInfo = props => {
+   // console.log('props', props)
+    const { accidentInfo } = props
     return (
         <Container style={globalStyles.listBackgroundColor}>
             <Tabs>
@@ -20,8 +23,9 @@ const AccidentInfo = props => {
                     textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="事故">
                     <Container>
-                        {/* <AccidentDetail /> */}
-                        <AccidentEditor />
+                        {accidentInfo.accident_status == 1 && <AccidentEditor accidentInfo={accidentInfo} />}
+                        {accidentInfo.accident_status == 2 && <AccidentEditor accidentInfo={accidentInfo} />}
+                        {accidentInfo.accident_status == 3 && <AccidentDetail accidentInfo={accidentInfo} />}
                     </Container>
                 </Tab>
                 <Tab
@@ -31,8 +35,9 @@ const AccidentInfo = props => {
                     textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="照片">
                     <Container>
-                        <ImageEditorForAccident />
-                        {/* <ImageListForAccident /> */}
+                        {accidentInfo.accident_status == 1 && <ImageEditorForAccident />}
+                        {accidentInfo.accident_status == 2 && <ImageEditorForAccident />}
+                        {accidentInfo.accident_status == 3 && <ImageListForAccident />}
                     </Container>
                 </Tab>
             </Tabs>
@@ -41,4 +46,14 @@ const AccidentInfo = props => {
 }
 
 
-export default AccidentInfo
+const mapStateToProps = (state, ownProps) => {
+    return {
+        accidentInfo: state.accidentListReducer.data.accidentList.find(item => item.id == ownProps.accidentId)
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccidentInfo)

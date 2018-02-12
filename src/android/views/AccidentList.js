@@ -4,20 +4,22 @@ import {
     View,
     FlatList,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native'
 import { Container } from 'native-base'
-import { Icon, Spinner } from 'native-base'
+import { Icon, Spinner, Thumbnail } from 'native-base'
 import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../GlobalStyles'
 import * as accidentListAction from '../../actions/AccidentListAction'
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
-    const { item: { id, address, accident_explain, accident_status, accident_date, truck_num }, index } = props
+    const { item: { id, address, accident_explain, accident_status, created_on, truck_num }, index } = props
     return (
-        <View key={index} style={styles.itemContainer}>
+        <TouchableOpacity key={index} style={styles.itemContainer} onPress={() => Actions.accidentInfo({ accidentId: id })}>
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.{id ? `${id}` : ''}</Text>
                 {accident_status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>}
@@ -31,7 +33,7 @@ const renderItem = props => {
                 </View>
                 <View style={styles.itemBlock}>
                     <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{accident_date ? `${moment(accident_date).format('YYYY-MM-DD')}` : ''}</Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>
             </View>
             <View style={styles.item}>
@@ -46,7 +48,7 @@ const renderItem = props => {
                     <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -59,10 +61,17 @@ const ListFooterComponent = () => {
     )
 }
 
+const renderEmpty = () => {
+    return (
+        <View style={styles.listEmptyContainer}>
+            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无申报记录</Text>
+        </View>
+    )
+}
+
 const AccidentList = props => {
-    console.log('props', props)
-    const { accidentListReducer: { data: { accidentList,isComplete }, getAccidentList }, 
-    accidentListReducer, getAccidentListMore } = props
+    const { accidentListReducer: { data: { accidentList, isComplete }, getAccidentList },
+        accidentListReducer, getAccidentListMore } = props
     if (getAccidentList.isResultStatus == 1) {
         return (
             <Container>
@@ -75,6 +84,7 @@ const AccidentList = props => {
             <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
+                    ListEmptyComponent={renderEmpty}
                     onEndReachedThreshold={0.2}
                     onEndReached={() => {
                         if (getAccidentList.isResultStatus == 2 && !isComplete) {
@@ -140,6 +150,14 @@ const styles = StyleSheet.create({
     itemBlockMaterialIcon: {
         width: 20,
         textAlign: 'center'
+    },
+    listEmptyContainer: {
+        alignItems: 'center',
+        marginTop: 60
+    },
+    listEmptyText: {
+        color: '#aaa',
+        marginTop: 30
     },
     itemBlock: {
         flexDirection: 'row',
