@@ -16,7 +16,6 @@ import moment from 'moment'
 
 const renderItem = props => {
     const { item: { id, address, accident_explain, accident_status, accident_date, truck_num }, index } = props
-    console.log('props', props)
     return (
         <View key={index} style={styles.itemContainer}>
             <View style={styles.itemHeader}>
@@ -151,5 +150,14 @@ const styles = StyleSheet.create({
     },
     itemBlockTitle: {
 
+    },
+    footerContainer: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        margin: 10,
+        alignItems: 'center'
+    },
+    footerText: {
+        paddingLeft: 10
     }
 })

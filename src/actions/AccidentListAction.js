@@ -2,8 +2,10 @@ import httpRequest from '../util/HttpRequest'
 import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
+import { sleep } from '../util/util'
+import {ToastAndroid} from 'react-native'
 
-const pageSize = 5
+const pageSize = 50
 
 export const getAccidentList = (param) => async (dispatch, getState) => {
     try {
@@ -43,13 +45,13 @@ export const getAccidentListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: actionTypes.accidentListTypes.get_accidentListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/truckAccident?${ObjectToUrl({ underUserId: uid, start: accidentList.length, size: pageSize })}`
+                const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: accidentList.length, size: pageSize })}`
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
                         dispatch({ type: actionTypes.accidentListTypes.get_accidentListMore_success, payload: { accidentList: res.result, isComplete: true } })
                     } else {
-                        dispatch({ type:  actionTypes.accidentListTypes.get_accidentListMore_success, payload: { accidentList: res.result, isComplete: false } })
+                        dispatch({ type: actionTypes.accidentListTypes.get_accidentListMore_success, payload: { accidentList: res.result, isComplete: false } })
                     }
                 } else {
                     dispatch({ type: actionTypes.accidentListTypes.get_accidentListMore_failed, payload: { failedMsg: res.msg } })
