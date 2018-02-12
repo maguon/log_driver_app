@@ -8,7 +8,7 @@ import globalStyles from '../../GlobalStyles'
 import moment from 'moment'
 
 const AccidentDetail = props => {
-    console.log('props', props)
+
     const { accidentInfo: { id, created_on, dp_route_task_id, city_route_end, city_route_start, truck_type, truck_num, address, updated_on, accident_explain } } = props
     return (
         <View style={styles.container}>
