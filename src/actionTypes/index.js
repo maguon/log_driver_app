@@ -22,6 +22,7 @@ import * as selectAddressTypes from './SelectAddressTypes'
 import * as truckTypes from './TruckTypes'
 import * as selectAccidentTypeActionTypes from './SelectAccidentTypeActionTypes'
 import * as accidentListTypes from './AccidentListTypes'
+import * as accidentEditorTypes from './AccidentEditorTypes'
 
 export {
     homeTypes,
@@ -50,5 +51,6 @@ export {
     selectAddressTypes,
     truckTypes,
     selectAccidentTypeActionTypes,
-    accidentListTypes
+    accidentListTypes,
+    accidentEditorTypes
 }   
