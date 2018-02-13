@@ -6,7 +6,8 @@ import {
     Modal,
     TouchableOpacity,
     TouchableHighlight,
-    Dimensions
+    Dimensions,
+    InteractionManager
 } from 'react-native'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
@@ -14,7 +15,7 @@ import { Button, Spinner, Icon, } from 'native-base'
 import { submit } from 'redux-form'
 import { reduxForm, Field } from 'redux-form'
 import DatePicker from './share/DatePicker'
-
+import * as accidentListAction from '../../actions/AccidentListAction'
 
 
 const { width } = Dimensions.get('window')
@@ -43,7 +44,7 @@ class AccidentListOperation extends Component {
                     animationType={"slide"}
                     transparent={true}
                     visible={this.state.modalVisible}
-                    onRequestClose={() => { alert("Modal has been closed.") }}
+                    onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}
                 >
                     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.2)', justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ backgroundColor: '#fff', borderRadius: 3 }}>
@@ -61,6 +62,7 @@ class AccidentListOperation extends Component {
                                 style={{ alignItems: 'center', borderBottomRightRadius: 3, borderBottomLeftRadius: 3, padding: 20 }}
                                 onPress={() => {
                                     this.setModalVisible(!this.state.modalVisible)
+                                    InteractionManager.runAfterInteractions(this.props.getAccidentList)
                                 }}>
                                 <Text >确定</Text>
                             </TouchableHighlight>
@@ -73,9 +75,26 @@ class AccidentListOperation extends Component {
 }
 
 
-export default reduxForm({
-    form: 'AccidentSearchForm',
-    onSubmit: (values, dispatch, props) => {
-        console.log('onSubmit')
+const mapStateToProps = (state) => {
+    return {
+
     }
-})(AccidentListOperation)
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    getAccidentList: () => {
+        dispatch(accidentListAction.getAccidentList())
+    },
+    getAccidentListWaiting: () => {
+        dispatch(accidentListAction.getAccidentListWaiting())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm({
+        form: 'accidentSearchForm',
+        onSubmit: (values, dispatch, props) => {
+            console.log('onSubmit')
+        }
+    })(AccidentListOperation)
+)

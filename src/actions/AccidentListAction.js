@@ -3,14 +3,19 @@ import { base_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { sleep } from '../util/util'
-import {ToastAndroid} from 'react-native'
+import { ToastAndroid } from 'react-native'
+import { getFormValues } from 'redux-form'
 
 const pageSize = 50
 
-export const getAccidentList = (param) => async (dispatch, getState) => {
+export const getAccidentList = () => async (dispatch, getState) => {
     try {
-        const { userReducer: { data: { user: { userId } } } } = getState()
-        const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: 0, size: pageSize })}`
+        const state = getState()
+        const { userReducer: { data: { user: { userId } } } } = state
+        let search = getFormValues('accidentSearchForm')(state)
+        search = search ? search : {}
+        console.log('search', search)
+        const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: 0, size: pageSize, ...search })}`
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({
@@ -34,10 +39,14 @@ export const getAccidentListWaiting = () => (dispatch) => {
 }
 
 export const getAccidentListMore = () => async (dispatch, getState) => {
+    const state = getState()
     const {
         userReducer: { data: { user: { userId } } },
         accidentListReducer: { data: { accidentList, isComplete } },
-        accidentListReducer } = getState()
+        accidentListReducer } = state
+    let search = getFormValues('accidentSearchForm')(state)
+    search = search ? search : {}
+    console.log('search', search)
     if (accidentListReducer.getAccidentListMore.isResultStatus == 1) {
         await sleep(1000)
         getAccidentListMore()(dispatch, getState)
@@ -45,7 +54,7 @@ export const getAccidentListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: actionTypes.accidentListTypes.get_accidentListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: accidentList.length, size: pageSize })}`
+                const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: accidentList.length, size: pageSize, ...search })}`
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
