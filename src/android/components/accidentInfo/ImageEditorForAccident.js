@@ -17,21 +17,23 @@ import { file_host } from '../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  imagForAccidentAction from '../../../actions/ImagForAccidentAction'
 import * as routerDirection from '../../../util/RouterDirection'
+import {Actions} from 'react-native-router-flux'
+
 
 const window = Dimensions.get('window')
 const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent } = props
+    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent, accidentId } = props
     if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage })
+        return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId })
     } else {
         return (
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() => routerDirection.singlePhotoView(parent)({ initParam: { imageUrlList: demageImageList.map(url => `${file_host}/image/${url.url}`), index } })} >
+                onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })} >
                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
             </TouchableOpacity>
         )
@@ -39,11 +41,11 @@ const renderItem = props => {
 }
 
 const renderItemCameraButton = props => {
-    const { index, uploadAccidentImageWaiting, uploadAccidentImage } = props
+    const { index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId } = props
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
-                getImage={(cameraReses) => uploadAccidentImage({ cameraReses })}
+                getImage={(cameraReses) => uploadAccidentImage({ cameraReses,accidentId })}
                 _cameraStart={uploadAccidentImageWaiting}
             />
         </View>
@@ -73,7 +75,8 @@ const ImageEditorForAccident = props => {
     const { parent,
         uploadAccidentImageWaiting,
         uploadAccidentImage,
-        imageEditorForAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
+        accidentInfo: { id },
+        imageForAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
     return (
         <Container >
             <FlatList
@@ -82,7 +85,7 @@ const ImageEditorForAccident = props => {
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting, uploadAccidentImage })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
+                renderItem={({ item, index }) => renderItem({ parent, accidentId: id, item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -164,17 +167,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getAccidentImageList: () => {
-        dispatch(imageEditorForAccidentAction.getAccidentImageList())
-    },
-    getAccidentImageListWaiting: () => {
-        dispatch(imageEditorForAccidentAction.getAccidentImageListWaiting())
-    },
     uploadAccidentImageWaiting: () => {
-        dispatch(imageEditorForAccidentAction.uploadAccidentImageWaiting())
+        dispatch(imagForAccidentAction.uploadAccidentImageWaiting())
     },
     uploadAccidentImage: (param) => {
-        dispatch(imageEditorForAccidentAction.uploadAccidentImage(param))
+        dispatch(imagForAccidentAction.uploadAccidentImage(param))
     }
 })
 

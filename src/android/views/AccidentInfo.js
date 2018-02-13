@@ -35,8 +35,8 @@ const AccidentInfo = props => {
                     textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="照片">
                     <Container>
-                        {accidentInfo.accident_status == 1 && <ImageEditorForAccident />}
-                        {accidentInfo.accident_status == 2 && <ImageEditorForAccident />}
+                        {accidentInfo.accident_status == 1 && <ImageEditorForAccident accidentInfo={accidentInfo} />}
+                        {accidentInfo.accident_status == 2 && <ImageEditorForAccident accidentInfo={accidentInfo} />}
                         {accidentInfo.accident_status == 3 && <ImageListForAccident />}
                     </Container>
                 </Tab>
