@@ -34,7 +34,6 @@ class Truck extends Component {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
             getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting } = this.props
-        console.log(this.props)
         return (
             <Container>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#4edbf0' }}>

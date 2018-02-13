@@ -26,6 +26,8 @@ import * as accidentEditorTypes from './AccidentEditorTypes'
 import * as imageForAccidentTypes from './ImageForAccidentTypes'
 import * as accidentResponsibilityListTypes from './AccidentResponsibilityListTypes'
 import * as cleanRelListTypes from './CleanRelListTypes'
+import * as selectCityActionTypes from './SelectCityActionTypes'
+import * as selectReceiveActionTypes from './SelectReceiveActionTypes'
 
 export {
     homeTypes,
@@ -58,5 +60,7 @@ export {
     accidentEditorTypes,
     imageForAccidentTypes,
     accidentResponsibilityListTypes,
-    cleanRelListTypes
+    cleanRelListTypes,
+    selectCityActionTypes,
+    selectReceiveActionTypes
 }   

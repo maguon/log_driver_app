@@ -14,11 +14,11 @@ import globalStyles from '../../GlobalStyles'
 const { width } = Dimensions.get('window')
 const margin = 15
 
-const _onPress = ({ showList, getList, onChange, getListWaiting }) => {
+const _onPress = ({ showList, getList, onChange, getListWaiting, isPop }) => {
     getListWaiting()
     showList({
         onSelect: (param) => {
-            Actions.pop()
+            if (isPop) { Actions.pop() }
             InteractionManager.runAfterInteractions(() => {
                 onChange(param)
             })
@@ -35,11 +35,12 @@ const Select = props => {
         isRequired = false,
         textStyle = {},
         getList,
+        isPop = true,
         showList,
         getListWaiting,
         meta: { error, touched } } = props
     return (
-        <TouchableOpacity style={styles.body} onPress={() => _onPress({ showList, getList, onChange, getListWaiting })}>
+        <TouchableOpacity style={styles.body} onPress={() => _onPress({ showList, getList, onChange, getListWaiting, isPop })}>
             <View style={styles.item}>
                 <Text style={[globalStyles.midText, textStyle, {}]} >{isRequired && <Text style={styles.errText}>*</Text>}{label}{value.value}</Text>
                 <Icon name='ios-arrow-forward-outline' color='#777' fontSize={15} style={{ fontSize: 18, color: '#777' }} />

@@ -6,9 +6,9 @@ import { sleep } from '../util/util'
 import { ToastAndroid } from 'react-native'
 import { getFormValues } from 'redux-form'
 
-const pageSize = 50
+const pageSize = 1
 
-export const getCleanRelList = () => async (dispatch, getState) => {
+export const getCleanRelList = (receiveId) => async (dispatch, getState) => {
     const state = getState()
     const { userReducer: { data: { user: { userId } } } } = state
     try {
@@ -18,7 +18,8 @@ export const getCleanRelList = () => async (dispatch, getState) => {
             const url = `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({
                 driveId: getDriverRes.result[0].drive_id,
                 start: 0,
-                size: pageSize
+                size: pageSize,
+                receiveId:receiveId
             })}`
             const res = await httpRequest.get(url)
             if (res.success) {
@@ -52,8 +53,8 @@ export const getCleanRelListMore = () => async (dispatch, getState) => {
         userReducer: { data: { user: { userId } } },
         cleanRelListReducer: { data: { cleanRelList, isComplete } },
         cleanRelListReducer } = state
-    // let search = getFormValues('accidentSearchForm')(state)
-    // search = search ? search : {}
+    let search = getFormValues('searchCleanRelForm')(state)
+    search = search ? search : {}
     if (cleanRelListReducer.getCleanRelListMore.isResultStatus == 1) {
         await sleep(1000)
         getCleanRelListMore()(dispatch, getState)
@@ -67,7 +68,8 @@ export const getCleanRelListMore = () => async (dispatch, getState) => {
                     const url = `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({
                         driveId: getDriverRes.result[0].drive_id,
                         start: cleanRelList.length,
-                        size: pageSize
+                        size: pageSize,
+                        receiveId:search.id
                     })}`
                     const res = await httpRequest.get(url)
                     if (res.success) {

@@ -18,13 +18,14 @@ import * as accidentListAction from '../../actions/AccidentListAction'
 import * as imagForAccidentAction from '../../actions/ImagForAccidentAction'
 import * as cleanRelListAction from '../../actions/CleanRelListAction'
 import moment from 'moment'
-import Select from '../components/share/Select'
+
 import { Actions } from 'react-native-router-flux'
+import SearchCleanRel from '../components/SearchCleanRel'
 
 const { width } = Dimensions.get('window')
 
 const renderItem = props => {
-    const { item: { dp_route_task_id, route_start_name, addr_name, route_end_name, short_name,actual_price, car_count, load_date, status }, index } = props
+    const { item: { dp_route_task_id, route_start_name, addr_name, route_end_name, short_name, actual_price, car_count, load_date, status }, index } = props
     return (
         <View key={index} style={styles.itemContainer} >
             <View style={styles.itemHeader}>
@@ -52,7 +53,7 @@ const renderItem = props => {
                 <View style={styles.itemBlock}>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车数量：{car_count ? `${car_count}` : ''}</Text>
                 </View>
-                  <View style={styles.itemBlock}>
+                <View style={styles.itemBlock}>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车费总额：<Text style={styles.itemWarnColor}>{actual_price ? `${actual_price}` : '0'}元</Text></Text>
                 </View>
             </View>
@@ -60,14 +61,6 @@ const renderItem = props => {
     )
 }
 
-const ListHeaderComponent = () => {
-    return (
-        <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
-            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
-        </View>
-    )
-}
 
 const ListFooterComponent = () => {
     return (
@@ -81,7 +74,7 @@ const ListFooterComponent = () => {
 const renderEmpty = () => {
     return (
         <View style={styles.listEmptyContainer}>
-            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无申报记录</Text>
+            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无洗车记录</Text>
         </View>
     )
 }
@@ -98,11 +91,12 @@ const CleanRelList = props => {
     }
     else {
         return (
-            <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
+            <Container style={{ backgroundColor: '#edf1f4' }}>
+                <SearchCleanRel />
                 <FlatList
+                    style={{ padding: 5 }}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
-                    //ListHeaderComponent={ListHeaderComponent}
                     onEndReachedThreshold={0.2}
                     onEndReached={() => {
                         if (getCleanRelList.isResultStatus == 2 && !isComplete) {

@@ -28,15 +28,15 @@ import * as android_app from '../android_app.json'
 export const initApp = (param, tryCount = 1, currentStep = 1) => (dispatch) => {
     if (currentStep == 1) {
         //执行第一步
-        console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+       // console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
         validateVersion(param, tryCount, currentStep)(dispatch)
     } else if (currentStep == 2) {
         //执行第二步
-        console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+       // console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
         loadLocalStorage(null, tryCount, currentStep)(dispatch)
     } else if (currentStep == 3) {
         //执行第三步
-        console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
+      //  console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
         validateToken(param, tryCount, currentStep)(dispatch)
     }
 }
