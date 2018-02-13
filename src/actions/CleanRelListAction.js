@@ -6,7 +6,7 @@ import { sleep } from '../util/util'
 import { ToastAndroid } from 'react-native'
 import { getFormValues } from 'redux-form'
 
-const pageSize = 1
+const pageSize = 50
 
 export const getCleanRelList = (receiveId) => async (dispatch, getState) => {
     const state = getState()
