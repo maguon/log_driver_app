@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import * as truckAction from '../../../actions/TruckAction'
 import FontTag from '../../components/FontTag'
 import * as accidentListAction from '../../../actions/AccidentListAction'
+import * as cleanRelListAction from '../../../actions/CleanRelListAction'
 import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
 
 
@@ -32,7 +33,7 @@ class Truck extends Component {
     render() {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
-            getAccidentResponsibilityList,getAccidentListResponsibilityWaiting } = this.props
+            getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting } = this.props
         console.log(this.props)
         return (
             <Container>
@@ -108,7 +109,7 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={()=>{
+                            <TouchableOpacity style={styles.item} onPress={() => {
                                 getAccidentListResponsibilityWaiting()
                                 Actions.accidentResponsibilityList()
                                 InteractionManager.runAfterInteractions(getAccidentResponsibilityList)
@@ -136,7 +137,11 @@ class Truck extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item} >
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getCleanRelListWaiting()
+                                Actions.cleanRelList()
+                                InteractionManager.runAfterInteractions(getCleanRelList)
+                            }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>洗车费</Text>
@@ -175,6 +180,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getAccidentListResponsibilityWaiting: () => {
         dispatch(accidentResponsibilityListAction.getAccidentListResponsibilityWaiting())
+    },
+    getCleanRelListWaiting: () => {
+        dispatch(cleanRelListAction.getCleanRelListWaiting())
+    },
+    getCleanRelList: () => {
+        dispatch(cleanRelListAction.getCleanRelList())
     }
 })
 

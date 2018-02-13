@@ -25,6 +25,7 @@ import * as accidentListTypes from './AccidentListTypes'
 import * as accidentEditorTypes from './AccidentEditorTypes'
 import * as imageForAccidentTypes from './ImageForAccidentTypes'
 import * as accidentResponsibilityListTypes from './AccidentResponsibilityListTypes'
+import * as cleanRelListTypes from './CleanRelListTypes'
 
 export {
     homeTypes,
@@ -56,5 +57,6 @@ export {
     accidentListTypes,
     accidentEditorTypes,
     imageForAccidentTypes,
-    accidentResponsibilityListTypes
+    accidentResponsibilityListTypes,
+    cleanRelListTypes
 }   

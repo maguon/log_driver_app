@@ -45,6 +45,7 @@ import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 import AccidentListOperation from './components/AccidentListOperation'
 import SelectAddress from './views/select/SelectAddress'
 import ListCennect from './views/select/ListCennect'
+import CleanRelList from './views/CleanRelList'
 
 
 const styles = StyleSheet.create({
@@ -199,6 +200,14 @@ export default class App extends Component {
                                     title='选择位置'
                                     hideNavBar={false}
                                    
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                    <Scene key="cleanRelList"
+                                    component={CleanRelList}
+                                    title='我的洗车费'
+                                    hideNavBar={false}
+                                    
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

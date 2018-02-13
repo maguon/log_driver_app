@@ -26,6 +26,7 @@ import selectAccidentTypeReducer from './SelectAccidentTypeReducer'
 import accidentListReducer from './AccidentListReducer'
 import accidentEditorReducer from './AccidentEditorReducer'
 import accidentResponsibilityListReducer from './AccidentResponsibilityListReducer'
+import cleanRelListReducer from './CleanRelListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -55,5 +56,6 @@ export default combineReducers({
     selectAccidentTypeReducer,
     accidentListReducer,
     accidentEditorReducer,
-    accidentResponsibilityListReducer
+    accidentResponsibilityListReducer,
+    cleanRelListReducer
 })
