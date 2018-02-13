@@ -14,7 +14,6 @@ export const getAccidentList = () => async (dispatch, getState) => {
         const { userReducer: { data: { user: { userId } } } } = state
         let search = getFormValues('accidentSearchForm')(state)
         search = search ? search : {}
-        console.log('search', search)
         const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: userId, start: 0, size: pageSize, ...search })}`
         const res = await httpRequest.get(url)
         if (res.success) {
@@ -46,7 +45,6 @@ export const getAccidentListMore = () => async (dispatch, getState) => {
         accidentListReducer } = state
     let search = getFormValues('accidentSearchForm')(state)
     search = search ? search : {}
-    console.log('search', search)
     if (accidentListReducer.getAccidentListMore.isResultStatus == 1) {
         await sleep(1000)
         getAccidentListMore()(dispatch, getState)

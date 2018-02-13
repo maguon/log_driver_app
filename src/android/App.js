@@ -189,6 +189,7 @@ export default class App extends Component {
                                 <Scene key="accidentResponsibilityInfo"
                                     component={AccidentResponsibilityInfo}
                                     title='事故责任详情'
+                                   
                                     hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar

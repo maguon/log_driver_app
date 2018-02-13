@@ -3,54 +3,99 @@ import {
     Text,
     View,
     FlatList,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native'
-import { Container } from 'native-base'
+import { Container, Spinner } from 'native-base'
 import { Icon } from 'native-base'
 import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import globalStyles from '../GlobalStyles'
+import globalStyles, { styleColor } from '../GlobalStyles'
+import moment from 'moment'
+import {Actions} from 'react-native-router-flux'
 
 const renderItem = props => {
-    console.log('props', props)
+    const { item: { accident_status, created_on, end_date, under_cost } ,item} = props
     return (
-        <View style={styles.itemContainer}>
+        <TouchableOpacity style={styles.itemContainer} onPress={() => Actions.accidentResponsibilityInfo({ responsibilityInfo: item })}>
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText]}>事故责任</Text>
-                <Text style={[globalStyles.midText, styles.itemWarnColor]}>未结</Text>
+                <Text style={[globalStyles.midText, styles.itemWarnColor]}>
+                    {accident_status == 1 && '待处理'}
+                    {accident_status == 2 && '处理中'}
+                    {accident_status == 3 && '已处理'}
+                </Text>
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
                     <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>2017-05-12 11:30 ~ 2017-05-12 11:30</Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>
+                        {created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}
+                        {end_date ? ` ~ ${moment(end_date).format('YYYY-MM-DD HH:mm:ss')}` : ''}
+                    </Text>
                 </View>
             </View>
-            <View style={[styles.item,{justifyContent:'flex-end'}]}>
+            <View style={[styles.item, { justifyContent: 'flex-end' }]}>
                 <View style={styles.itemBlock}>
-                    <Text style={[globalStyles.midText, styles.itemBlockText,styles.itemWarnColor]}>-3000 元</Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText, styles.itemWarnColor]}>{under_cost ? `${under_cost}` : ''} 元</Text>
                 </View>
             </View>
+        </TouchableOpacity>
+    )
+}
+
+const ListFooterComponent = () => {
+    return (
+        <View style={styles.footerContainer}>
+            <ActivityIndicator color={styleColor} styleAttr='Small' />
+            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
+        </View>
+    )
+}
+
+const renderEmpty = () => {
+    return (
+        <View style={styles.listEmptyContainer}>
+            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无申报记录</Text>
         </View>
     )
 }
 
 const AccidentResponsibilityList = props => {
-    console.log('props', props)
-    return (
-        <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={[1, 2, 3, 4, 5]}
-                renderItem={renderItem}
-            />
-        </Container>
-    )
+    const { accidentResponsibilityListReducer: { data: { accidentResponsibilityList, isComplete }, getAccidentResponsibilityList },
+        accidentResponsibilityListReducer, getAccidentResponsibilityListMore } = props
+    if (getAccidentResponsibilityList.isResultStatus == 1) {
+        return (
+            <Container>
+                <Spinner color={styleColor} />
+            </Container>
+        )
+    }
+    else {
+        return (
+            <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    ListEmptyComponent={renderEmpty}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={() => {
+                        if (getAccidentResponsibilityList.isResultStatus == 2 && !isComplete) {
+                            getAccidentResponsibilityListMore()
+                        }
+                    }}
+                    ListFooterComponent={accidentResponsibilityListReducer.getAccidentResponsibilityListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
+                    data={accidentResponsibilityList}
+                    renderItem={renderItem}
+                />
+            </Container>
+        )
+    }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        state
+        accidentResponsibilityListReducer: state.accidentResponsibilityListReducer
     }
 }
 
@@ -105,5 +150,22 @@ const styles = StyleSheet.create({
     },
     itemBlockTitle: {
 
+    },
+    footerContainer: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        margin: 10,
+        alignItems: 'center'
+    },
+    footerText: {
+        paddingLeft: 10
+    },
+    listEmptyContainer: {
+        alignItems: 'center',
+        marginTop: 60
+    },
+    listEmptyText: {
+        color: '#aaa',
+        marginTop: 30
     }
 })

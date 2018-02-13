@@ -25,6 +25,7 @@ import truckReducer from './TruckReducer'
 import selectAccidentTypeReducer from './SelectAccidentTypeReducer'
 import accidentListReducer from './AccidentListReducer'
 import accidentEditorReducer from './AccidentEditorReducer'
+import accidentResponsibilityListReducer from './AccidentResponsibilityListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -53,5 +54,6 @@ export default combineReducers({
     truckReducer,
     selectAccidentTypeReducer,
     accidentListReducer,
-    accidentEditorReducer
+    accidentEditorReducer,
+    accidentResponsibilityListReducer
 })

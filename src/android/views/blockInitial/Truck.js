@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import * as truckAction from '../../../actions/TruckAction'
 import FontTag from '../../components/FontTag'
 import * as accidentListAction from '../../../actions/AccidentListAction'
+import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
 
 
 
@@ -30,7 +31,8 @@ class Truck extends Component {
 
     render() {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
-            driverInfo: { company_name, operate_type } } },getAccidentList,getAccidentListWaiting } = this.props
+            driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
+            getAccidentResponsibilityList,getAccidentListResponsibilityWaiting } = this.props
         console.log(this.props)
         return (
             <Container>
@@ -106,7 +108,11 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={Actions.AccidentResponsibilityList}>
+                            <TouchableOpacity style={styles.item} onPress={()=>{
+                                getAccidentListResponsibilityWaiting()
+                                Actions.accidentResponsibilityList()
+                                InteractionManager.runAfterInteractions(getAccidentResponsibilityList)
+                            }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车责任</Text>
@@ -163,6 +169,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getAccidentListWaiting: () => {
         dispatch(accidentListAction.getAccidentListWaiting())
+    },
+    getAccidentResponsibilityList: () => {
+        dispatch(accidentResponsibilityListAction.getAccidentResponsibilityList())
+    },
+    getAccidentListResponsibilityWaiting: () => {
+        dispatch(accidentResponsibilityListAction.getAccidentListResponsibilityWaiting())
     }
 })
 

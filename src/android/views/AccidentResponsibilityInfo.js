@@ -7,6 +7,8 @@ import {
 import globalStyles from '../GlobalStyles'
 
 const AccidentResponsibilityInfo = props => {
+    console.log('props',props)
+    const {responsibilityInfo}=props
     return (
         <View>
             <View style={styles.itemContainer}>
