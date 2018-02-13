@@ -5,22 +5,25 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
 export const getAccidentImageList = (param) => async (dispatch, getState) => {
-    // const { id } = param
-    // try {
-    //     const url = `${record_host}/damageRecord${ObjectToUrl({ damageId: id })}`
-    //     const res = await httpRequest.get(url)
-    //     if (res.success) {
-    //         dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_success, payload: { demageImageList: res.result[0] ? res.result[0].damage_image : [] } })
-    //     } else {
-    //         dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_failed, payload: { failedMsg: res.msg } })
-    //     }
-    // } catch (err) {
-    //     dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_error, payload: { errorMsg: err } })
-    // }
+    const { accidentId } = param
+    try {
+        const url = `${record_host}/truckDamage?${ObjectToUrl({ truckDamageId: accidentId })}`
+        console.log('url',url)
+        const res = await httpRequest.get(url)
+        console.log('res',res)
+        
+        if (res.success) {
+            dispatch({ type: actionTypes.imageForAccidentTypes.get_AccidentImageList_success, payload: { imageList: res.result[0] ? res.result[0].damage_image : [] } })
+        } else {
+            dispatch({ type: actionTypes.imageForAccidentTypes.get_AccidentImageList_failed, payload: { failedMsg: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.imageForAccidentTypes.get_AccidentImageList_error, payload: { errorMsg: err } })
+    }
 }
 
 export const getAccidentImageListWaiting = () => (dispatch, getState) => {
-    // dispatch({ type: imageListForDemageActionTypes.get_DamageImageList_waiting, payload: {} })
+     dispatch({ type: actionTypes.imageForAccidentTypes.get_AccidentImageList_waiting, payload: {} })
 }
 
 export const uploadAccidentImageWaiting = () => (dispatch, getState) => {

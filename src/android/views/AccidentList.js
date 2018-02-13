@@ -5,7 +5,8 @@ import {
     FlatList,
     StyleSheet,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    InteractionManager
 } from 'react-native'
 import { Container } from 'native-base'
 import { Icon, Spinner, Thumbnail } from 'native-base'
@@ -13,13 +14,19 @@ import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../GlobalStyles'
 import * as accidentListAction from '../../actions/AccidentListAction'
+import * as imagForAccidentAction from '../../actions/ImagForAccidentAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
-    const { item: { id, address, accident_explain, accident_status, created_on, truck_num }, index } = props
+    const { item: { id, address, accident_explain, accident_status, created_on, truck_num }, index
+        , getAccidentImageListWaiting, getAccidentImageList } = props
     return (
-        <TouchableOpacity key={index} style={styles.itemContainer} onPress={() => Actions.accidentInfo({ accidentId: id })}>
+        <TouchableOpacity key={index} style={styles.itemContainer} onPress={() => {
+            getAccidentImageListWaiting()
+            Actions.accidentInfo({ accidentId: id })
+            InteractionManager.runAfterInteractions(() => getAccidentImageList({ accidentId: id }))
+        }}>
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.{id ? `${id}` : ''}</Text>
                 {accident_status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>}
@@ -71,7 +78,7 @@ const renderEmpty = () => {
 
 const AccidentList = props => {
     const { accidentListReducer: { data: { accidentList, isComplete }, getAccidentList },
-        accidentListReducer, getAccidentListMore } = props
+        accidentListReducer, getAccidentListMore, getAccidentImageList, getAccidentImageListWaiting } = props
     if (getAccidentList.isResultStatus == 1) {
         return (
             <Container>
@@ -93,7 +100,7 @@ const AccidentList = props => {
                     }}
                     ListFooterComponent={accidentListReducer.getAccidentListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
                     data={accidentList}
-                    renderItem={renderItem}
+                    renderItem={(item) => renderItem({ ...item, getAccidentImageListWaiting, getAccidentImageList })}
                 />
             </Container>
         )
@@ -111,6 +118,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     getAccidentListMore: () => {
         dispatch(accidentListAction.getAccidentListMore())
     },
+    getAccidentImageList: (param) => {
+        dispatch(imagForAccidentAction.getAccidentImageList(param))
+    },
+    getAccidentImageListWaiting: () => {
+        dispatch(imagForAccidentAction.getAccidentImageListWaiting())
+
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccidentList)

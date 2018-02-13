@@ -7,8 +7,6 @@ import { ToastAndroid } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export const updateAccident = (param,accidentId) => async (dispatch, getState) => {
-    // console.log(getState())
-    // console.log('accidentId',accidentId)
      const { userReducer: { data: { user: { userId } } }, truckReducer: { data: { driverInfo: { id } } } } = getState()
     try {
         dispatch({ type: actionTypes.accidentEditorTypes.update_Accident_waiting, payload: {} })

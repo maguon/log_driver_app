@@ -23,6 +23,7 @@ import * as truckTypes from './TruckTypes'
 import * as selectAccidentTypeActionTypes from './SelectAccidentTypeActionTypes'
 import * as accidentListTypes from './AccidentListTypes'
 import * as accidentEditorTypes from './AccidentEditorTypes'
+import * as imageForAccidentTypes from './ImageForAccidentTypes'
 
 export {
     homeTypes,
@@ -52,5 +53,6 @@ export {
     truckTypes,
     selectAccidentTypeActionTypes,
     accidentListTypes,
-    accidentEditorTypes
+    accidentEditorTypes,
+    imageForAccidentTypes
 }   

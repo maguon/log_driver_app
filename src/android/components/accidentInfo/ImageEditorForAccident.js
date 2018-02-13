@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 import CameraButton from '../share/CameraButton'
 import { file_host } from '../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
-import * as  imageEditorForAccidentAction from '../../../actions/ImageEditorForAccidentAction'
+import * as  imagForAccidentAction from '../../../actions/ImagForAccidentAction'
 import * as routerDirection from '../../../util/RouterDirection'
 
 const window = Dimensions.get('window')
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        imageEditorForAccidentReducer: state.imageEditorForAccidentReducer
+        imageForAccidentReducer: state.imageForAccidentReducer
     }
 }
 
