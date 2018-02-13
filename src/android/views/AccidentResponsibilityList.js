@@ -4,7 +4,8 @@ import {
     View,
     FlatList,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native'
 import { Container, Spinner } from 'native-base'
 import { Icon } from 'native-base'
@@ -12,10 +13,11 @@ import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../GlobalStyles'
 import moment from 'moment'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
+import * as accidentResponsibilityListAction from '../../actions/AccidentResponsibilityListAction'
 
 const renderItem = props => {
-    const { item: { accident_status, created_on, end_date, under_cost } ,item} = props
+    const { item: { accident_status, created_on, end_date, under_cost }, item } = props
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => Actions.accidentResponsibilityInfo({ responsibilityInfo: item })}>
             <View style={styles.itemHeader}>
@@ -44,15 +46,6 @@ const renderItem = props => {
     )
 }
 
-const ListFooterComponent = () => {
-    return (
-        <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
-            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
-        </View>
-    )
-}
-
 const renderEmpty = () => {
     return (
         <View style={styles.listEmptyContainer}>
@@ -62,8 +55,8 @@ const renderEmpty = () => {
 }
 
 const AccidentResponsibilityList = props => {
-    const { accidentResponsibilityListReducer: { data: { accidentResponsibilityList, isComplete }, getAccidentResponsibilityList },
-        accidentResponsibilityListReducer, getAccidentResponsibilityListMore } = props
+    const { accidentResponsibilityListReducer: { data: { accidentResponsibilityList }, getAccidentResponsibilityList },
+        accidentResponsibilityListReducer } = props
     if (getAccidentResponsibilityList.isResultStatus == 1) {
         return (
             <Container>
@@ -77,13 +70,6 @@ const AccidentResponsibilityList = props => {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
-                    onEndReachedThreshold={0.2}
-                    onEndReached={() => {
-                        if (getAccidentResponsibilityList.isResultStatus == 2 && !isComplete) {
-                            getAccidentResponsibilityListMore()
-                        }
-                    }}
-                    ListFooterComponent={accidentResponsibilityListReducer.getAccidentResponsibilityListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
                     data={accidentResponsibilityList}
                     renderItem={renderItem}
                 />

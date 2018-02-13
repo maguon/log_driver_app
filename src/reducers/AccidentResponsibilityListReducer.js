@@ -3,15 +3,9 @@ import * as actionTypes from '../actionTypes'
 
 const initialState = {
     data: {
-        accidentResponsibilityList: [],
-        isComplete: false
+        accidentResponsibilityList: []
     },
     getAccidentResponsibilityList: {
-        isResultStatus: 0,
-        errorMsg: '',
-        failedMsg: '',
-    },
-    getAccidentResponsibilityListMore: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
@@ -20,12 +14,11 @@ const initialState = {
 
 export default handleActions({
     [(actionTypes.accidentResponsibilityListTypes.get_accidentResponsibilityList_success)]: (state, action) => {
-        const { payload: { accidentResponsibilityList, isComplete } } = action
+        const { payload: { accidentResponsibilityList } } = action
         return {
             ...state,
             data: {
-                accidentResponsibilityList,
-                isComplete
+                accidentResponsibilityList
             },
             getAccidentResponsibilityList: {
                 ...state.getAccidentResponsibilityList,
@@ -63,52 +56,6 @@ export default handleActions({
                 isResultStatus: 1
             }
         }
-    },
-
-
-    [actionTypes.accidentResponsibilityListTypes.get_accidentResponsibilityListMore_success]: (state, action) => {
-        const { payload: { accidentResponsibilityList, isComplete } } = action
-        return {
-            ...state,
-            data: {
-                accidentResponsibilityList: [...state.data.accidentResponsibilityList, ...accidentResponsibilityList],
-                isComplete
-            },
-            getAccidentResponsibilityListMore: {
-                ...initialState.getAccidentResponsibilityListMore,
-                isResultStatus: 2
-            }
-        }
-    },
-    [actionTypes.accidentResponsibilityListTypes.get_accidentResponsibilityListMore_waiting]: (state, action) => {
-        return {
-            ...state,
-            getAccidentResponsibilityListMore: {
-                ...initialState.getAccidentResponsibilityListMore,
-                isResultStatus: 1,
-            }
-        }
-    },
-    [actionTypes.accidentResponsibilityListTypes.get_accidentResponsibilityListMore_failed]: (state, action) => {
-        const { payload: { failedMsg } } = action
-        return {
-            ...state,
-            getAccidentResponsibilityListMore: {
-                ...initialState.getAccidentResponsibilityListMore,
-                isResultStatus: 4,
-                failedMsg
-            }
-        }
-    },
-    [actionTypes.accidentResponsibilityListTypes.get_accidentResponsibilityListMore_error]: (state, action) => {
-        const { payload: { errorMsg } } = action
-        return {
-            ...state,
-            getAccidentResponsibilityListMore: {
-                ...initialState.getAccidentResponsibilityListMore,
-                isResultStatus: 3,
-                errorMsg
-            }
-        }
     }
+
 }, initialState)

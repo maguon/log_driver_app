@@ -2,8 +2,3 @@ export const get_accidentResponsibilityList_success = 'get_accidentResponsibilit
 export const get_accidentResponsibilityList_waiting = 'get_accidentResponsibilityList_waiting'
 export const get_accidentResponsibilityList_failed = 'get_accidentResponsibilityList_failed'
 export const get_accidentResponsibilityList_error = 'get_accidentResponsibilityList_error'
-
-export const get_accidentResponsibilityListMore_success = 'get_accidentResponsibilityListMore_success'
-export const get_accidentResponsibilityListMore_waiting = 'get_accidentResponsibilityListMore_waiting'
-export const get_accidentResponsibilityListMore_failed = 'get_accidentResponsibilityListMore_failed'
-export const get_accidentResponsibilityListMore_error = 'get_accidentResponsibilityListMore_error'

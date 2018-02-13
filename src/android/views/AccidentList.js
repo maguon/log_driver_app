@@ -5,6 +5,7 @@ import {
     FlatList,
     StyleSheet,
     ActivityIndicator,
+    Dimensions,
     TouchableOpacity,
     InteractionManager
 } from 'react-native'
@@ -17,6 +18,8 @@ import * as accidentListAction from '../../actions/AccidentListAction'
 import * as imagForAccidentAction from '../../actions/ImagForAccidentAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
+
+const { width } = Dimensions.get('window')
 
 const renderItem = props => {
     const { item: { id, address, accident_explain, accident_status, created_on, truck_num }, index
@@ -43,10 +46,10 @@ const renderItem = props => {
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>
             </View>
-            <View style={styles.item}>
+            <View style={[styles.item]}>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-pin' style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故地点：</Text>{address ? `${address}` : ''}</Text>
+                    <Icon name='ios-pin' style={[styles.itemBlockIcon]} />
+                    <Text style={[globalStyles.midText, styles.itemBlockText, { width: width - 60 }]}><Text>事故地点：</Text>{address ? `${address}` : ''}</Text>
                 </View>
             </View>
             <View style={styles.item}>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
     item: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 5
+        margin: 5
     },
     itemWarnColor: {
         color: '#fe7378'
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     itemBlockText: {
-        paddingLeft: 5
+        paddingLeft: 5,
     },
     itemBlockTitle: {
 
