@@ -42,6 +42,7 @@ import AccidentInfo from './views/AccidentInfo'
 import AccidentResponsibilityInfo from './views/AccidentResponsibilityInfo'
 import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
 import ApplyDemageSubmit from './components/ApplyDemageSubmit'
+import ApplyDemageImageSubmit from './components/ApplyDemageImageSubmit'
 import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 import AccidentListOperation from './components/AccidentListOperation'
 import DemageListOperation from './components/DemageListOperation'
@@ -50,6 +51,7 @@ import ListCennect from './views/select/ListCennect'
 import CleanRelList from './views/CleanRelList'
 import DemageList from './views/DemageList'
 import ApplyDemage from './views/ApplyDemage'
+import ApplyDemageImage from './views/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 
 const styles = StyleSheet.create({
@@ -163,6 +165,14 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
                                     RightButton={ApplyDemageSubmit} />
+                                <Scene key="applyDemageImage"
+                                    component={ApplyDemageImage}
+                                    title='上传质损照片'
+                                    hideNavBar={false}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyDemageImageSubmit} />
                                 <Scene key="listCennect"
                                     component={ListCennect}
                                     hideTabBar

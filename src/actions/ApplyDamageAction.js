@@ -10,10 +10,10 @@ import { Actions } from 'react-native-router-flux'
 
 export const createDamage = (parent, values) => async (dispatch, getState) => {
     dispatch({ type: actionTypes.applyDamageTypes.create_Damage_waiting, payload: {} })
-    const { loginReducer: { data: { user: { uid } } } } =  getState()
+    const { userReducer: { data: { user: { userId } } } } = getState()
     const { car, driver, damageExplain } = values
     try {
-        const url = `${base_host}/user/${uid}/damage`
+        const url = `${base_host}/user/${userId}/damage`
         const res = await httpRequest.post(url, objectExceptNull({
             carId: car.id,
             vin: car.value,
@@ -26,7 +26,7 @@ export const createDamage = (parent, values) => async (dispatch, getState) => {
         if (res.success) {
             ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             dispatch({ type: actionTypes.applyDamageTypes.create_Damage_success, payload: { damageId: res.id } })
-            Actions.applyDamageUploadImage({vin:car.value})
+            Actions.applyDemageImage({vin:car.value})
         } else {
             ToastAndroid.showWithGravity(`提交失败！${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             dispatch({ type: actionTypes.applyDamageTypes.create_Damage_failed, payload: { failedMsg: res.msg } })

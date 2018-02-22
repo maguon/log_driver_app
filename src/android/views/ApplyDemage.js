@@ -50,7 +50,6 @@ const ApplyDamage = props => {
                     validate={[validateRequired]}
                     getListWaiting={()=>{}}
                     showList={({onSelect}) => {
-                        console.log('onSelect',onSelect)
                         return Actions.listCennectDynamic({
                             mapStateToProps: vinMapStateToProps,
                             mapDispatchToProps: vinMapDispatchToProps,
@@ -79,11 +78,12 @@ const ApplyDamage = props => {
                     getListWaiting={getDriverListWaiting}
                     validate={[validateRequired]}
                     showList={param => {
-                        return routerDirection.listCennect(parent)({
+                        return Actions.listCennect({
                             mapStateToProps: driverMapStateToProps,
                             mapDispatchToProps: driverMapDispatchToProps,
                             List: DisposableList,
-                            ...param
+                            title:'选择货车司机',
+                            ...param  
                         })
                     }} />
                 {driver && driver.truck_num && <ListItem >
@@ -169,7 +169,7 @@ const vinMapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        applyDamageFormValues: getFormValues('applyDamage')(state),
+        applyDamageFormValues: getFormValues('applyDemageForm')(state),
         formReducer: state.form
     }
 }
@@ -194,7 +194,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({
-        form: 'applyDamage',
+        form: 'applyDemageForm',
         onSubmit: (values, dispatch, props) => {
             dispatch(applyDamageAction.createDamage(props.parent, values))
         }

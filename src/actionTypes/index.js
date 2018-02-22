@@ -32,6 +32,7 @@ import * as demageListActionTypes from './DemageListActionTypes'
 import * as selectCarActionTypes from './selectCarActionTypes'
 import * as selectDriverActionTypes from './selectDriverActionTypes'
 import * as applyDamageTypes from './ApplyDamageTypes'
+import * as applyDamageImageTypes from './ApplyDamageImageTypes'
 
 export {
     homeTypes,
@@ -70,5 +71,6 @@ export {
     demageListActionTypes,
     selectDriverActionTypes,
     selectCarActionTypes,
-    applyDamageTypes
+    applyDamageTypes,
+    applyDamageImageTypes
 }   
