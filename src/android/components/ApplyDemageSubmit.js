@@ -11,19 +11,19 @@ import { submit } from 'redux-form'
 
 const ApplyDemageSubmit = props => {
     const { applyDemage, 
-        //applyAccidentReducer: { applyAccident: { isResultStatus } } 
+        applyDamageReducer: { createDamage: { isResultStatus } } 
     } = props
-    // if (isResultStatus == 1) {
-    //     return (
-    //         <Spinner color='#fff' />
-    //     )
-    // } else {
+    if (isResultStatus == 1) {
+        return (
+            <Spinner color='#fff' />
+        )
+    } else {
         return (
             <Button transparent onPress={applyDemage}>
                 <Text style={styles.text}>下一步</Text>
             </Button>
         )
-     //}
+     }
 }
 
 const styles = StyleSheet.create({
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-       // applyAccidentReducer: state.applyAccidentReducer
+        applyDamageReducer: state.applyDamageReducer
     }
 }
 

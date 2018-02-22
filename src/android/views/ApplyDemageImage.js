@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import CameraButton from '../components/share/CameraButton'
+import { Actions } from 'react-native-router-flux'
 import globalStyles from '../GlobalStyles'
 import * as applyDamageImageAction from '../../actions/ApplyDamageImageAction'
 import ImageItem from '../components/share/ImageItem'
@@ -25,13 +26,13 @@ const containerHeight = containerWidth / 16 * 9
 const renderItem = props => {
     const { item, index, uploadDamageImageWating, uploadDamageImage, imageList, parent, vin } = props
     if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadDamageImageWating, uploadDamageImage , vin})
+        return renderItemCameraButton({ index, uploadDamageImageWating, uploadDamageImage, vin })
     } else {
         return (
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() =>routerDirection.singlePhotoView(parent)({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url}`), index } })} >
+                onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url}`), index } })} >
                 <ImageItem imageUrl={`${file_host}/image/${item}`} />
             </TouchableOpacity>
         )
@@ -70,7 +71,7 @@ const renderListEmpty = props => {
 }
 
 const ApplyDemageImage = props => {
-    const { parent,vin, uploadDamageImageWating, uploadDamageImage, applyDamageImageReducer: { data: { imageList }, uploadDamageImage: { isResultStatus } } } = props
+    const { parent, vin, uploadDamageImageWating, uploadDamageImage, applyDamageImageReducer: { data: { imageList }, uploadDamageImage: { isResultStatus } } } = props
     return (
         <Container >
             <FlatList
@@ -79,7 +80,7 @@ const ApplyDemageImage = props => {
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadDamageImageWating, uploadDamageImage, vin })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadDamageImageWating, vin,  uploadDamageImage })} />
+                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadDamageImageWating, vin, uploadDamageImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -161,8 +162,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    uploadDamageImage: (param,vin) => {
-        dispatch(applyDamageImageAction.uploadDamageImage(param,vin))
+    uploadDamageImage: (param, vin) => {
+        dispatch(applyDamageImageAction.uploadDamageImage(param, vin))
     },
     uploadDamageImageWating: () => {
         dispatch(applyDamageImageAction.uploadDamageImageWating())
