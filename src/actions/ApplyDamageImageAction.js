@@ -6,20 +6,30 @@ import { ToastAndroid } from 'react-native'
 
 export const uploadDamageImage = (params, vin) => async (dispatch, getState) => {
     try {
+        console.log(getState())
+        console.log('params',params)
+        console.log('vin',vin)
         const cameraSuccessReses = params.filter(item => item.success)
+        console.log('cameraSuccessReses',cameraSuccessReses)
+        
         if (cameraSuccessReses.length > 0) {
             const { 
                 applyDamageReducer: { data: { damageId } },
                 truckReducer: { data: { personalInfo } } } = getState()
                 console.log('personalInfo',personalInfo)
-            const imageUploadUrl = `${file_host}user/${personalInfo.uid}/image?${ObjectToUrl({ imageType: 4 })}`
+            const imageUploadUrl = `${file_host}/user/${personalInfo.uid}/image?${ObjectToUrl({ imageType: 4 })}`
+            console.log('imageUploadUrl',imageUploadUrl)
+            
             const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
                 key: 'image',
                 ...item.res
             })))
+            console.log('imageUploadReses',imageUploadReses)
             const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
             if (imageUploadSuccessReses.length > 0) {
-                const bindDamageUrl = `${record_host}/user/${user.uid}/damage/${damageId}/image`
+                const bindDamageUrl = `${record_host}/user/${personalInfo.uid}/damage/${damageId}/image`
+            console.log('bindDamageUrl',bindDamageUrl)
+            
                 const bindDamageReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindDamageUrl, {
                     username: personalInfo.real_name,
                     userId: personalInfo.uid,
@@ -27,6 +37,8 @@ export const uploadDamageImage = (params, vin) => async (dispatch, getState) => 
                     url: item.imageId,
                     vin
                 })))
+            console.log('bindDamageReses',bindDamageReses)
+            
                 const bindDamageSuccessReses = bindDamageReses
                     .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
                     .filter(item => item.success)

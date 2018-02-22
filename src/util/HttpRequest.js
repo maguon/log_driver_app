@@ -75,7 +75,7 @@ function del(url, callback) {
 }
 
 
-function postFile(url,params ) {
+function postFile(url,params) {
     let formData = new FormData()
     let file = { uri: params.imageUrl, type: params.imageType, name: params.imageName }
     formData.append(params.key, file)
@@ -85,8 +85,6 @@ function postFile(url,params ) {
         body: formData,
     }).then((response) => response.json())
 }
-
-
 
 module.exports = {
     get: get,

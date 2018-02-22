@@ -33,6 +33,7 @@ import demageListReducer from './DemageListReducer'
 import selectDriverReducer from './selectDriverReducer'
 import selectCarReducer from './selectCarReducer'
 import applyDamageImageReducer from './ApplyDamageImageReducer'
+import applyDamageReducer from './applyDamageReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -69,5 +70,6 @@ export default combineReducers({
     demageListReducer,
     selectDriverReducer,
     selectCarReducer,
-    applyDamageImageReducer
+    applyDamageImageReducer,
+    applyDamageReducer
 })
