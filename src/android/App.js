@@ -50,7 +50,7 @@ import ListCennect from './views/select/ListCennect'
 import CleanRelList from './views/CleanRelList'
 import DemageList from './views/DemageList'
 import ApplyDemage from './views/ApplyDemage'
-
+import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -168,6 +168,11 @@ export default class App extends Component {
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
+                                    hideNavBar={false} />
+                                <Scene key="listCennectDynamic"
+                                    component={ListCennect}
+                                    hideTabBar
+                                    navBar={NavSearchDynamicBar}
                                     hideNavBar={false} />
                                 <Scene key="applyAccidentImage"
                                     component={ApplyAccidentImage}
