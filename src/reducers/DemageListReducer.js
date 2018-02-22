@@ -20,7 +20,7 @@ const initialState = {
 
 //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
 export default handleActions({
-    [actionTypes.demageListActionTypes.get_DemageList_success]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageList_success]: (state, action) => {
         const { payload: { demageList, isComplete } } = action
         return {
             ...state,
@@ -34,7 +34,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageList_waiting]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageList_waiting]: (state, action) => {
         return {
             ...state,
             getDemageList: {
@@ -43,7 +43,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageList_failed]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageList_failed]: (state, action) => {
         const { payload: { failedMsg } } = action
         return {
             ...state,
@@ -54,7 +54,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageList_error]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageList_error]: (state, action) => {
         const { payload: { errorMsg } } = action
         return {
             ...state,
@@ -68,7 +68,7 @@ export default handleActions({
 
 
 
-    [actionTypes.demageListActionTypes.get_DemageListMore_success]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageListMore_success]: (state, action) => {
         const { payload: { demageList, isComplete } } = action
         return {
             ...state,
@@ -82,7 +82,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageListMore_waiting]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageListMore_waiting]: (state, action) => {
         return {
             ...state,
             getDemageListMore: {
@@ -91,7 +91,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageListMore_failed]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageListMore_failed]: (state, action) => {
         const { payload: { failedMsg } } = action
         return {
             ...state,
@@ -102,7 +102,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageListActionTypes.get_DemageListMore_error]: (state, action) => {
+    [actionTypes.demageListTypes.get_DemageListMore_error]: (state, action) => {
         const { payload: { errorMsg } } = action
         return {
             ...state,
@@ -114,7 +114,7 @@ export default handleActions({
         }
     },
 
-    [actionTypes.demageListActionTypes.update_Demage]: (state, action) => {
+    [actionTypes.demageListTypes.update_Demage]: (state, action) => {
         const { payload: { id, truck_id, truck_num, drive_id, drive_name, damage_explain } } = action    
         return {
             ...state,

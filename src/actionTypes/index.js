@@ -28,11 +28,16 @@ import * as accidentResponsibilityListTypes from './AccidentResponsibilityListTy
 import * as cleanRelListTypes from './CleanRelListTypes'
 import * as selectCityActionTypes from './SelectCityActionTypes'
 import * as selectReceiveActionTypes from './SelectReceiveActionTypes'
-import * as demageListActionTypes from './DemageListActionTypes'
+import * as demageListTypes from './DemageListTypes'
 import * as selectCarActionTypes from './selectCarActionTypes'
 import * as selectDriverActionTypes from './selectDriverActionTypes'
 import * as applyDamageTypes from './ApplyDamageTypes'
 import * as applyDamageImageTypes from './ApplyDamageImageTypes'
+import * as carInfoForDemageTypes from './CarInfoForDemageTypes'
+import * as demageEditorTypes from './DemageEditorTypes'
+import * as demageOpResultTypes from './DemageOpResultTypes'
+import * as imageListForDemageTypes from './ImageListForDemageTypes'
+import * as recordForDemageTypes from './RecordForDemageTypes'
 
 export {
     homeTypes,
@@ -68,9 +73,14 @@ export {
     cleanRelListTypes,
     selectCityActionTypes,
     selectReceiveActionTypes,
-    demageListActionTypes,
+    demageListTypes,
     selectDriverActionTypes,
     selectCarActionTypes,
     applyDamageTypes,
-    applyDamageImageTypes
+    applyDamageImageTypes,
+    carInfoForDemageTypes,
+    demageEditorTypes,
+    demageOpResultTypes,
+    imageListForDemageTypes,
+    recordForDemageTypes
 }   

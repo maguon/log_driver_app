@@ -34,6 +34,11 @@ import selectDriverReducer from './selectDriverReducer'
 import selectCarReducer from './selectCarReducer'
 import applyDamageImageReducer from './ApplyDamageImageReducer'
 import applyDamageReducer from './applyDamageReducer'
+import carInfoForDemageReducer from './carInfoForDemageReducer'
+import demageEditorReducer from './demageEditorReducer'
+import demageOpResultReducer from './demageOpResultReducer'
+import imageListForDemageReducer from './imageListForDemageReducer'
+import recordForDemageReducer from './recordForDemageReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -71,5 +76,10 @@ export default combineReducers({
     selectDriverReducer,
     selectCarReducer,
     applyDamageImageReducer,
-    applyDamageReducer
+    applyDamageReducer,
+    carInfoForDemageReducer,
+    demageEditorReducer,
+    demageOpResultReducer,
+    imageListForDemageReducer,
+    recordForDemageReducer
 })
