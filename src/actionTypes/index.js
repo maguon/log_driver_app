@@ -28,6 +28,10 @@ import * as accidentResponsibilityListTypes from './AccidentResponsibilityListTy
 import * as cleanRelListTypes from './CleanRelListTypes'
 import * as selectCityActionTypes from './SelectCityActionTypes'
 import * as selectReceiveActionTypes from './SelectReceiveActionTypes'
+import * as demageListActionTypes from './DemageListActionTypes'
+import * as selectCarActionTypes from './selectCarActionTypes'
+import * as selectDriverActionTypes from './selectDriverActionTypes'
+import * as applyDamageTypes from './ApplyDamageTypes'
 
 export {
     homeTypes,
@@ -62,5 +66,9 @@ export {
     accidentResponsibilityListTypes,
     cleanRelListTypes,
     selectCityActionTypes,
-    selectReceiveActionTypes
+    selectReceiveActionTypes,
+    demageListActionTypes,
+    selectDriverActionTypes,
+    selectCarActionTypes,
+    applyDamageTypes
 }   

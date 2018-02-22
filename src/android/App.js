@@ -41,11 +41,15 @@ import ApplyAccidentImage from './views/ApplyAccidentImage'
 import AccidentInfo from './views/AccidentInfo'
 import AccidentResponsibilityInfo from './views/AccidentResponsibilityInfo'
 import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
+import ApplyDemageSubmit from './components/ApplyDemageSubmit'
 import ApplyAccidentImageSubmit from './components/ApplyAccidentImageSubmit'
 import AccidentListOperation from './components/AccidentListOperation'
+import DemageListOperation from './components/DemageListOperation'
 import SelectAddress from './views/select/SelectAddress'
 import ListCennect from './views/select/ListCennect'
 import CleanRelList from './views/CleanRelList'
+import DemageList from './views/DemageList'
+import ApplyDemage from './views/ApplyDemage'
 
 
 const styles = StyleSheet.create({
@@ -151,6 +155,14 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
                                     RightButton={ApplyAccidentSubmit} />
+                                <Scene key="applyDemage"
+                                    component={ApplyDemage}
+                                    title='质损申报'
+                                    hideNavBar={false}
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton}
+                                    RightButton={ApplyDemageSubmit} />
                                 <Scene key="listCennect"
                                     component={ListCennect}
                                     hideTabBar
@@ -173,6 +185,15 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={LeftButton}
                                     RightButton={AccidentListOperation} />
+                                <Scene key="demageList"
+                                    component={DemageList}
+                                    title='质损列表'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton}
+                                    RightButton={DemageListOperation} 
+                                    />
                                 <Scene key="accidentInfo"
                                     hideTabBar
                                     component={AccidentInfo}

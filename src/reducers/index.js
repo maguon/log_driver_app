@@ -29,6 +29,9 @@ import accidentResponsibilityListReducer from './AccidentResponsibilityListReduc
 import cleanRelListReducer from './CleanRelListReducer'
 import selectCityReducer from './SelectCityReducer'
 import selectReceiveReducer from './SelectReceiveReducer'
+import demageListReducer from './DemageListReducer'
+import selectDriverReducer from './selectDriverReducer'
+import selectCarReducer from './selectCarReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -61,5 +64,8 @@ export default combineReducers({
     accidentResponsibilityListReducer,
     cleanRelListReducer,
     selectCityReducer,
-    selectReceiveReducer
+    selectReceiveReducer,
+    demageListReducer,
+    selectDriverReducer,
+    selectCarReducer
 })

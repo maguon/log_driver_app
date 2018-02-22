@@ -17,6 +17,7 @@ import * as truckAction from '../../../actions/TruckAction'
 import FontTag from '../../components/FontTag'
 import * as accidentListAction from '../../../actions/AccidentListAction'
 import * as cleanRelListAction from '../../../actions/CleanRelListAction'
+import * as demageListAction from '../../../actions/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
 
 
@@ -33,7 +34,8 @@ class Truck extends Component {
     render() {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
-            getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting } = this.props
+            getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting,
+            getDemageList, getDemageListWaiting } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#4edbf0' }}>
@@ -72,7 +74,11 @@ class Truck extends Component {
                     </ListItem>
                     <View style={{ padding: 5 }}  >
                         <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item} >
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getDemageListWaiting()
+                                Actions.demageList()
+                                InteractionManager.runAfterInteractions(getDemageList)
+                            }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>商品车质损申报</Text>
@@ -185,6 +191,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getCleanRelList: () => {
         dispatch(cleanRelListAction.getCleanRelList())
+    },
+    getDemageList: () => {
+        dispatch(demageListAction.getDemageList())
+    },
+    getDemageListWaiting: () => {
+        dispatch(demageListAction.getDemageListWaiting())
     }
 })
 
