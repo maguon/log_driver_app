@@ -16,7 +16,6 @@ export const getCarInfo = (param) => async (dispatch, getState) => {
     } catch (err) {
         dispatch({ type: actionTypes.carInfoForDemageTypes.get_CarInfoForDemage_error, payload: { failedMsg: res.msg } })
     }
-
 }
 
 export const getCarInfoWaiting = () => (dispatch, getState) => {

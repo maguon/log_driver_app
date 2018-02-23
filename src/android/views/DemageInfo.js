@@ -21,7 +21,7 @@ const DemageInfo = props => {
         recordForDemageReducer: { getCarInfoRecord },
         demageOpResultReducer: { getDemageOpResult },
         parent } = props
-        console.log('props',props)
+    console.log('props', props)
     return (
         <Container style={globalStyles.listBackgroundColor}>
             <Tabs>
@@ -48,7 +48,8 @@ const DemageInfo = props => {
                     heading="质损">
                     <Container>
                         {damage_status == 1 && <DemageEditor initParam={initParam} parent={parent} />}
-                        {damage_status != 1 && <DemageDetail initParam={initParam} />}
+                        {damage_status == 2 && <DemageEditor initParam={initParam} parent={parent} />}
+                        {damage_status == 3 && <DemageDetail initParam={initParam} />}
                     </Container>
                 </Tab>
                 <Tab
@@ -58,8 +59,9 @@ const DemageInfo = props => {
                     textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="照片">
                     <Container>
-                        {damage_status != 1 && <ImageListForDemage initParam={initParam} parent={parent} />}
+                        {damage_status == 3 && <ImageListForDemage initParam={initParam} parent={parent} />}
                         {damage_status == 1 && <ImageEditorForDemage initParam={initParam} parent={parent} />}
+                        {damage_status == 2 && <ImageEditorForDemage initParam={initParam} parent={parent} />}
                     </Container>
                 </Tab>
                 {/* {damage_status != 1 && <Tab

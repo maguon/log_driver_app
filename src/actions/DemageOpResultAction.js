@@ -13,7 +13,6 @@ export const getDemageOpResult = (param) => async (dispatch, getState) => {
         } else {
            dispatch({ type: actionTypes.demageOpResultTypes.get_DemageOpResult_failed, payload: { failedMsg: res.msg } })
         }
-
     } catch (err) {
         dispatch({ type: actionTypes.demageOpResultTypes.get_DemageOpResult_error, payload: { errorMsg: err } })
     }

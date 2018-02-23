@@ -56,10 +56,11 @@ const DemageEditor = props => {
                     getListWaiting={getDriverListWaiting}
                     validate={[validateRequired]}
                     showList={param => {
-                        return routerDirection.listCennect(parent)({
+                        return Actions.listCennect({
                             mapStateToProps: driverMapStateToProps,
                             mapDispatchToProps: driverMapDispatchToProps,
                             List: DisposableList,
+                            title:'选择货车司机',
                             ...param
                         })
                     }} />

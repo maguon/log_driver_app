@@ -5,9 +5,9 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 
 export const getCarInfoRecord = (param) => async (dispatch, getState) => {
     const { car_id } = param
-    const { loginReducer: { data: { user: { uid } } } } =  getState()
+    const { userReducer: { data: { user: { userId } } } } = getState()
     try {
-        const url = `${record_host}/user/${uid}/car/${car_id}/record`   
+        const url = `${record_host}/user/${userId}/car/${car_id}/record`
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.recordForDemageTypes.get_RecordForDemage_success, payload: { carInfoRecord: res.result[0] } })

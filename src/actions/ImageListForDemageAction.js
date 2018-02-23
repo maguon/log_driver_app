@@ -32,19 +32,19 @@ export const uploadDamageImage = param => async (dispatch, getState) => {
         const { cameraReses, damageId,vin  } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
-            const { loginReducer: { data: { user } } } =  getState()
-            const imageUploadUrl = `${file_host}/user/${user.userId}/image?${ObjectToUrl({ imageType: 4 })}`
+            const { truckReducer: { data: { personalInfo } } } =  getState()
+            const imageUploadUrl = `${file_host}/user/${personalInfo.uid}/image?${ObjectToUrl({ imageType: 4 })}`
             const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
                 key: 'image',
                 ...item.res
             })))
             const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
             if (imageUploadSuccessReses.length > 0) {
-                const bindDamageUrl = `${record_host}/user/${user.uid}/damage/${damageId}/image`
+                const bindDamageUrl = `${record_host}/user/${personalInfo.uid}/damage/${damageId}/image`
                 const bindDamageReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindDamageUrl, {
-                    username: user.real_name,
-                    userId: user.uid,
-                    userType: user.type,
+                    username: personalInfo.real_name,
+                    userId: personalInfo.uid,
+                    userType: personalInfo.type,
                     url: item.imageId,
                     vin
                 })))
