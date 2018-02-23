@@ -50,6 +50,7 @@ import SelectAddress from './views/select/SelectAddress'
 import ListCennect from './views/select/ListCennect'
 import CleanRelList from './views/CleanRelList'
 import DemageList from './views/DemageList'
+import DemageInfo from './views/DemageInfo'
 import ApplyDemage from './views/ApplyDemage'
 import ApplyDemageImage from './views/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
@@ -207,8 +208,14 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton}
-                                    RightButton={DemageListOperation} 
-                                    />
+                                    RightButton={DemageListOperation} />
+                                <Scene key="demageInfo"
+                                    component={DemageInfo}
+                                    title='质损详情'
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                                 <Scene key="accidentInfo"
                                     hideTabBar
                                     component={AccidentInfo}

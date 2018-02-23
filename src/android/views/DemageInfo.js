@@ -21,6 +21,7 @@ const DemageInfo = props => {
         recordForDemageReducer: { getCarInfoRecord },
         demageOpResultReducer: { getDemageOpResult },
         parent } = props
+        console.log('props',props)
     return (
         <Container style={globalStyles.listBackgroundColor}>
             <Tabs>
