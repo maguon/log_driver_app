@@ -36,7 +36,7 @@ class Truck extends Component {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
             getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting,
-            getDemageList, getDemageListWaiting } = this.props
+            getDemageList, getDemageListWaiting,getDemageResponsibilityList,getDemageResponsibilityListWaiting } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#4edbf0' }}>
@@ -106,7 +106,9 @@ class Truck extends Component {
                         </View>
                         <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={() => {
+                                getDemageResponsibilityListWaiting()
                                 Actions.demageResponsibilityList()
+                                InteractionManager.runAfterInteractions(getDemageResponsibilityList)
                             }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />

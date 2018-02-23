@@ -66,8 +66,6 @@ export default handleActions({
         }
     },
 
-
-
     [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_success]: (state, action) => {
         const { payload: { demageResponsibilityList, isComplete } } = action
         return {

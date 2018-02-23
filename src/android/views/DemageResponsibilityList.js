@@ -86,8 +86,8 @@ const ListFooterComponent = () => {
 }
 
 const DemageResponsibilityList = props => {
-    const { responsibilityListReducer: { data: { responsibilityList, isComplete }, getResponsibilityList },
-        responsibilityListReducer,
+    const { demageResponsibilityListReducer: { data: { demageResponsibilityList, isComplete }, getDemageResponsibilityList },
+        demageResponsibilityListReducer,
         getDemageResponsibilityListMore,
         getCarInfo,
         getCarInfoWaiting,
@@ -97,7 +97,7 @@ const DemageResponsibilityList = props => {
         getDemageOpResultWaiting,
         getDamageImageListWaiting,
         getDamageImageList } = props
-    if (getResponsibilityList.isResultStatus == 1) {
+    if (getDemageResponsibilityList.isResultStatus == 1) {
         return (
             <Container>
                 <Spinner color={styleColor} />
@@ -110,14 +110,14 @@ const DemageResponsibilityList = props => {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
-                    data={responsibilityList}
+                    data={demageResponsibilityList}
                     onEndReachedThreshold={0.2}
                     onEndReached={() => {
-                        if (getResponsibilityList.isResultStatus == 2 && !isComplete) {
+                        if (getDemageResponsibilityList.isResultStatus == 2 && !isComplete) {
                             getDemageResponsibilityListMore()
                         }
                     }}
-                    ListFooterComponent={responsibilityListReducer.getResponsibilityListMore.isResultStatus == 1 ? ListFooterComponent : <View style={{ height: 10 }} />}
+                    ListFooterComponent={demageResponsibilityListReducer.getDemageResponsibilityListMore.isResultStatus == 1 ? ListFooterComponent : <View style={{ height: 10 }} />}
                     renderItem={({ item, index }) => renderListItem({
                         item,
                         index,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        responsibilityListReducer: state.responsibilityListReducer
+        demageResponsibilityListReducer: state.demageResponsibilityListReducer
     }
 }
 
