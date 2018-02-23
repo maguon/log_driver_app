@@ -19,6 +19,7 @@ import * as accidentListAction from '../../../actions/AccidentListAction'
 import * as cleanRelListAction from '../../../actions/CleanRelListAction'
 import * as demageListAction from '../../../actions/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
+import * as demageResponsibilityListAction from '../../../actions/DemageResponsibilityListAction'
 
 
 
@@ -104,7 +105,9 @@ class Truck extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item}>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                Actions.demageResponsibilityList()
+                            }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>商品车责任</Text>
@@ -197,6 +200,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getDemageListWaiting: () => {
         dispatch(demageListAction.getDemageListWaiting())
+    },
+    getDemageResponsibilityList: () => {
+        dispatch(demageResponsibilityListAction.getDemageResponsibilityList())
+    },
+    getDemageResponsibilityListWaiting: () => {
+        dispatch(demageResponsibilityListAction.getDemageResponsibilityListWaiting())
     }
 })
 

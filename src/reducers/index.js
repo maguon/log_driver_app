@@ -39,6 +39,7 @@ import demageEditorReducer from './demageEditorReducer'
 import demageOpResultReducer from './demageOpResultReducer'
 import imageListForDemageReducer from './imageListForDemageReducer'
 import recordForDemageReducer from './recordForDemageReducer'
+import demageResponsibilityListReducer from './DemageResponsibilityListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -81,5 +82,6 @@ export default combineReducers({
     demageEditorReducer,
     demageOpResultReducer,
     imageListForDemageReducer,
-    recordForDemageReducer
+    recordForDemageReducer,
+    demageResponsibilityListReducer
 })

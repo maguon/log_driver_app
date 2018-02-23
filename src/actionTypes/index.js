@@ -38,6 +38,7 @@ import * as demageEditorTypes from './DemageEditorTypes'
 import * as demageOpResultTypes from './DemageOpResultTypes'
 import * as imageListForDemageTypes from './ImageListForDemageTypes'
 import * as recordForDemageTypes from './RecordForDemageTypes'
+import * as demageResponsibilityListTypes from './DemageResponsibilityListTypes'
 
 export {
     homeTypes,
@@ -82,5 +83,6 @@ export {
     demageEditorTypes,
     demageOpResultTypes,
     imageListForDemageTypes,
-    recordForDemageTypes
+    recordForDemageTypes,
+    demageResponsibilityListTypes
 }   
