@@ -27,7 +27,7 @@ const DemageResponsibilityInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="车辆">
                     {(getCarInfo.isResultStatus == 1 || getCarInfoRecord.isResultStatus == 1) ?
                         <Container>
@@ -42,7 +42,7 @@ const DemageResponsibilityInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="质损">
                     <Container>
                         <DemageDetail initParam={initParam} />
@@ -52,7 +52,7 @@ const DemageResponsibilityInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="照片">
                     <Container>
                         <ImageListForDemage initParam={initParam} parent={parent} />
@@ -62,7 +62,7 @@ const DemageResponsibilityInfo = props => {
                     tabStyle={globalStyles.styleBackgroundColor}
                     activeTabStyle={globalStyles.styleBackgroundColor}
                     activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
                     heading="处理">
                     {(getDemageOpResult.isResultStatus == 1) ?
                         <Container>
