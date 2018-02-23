@@ -20,7 +20,7 @@ const initialState = {
 
 //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
 export default handleActions({
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_success]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_success]: (state, action) => {
         const { payload: { demageResponsibilityList, isComplete } } = action
         return {
             ...state,
@@ -34,7 +34,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_waiting]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_waiting]: (state, action) => {
         return {
             ...state,
             getDemageResponsibilityList: {
@@ -43,7 +43,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_failed]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_failed]: (state, action) => {
         const { payload: { failedMsg } } = action
         return {
             ...state,
@@ -54,7 +54,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_error]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_error]: (state, action) => {
         const { payload: { errorMsg } } = action
         return {
             ...state,
@@ -68,7 +68,7 @@ export default handleActions({
 
 
 
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_success]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_success]: (state, action) => {
         const { payload: { demageResponsibilityList, isComplete } } = action
         return {
             ...state,
@@ -82,7 +82,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_waiting]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_waiting]: (state, action) => {
         return {
             ...state,
             getDemageResponsibilityListMore: {
@@ -91,7 +91,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_failed]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_failed]: (state, action) => {
         const { payload: { failedMsg } } = action
         return {
             ...state,
@@ -102,7 +102,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_error]: (state, action) => {
+    [actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_error]: (state, action) => {
         const { payload: { errorMsg } } = action
         return {
             ...state,

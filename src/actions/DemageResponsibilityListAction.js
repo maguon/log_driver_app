@@ -14,22 +14,22 @@ export const getDemageResponsibilityList = () => async (dispatch, getState) => {
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({
-                type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_success,
+                type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_success,
                 payload: {
                     responsibilityList: res.result,
                     isComplete: (res.result.length == 0 || res.result.length % pageSize != 0)
                 }
             })
         } else {
-            dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_failed, payload: { failedMsg: res.msg } })
+            dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_error, payload: { errorMsg: err } })
+        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_error, payload: { errorMsg: err } })
     }
 }
 
 export const getDemageResponsibilityListWaiting = () => (dispatch, getState) => {
-    dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityList_waiting, payload: {} })
+    dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_waiting, payload: {} })
 }
 
 export const getDemageResponsibilityListMore = () => async (dispatch, getState) => {
@@ -43,21 +43,21 @@ export const getDemageResponsibilityListMore = () => async (dispatch, getState) 
         getDemageResponsibilityListMore()(dispatch, getState)
     } else {
         if (!isComplete) {
-            dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_waiting, payload: {} })
+            dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_waiting, payload: {} })
             try {
                 const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: responsibilityList.length, size: pageSize })}`
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
-                        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_success, payload: { responsibilityList: res.result, isComplete: true } })
+                        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_success, payload: { responsibilityList: res.result, isComplete: true } })
                     } else {
-                        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_success, payload: { responsibilityList: res.result, isComplete: false } })
+                        dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_success, payload: { responsibilityList: res.result, isComplete: false } })
                     }
                 } else {
-                    dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_failed, payload: { failedMsg: res.msg } })
+                    dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_failed, payload: { failedMsg: res.msg } })
                 }
             } catch (err) {
-                dispatch({ type: actionTypes.demageResponsibilityListTypes.get_ResponsibilityListMore_error, payload: { errorMsg: err } })
+                dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_error, payload: { errorMsg: err } })
             }
         } else {
             ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
