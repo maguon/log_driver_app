@@ -47,7 +47,7 @@ export const getDemageListMore = () => async (dispatch, getState) => {
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     dispatch({
-                        type: demageListActionTypes.get_DemageListMore_success,
+                        type: actionTypes.demageListTypes.get_DemageListMore_success,
                         payload: {
                             demageList: res.result,
                             isComplete: (res.result.length % pageSize != 0 || res.result.length == 0)

@@ -9,7 +9,6 @@ const pageSize = 50
 
 export const getDemageResponsibilityList = () => async (dispatch, getState) => {
     const { userReducer: { data: { user: { userId } } } } = getState()
-    console.log('userId',userId)
     try {
         const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: 0, size: pageSize })}`
         const res = await httpRequest.get(url)
@@ -34,12 +33,11 @@ export const getDemageResponsibilityListWaiting = () => (dispatch, getState) => 
 }
 
 export const getDemageResponsibilityListMore = () => async (dispatch, getState) => {
-
     const {
         userReducer: { data: { user: { userId } } },
         demageResponsibilityListReducer: { data: { demageResponsibilityList, isComplete } },
         demageResponsibilityListReducer } = getState()
-    if (demageResponsibilityListReducer.getResponsibilityListMore.isResultStatus == 1) {
+    if (demageResponsibilityListReducer.getDemageResponsibilityList.isResultStatus == 1) {
         await sleep(1000)
         getDemageResponsibilityListMore()(dispatch, getState)
     } else {

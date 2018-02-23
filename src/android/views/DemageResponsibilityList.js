@@ -37,7 +37,7 @@ const renderListItem = props => {
             getCarInfoRecordWaiting()
             getDemageOpResultWaiting()
             getDamageImageListWaiting()
-            Actions.responsibilityInfo({ initParam: item })
+            Actions.demageResponsibilityInfo({ initParam: item })
             InteractionManager.runAfterInteractions(() => {
                 getCarInfo({ car_id })
                 getCarInfoRecord({ car_id })
