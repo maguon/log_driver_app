@@ -34,14 +34,15 @@ const Select = props => {
         secureTextEntry = false,
         isRequired = false,
         textStyle = {},
+        itemStyle = {},
         getList,
         isPop = true,
         showList,
         getListWaiting,
         meta: { error, touched } } = props
     return (
-        <TouchableOpacity style={styles.body} onPress={() => _onPress({ showList, getList, onChange, getListWaiting, isPop })}>
-            <View style={styles.item}>
+        <TouchableOpacity style={last ? styles.lastBody : styles.body} onPress={() => _onPress({ showList, getList, onChange, getListWaiting, isPop })}>
+            <View style={[styles.item, itemStyle]}>
                 <Text style={[globalStyles.midText, textStyle, {}]} >{isRequired && <Text style={styles.errText}>*</Text>}{label}{value.value}</Text>
                 <Icon name='ios-arrow-forward-outline' color='#777' fontSize={15} style={{ fontSize: 18, color: '#777' }} />
             </View>
@@ -62,6 +63,13 @@ const styles = StyleSheet.create({
         marginLeft: margin,
         paddingVertical: margin,
         paddingRight: margin,
+        borderBottomWidth: 0.3,
+        borderColor: '#ccc'
+    },
+    lastBody: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: margin,
         borderBottomWidth: 0.3,
         borderColor: '#ccc'
     },

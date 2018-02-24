@@ -39,6 +39,8 @@ import * as demageOpResultTypes from './DemageOpResultTypes'
 import * as imageListForDemageTypes from './ImageListForDemageTypes'
 import * as recordForDemageTypes from './RecordForDemageTypes'
 import * as demageResponsibilityListTypes from './DemageResponsibilityListTypes'
+import * as demageResponsibilityListOperationTypes from './DemageResponsibilityListOperationTypes'
+import * as demageListOperationTypes from './DemageListOperationTypes'
 
 export {
     homeTypes,
@@ -84,5 +86,7 @@ export {
     demageOpResultTypes,
     imageListForDemageTypes,
     recordForDemageTypes,
-    demageResponsibilityListTypes
+    demageResponsibilityListTypes,
+    demageResponsibilityListOperationTypes,
+    demageListOperationTypes
 }   

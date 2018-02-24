@@ -14,10 +14,11 @@ const TextBox = props => {
         secureTextEntry = false,
         isRequired = false,
         textStyle = {},
+        itemStyle = {},
         meta: { error, touched } } = props
     return <Item inlineLabel last={last} style={styles.body}>
-        <Item style={styles.item}>
-            <Text style={[globalStyles.midText, textStyle]} > <Text style={styles.errText}>*</Text>{label}</Text>
+        <Item style={[styles.item,itemStyle]}>
+            <Text style={[globalStyles.midText, textStyle]} >{isRequired&&<Text style={styles.errText}>*</Text>}{label}</Text>
             <Input
                 secureTextEntry={secureTextEntry}
                 style={[globalStyles.midText, textStyle]}

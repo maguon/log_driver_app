@@ -4,13 +4,20 @@ import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 import { sleep } from '../util/util'
+import { getFormValues } from 'redux-form'
 
 const pageSize = 50
 
 export const getDemageResponsibilityList = () => async (dispatch, getState) => {
-    const { userReducer: { data: { user: { userId } } } } = getState()
+    const state = getState()
+    const { userReducer: { data: { user: { userId } } } } = state
+    let search = getFormValues('demageResponsibilitySearchForm')(state)
+    search = search ? search : { car: {} }
     try {
-        const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: 0, size: pageSize })}`
+        const url = `${base_host}/damage?${ObjectToUrl({
+            underUserId: userId, start: 0, size: pageSize,
+            damageId: search.damageId, vin: search.car.value, createdOnStart: search.createdOnStart, createdOnEnd: search.createdOnEnd
+        })}`
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({
@@ -33,10 +40,13 @@ export const getDemageResponsibilityListWaiting = () => (dispatch, getState) => 
 }
 
 export const getDemageResponsibilityListMore = () => async (dispatch, getState) => {
+    const state = getState()
     const {
         userReducer: { data: { user: { userId } } },
         demageResponsibilityListReducer: { data: { demageResponsibilityList, isComplete } },
-        demageResponsibilityListReducer } = getState()
+        demageResponsibilityListReducer } = state
+    let search = getFormValues('demageResponsibilitySearchForm')(state)
+    search = search ? search : { car: {} }
     if (demageResponsibilityListReducer.getDemageResponsibilityList.isResultStatus == 1) {
         await sleep(1000)
         getDemageResponsibilityListMore()(dispatch, getState)
@@ -44,7 +54,10 @@ export const getDemageResponsibilityListMore = () => async (dispatch, getState) 
         if (!isComplete) {
             dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/damage?${ObjectToUrl({ underUserId: userId, start: demageResponsibilityList.length, size: pageSize })}`
+                const url = `${base_host}/damage?${ObjectToUrl({
+                    underUserId: userId, start: demageResponsibilityList.length, size: pageSize,
+                    damageId: search.damageId, vin: search.car.value, createdOnStart: search.createdOnStart, createdOnEnd: search.createdOnEnd
+                })}`
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
