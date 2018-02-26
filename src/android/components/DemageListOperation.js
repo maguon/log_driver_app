@@ -146,6 +146,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({
-        form: 'demageResponsibilitySearchForm'
+        form: 'demageSearchForm'
     })(DemageListOperation)
 )

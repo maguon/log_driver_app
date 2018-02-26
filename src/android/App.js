@@ -57,6 +57,7 @@ import DemageInfo from './views/DemageInfo'
 import ApplyDemage from './views/ApplyDemage'
 import ApplyDemageImage from './views/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
+import HomeOperation from './components/HomeOperation'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -140,10 +141,38 @@ export default class App extends Component {
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" rightType={1} onPressRight={() => Actions.driverQRCode()} initial={true} component={Home} title='首页' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="instructExecuting" component={InstructExecuting} isRequirePopRefresh={true} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="branchInstructExecuting" component={BranchInstructExecuting} title='调度指令' isRequirePopRefresh={true} hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="driverQRCode" component={DriverQRCode} title='司机二维码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="home" 
+                                //rightType={1}
+                                 //onPressRight={() => Actions.driverQRCode()} 
+                                 initial={true} 
+                                 component={Home} 
+                                 title='首页' 
+                                 hideNavBar={false} 
+                                 navBar={NavBar} 
+                                 RightButton={HomeOperation} />
+                                <Scene key="instructExecuting"
+                                    LeftButton={LeftButton}
+                                    component={InstructExecuting}
+                                    isRequirePopRefresh={true}
+                                    title='调度指令'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
+                                <Scene key="branchInstructExecuting"
+                                    component={BranchInstructExecuting}
+                                    LeftButton={LeftButton}
+                                    title='调度指令'
+                                    isRequirePopRefresh={true}
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
+                                <Scene key="driverQRCode"
+                                    LeftButton={LeftButton}
+                                    component={DriverQRCode}
+                                    title='司机二维码'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
                             </Scene>
                             <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
@@ -271,24 +300,48 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
-                                <Scene key="driverInfo" component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="truckInfo" component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="trailerInfo" component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="cityRouteList" component={CityRouteList} title='指令编号' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingRecord" component={FuelFillingRecord} title='加油记录' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingApply" component={FuelFillingApply} title='加油申报' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingSearch" component={FuelFillingSearch} title='加油查询' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="driverInfo" LeftButton={LeftButton} component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="trailerInfo" LeftButton={LeftButton} component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="cityRouteList" LeftButton={LeftButton} component={CityRouteList} title='指令编号' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="fuelFillingApply" LeftButton={LeftButton} component={FuelFillingApply} title='加油申报' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="fuelFillingSearch" LeftButton={LeftButton} component={FuelFillingSearch} title='加油查询' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="singlePhotoView" component={SinglePhotoView} hideNavBar={true} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
-                                <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="instruct" component={Instruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="branchInstruct" component={BranchInstruct} title='调度指令' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={NavBar} />
+                                <Scene key="instruct"
+                                    LeftButton={LeftButton}
+                                    component={Instruct}
+                                    title='调度指令'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
+                                <Scene key="branchInstruct"
+                                    LeftButton={LeftButton}
+                                    component={BranchInstruct}
+                                    title='调度指令'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
                             </Scene>
                             <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
-                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={TopBar} />
-                                <Scene key="password" component={Password} title='修改密码' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="personalInfo" component={PersonalInfo} title='个人中心' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={NavBar} />
+                                <Scene key="password"
+                                    LeftButton={LeftButton}
+                                    component={Password}
+                                    title='修改密码'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
+                                <Scene key="personalInfo"
+                                    LeftButton={LeftButton}
+                                    component={PersonalInfo}
+                                    title='个人中心'
+                                    hideNavBar={false}
+                                    hideTabBar={true}
+                                    navBar={NavBar} />
                             </Scene>
                         </Scene>
                     </Scene>
