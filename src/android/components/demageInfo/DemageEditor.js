@@ -32,7 +32,7 @@ const DemageEditor = props => {
         demageEditorReducer: { updateDamage: { isResultStatus } },
         parent,
         applyDamageFormValues = {},
-        initParam: { id, created_on, car_id, vin ,damage_status} } = props
+        initParam: { id, created_on, car_id, vin, damage_status } } = props
 
     const { driver } = applyDamageFormValues
     return (
