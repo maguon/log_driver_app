@@ -14,7 +14,7 @@ const DemageDetail = props => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.headerItem}>
-                    <Text style={[globalStyles.largeText, globalStyles.styleColor, {}]}>No.:{id ? `${id}` : ''}</Text>
+                    <Text style={[globalStyles.midText, globalStyles.styleColor, {}]}>质损编号:{id ? `${id}` : ''}</Text>
                     <Text style={globalStyles.smallText}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
                 </View>
                 <View style={styles.headerStatusItem}>

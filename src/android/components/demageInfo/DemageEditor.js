@@ -32,7 +32,7 @@ const DemageEditor = props => {
         demageEditorReducer: { updateDamage: { isResultStatus } },
         parent,
         applyDamageFormValues = {},
-        initParam: { id, created_on, car_id, vin } } = props
+        initParam: { id, created_on, car_id, vin ,damage_status} } = props
 
     const { driver } = applyDamageFormValues
     return (
@@ -40,11 +40,15 @@ const DemageEditor = props => {
             <Content showsVerticalScrollIndicator={false}>
                 <View style={[styles.item, styles.header]}>
                     <View style={styles.headerItem}>
-                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>No.：{id ? `${id}` : ''}</Text>
+                        <Text style={[globalStyles.midText, globalStyles.styleColor]}>质损编号：{id ? `${id}` : ''}</Text>
                         <Text style={globalStyles.smallText}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
                     </View>
                     <View style={styles.headerStatusItem}>
-                        <Text style={[globalStyles.midText]}>待处理</Text>
+                        <Text style={[globalStyles.midText]}>
+                            {damage_status == 1 && '未处理'}
+                            {damage_status == 2 && '处理中'}
+                            {damage_status == 3 && '已处理'}
+                        </Text>
                     </View>
                 </View>
                 <Field
@@ -60,7 +64,7 @@ const DemageEditor = props => {
                             mapStateToProps: driverMapStateToProps,
                             mapDispatchToProps: driverMapDispatchToProps,
                             List: DisposableList,
-                            title:'选择货车司机',
+                            title: '选择货车司机',
                             ...param
                         })
                     }} />

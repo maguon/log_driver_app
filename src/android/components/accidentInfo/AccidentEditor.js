@@ -36,7 +36,7 @@ const AccidentEditor = props => {
             <Content showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <View style={styles.headerItem}>
-                        <Text style={[globalStyles.largeText, globalStyles.styleColor, {}]}>No.:{id ? `${id}` : ''}</Text>
+                        <Text style={[globalStyles.midText, globalStyles.styleColor, {}]}>事故编号:{id ? `${id}` : ''}</Text>
                         <Text style={globalStyles.smallText}>{updated_on ? `${moment(updated_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                     </View>
                     <View style={styles.headerStatusItem}>

@@ -31,7 +31,7 @@ const renderItem = props => {
             InteractionManager.runAfterInteractions(() => getAccidentImageList({ accidentId: id }))
         }}>
             <View style={styles.itemHeader}>
-                <Text style={[globalStyles.midText, globalStyles.styleColor]}>No.{id ? `${id}` : ''}</Text>
+                <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>
                 {accident_status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>待处理</Text>}
                 {accident_status == 2 && <Text style={[globalStyles.midText]}>处理中</Text>}
                 {accident_status == 3 && <Text style={[globalStyles.midText]}>已处理</Text>}
