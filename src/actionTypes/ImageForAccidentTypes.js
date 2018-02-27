@@ -8,3 +8,8 @@ export const upload_ImageAtAccidentInfo_partSuccess = 'upload_ImageAtAccidentInf
 export const upload_ImageAtAccidentInfo_waiting = 'upload_ImageAtAccidentInfo_waiting'
 export const upload_ImageAtAccidentInfo_failed = 'upload_ImageAtAccidentInfo_failed'
 export const upload_ImageAtAccidentInfo_error = 'upload_ImageAtAccidentInfo_error'
+
+export const del_ImageAtAccidentInfo_success = 'del_ImageAtAccidentInfo_success'
+export const del_ImageAtAccidentInfo_failed = 'del_ImageAtAccidentInfo_failed'
+export const del_ImageAtAccidentInfo_error = 'del_ImageAtAccidentInfo_error'
+export const del_ImageAtAccidentInfo_waiting = 'del_ImageAtAccidentInfo_waiting'

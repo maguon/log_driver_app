@@ -93,7 +93,6 @@ export default class ImageView extends Component {
 
     render() {
         const { imageViewReducer: { imageList }, imageIndex } = this.props
-        console.log('this.props',this.props)
         return (
             <View style={{ flex: 1, backgroundColor: '#000' }}>
                 <Swiper

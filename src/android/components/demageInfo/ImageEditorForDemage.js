@@ -34,8 +34,7 @@ const renderItem = props => {
                 onPress={() => Actions.imageViewConnect({
                     mapStateToProps: imageMapStateToProps,
                     mapDispatchToProps: imageMapDispatchToProps,
-                    imageIndex: index,
-                    damageId
+                    imageIndex: index
                 })} >
                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
             </TouchableOpacity>
@@ -173,8 +172,7 @@ const imageMapStateToProps = (state) => {
 
 const imageMapDispatchToProps = (dispatch,ownProps) => ({
     delImage: (param) => {
-        console.log('ownProps',ownProps)
-       dispatch(imageListForDemageAction.delImage(param,ownProps.damageId))
+       dispatch(imageListForDemageAction.delImage(param))
     }
 })
 

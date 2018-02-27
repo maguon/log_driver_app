@@ -4,10 +4,10 @@ import ImageView from '../components/ImageView'
 
 
 const ImageViewConnect = props => {
-    const { mapStateToProps, mapDispatchToProps ,imageIndex,damageId} = props
+    const { mapStateToProps, mapDispatchToProps ,imageIndex} = props
     const ImageViewComponent = connect(mapStateToProps, mapDispatchToProps)(ImageView)
     return (
-        <ImageViewComponent imageIndex={imageIndex} damageId={damageId}/>
+        <ImageViewComponent imageIndex={imageIndex}/>
     )
 }
 export default ImageViewConnect

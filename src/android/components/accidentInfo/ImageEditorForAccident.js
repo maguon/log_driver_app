@@ -17,7 +17,7 @@ import { file_host } from '../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  imagForAccidentAction from '../../../actions/ImagForAccidentAction'
 import * as routerDirection from '../../../util/RouterDirection'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
 
 const window = Dimensions.get('window')
@@ -33,7 +33,11 @@ const renderItem = props => {
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })} >
+                onPress={() => Actions.imageViewConnect({
+                    mapStateToProps: imageMapStateToProps,
+                    mapDispatchToProps: imageMapDispatchToProps,
+                    imageIndex: index
+                })} >
                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
             </TouchableOpacity>
         )
@@ -45,7 +49,7 @@ const renderItemCameraButton = props => {
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
-                getImage={(cameraReses) => uploadAccidentImage({ cameraReses,accidentId })}
+                getImage={(cameraReses) => uploadAccidentImage({ cameraReses, accidentId })}
                 _cameraStart={uploadAccidentImageWaiting}
             />
         </View>
@@ -157,6 +161,21 @@ const styles = StyleSheet.create({
     modalText: {
         color: '#fff',
         paddingLeft: 10
+    }
+})
+
+
+const imageMapStateToProps = (state) => {
+    return {
+        imageViewReducer: {
+            imageList: state.imageForAccidentReducer.data.imageList.map(item => `${file_host}/image/${item.url}`)
+        }
+    }
+}
+
+const imageMapDispatchToProps = (dispatch, ownProps) => ({
+    delImage: (param) => {
+        dispatch(imagForAccidentAction.delImage(param))
     }
 })
 

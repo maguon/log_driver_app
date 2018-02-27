@@ -3,7 +3,8 @@ import * as actionTypes from '../actionTypes'
 
 const initialState = {
     data: {
-        imageList: []
+        imageList: [],
+        recordId:0
     },
     uploadAccidentImage:{
         isResultStatus: 0,
@@ -14,16 +15,22 @@ const initialState = {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
+    },
+    delImage:{
+        errorMsg: '',
+        failedMsg: '',
+        isResultStatus: 0
     }
 }
 
 export default handleActions({
     [actionTypes.imageForAccidentTypes.get_AccidentImageList_success]: (state, action) => {
-        const { payload: { imageList } } = action
+        const { payload: { imageList ,recordId} } = action
         return {
             ...state,
             data: {
-                imageList
+                imageList,
+                recordId
             },
             getAccidentImageList: {
                 ...initialState.getAccidentImageList,
@@ -70,6 +77,7 @@ export default handleActions({
         return {
             ...state,
             data: {
+                ...state.data,
                 imageList: [...state.data.imageList, ...imageList.map(item => { return { url: item } })]
             },
             uploadAccidentImage: {
@@ -83,6 +91,7 @@ export default handleActions({
         return {
             ...state,
             data: {
+                ...state.data,
                 imageList: [...state.data.imageList, ...imageList]
             },
             uploadAccidentImage: {
@@ -118,6 +127,58 @@ export default handleActions({
             ...state,
             uploadAccidentImage: {
                 ...initialState.uploadAccidentImage,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+
+
+
+
+
+    [actionTypes.imageForAccidentTypes.del_ImageAtAccidentInfo_success]: (state, action) => {
+        const { payload: { imageurl } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                imageList: state.data.imageList.filter(item => {
+                    return item.url != imageurl
+                })
+            },
+            delImage: {
+                ...initialState.delImage,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.imageListForDemageTypes.del_ImageAtAccidentInfo_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            delImage: {
+                ...initialState.delImage,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [actionTypes.imageListForDemageTypes.del_ImageAtAccidentInfo_waiting]: (state, action) => {
+        return {
+            ...state,
+            delImage: {
+                ...initialState.delImage,
+                isResultStatus: 1
+            }
+        }
+    },
+    [actionTypes.imageListForDemageTypes.del_ImageAtAccidentInfo_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            delImage: {
+                ...initialState.delImage,
                 isResultStatus: 3,
                 errorMsg
             }
