@@ -31,7 +31,12 @@ const renderItem = props => {
             <TouchableOpacity
                 key={index}
                 style={styles.itemContainer}
-                onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: demageImageList.map(url => `${file_host}/image/${url.url}`), index } })} >
+                onPress={() => Actions.imageViewConnect({
+                    mapStateToProps: imageMapStateToProps,
+                    mapDispatchToProps: imageMapDispatchToProps,
+                    imageIndex: index,
+                    damageId
+                })} >
                 <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
             </TouchableOpacity>
         )
@@ -62,9 +67,9 @@ const renderListEmpty = props => {
             <View style={styles.titleContainer}>
                 <Text style={[globalStyles.largeText, globalStyles.styleColor]}>点击按钮上传质损图片</Text>
             </View>
-            <View style={styles.subtitleContainer}>
+            {/* <View style={styles.subtitleContainer}>
                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>若不进行此选项操作可直接点击“<Text style={styles.tagText}>完成</Text>”</Text>
-            </View>
+            </View> */}
         </View>
     )
 }
@@ -155,6 +160,21 @@ const styles = StyleSheet.create({
     modalText: {
         color: '#fff',
         paddingLeft: 10
+    }
+})
+
+const imageMapStateToProps = (state) => {
+    return {
+        imageViewReducer: {
+            imageList: state.imageListForDemageReducer.data.demageImageList.map(item => `${file_host}/image/${item.url}`)
+        }
+    }
+}
+
+const imageMapDispatchToProps = (dispatch,ownProps) => ({
+    delImage: (param) => {
+        console.log('ownProps',ownProps)
+       dispatch(imageListForDemageAction.delImage(param,ownProps.damageId))
     }
 })
 

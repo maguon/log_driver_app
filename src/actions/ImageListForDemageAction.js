@@ -10,7 +10,12 @@ export const getDamageImageList = (param) => async (dispatch, getState) => {
         const url = `${record_host}/damageRecord?${ObjectToUrl({ damageId: id })}`
         const res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.imageListForDemageTypes.get_DamageImageList_success, payload: { demageImageList: res.result[0] ? res.result[0].damage_image : [] } })
+            dispatch({
+                type: actionTypes.imageListForDemageTypes.get_DamageImageList_success, payload: {
+                    demageImageList: res.result[0] ? res.result[0].damage_image : [],
+                    damageId: res.result[0]._id
+                }
+            })
         } else {
             dispatch({ type: actionTypes.imageListForDemageTypes.get_DamageImageList_failed, payload: { failedMsg: res.msg } })
         }
@@ -29,10 +34,10 @@ export const uploadDamageImageWaiting = () => (dispatch, getState) => {
 
 export const uploadDamageImage = param => async (dispatch, getState) => {
     try {
-        const { cameraReses, damageId,vin  } = param
+        const { cameraReses, damageId, vin } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
-            const { truckReducer: { data: { personalInfo } } } =  getState()
+            const { truckReducer: { data: { personalInfo } } } = getState()
             const imageUploadUrl = `${file_host}/user/${personalInfo.uid}/image?${ObjectToUrl({ imageType: 4 })}`
             const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
                 key: 'image',
@@ -74,5 +79,26 @@ export const uploadDamageImage = param => async (dispatch, getState) => {
     catch (err) {
         ToastAndroid.showWithGravity(`提交全部失败！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         dispatch({ type: actionTypes.imageListForDemageTypes.upload_ImageAtDemage_error, payload: { errorMsg: err } })
+    }
+}
+
+export const delImage = param => async (dispatch, getState) => {
+    const { userReducer: { data: { user: { userId } } },
+        imageListForDemageReducer: { data: { damageId } } } = getState()
+    dispatch({ type: actionTypes.imageListForDemageTypes.del_ImageAtDemage_waiting, payload: {} })
+    try {
+        const url = `${record_host}/user/${userId}/record/${damageId}/damageImage/${param}`
+        const res = await httpRequest.del(url)
+        if (res.success) {
+            ToastAndroid.showWithGravity('图片删除成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            dispatch({ type: actionTypes.imageListForDemageTypes.del_ImageAtDemage_success, payload: { imageurl: param } })
+        } else {
+            ToastAndroid.showWithGravity(`图片删除失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            dispatch({ type: actionTypes.imageListForDemageTypes.del_ImageAtDemage_failed, payload: { failedMsg: res.msg } })
+        }
+
+    } catch (err) {
+        ToastAndroid.showWithGravity(`图片删除失败：${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        dispatch({ type: actionTypes.imageListForDemageTypes.del_ImageAtDemage_error, payload: { errorMsg: err } })
     }
 }

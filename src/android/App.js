@@ -58,6 +58,7 @@ import ApplyDemage from './views/ApplyDemage'
 import ApplyDemageImage from './views/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import HomeOperation from './components/HomeOperation'
+import ImageViewConnect from './views/ImageViewConnect'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -300,6 +301,11 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
+                                <Scene key="imageViewConnect"
+                                    clone={true}
+                                    component={ImageViewConnect}
+                                    hideTabBar
+                                    hideNavBar />   
                                 <Scene key="driverInfo" LeftButton={LeftButton} component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="trailerInfo" LeftButton={LeftButton} component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />

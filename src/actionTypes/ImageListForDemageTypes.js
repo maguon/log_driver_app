@@ -9,3 +9,7 @@ export const upload_ImageAtDemage_waiting = 'upload_ImageAtDemage_waiting'
 export const upload_ImageAtDemage_failed = 'upload_ImageAtDemage_failed'
 export const upload_ImageAtDemage_error = 'upload_ImageAtDemage_error'
 
+export const del_ImageAtDemage_success = 'del_ImageAtDemage_success'
+export const del_ImageAtDemage_failed = 'del_ImageAtDemage_failed'
+export const del_ImageAtDemage_error = 'del_ImageAtDemage_error'
+export const del_ImageAtDemage_waiting = 'del_ImageAtDemage_waiting'
