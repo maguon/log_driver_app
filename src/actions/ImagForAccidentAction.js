@@ -8,10 +8,7 @@ export const getAccidentImageList = (param) => async (dispatch, getState) => {
     const { accidentId } = param
     try {
         const url = `${record_host}/truckDamage?${ObjectToUrl({ truckDamageId: accidentId })}`
-        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
-
         if (res.success) {
             dispatch({
                 type: actionTypes.imageForAccidentTypes.get_AccidentImageList_success, payload: {

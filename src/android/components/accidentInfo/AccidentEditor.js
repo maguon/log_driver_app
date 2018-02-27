@@ -30,7 +30,6 @@ const AccidentEditor = props => {
         getCityRouteListWaiting,
         accidentInfo: { id, updated_on, accident_status },
         handleSubmit } = props
-    console.log('props', props)
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>

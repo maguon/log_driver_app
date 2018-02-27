@@ -11,7 +11,6 @@ import globalStyles from '../GlobalStyles'
 import { connect } from 'react-redux'
 
 const AccidentInfo = props => {
-    console.log('props', props)
     const { accidentInfo } = props
     return (
         <Container style={globalStyles.listBackgroundColor}>

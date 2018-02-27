@@ -13,7 +13,7 @@ export const getDamageImageList = (param) => async (dispatch, getState) => {
             dispatch({
                 type: actionTypes.imageListForDemageTypes.get_DamageImageList_success, payload: {
                     demageImageList: res.result[0] ? res.result[0].damage_image : [],
-                    damageId: res.result[0]._id
+                    recordId: res.result[0]._id
                 }
             })
         } else {
@@ -84,10 +84,10 @@ export const uploadDamageImage = param => async (dispatch, getState) => {
 
 export const delImage = param => async (dispatch, getState) => {
     const { userReducer: { data: { user: { userId } } },
-        imageListForDemageReducer: { data: { damageId } } } = getState()
+        imageListForDemageReducer: { data: { recordId } } } = getState()
     dispatch({ type: actionTypes.imageListForDemageTypes.del_ImageAtDemage_waiting, payload: {} })
     try {
-        const url = `${record_host}/user/${userId}/record/${damageId}/damageImage/${param}`
+        const url = `${record_host}/user/${userId}/record/${recordId}/damageImage/${param}`
         const res = await httpRequest.del(url)
         if (res.success) {
             ToastAndroid.showWithGravity('图片删除成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
