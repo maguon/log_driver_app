@@ -25,9 +25,9 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent, accidentId } = props
+    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent, accidentId,truck_num } = props
     if (item == 'isCameraButton') {
-        return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId })
+        return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId,truck_num })
     } else {
         return (
             <TouchableOpacity
@@ -45,11 +45,11 @@ const renderItem = props => {
 }
 
 const renderItemCameraButton = props => {
-    const { index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId } = props
+    const { index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId,truck_num } = props
     return (
         <View key={index} style={styles.itemCameraButton}>
             <CameraButton
-                getImage={(cameraReses) => uploadAccidentImage({ cameraReses, accidentId })}
+                getImage={(cameraReses) => uploadAccidentImage({ cameraReses, accidentId ,truck_num})}
                 _cameraStart={uploadAccidentImageWaiting}
             />
         </View>
@@ -57,12 +57,12 @@ const renderItemCameraButton = props => {
 }
 
 const renderListEmpty = props => {
-    const { uploadAccidentImageWaiting, uploadAccidentImage } = props
+    const { uploadAccidentImageWaiting, uploadAccidentImage,truck_num,accidentId } = props
     return (
         <View>
             <View style={styles.cameraButtonContainer}>
                 <CameraButton
-                    getImage={(cameraReses) => uploadAccidentImage({ cameraReses })}
+                    getImage={(cameraReses) => uploadAccidentImage({ cameraReses,truck_num,accidentId })}
                     _cameraStart={uploadAccidentImageWaiting} />
             </View>
             <View style={styles.titleContainer}>
@@ -79,7 +79,7 @@ const ImageEditorForAccident = props => {
     const { parent,
         uploadAccidentImageWaiting,
         uploadAccidentImage,
-        accidentInfo: { id },
+        accidentInfo: { id,truck_num },
         imageForAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
     return (
         <Container >
@@ -88,8 +88,8 @@ const ImageEditorForAccident = props => {
                 showsVerticalScrollIndicator={false}
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
-                ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting, uploadAccidentImage })}
-                renderItem={({ item, index }) => renderItem({ parent, accidentId: id, item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
+                ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting,accidentId: id, uploadAccidentImage,truck_num })}
+                renderItem={({ item, index }) => renderItem({ parent, accidentId: id, truck_num,item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}

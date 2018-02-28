@@ -175,7 +175,7 @@ export default class App extends Component {
                                     hideTabBar={true}
                                     navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock"  icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
                                     initial={true}
                                     component={Truck}

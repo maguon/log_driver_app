@@ -34,7 +34,7 @@ export const uploadAccidentImageWaiting = () => (dispatch) => {
 
 export const uploadAccidentImage = param => async (dispatch, getState) => {
     try {
-        const { cameraReses, accidentId } = param
+        const { cameraReses, accidentId,truck_num } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
             const { userReducer: { data: { user: { userId } } },
@@ -52,7 +52,8 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                     username: personalInfo.real_name,
                     userId: personalInfo.uid,
                     userType: personalInfo.type,
-                    url: item.imageId
+                    url: item.imageId,
+                    vheNo:truck_num
                 })))
                 const bindDamageSuccessReses = bindDamageReses
                     .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })
@@ -89,7 +90,7 @@ export const delImage = param => async (dispatch, getState) => {
         imageForAccidentReducer: { data: { recordId } } } = getState()
     dispatch({ type: actionTypes.imageForAccidentTypes.del_ImageAtAccidentInfo_waiting, payload: {} })
     try {
-        const url = `${record_host}/user/${userId}/record/${recordId}/damageImage/${param}`
+        const url = `${record_host}/user/${userId}/record/${recordId}/truckDamageImage/${param}`
         const res = await httpRequest.del(url)
         if (res.success) {
             ToastAndroid.showWithGravity('图片删除成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)

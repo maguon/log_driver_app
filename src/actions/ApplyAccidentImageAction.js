@@ -15,7 +15,7 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
             const { userReducer: { data: { user: { userId } } },
-                applyAccidentReducer: { data: { accidentId } } ,
+                applyAccidentReducer: { data: { accidentId ,truckNum} } ,
                 truckReducer:{data:{personalInfo}}
             } = getState()
             const imageUploadUrl = `${file_host}/user/${userId}/image?${ObjectToUrl({ imageType: 5 })}`
@@ -30,7 +30,8 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                     username: personalInfo.real_name,
                     userId: personalInfo.uid,
                     userType: personalInfo.type,
-                    url: item.imageId
+                    url: item.imageId,
+                    vheNo: truckNum
                 })))
                 const bindDamageSuccessReses = bindDamageReses
                     .map((item, index) => { return { imageId: imageUploadSuccessReses[index].imageId, success: item.success } })

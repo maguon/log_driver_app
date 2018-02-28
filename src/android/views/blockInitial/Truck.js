@@ -75,7 +75,7 @@ class Truck extends Component {
                     </ListItem>
                     <View style={{ padding: 5 }}  >
                         <View style={styles.itemGroup}>
-                            <TouchableOpacity style={styles.item} onPress={() => {
+                            {/* <TouchableOpacity style={styles.item} onPress={() => {
                                 getDemageListWaiting()
                                 Actions.demageList()
                                 InteractionManager.runAfterInteractions(getDemageList)
@@ -88,7 +88,7 @@ class Truck extends Component {
                                 <Right>
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getAccidentListWaiting()
                                 Actions.accidentList()

@@ -10,6 +10,7 @@ export const applyAccident = (param) => async (dispatch, getState) => {
     const { userReducer: { data: { user: { userId } } }, truckReducer: { data: { driverInfo: { id } } } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentTypes.apply_Accident_waiting, payload: {} })
+        console.log('param', param)
         const url = `${base_host}/user/${userId}/truckAccident`
         const res = await httpRequest.post(url, objectExceptNull({
             truckId: param.accidentType.id,
@@ -22,7 +23,12 @@ export const applyAccident = (param) => async (dispatch, getState) => {
             accidentExplain: param.accidentExplain
         }))
         if (res.success) {
-            dispatch({ type: actionTypes.applyAccidentTypes.apply_Accident_success, payload: { accidentId: res.id } })
+            dispatch({
+                type: actionTypes.applyAccidentTypes.apply_Accident_success, payload: {
+                    accidentId: res.id,
+                    truckNum: param.accidentType.num
+                }
+            })
             ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             Actions.applyAccidentImage()
         } else {
