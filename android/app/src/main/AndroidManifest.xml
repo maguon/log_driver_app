@@ -139,11 +139,11 @@
         <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_ID"
-            android:value="2100209996" />
+            android:value="2100267013" />
         <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
-            android:value="AHW931HVZ42A" />
+            android:value="A7XR278C4CTR" />
 
 
        <service android:name="com.amap.api.location.APSService"></service>

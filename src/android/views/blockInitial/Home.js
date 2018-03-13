@@ -32,12 +32,12 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // this.listener = AMapLocation.addEventListener((data) => console.log('data', data))
-        // AMapLocation.startLocation({
-        //   accuracy: 'HighAccuracy',
-        //   killProcess: true,
-        //   needDetail: true,
-        // });
+        this.listener = AMapLocation.addEventListener((data) => console.log('data', data))
+        AMapLocation.startLocation({
+          accuracy: 'HighAccuracy',
+          killProcess: true,
+          needDetail: true,
+        });
         this.props.setGetMileageInfoWaiting()
         this.initView()
 
