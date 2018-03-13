@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import * as branchInstructAction from '../../actions/BranchInstructAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { styleColor } from '../GlobalStyles'
 
 class BranchInstruct extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class BranchInstruct extends Component {
                 <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
-                <Text style={{ color: '#00cade', fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
+                <Text style={{ color: styleColor, fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
                 {/* <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text> */}
             </View>
         </View>
@@ -87,9 +88,9 @@ class BranchInstruct extends Component {
                             <Text style={{color:'#fff'}}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={{ color: '#00cade' }}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
+                            <Text style={{ color: styleColor }}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
                             <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={{  paddingLeft: 5, color: '#00cade' }}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
+                            <Text style={{  paddingLeft: 5, color: styleColor }}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{
@@ -105,7 +106,7 @@ class BranchInstruct extends Component {
                             <Text style={{ color: '#8b959b' }}>计划运送：{routeLoadInfo.plan_count ? `${routeLoadInfo.plan_count}` : '0'}</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
+                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: styleColor }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
                         </View>
                         {/* <View>
                             <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{routeLoadInfo.car_exception_count ? `${routeLoadInfo.car_exception_count}` : '0'}</Text></Text>
@@ -137,7 +138,7 @@ class BranchInstruct extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
                         <View>
-                            <Icon name='ios-checkmark-circle' style={{ fontSize: 25, color: '#00cade' }} />
+                            <Icon name='ios-checkmark-circle' style={{ fontSize: 25, color: styleColor }} />
                         </View>
                         <View style={{ paddingLeft: 5 }}>
                             <Icon name='md-alert' style={{ fontSize: 25, color: '#d69aa5' }} />
@@ -145,7 +146,7 @@ class BranchInstruct extends Component {
                     </View>
                 </View> */}
                     {/* <View style={{ justifyContent: 'flex-end', alignSelf: 'flex-end', paddingTop: 10, paddingRight: 10 }}>
-                    <Button small rounded onPress={() => { }} style={{ backgroundColor: '#00cade' }}>
+                    <Button small rounded onPress={() => { }} style={{ backgroundColor: styleColor }}>
                         <Text style={{ color: '#fff' }}>完成</Text>
                     </Button>
                 </View> */}

@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 import * as FuelFillingRecordAction from '../../actions/FuelFillingRecordAction'
 import moment from 'moment'
 import fuelFillingTypeList from '../../config/fuelFillingType'
-
+import { styleColor } from '../GlobalStyles'
 class FuelFillingRecord extends Component {
     constructor(props) {
         super(props)
@@ -170,9 +170,9 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor }}>{item.route_start ? item.route_start : ''}</Text>
                         {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
-                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor, paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
                         <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
@@ -180,7 +180,7 @@ class FuelFillingRecord extends Component {
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
                     <Text style={{ fontSize: 11, fontWeight: '100' }}>
                             {item.refuel_address ? item.refuel_address : ''}
-                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
                         </Text></Text>
                 </View>
             </View>
@@ -211,9 +211,9 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor }}>{item.route_start ? item.route_start : ''}</Text>
                         {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
-                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor, paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
                         <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
@@ -221,7 +221,7 @@ class FuelFillingRecord extends Component {
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
                     <Text style={{ fontSize: 11, fontWeight: '100' }}>
                             {item.refuel_address ? item.refuel_address : ''}
-                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
                         </Text></Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -256,9 +256,9 @@ class FuelFillingRecord extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>关联路线：</Text>
-                        <Text style={{ fontSize: 11, color: '#00cade' }}>{item.route_start ? item.route_start : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor }}>{item.route_start ? item.route_start : ''}</Text>
                         {item.route_start && <MaterialCommunityIcons name='ray-start-arrow' size={15} style={{ color: '#8c989f', paddingLeft: 3 }} />}
-                        <Text style={{ fontSize: 11, color: '#00cade', paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
+                        <Text style={{ fontSize: 11, color: styleColor, paddingLeft: 3 }}>{item.route_end ? item.route_end : ''}</Text>
                         <Text style={{ fontSize: 11, paddingLeft: 3 }}>{item.dp_route_task_id ? `(${item.dp_route_task_id})` : ''}</Text>
                     </View>
                 </View>
@@ -266,7 +266,7 @@ class FuelFillingRecord extends Component {
                     <Text style={{ fontSize: 11, fontWeight: 'bold' }}>加油地：
                     <Text style={{ fontSize: 11, fontWeight: '100' }}>
                             {item.refuel_address ? item.refuel_address : ''}
-                            <Text style={{ color: '#00cade', fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11, paddingLeft: 3 }}>{item.refuel_address_type ? `(${fuelFillingTypeList.find(typeItem => typeItem.id == item.refuel_address_type).value})` : ''}</Text>
                         </Text></Text>
                 </View>
             </View>
@@ -278,7 +278,7 @@ class FuelFillingRecord extends Component {
             <View>
                 <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
                     <View>
-                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: '#00cade', justifyContent: 'space-around', paddingHorizontal: 10 }}>
+                        <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: styleColor, justifyContent: 'space-around', paddingHorizontal: 10 }}>
                             <MaterialCommunityIcons name='gas-station' size={20} color='#fff' />
                             <Text style={{ color: '#fff', paddingLeft: 5 }}>加油申报</Text>
                         </Button>
@@ -295,13 +295,13 @@ class FuelFillingRecord extends Component {
                 <View style={{ backgroundColor: '#f1f8f9', borderWidth: 0.5, borderColor: '#fff', marginHorizontal: 10, padding: 10, marginBottom: 10 }}>
                     <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', paddingBottom: 10 }}>
                         <View>
-                            <Text style={{ color: '#00cade', fontSize: 13 }}>{this.props.fuelFillingRecordReducer.data.total.refuelDateStart ? this.props.fuelFillingRecordReducer.data.total.refuelDateStart : ''}</Text>
+                            <Text style={{ color: styleColor, fontSize: 13 }}>{this.props.fuelFillingRecordReducer.data.total.refuelDateStart ? this.props.fuelFillingRecordReducer.data.total.refuelDateStart : ''}</Text>
                         </View>
                         <View style={{ paddingHorizontal: 20 }}>
                             <Text style={{ fontSize: 13, fontWeight: 'bold', color: '#a1a4a5' }}>至</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#00cade', fontSize: 13 }}>{this.props.fuelFillingRecordReducer.data.total.refuelDateEnd ? this.props.fuelFillingRecordReducer.data.total.refuelDateEnd : ''}</Text>
+                            <Text style={{ color: styleColor, fontSize: 13 }}>{this.props.fuelFillingRecordReducer.data.total.refuelDateEnd ? this.props.fuelFillingRecordReducer.data.total.refuelDateEnd : ''}</Text>
                         </View>
                     </View>
                     <View style={{ paddingTop: 10 }}>

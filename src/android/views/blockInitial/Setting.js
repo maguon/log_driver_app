@@ -16,7 +16,7 @@ import ConfirmModal from '../../components/ConfirmModal'
 import * as app from '../../../android_app.json'
 import * as LoginAction from '../../../actions/LoginAction'
 import * as SettingAction from '../../../actions/SettingAction'
-
+import { styleColor } from '../../GlobalStyles'
 
 class Setting extends Component {
     constructor(props) {
@@ -84,7 +84,7 @@ class Setting extends Component {
     }
 
     render() {
-        let viewStyle = { backgroundColor: '#00cade' }
+        let viewStyle = { backgroundColor: styleColor }
         const { version } = this.props.InitializationReducer.data
         const { personalInfo } = this.props.settingReducer.data
         //console.log(this.props.InitializationReducer)
@@ -109,7 +109,7 @@ class Setting extends Component {
                         <Separator bordered />
                         <ListItem onPress={() => { Actions.password() }}>
                             <Left>
-                                <Icon name="ios-lock" style={{ color: '#00cade' }} />
+                                <Icon name="ios-lock" style={{ color: styleColor }} />
                                 <Text>修改密码</Text>
                             </Left>
                             <Body></Body>
@@ -132,7 +132,7 @@ class Setting extends Component {
                         </ListItem>
                     </List>
                     <Separator bordered style={{ flex: 1, paddingLeft: 0, marginLeft: 0 }}>
-                        <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: '#00cade' }} onPress={this.exitApp.bind(this)}>
+                        <Button light full style={{ marginTop: 80, marginHorizontal: 15, backgroundColor: styleColor }} onPress={this.exitApp.bind(this)}>
                             <Text style={{ color: '#fff' }}>退出登录</Text>
                         </Button>
                     </Separator>

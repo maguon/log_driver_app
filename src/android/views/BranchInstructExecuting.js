@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import * as branchInstructExecutingAction from '../../actions/BranchInstructExecutingAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { styleColor } from '../GlobalStyles'
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class BranchInstructExecuting extends Component {
         }, true)
         if (total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: '#00cade' }}>
+                <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: styleColor }}>
                     <Text style={{ color: '#fff' }}>完成</Text>
                 </Button>
             </View>
@@ -99,9 +100,9 @@ class BranchInstructExecuting extends Component {
                 <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-                {item.car_load_status == 2 && <Text style={{ color: '#00cade', fontSize: 11, marginVertical: 10 }}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 2 && <Text style={{ color: styleColor, fontSize: 11, marginVertical: 10 }}>{item.car_load_status == 2 && '已送达'}</Text>}
                 {item.car_load_status == 1 && <TouchableOpacity onPress={() => this.changeCarLoadStatus(item.id)}>
-                    <Icon name='ios-checkmark-circle' style={{ color: '#00cade', fontSize: 25, marginVertical: 5 }} />
+                    <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
                 </TouchableOpacity>}
                 {/* {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
                 {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />} */}
@@ -150,9 +151,9 @@ class BranchInstructExecuting extends Component {
                             <Text style={{color:'#fff'}}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={{ color: '#00cade' }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
+                            <Text style={{ color: styleColor }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
                             <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={{ color: '#00cade',paddingLeft: 5 }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
+                            <Text style={{ color: styleColor,paddingLeft: 5 }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{
@@ -168,7 +169,7 @@ class BranchInstructExecuting extends Component {
                             <Text style={{ color: '#8b959b' }}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: '#00cade' }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
+                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: styleColor }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
                         </View>
                         {/* <View>
                         <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{loadTaskInfo.car_exception_count ? `${loadTaskInfo.car_exception_count}` : '0'}</Text></Text>

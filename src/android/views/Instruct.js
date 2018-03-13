@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import * as instructAction from '../../actions/InstructAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
+import { styleColor } from '../GlobalStyles'
 
 class Instruct extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ class Instruct extends Component {
                             <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'left', flex: 1 }}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', flex: 1 }}>
-                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: '#00cade' }}>{item.car_count ? item.car_count : '0'}</Text></Text>
+                            <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>实际运送：<Text style={{ color: styleColor }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                         </View>
                         {/* <View style={{ flexDirection: 'row', flex: 1 }}>
                             <Text style={{ fontSize: 11, color: '#8b959b', textAlign: 'right', flex: 1 }}>异常：<Text style={{ color: '#d69aa5' }}>{item.car_exception_count ? `${item.car_exception_count}` : '0'}</Text></Text>
@@ -97,7 +98,7 @@ class Instruct extends Component {
                         <View>
                             <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', paddingTop: 10, alignItems: 'center' }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                                    <MaterialCommunityIcons name='truck' size={20} color={styleColor} />
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''}</Text>
@@ -135,13 +136,13 @@ class Instruct extends Component {
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>计划运送：{`${taskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}`}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: '#00cade' }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
+                                <Text style={{ fontSize: 11, color: '#8b959b' }}>实际运送：<Text style={{ color: styleColor }}>{routeInfo.car_count ? `${routeInfo.car_count}` : '0'}</Text></Text>
                             </View>
                             {/* <View style={{ flexDirection: 'row' }}>
                                 <Text style={{ fontSize: 11, color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{`${taskList.reduce((sum, value) => sum + (value.car_exception_count ? value.car_exception_count : 0), 0)}`}</Text></Text>
                             </View> */}
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ fontSize: 11, color: '#00cade' }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
+                                <Text style={{ fontSize: 11, color: styleColor }}>{routeInfo.task_status == 9 ? '完成' : ''}</Text>
                             </View>
                         </View>
                     </View>

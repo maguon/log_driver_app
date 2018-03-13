@@ -12,12 +12,14 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontTag from '../components/FontTag'
 import PhotoItem from '../components/camera/PhotoItem'
+import PhotoItemDefault from '../components/camera/PhotoItemDefault'
 import { connect } from 'react-redux'
 import * as driverInfoAction from '../../actions/DriverInfoAction'
 import drivingLicenseTypeList from '../../config/drivingLicenseType.json'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import { file_host } from '../../config/Host'
+import { styleColor } from '../GlobalStyles'
 
 class DriverInfo extends Component {
     constructor(props) {
@@ -99,13 +101,13 @@ class DriverInfo extends Component {
                     <View style={{ paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ width: 40 }}>
-                                <MaterialCommunityIcons name='account' size={20} color='#00cade' />
+                                <MaterialCommunityIcons name='account' size={20} color={styleColor} />
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <Text style={{ color: '#00cade', fontWeight: 'bold' }}>{driverInfo.drive_name ? driverInfo.drive_name : ''}</Text>
+                                <Text style={{ color: styleColor, fontWeight: 'bold' }}>{driverInfo.drive_name ? driverInfo.drive_name : ''}</Text>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                {driverInfo.gender == 1 && <Icon color='#00cade' name='md-man' style={{ fontSize: 20, color: '#00cade' }} />}
+                                {driverInfo.gender == 1 && <Icon color={styleColor} name='md-man' style={{ fontSize: 20, color: styleColor }} />}
                                 {driverInfo.gender == 0 && <Icon name='md-woman' style={{ fontSize: 20, color: 'red' }} />}
                             </View>
                             <View style={{ width: 40 }}>
@@ -227,18 +229,18 @@ class DriverInfo extends Component {
     render() {
         //console.log(this.props.userReducer)
         return (<View style={{ flex: 1 }}>
-            <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                    <Text style={{ color: this.state.active == 0 ? '#fff' : '#00cade' }}>基本信息</Text>
+            <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor }}>
+                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 0 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(0)}>
+                    <Text style={{ color: this.state.active == 0 ? '#fff' : styleColor }}>基本信息</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                    <Text style={{ color: this.state.active == 1 ? '#fff' : '#00cade' }}>照片</Text>
+                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                    <Text style={{ color: this.state.active == 1 ? '#fff' : styleColor }}>照片</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                    <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>记录</Text>
+                <Button small style={{ flex: 1, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 2 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                    <Text style={{ color: this.state.active == 2 ? '#fff' : styleColor }}>记录</Text>
                 </Button>
             </View>
-            <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
+            <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: styleColor, flex: 1 }}>
                 {this.state.active == 0 && this.renderDriverInfo()}
                 {this.state.active == 1 && this.renderDriverPhoto()}
                 {this.state.active == 2 && this.renderDriverRecord()}

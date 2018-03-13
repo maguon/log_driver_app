@@ -10,6 +10,7 @@ import localStorage from '../../util/LocalStorage'
 import { Actions } from 'react-native-router-flux'
 import { Button, Container, Content, Header, Icon, Form, Item, Text, Label, Input, Left, Body, Right, Title, List, ListItem, Toast } from 'native-base'
 import * as LoginAction from '../../actions/LoginAction'
+import { styleColor } from '../GlobalStyles'
 
 class Password extends Component {
 
@@ -83,7 +84,7 @@ class Password extends Component {
                             <Label>再次输入新密码</Label>
                             <Input secureTextEntry value={this.state.againPassword} onChangeText={(text) => this.setState({ againPassword: text })} />
                         </Item>
-                        <Button full style={{ marginHorizontal: 20, marginTop: 20, backgroundColor: '#00cade' }} onPress={this.changePassword}>
+                        <Button full style={{ marginHorizontal: 20, marginTop: 20, backgroundColor: styleColor }} onPress={this.changePassword}>
                             <Text>确定</Text>
                         </Button>
                     </Form>

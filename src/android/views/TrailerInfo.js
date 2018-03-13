@@ -21,6 +21,7 @@ import moment from 'moment'
 import RepairRecordListItem from '../components/RepairRecordListItem'
 import { Actions } from 'react-native-router-flux'
 import { file_host } from '../../config/Host'
+import { styleColor } from '../GlobalStyles'
 
 class TrailerInfo extends Component {
     constructor(props) {
@@ -132,10 +133,10 @@ class TrailerInfo extends Component {
                     <View style={{ paddingHorizontal: 10, paddingVertical: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ width: 40 }}>
-                                <MaterialCommunityIcons name='truck-trailer' size={20} color='#00cade' />
+                                <MaterialCommunityIcons name='truck-trailer' size={20} color={styleColor} />
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <Text style={{ color: '#00cade', fontWeight: 'bold' }}>{trailerInfo.truck_num ? trailerInfo.truck_num : ''}</Text>
+                                <Text style={{ color: styleColor, fontWeight: 'bold' }}>{trailerInfo.truck_num ? trailerInfo.truck_num : ''}</Text>
                             </View>
                             <View style={{ width: 40 }}>
                                 {trailerInfo.operate_type == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff' />}
@@ -300,21 +301,21 @@ class TrailerInfo extends Component {
     render() {
         //console.log(this.props.trailerInfoReducer)
         return (<View style={{ flex: 1 }}>
-            <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: '#00cade' }}>
-                <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 0 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(0)}>
-                    <Text style={{ color: this.state.active == 0 ? '#fff' : '#00cade' }}>基本信息</Text>
+            <View style={{ marginHorizontal: 10, marginVertical: 10, flexDirection: 'row', borderWidth: 1, borderColor: styleColor }}>
+                <Button small style={{ flex: 2, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 0 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(0)}>
+                    <Text style={{ color: this.state.active == 0 ? '#fff' : styleColor }}>基本信息</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 1 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(1)}>
-                    <Text style={{ color: this.state.active == 1 ? '#fff' : '#00cade' }}>照片</Text>
+                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 1 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(1)}>
+                    <Text style={{ color: this.state.active == 1 ? '#fff' : styleColor }}>照片</Text>
                 </Button>
-                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: '#00cade', justifyContent: 'center', backgroundColor: this.state.active == 2 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(2)}>
-                    <Text style={{ color: this.state.active == 2 ? '#fff' : '#00cade' }}>车保</Text>
+                <Button small style={{ flex: 1, borderRadius: 0, borderRightWidth: 1, borderColor: styleColor, justifyContent: 'center', backgroundColor: this.state.active == 2 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(2)}>
+                    <Text style={{ color: this.state.active == 2 ? '#fff' : styleColor }}>车保</Text>
                 </Button>
-                <Button small style={{ flex: 2, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? '#00cade' : '#fff' }} onPress={() => this.onPressSegment(3)}>
-                    <Text style={{ color: this.state.active == 3 ? '#fff' : '#00cade' }}>维修记录</Text>
+                <Button small style={{ flex: 2, borderRadius: 0, justifyContent: 'center', backgroundColor: this.state.active == 3 ? styleColor : '#fff' }} onPress={() => this.onPressSegment(3)}>
+                    <Text style={{ color: this.state.active == 3 ? '#fff' : styleColor }}>维修记录</Text>
                 </Button>
             </View>
-            <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#00cade', flex: 1 }}>
+            <View style={{ backgroundColor: '#fff', borderTopWidth: 1, borderColor: styleColor, flex: 1 }}>
                 {this.state.active == 0 && this.renderTrailerInfo()}
                 {this.state.active == 1 && this.renderTrailerPhoto()}
                 {this.state.active == 2 && this.renderTrailerInsure()}

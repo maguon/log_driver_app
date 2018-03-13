@@ -14,6 +14,7 @@ import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux'
 import * as workAction from '../../../actions/WorkAction'
+import { styleColor } from '../../GlobalStyles'
 
 class Work extends Component {
     constructor(props) {
@@ -75,7 +76,7 @@ class Work extends Component {
             <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <MaterialCommunityIcons name='truck' size={20} color='#00cade' />
+                        <MaterialCommunityIcons name='truck' size={20} color={styleColor} />
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>

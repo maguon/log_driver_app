@@ -20,7 +20,7 @@ import * as cleanRelListAction from '../../../actions/CleanRelListAction'
 import * as demageListAction from '../../../actions/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
 import * as demageResponsibilityListAction from '../../../actions/DemageResponsibilityListAction'
-
+import { styleColor } from '../../GlobalStyles'
 
 
 class Truck extends Component {
@@ -39,7 +39,7 @@ class Truck extends Component {
             getDemageList, getDemageListWaiting,getDemageResponsibilityList,getDemageResponsibilityListWaiting } = this.props
         return (
             <Container>
-                <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#4edbf0' }}>
+                <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={Actions.truckInfo}>
                         <MaterialCommunityIcons name='truck' size={30} color='#fff' />
                         <Text style={{ color: '#fff', fontSize: 11 }}>车头资料</Text>

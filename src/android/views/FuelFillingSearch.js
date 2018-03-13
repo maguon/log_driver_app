@@ -12,7 +12,7 @@ import fuelFillingTypeList from '../../config/fuelFillingType'
 import fuelFillingCheckStatusList from '../../config/fuelFillingCheckStatus'
 import * as FuelFillingRecordAction from '../../actions/FuelFillingRecordAction'
 import { connect } from 'react-redux'
-
+import { styleColor } from '../GlobalStyles'
 class FuelFillingSearch extends Component {
     constructor(props) {
         super(props)
@@ -70,7 +70,7 @@ class FuelFillingSearch extends Component {
                             itemList={[{ id: 99, value: '全部' }, ...fuelFillingCheckStatusList]}
                             onCheck={(param) => this.setState({ checkStatus: param.id != 99 ? param.id : null })} />
                         <View style={{ padding: 10 }}>
-                            <Button onPress={this.onSearch} full style={{ backgroundColor: '#00cade' }}>
+                            <Button onPress={this.onSearch} full style={{ backgroundColor: styleColor }}>
                                 <Text style={{ color: '#fff' }}>搜索</Text>
                             </Button>
                         </View>

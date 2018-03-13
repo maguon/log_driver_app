@@ -18,6 +18,7 @@ import { Actions } from 'react-native-router-flux'
 import AMapLocation from 'react-native-amap-location'
 import { connect } from 'react-redux'
 import * as fuelFillingApplyAction from '../../actions/FuelFillingApplyAction'
+import { styleColor } from '../GlobalStyles'
 
 class FuelFillingApply extends Component {
     constructor(props) {
@@ -212,7 +213,7 @@ class FuelFillingApply extends Component {
                                     <Text style={{ fontSize: 12 }}><Text style={{ fontWeight: 'bold' }}>定位：</Text>{this.state.fuelFillingInfo.refuelAddress ? this.state.fuelFillingInfo.refuelAddress : ''}</Text>
                                 </View>
                                 <View>
-                                    <Icon name='ios-pin' style={{ color: '#00cade', fontSize: 16 }} />
+                                    <Icon name='ios-pin' style={{ color: styleColor, fontSize: 16 }} />
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -250,7 +251,7 @@ class FuelFillingApply extends Component {
                                     this.state.validate.refuelMoneyValidate &&
                                     this.state.validate.refuelAddressTypeValidate &&
                                     this.state.validate.refuelTimeValidate
-                                ) ? '#00cade' : '#888888'
+                                ) ? styleColor : '#888888'
                             }}>
                             <Text style={{ color: '#fff' }}>确定</Text>
                         </Button>

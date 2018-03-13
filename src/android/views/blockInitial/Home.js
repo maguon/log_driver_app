@@ -17,6 +17,7 @@ import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import { MapView, Marker } from 'react-native-amap3d'
 import AMapLocation from 'react-native-amap-location'
+import { styleColor } from '../../GlobalStyles'
 
 class Home extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.listener = AMapLocation.addEventListener((data) => console.log('data', data))
+        this.listener = AMapLocation.addEventListener((data) => {})
         AMapLocation.startLocation({
           accuracy: 'HighAccuracy',
           killProcess: true,
@@ -96,24 +97,24 @@ class Home extends Component {
         const { mileageInfo, truckDispatch } = this.props.homeReducer.data
         return (
             <View>
-                <View style={{ backgroundColor: '#00cade', flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
+                <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade', fontSize: 11 }}>重载里程</Text>
-                            <Text style={{ color: '#00cade' }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11 }}>重载里程</Text>
+                            <Text style={{ color: styleColor }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade', fontSize: 11 }}>本月里程</Text>
-                            <Text style={{ color: '#00cade' }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
-                            <Text style={{ color: '#00cade', fontSize: 11 }}>公里</Text>
+                            <Text style={{ color: styleColor, fontSize: 11 }}>本月里程</Text>
+                            <Text style={{ color: styleColor }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11 }}>公里</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#00cade', fontSize: 11 }}>空载里程</Text>
-                            <Text style={{ color: '#00cade' }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
+                            <Text style={{ color: styleColor, fontSize: 11 }}>空载里程</Text>
+                            <Text style={{ color: styleColor }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
                         </View>
                     </View>
                 </View>
@@ -167,7 +168,7 @@ class Home extends Component {
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <MaterialCommunityIcon name='truck' style={{ color: '#00cade', paddingHorizontal: 5 }} size={20} />
+                        <MaterialCommunityIcon name='truck' style={{ color: styleColor, paddingHorizontal: 5 }} size={20} />
                         <Text style={{ color: '#8e9fa3', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
                         <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
                         <Text style={{ color: '#8e9fa3', fontWeight: 'bold', paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
@@ -200,7 +201,7 @@ class Home extends Component {
                             borderRadius: 15,
                             width: 30,
                             height: 30,
-                            backgroundColor: '#00cade',
+                            backgroundColor: styleColor,
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
@@ -212,7 +213,7 @@ class Home extends Component {
                             borderRadius: 15,
                             width: 30,
                             height: 30,
-                            backgroundColor: '#00cade',
+                            backgroundColor: styleColor,
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
@@ -236,7 +237,7 @@ class Home extends Component {
                             borderRadius: 15,
                             width: 30,
                             height: 30,
-                            backgroundColor: '#00cade',
+                            backgroundColor: styleColor,
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
