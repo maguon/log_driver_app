@@ -119,7 +119,7 @@ class Home extends Component {
                 </View>
                 <View>
 
-                    <View style={{ flexDirection: 'row', backgroundColor: '#b0bfc6', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#9AAAB2', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
                         {!!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
                             <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>

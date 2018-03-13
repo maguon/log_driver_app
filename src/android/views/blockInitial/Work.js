@@ -137,7 +137,7 @@ class Work extends Component {
         const { getWorkMileageInfo } = this.props.workReducer
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#b8c6cd', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#9AAAB2', alignItems: 'center' }}>
                     <TouchableOpacity
                         style={{ flex: 1 }}
                         onPress={() => this.showPicker({ date: new Date(), mode: 'spinner' }, (param) => this.setState({ dateIdStart: param }))}>

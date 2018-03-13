@@ -62,10 +62,10 @@ import ImageViewConnect from './views/ImageViewConnect'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
-        backgroundColor: '#ccc',
+        backgroundColor: '#E0E4E7',
     },
     tabBarSelectedItemStyle: {
-        backgroundColor: '#ccc',
+        backgroundColor: '#E0E4E7',
     },
     navigationBarStyle: {
 
