@@ -2,6 +2,7 @@ import httpRequest from '../util/HttpRequest.js'
 import { base_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
+import * as instructExecutingAction from './InstructExecutingAction'
 
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`, `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`]
@@ -60,10 +61,16 @@ export const changeLoadTaskStatus = (param) => async (dispatch) => {
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
+            dispatch(instructExecutingAction.getLoadTaskList({
+                OptionalParam: {
+                    dpRouteTaskId: param.requiredParam.dpRouteLoadTaskId
+                }
+            }))
         } else {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
+        console.log('err',err)
         dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_ERROR, payload: { data: err } })
     }
 }

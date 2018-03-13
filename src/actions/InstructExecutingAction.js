@@ -2,15 +2,41 @@ import httpRequest from '../util/HttpRequest.js'
 import { base_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
+import * as homeAction from './HomeAction'
+import moment from 'moment'
 
 export const changeLoadTaskStatus = (param) => async (dispatch) => {
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
-        //console.log('url',url)
         const res = await httpRequest.put(url, {})
-        //console.log('res',res) 
         if (res.success) {
             dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_SUCCESS, payload: { data: param.requiredParam.taskStatus } })
+            dispatch(homeAction.getMileageInfo({
+                mileageInfoParam: {
+                    OptionalParam: {
+                        taskStatus: 9,
+                        loadDistance: 5,
+                        noLoadDistance: 5,
+                        dateIdStart: moment().format('YYYY-MM-01'),
+                        dateIdEnd: moment().format('YYYY-MM-DD')
+                    }
+                },
+                truckDispatchParam: {
+                    OptionalParam: {
+                        dispatchFlag: 1
+                    }
+                },
+                taskListParam: {
+                    OptionalParam: {
+                        taskStatusArr: '1,2,3,4,9'
+                    }
+                },
+                getDriverId: {
+                    requiredParam: {
+                        userId: param.requiredParam.userId
+                    }
+                }
+            }))
         } else {
             dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_FAILED, payload: { data: res.msg } })
         }

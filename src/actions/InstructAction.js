@@ -2,13 +2,15 @@ import httpRequest from '../util/HttpRequest.js'
 import { base_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
+import moment from 'moment'
 
 export const getRouteTaskList = (param) => async (dispatch) => {
-    const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
     try {
-        let res = await httpRequest.get(url)
+        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
+        const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.instructTypes.GET_RouteTaskList_SUCCESS, payload: { data: res.result } })
+
         } else {
             dispatch({ type: actionTypes.instructTypes.GET_RouteTaskList_FAILED, payload: { data: res.msg } })
         }

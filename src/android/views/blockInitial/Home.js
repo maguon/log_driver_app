@@ -84,11 +84,11 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { isPopRefresh } = nextProps
-        if (isPopRefresh) {
-            this.initView()
-            Actions.refresh({ isPopRefresh: !isPopRefresh })
-        }
+        // const { isPopRefresh } = nextProps
+        // if (isPopRefresh) {
+        //     this.initView()
+        //     Actions.refresh({ isPopRefresh: !isPopRefresh })
+        // }
     }
 
 

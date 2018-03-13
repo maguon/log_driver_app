@@ -83,6 +83,7 @@ class InstructExecuting extends Component {
     }
 
     renderLoadTaskItem(item, key) {
+        console.log('item',item)
         if (item.load_task_status != 1) {
             return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
@@ -155,7 +156,7 @@ class InstructExecuting extends Component {
 
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
-        // console.log(taskInfo)
+        console.log('taskInfo',taskInfo)
         const { getLoadTaskList } = this.props.instructExecutingReducer
         if (getLoadTaskList.isResultStatus == 1) {
             return (
