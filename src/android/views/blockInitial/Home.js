@@ -99,20 +99,20 @@ class Home extends Component {
             <View>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: styleColor, fontSize: 11 }}>重载里程</Text>
                             <Text style={{ color: styleColor }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: styleColor, fontSize: 11 }}>本月里程</Text>
                             <Text style={{ color: styleColor }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
                             <Text style={{ color: styleColor, fontSize: 11 }}>公里</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#d7f4f8', borderWidth: 4, borderColor: '#74e0ed', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: styleColor, fontSize: 11 }}>空载里程</Text>
                             <Text style={{ color: styleColor }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
                         </View>
