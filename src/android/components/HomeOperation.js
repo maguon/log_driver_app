@@ -4,14 +4,14 @@ import {
     Text
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Button } from 'native-base'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Button, Icon } from 'native-base'
+import gobalStyles from '../GlobalStyles'
 
 const HomeOperation = props => {
     const { parent } = props
     return (
-        <Button transparent onPress={Actions.driverQRCode}>
-            <MaterialCommunityIcons name='qrcode' size={20} color='#fff' />
+        <Button transparent onPress={() => Actions.refresh({ isRefresh: true })}>
+            <Text style={[gobalStyles.smallText,{ color: '#fff' }]} >刷新</Text>
         </Button>
     )
 }

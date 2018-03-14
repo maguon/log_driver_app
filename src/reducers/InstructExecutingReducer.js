@@ -17,6 +17,11 @@ const initialState = {
         errorMsg: '',
         failedMsg: '',
         serviceFailedMsg: ''
+    },
+    getDpRouteTask: {
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
     }
 }
 
@@ -154,6 +159,57 @@ export default handleActions({
             ...state,
             getLoadTaskList: {
                 ...initialState.getLoadTaskList,
+                isResultStatus: 1
+            }
+        }
+    },
+
+
+
+    [(actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_success)]: (state, action) => {
+        const { payload: { taskInfo } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                taskInfo:{
+                    ...state.data.taskInfo,
+                    ...taskInfo
+                }
+            },
+            getDpRouteTask: {
+                ...state.getDpRouteTask,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_failed)]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            getDpRouteTask: {
+                ...state.getDpRouteTask,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [(actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_error)]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            getDpRouteTask: {
+                ...state.getDpRouteTask,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+    [(actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_waiting)]: (state, action) => {
+        return {
+            ...state,
+            getDpRouteTask: {
+                ...initialState.getDpRouteTask,
                 isResultStatus: 1
             }
         }

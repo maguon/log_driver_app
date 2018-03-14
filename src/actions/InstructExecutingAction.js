@@ -5,12 +5,31 @@ import { ObjectToUrl } from '../util/ObjectToUrl'
 import * as homeAction from './HomeAction'
 import moment from 'moment'
 
+export const getDpRouteTask = param => async (dispatch, getState) => {
+    const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
+    try {
+        const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: id })}`
+        const res = await httpRequest.get(url)
+        if (res.success) {
+            dispatch({ type: actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_success, payload: { taskInfo: res.result[0] } })
+        } else {
+            dispatch({ type: actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_failed, payload: { failedMsg: res.msg } })
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_error, payload: { errorMsg: err } })
+    }
+}
+
+export const getDpRouteTaskWaiting = param => (dispatch) => {
+    dispatch({ type: actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_waiting, payload: {} })
+}
+
 export const changeLoadTaskStatus = (param) => async (dispatch) => {
     try {
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
         const res = await httpRequest.put(url, {})
         if (res.success) {
-            dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_SUCCESS, payload: { data: param.requiredParam.taskStatus } })
+            dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_SUCCESS, payload: { data: {} } })
             dispatch(homeAction.getMileageInfo({
                 mileageInfoParam: {
                     OptionalParam: {
@@ -37,6 +56,7 @@ export const changeLoadTaskStatus = (param) => async (dispatch) => {
                     }
                 }
             }))
+            dispatch(getDpRouteTask())
         } else {
             dispatch({ type: actionTypes.instructExecutingTypes.Change_LoadTaskStatus_FAILED, payload: { data: res.msg } })
         }
@@ -54,12 +74,11 @@ export const setTaskInfo = (param) => (dispatch) => {
 }
 
 
-export const getLoadTaskList = (param) => async (dispatch) => {
+export const getLoadTaskList = () => async (dispatch,getState) => {
+    const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
     try {
-        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
-        //console.log('url',url)
+        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({dpRouteTaskId:id})}`
         const res = await httpRequest.get(url)
-        //console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.instructExecutingTypes.GET_LoadTaskList_SUCCESS, payload: { data: res.result } })
         } else {

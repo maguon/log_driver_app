@@ -14,7 +14,7 @@ export default class StepIndicator extends Component {
 
     static defaultProps = {
         stepList: [{ step: '1', title: '基本信息' }, { step: '2', title: '上传照片' },, { step: '3', title: '保险' }],
-        current: 1
+        current: 0
     }
 
     renderBeforeItem(param) {

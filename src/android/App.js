@@ -59,7 +59,8 @@ import ApplyDemageImage from './views/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import HomeOperation from './components/HomeOperation'
 import ImageViewConnect from './views/ImageViewConnect'
-
+import HomeLeftButton from './components/share/bar/HomeLeftButton'
+import InstructExecutingOp from './components/InstructExecutingOp'
 const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#E0E4E7',
@@ -135,7 +136,6 @@ export default class App extends Component {
                             }
                         }}
                     >
-                        {/* <Scene key="login" component={Login} hideNavBar hideTabBar /> */}
                         <Scene key="loginBlock" >
                             <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
                             <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
@@ -143,18 +143,17 @@ export default class App extends Component {
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home" 
-                                //rightType={1}
-                                 //onPressRight={() => Actions.driverQRCode()} 
                                  initial={true} 
                                  component={Home} 
-                                 title='首页' 
                                  hideNavBar={false} 
                                  navBar={NavBar} 
+                                 LeftButton={HomeLeftButton}
                                  RightButton={HomeOperation} />
                                 <Scene key="instructExecuting"
                                     LeftButton={LeftButton}
                                     component={InstructExecuting}
                                     isRequirePopRefresh={true}
+                                    RightButton={InstructExecutingOp}
                                     title='调度指令'
                                     hideNavBar={false}
                                     hideTabBar={true}

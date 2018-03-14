@@ -12,3 +12,9 @@ export const GET_LoadTaskList_WAITING = 'GET_LoadTaskList_WAITING'
 export const GET_LoadTaskList_FAILED = 'GET_LoadTaskList_FAILED'
 export const GET_LoadTaskList_ERROR = 'GET_LoadTaskList_ERROR'
 export const GET_LoadTaskList_SERVICEERROR = 'GET_LoadTaskList_SERVICEERROR'
+
+
+export const get_DpRouteTaskForInstructExecuting_success = 'get_DpRouteTaskForInstructExecuting_success'
+export const get_DpRouteTaskForInstructExecuting_error = 'get_DpRouteTaskForInstructExecuting_error'
+export const get_DpRouteTaskForInstructExecuting_failed = 'get_DpRouteTaskForInstructExecuting_failed'
+export const get_DpRouteTaskForInstructExecuting_waiting = 'get_DpRouteTaskForInstructExecuting_waiting'

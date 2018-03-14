@@ -18,7 +18,7 @@ import { Actions } from 'react-native-router-flux'
 import { MapView, Marker } from 'react-native-amap3d'
 import AMapLocation from 'react-native-amap-location'
 import { styleColor } from '../../GlobalStyles'
-
+import * as  instructExecutingAction from '../../../actions/InstructExecutingAction'
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -84,11 +84,11 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // const { isPopRefresh } = nextProps
-        // if (isPopRefresh) {
-        //     this.initView()
-        //     Actions.refresh({ isPopRefresh: !isPopRefresh })
-        // }
+        const { isRefresh } = nextProps
+        if (isRefresh) {
+            this.initView()
+            Actions.refresh({ isRefresh: !isRefresh })
+        }
     }
 
 
@@ -164,7 +164,11 @@ class Home extends Component {
 
 
     renderTaskItem(item, key) {
-        return <TouchableOpacity key={key} onPress={() => { Actions.instructExecuting({ initParam: { taskInfo: item } }) }}>
+        const { setTaskInfo } = this.props
+        return <TouchableOpacity key={key} onPress={() => {
+            setTaskInfo(item)
+            Actions.instructExecuting()
+        }}>
             <View style={{ marginVertical: 10, marginHorizontal: 10, borderWidth: 1, borderColor: '#e1e2e6' }}>
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -298,6 +302,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     resetChangeTaskStatus: () => {
         dispatch(homeAction.resetChangeTaskStatus())
+    },
+    setTaskInfo: (param) => {
+        dispatch(instructExecutingAction.setTaskInfo(param))
     }
 })
 

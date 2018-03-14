@@ -26,31 +26,15 @@ class InstructExecuting extends Component {
     }
 
     componentDidMount() {
-        //console.log('this.props.initParam', this.props.initParam)
         this.props.setGetLoadTaskListWaiting()
         this.initView()
 
     }
 
-
-    componentWillMount() {
-        this.props.setTaskInfo(this.props.initParam.taskInfo)
-    }
-
-    componentWillReceiveProps(nextProps) {
-        //console.log(nextProps)
-        const { isPopRefresh } = nextProps
-        //console.log('isPopRefresh',isPopRefresh)
-        if (isPopRefresh) {
-            this.initView()
-            Actions.refresh({ isPopRefresh: !isPopRefresh })
-        }
-    }
-
     changeLoadTaskStatus(param) {
+        
         const { user } = this.props.userReducer.data
         const { taskInfo } = this.props.instructExecutingReducer.data
-        //console.log
         this.props.changeLoadTaskStatus({
             requiredParam: {
                 userId: user.userId,
@@ -61,15 +45,15 @@ class InstructExecuting extends Component {
     }
 
     getStepIndicatorCurrent(index) {
-        if (index <= 1) {
+        if (index <= 1) {          
             return 0
-        } else if (index <= 2) {
+        } else if (index <= 2) {           
             return 1
-        } else if (index <= 3) {
+        } else if (index <= 3) {           
             return 2
         } else if (index <= 4) {
             return 3
-        } else if (index <= 9) {
+        } else if (index <= 10) {
             return 4
         }
     }
@@ -77,13 +61,12 @@ class InstructExecuting extends Component {
     initView() {
         InteractionManager.runAfterInteractions(() => this.props.getLoadTaskList({
             OptionalParam: {
-                dpRouteTaskId: this.props.initParam.taskInfo.id
+                dpRouteTaskId: this.props.instructExecutingReducer.data.taskInfo.id
             }
         }))
     }
 
     renderLoadTaskItem(item, key) {
-        console.log('item',item)
         if (item.load_task_status != 1) {
             return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
@@ -155,8 +138,7 @@ class InstructExecuting extends Component {
 
 
     render() {
-        const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
-        console.log('taskInfo',taskInfo)
+        const { taskInfo,loadTaskList } = this.props.instructExecutingReducer.data
         const { getLoadTaskList } = this.props.instructExecutingReducer
         if (getLoadTaskList.isResultStatus == 1) {
             return (
@@ -247,6 +229,7 @@ class InstructExecuting extends Component {
                                         {taskInfo.task_status == 4 && '在途'}
                                         {taskInfo.task_status == 8 && '取消安排'}
                                         {taskInfo.task_status == 9 && '已完成'}
+                                        {taskInfo.task_status == 10 && '已完成'}
                                     </Text>
                                 </Text>
                             </View>
@@ -262,7 +245,7 @@ class InstructExecuting extends Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
     return {
         instructExecutingReducer: state.instructExecutingReducer,
         userReducer: state.userReducer
