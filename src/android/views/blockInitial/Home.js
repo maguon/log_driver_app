@@ -33,11 +33,11 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.listener = AMapLocation.addEventListener((data) => {})
+        this.listener = AMapLocation.addEventListener((data) => { })
         AMapLocation.startLocation({
-          accuracy: 'HighAccuracy',
-          killProcess: true,
-          needDetail: true,
+            accuracy: 'HighAccuracy',
+            killProcess: true,
+            needDetail: true,
         });
         this.props.setGetMileageInfoWaiting()
         this.initView()
@@ -121,21 +121,21 @@ class Home extends Component {
                 <View>
 
                     <View style={{ flexDirection: 'row', backgroundColor: '#9AAAB2', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
-                        {!!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
-                        </View>}
-                        {!truckDispatch.current_city&& <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        {truckDispatch.dispatch_flag == 0 && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
                             <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>该车辆暂时不能接受调度任务</Text>
                         </View>}
-                        {!!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        {truckDispatch.dispatch_flag == 1 && !!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
+                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
+                        </View>}
+                        {truckDispatch.dispatch_flag == 1 && !!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
                             <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}</Text>
                             <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#fff' }} />
                             <Text style={{ color: '#fff', paddingLeft: 5, fontSize: 11 }}>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
                         </View>}
-                        {!!truckDispatch.task_start && <View>
+                        {truckDispatch.dispatch_flag == 1 && !!truckDispatch.task_start && <View>
                             <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
                         </View>}
                     </View>
