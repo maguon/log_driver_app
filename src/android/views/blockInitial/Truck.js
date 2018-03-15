@@ -21,7 +21,7 @@ import * as demageListAction from '../../../actions/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../actions/AccidentResponsibilityListAction'
 import * as demageResponsibilityListAction from '../../../actions/DemageResponsibilityListAction'
 import { styleColor } from '../../GlobalStyles'
-
+import { file_host } from '../../../config/Host'
 
 class Truck extends Component {
     constructor(props) {
@@ -37,6 +37,7 @@ class Truck extends Component {
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
             getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting,
             getDemageList, getDemageListWaiting,getDemageResponsibilityList,getDemageResponsibilityListWaiting } = this.props
+            console.log('avatar_image',avatar_image)
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -56,7 +57,7 @@ class Truck extends Component {
                 <Content showsVerticalScrollIndicator={false} >
                     <ListItem avatar style={{ marginLeft: 0, padding: 15, borderBottomWidth: 0.3, borderBottomColor: '#ddd' }}>
                         <Left>
-                            <Thumbnail source={{ uri: avatar_image ? `${avatar_image}` : `personalicon` }} />
+                            <Thumbnail source={{ uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon` }} />
                         </Left>
                         <Body style={{ borderBottomWidth: 0 }}>
                             <View>
