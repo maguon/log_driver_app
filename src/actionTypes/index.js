@@ -41,6 +41,8 @@ import * as recordForDemageTypes from './RecordForDemageTypes'
 import * as demageResponsibilityListTypes from './DemageResponsibilityListTypes'
 import * as demageResponsibilityListOperationTypes from './DemageResponsibilityListOperationTypes'
 import * as demageListOperationTypes from './DemageListOperationTypes'
+import * as taskLoanListTypes from '../android/views/taskLoanList/taskLoanListTypes'
+import * as taskLoanRelListTypes from '../android/views/taskLoanRelList/taskLoanRelListTypes'
 
 export {
     homeTypes,
@@ -88,5 +90,7 @@ export {
     recordForDemageTypes,
     demageResponsibilityListTypes,
     demageResponsibilityListOperationTypes,
-    demageListOperationTypes
+    demageListOperationTypes,
+    taskLoanListTypes,
+    taskLoanRelListTypes
 }   

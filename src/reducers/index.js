@@ -42,6 +42,8 @@ import recordForDemageReducer from './recordForDemageReducer'
 import demageResponsibilityListReducer from './DemageResponsibilityListReducer'
 import demageResponsibilityListOperationReducer from './DemageResponsibilityListOperationReducer'
 import demageListOperationReducer from './DemageListOperationReducer'
+import taskLoanListReducer from '../android/views/taskLoanList/taskLoanListReducer'
+import taskLoanRelListReducer from '../android/views/taskLoanRelList/taskLoanRelListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -87,5 +89,7 @@ export default combineReducers({
     recordForDemageReducer,
     demageResponsibilityListReducer,
     demageResponsibilityListOperationReducer,
-    demageListOperationReducer
+    demageListOperationReducer,
+    taskLoanListReducer,
+    taskLoanRelListReducer
 })

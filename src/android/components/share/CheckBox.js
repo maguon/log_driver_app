@@ -138,21 +138,7 @@ export default class CheckBox extends Component {
         meta: { error, touched } } = this.props
         return (
             <View>
-                {/* <TouchableOpacity
-                    onPress={() => this.setState({ modalVisible: true })}>
-                    <View style={this.props.containerSytle}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={{ width: 10, textAlign: 'right', color: 'red' }}>{this.props.isRequire && '*'}</Text>
-                                <Text style={this.props.labelStyle}>{this.props.title} </Text>
-                                <Text style={this.props.textStyle}>{this.props.value}</Text>
-                            </View>
-                            <Icon
-                                name='md-arrow-dropdown'
-                                style={{ fontSize: 18, color: '#7a7a7a' }} />
-                        </View>
-                    </View>
-                </TouchableOpacity> */}
+
                 <TouchableOpacity style={styles.body} onPress={() => this.setState({ modalVisible: true })}>
                     <View style={styles.item}>
                         <Text style={[globalStyles.midText, textStyle, {}]} >{isRequired && <Text style={styles.errText}>*</Text>}{label}{value.value}</Text>

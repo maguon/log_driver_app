@@ -31,6 +31,8 @@ import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/SinglePhotoView'
 import RetrievePassword from './views/RetrievePassword'
 import PersonalInfo from './views/PersonalInfo'
+import TaskLoanList from './views/taskLoanList/TaskLoanList'
+import TaskLoan from './views/taskLoan/TaskLoan'
 
 import NavBar from './components/share/bar/NavBar'
 import LeftButton from './components/share/bar/LeftButton'
@@ -60,7 +62,12 @@ import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import HomeOperation from './components/HomeOperation'
 import ImageViewConnect from './views/ImageViewConnect'
 import HomeLeftButton from './components/share/bar/HomeLeftButton'
+import TaskLoanListOP from './components/TaskLoanListOP'
 import InstructExecutingOp from './components/InstructExecutingOp'
+import SearchTaskLoanOP from './components/share/bar/SearchTaskLoanOP'
+import SearchTaskLoan from './views/SearchTaskLoan'
+import TaskLoanRelList from './views/taskLoanRelList/TaskLoanRelList'
+
 const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#E0E4E7',
@@ -142,13 +149,13 @@ export default class App extends Component {
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
-                                <Scene key="home" 
-                                 initial={true} 
-                                 component={Home} 
-                                 hideNavBar={false} 
-                                 navBar={NavBar} 
-                                 LeftButton={HomeLeftButton}
-                                 RightButton={HomeOperation} />
+                                <Scene key="home"
+                                    initial={true}
+                                    component={Home}
+                                    hideNavBar={false}
+                                    navBar={NavBar}
+                                    LeftButton={HomeLeftButton}
+                                    RightButton={HomeOperation} />
                                 <Scene key="instructExecuting"
                                     LeftButton={LeftButton}
                                     component={InstructExecuting}
@@ -174,26 +181,48 @@ export default class App extends Component {
                                     hideTabBar={true}
                                     navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock"  icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
                                     initial={true}
                                     component={Truck}
                                     title='货车管理'
-                                    hideNavBar={false}
                                     navBar={NavBar} />
                                 <Scene key="applyAccident"
                                     component={ApplyAccident}
                                     title='事故申报'
-                                    hideNavBar={false}
-
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
                                     RightButton={ApplyAccidentSubmit} />
+                                <Scene key="taskLoanList"
+                                    component={TaskLoanList}
+                                    RightButton={TaskLoanListOP}
+                                    title='出车款'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
+                                <Scene key="taskLoanRelList"
+                                    component={TaskLoanRelList}
+                                    title='关联调度任务'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
+                                <Scene key="taskLoan"
+                                    component={TaskLoan}
+                                    title='出车款详情'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
+                                <Scene key="searchTaskLoan"
+                                    component={SearchTaskLoan}
+                                    title='查询出车款'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    RightButton={SearchTaskLoanOP}
+                                    LeftButton={LeftButton} />
                                 <Scene key="applyDemage"
                                     component={ApplyDemage}
                                     title='质损申报'
-                                    hideNavBar={false}
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
@@ -201,7 +230,6 @@ export default class App extends Component {
                                 <Scene key="applyDemageImage"
                                     component={ApplyDemageImage}
                                     title='上传质损照片'
-                                    hideNavBar={false}
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
@@ -210,17 +238,14 @@ export default class App extends Component {
                                     component={ListCennect}
                                     hideTabBar
                                     navBar={NavBar}
-                                    LeftButton={LeftButton}
-                                    hideNavBar={false} />
+                                    LeftButton={LeftButton} />
                                 <Scene key="listCennectDynamic"
                                     component={ListCennect}
                                     hideTabBar
-                                    navBar={NavSearchDynamicBar}
-                                    hideNavBar={false} />
+                                    navBar={NavSearchDynamicBar} />
                                 <Scene key="applyAccidentImage"
                                     component={ApplyAccidentImage}
                                     title='上传事故照片'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton}
@@ -228,7 +253,6 @@ export default class App extends Component {
                                 <Scene key="accidentList"
                                     component={AccidentList}
                                     title='事故列表'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton}
@@ -236,7 +260,6 @@ export default class App extends Component {
                                 <Scene key="demageList"
                                     component={DemageList}
                                     title='质损列表'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton}
@@ -244,7 +267,6 @@ export default class App extends Component {
                                 <Scene key="demageResponsibilityList"
                                     component={DemageResponsibilityList}
                                     title='质损列表'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton}
@@ -252,14 +274,12 @@ export default class App extends Component {
                                 <Scene key="demageResponsibilityInfo"
                                     component={DemageResponsibilityInfo}
                                     title='质损详情'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key="demageInfo"
                                     component={DemageInfo}
                                     title='质损详情'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
@@ -267,36 +287,29 @@ export default class App extends Component {
                                     hideTabBar
                                     component={AccidentInfo}
                                     title='事故详情'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />
                                 <Scene key="accidentResponsibilityList"
                                     component={AccidentResponsibilityList}
                                     title='事故责任列表'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key="accidentResponsibilityInfo"
                                     component={AccidentResponsibilityInfo}
                                     title='事故责任详情'
-
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key="selectAddress"
                                     component={SelectAddress}
                                     title='选择位置'
-                                    hideNavBar={false}
-
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
                                 <Scene key="cleanRelList"
                                     component={CleanRelList}
                                     title='我的洗车费'
-                                    hideNavBar={false}
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
@@ -304,14 +317,14 @@ export default class App extends Component {
                                     clone={true}
                                     component={ImageViewConnect}
                                     hideTabBar
-                                    hideNavBar />   
-                                <Scene key="driverInfo" LeftButton={LeftButton} component={DriverInfo} title='司机详情' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="trailerInfo" LeftButton={LeftButton} component={TrailerInfo} title='挂车资料' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="cityRouteList" LeftButton={LeftButton} component={CityRouteList} title='指令编号' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingApply" LeftButton={LeftButton} component={FuelFillingApply} title='加油申报' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
-                                <Scene key="fuelFillingSearch" LeftButton={LeftButton} component={FuelFillingSearch} title='加油查询' hideNavBar={false} hideTabBar={true} navBar={NavBar} />
+                                    hideNavBar />
+                                <Scene key="driverInfo" LeftButton={LeftButton} component={DriverInfo} title='司机详情' hideTabBar navBar={NavBar} />
+                                <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideTabBar navBar={NavBar} />
+                                <Scene key="trailerInfo" LeftButton={LeftButton} component={TrailerInfo} title='挂车资料' hideTabBar navBar={NavBar} />
+                                <Scene key="cityRouteList" LeftButton={LeftButton} component={CityRouteList} title='指令编号' hideTabBar navBar={NavBar} />
+                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' hideTabBar navBar={NavBar} />
+                                <Scene key="fuelFillingApply" LeftButton={LeftButton} component={FuelFillingApply} title='加油申报' hideTabBar navBar={NavBar} />
+                                <Scene key="fuelFillingSearch" LeftButton={LeftButton} component={FuelFillingSearch} title='加油查询' hideTabBar navBar={NavBar} />
                                 <Scene key="singlePhotoView" component={SinglePhotoView} hideNavBar={true} hideTabBar={true} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>

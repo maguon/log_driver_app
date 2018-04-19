@@ -22,6 +22,7 @@ import * as accidentResponsibilityListAction from '../../../actions/AccidentResp
 import * as demageResponsibilityListAction from '../../../actions/DemageResponsibilityListAction'
 import { styleColor } from '../../GlobalStyles'
 import { file_host } from '../../../config/Host'
+import * as taskLoanListAction from '../taskLoanList/taskLoanListAction'
 
 class Truck extends Component {
     constructor(props) {
@@ -36,8 +37,8 @@ class Truck extends Component {
         const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
             driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
             getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting,
-            getDemageList, getDemageListWaiting,getDemageResponsibilityList,getDemageResponsibilityListWaiting } = this.props
-            console.log('avatar_image',avatar_image)
+            getDemageList, getDemageListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting,
+            getTaskLoanList, getTaskLoanListWaiting } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -162,6 +163,20 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getTaskLoanListWaiting()
+                                Actions.taskLoanList()
+                                InteractionManager.runAfterInteractions(getTaskLoanList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>出车款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Content>
@@ -209,6 +224,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getDemageResponsibilityListWaiting: () => {
         dispatch(demageResponsibilityListAction.getDemageResponsibilityListWaiting())
+    },
+    getTaskLoanList: () => {
+        dispatch(taskLoanListAction.getTaskLoanList())
+    },
+    getTaskLoanListWaiting: () => {
+        dispatch(taskLoanListAction.getTaskLoanListWaiting())
     }
 })
 
