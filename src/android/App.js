@@ -3,29 +3,29 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Button, Icon } from 'native-base'
 import { Scene, TabBar, Router, ActionConst, Actions, Switch, Reducer } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import XGPush from 'react-native-xinge-push';
+import XGPush from 'react-native-xinge-push'
 
 
 import TopBar from './components/bar/TopBar'
 import TabIcon from './components/TabIcon'
-import Home from './views/blockInitial/Home'
-import Work from './views/blockInitial/Work'
-import Truck from './views/blockInitial/Truck'
-import Setting from './views/blockInitial/Setting'
-import Instruct from './views/Instruct'
-import DriverInfo from './views/DriverInfo'
-import TruckInfo from './views/TruckInfo'
-import TrailerInfo from './views/TrailerInfo'
-import BranchInstruct from './views/BranchInstruct'
-import FuelFillingRecord from './views/FuelFillingRecord'
-import FuelFillingApply from './views/FuelFillingApply'
+import Home from './views/blockInitial/home/Home'
+import Work from './views/blockInitial/work/Work'
+import Truck from './views/blockInitial/truck/Truck'
+import Setting from './views/blockInitial/setting/Setting'
+import Instruct from './views/instruct/Instruct'
+import DriverInfo from './views/driverInfo/DriverInfo'
+import TruckInfo from './views/truckInfo/TruckInfo'
+import TrailerInfo from './views/trailerInfo/TrailerInfo'
+import BranchInstruct from './views/branchInstruct/BranchInstruct'
+import FuelFillingRecord from './views/fuelFillingRecord/FuelFillingRecord'
+import FuelFillingApply from './views/fuelFillingApply/FuelFillingApply'
 import FuelFillingSearch from './views/FuelFillingSearch'
-import InstructExecuting from './views/InstructExecuting'
-import BranchInstructExecuting from './views/BranchInstructExecuting'
+import InstructExecuting from './views/instructExecuting/InstructExecuting'
+import BranchInstructExecuting from './views/branchInstructExecuting/BranchInstructExecuting'
 import CityRouteList from './views/select/CityRouteList'
-import Login from './views/Login'
-import Password from './views/Password'
-import Initialization from './views/Initialization'
+import Login from './views/login/Login'
+import Password from './views/passWord/Password'
+import Initialization from './views/initialization/Initialization'
 import DriverQRCode from './views/DriverQRCode'
 import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/SinglePhotoView'
@@ -33,13 +33,17 @@ import RetrievePassword from './views/RetrievePassword'
 import PersonalInfo from './views/PersonalInfo'
 import TaskLoanList from './views/taskLoanList/TaskLoanList'
 import TaskLoan from './views/taskLoan/TaskLoan'
+import Cars from './views/cars/Cars'
+import CarInfo from './views/carInfo/CarInfo'
+import UploadImageForCreateCarOP from './components/UploadImageForCreateCarOP'
 
+import NavSearchCarBar from './components/bar/NavSearchCarBar'
 import NavBar from './components/share/bar/NavBar'
 import LeftButton from './components/share/bar/LeftButton'
-import ApplyAccident from './views/ApplyAccident'
-import AccidentList from './views/AccidentList'
-import AccidentResponsibilityList from './views/AccidentResponsibilityList'
-import ApplyAccidentImage from './views/ApplyAccidentImage'
+import ApplyAccident from './views/applyAccident/ApplyAccident'
+import AccidentList from './views/accidentList/AccidentList'
+import AccidentResponsibilityList from './views/accidentResponsibilityList/AccidentResponsibilityList'
+import ApplyAccidentImage from './views/applyAccidentImage/ApplyAccidentImage'
 import AccidentInfo from './views/AccidentInfo'
 import AccidentResponsibilityInfo from './views/AccidentResponsibilityInfo'
 import ApplyAccidentSubmit from './components/ApplyAccidentSubmit'
@@ -51,13 +55,13 @@ import DemageListOperation from './components/DemageListOperation'
 import DemageResponsibilityListOperation from './components/DemageResponsibilityListOperation'
 import SelectAddress from './views/select/SelectAddress'
 import ListCennect from './views/select/ListCennect'
-import CleanRelList from './views/CleanRelList'
-import DemageList from './views/DemageList'
-import DemageResponsibilityList from './views/DemageResponsibilityList'
+import CleanRelList from './views/cleanRelList/CleanRelList'
+import DemageList from './views/demageList/DemageList'
+import DemageResponsibilityList from './views/demageResponsibilityList/DemageResponsibilityList'
 import DemageResponsibilityInfo from './views/DemageResponsibilityInfo'
 import DemageInfo from './views/DemageInfo'
-import ApplyDemage from './views/ApplyDemage'
-import ApplyDemageImage from './views/ApplyDemageImage'
+import ApplyDemage from './views/applyDemage/ApplyDemage'
+import ApplyDemageImage from './views/applyDemageImage/ApplyDemageImage'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import HomeOperation from './components/HomeOperation'
 import ImageViewConnect from './views/ImageViewConnect'
@@ -65,8 +69,19 @@ import HomeLeftButton from './components/share/bar/HomeLeftButton'
 import TaskLoanListOP from './components/TaskLoanListOP'
 import InstructExecutingOp from './components/InstructExecutingOp'
 import SearchTaskLoanOP from './components/share/bar/SearchTaskLoanOP'
+import CreateCarOP from './components/CreateCarOP'
 import SearchTaskLoan from './views/SearchTaskLoan'
 import TaskLoanRelList from './views/taskLoanRelList/TaskLoanRelList'
+import SearchCar from './views/select/searchCar/SearchCar'
+import AddCar from './views/createCar/AddCar'
+import City from './views/select/city/City'
+import Entrust from './views/select/entrust/Entrust'
+import Make from './views/select/make/Make'
+import Receive from './views/select/receive/Receive'
+import AddCarImage from './views/uploadImageForCreateCar/AddCarImage'
+import PhotoViewForCreateCar from './views/photoView/PhotoViewForCreateCar'
+import PhotoViewForCarInfo from './views/photoView/PhotoViewForCarInfo'
+import PhotoViewNavBar from './components/share/bar/PhotoViewNavBar'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -165,6 +180,12 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
+                                <Scene key="photoViewForCreateCar"
+                                    LeftButton={LeftButton}
+                                    component={PhotoViewForCreateCar}
+                                    navBar={PhotoViewNavBar}
+                                    title='照片'
+                                    hideTabBar />
                                 <Scene key="branchInstructExecuting"
                                     component={BranchInstructExecuting}
                                     LeftButton={LeftButton}
@@ -173,6 +194,66 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
+                                <Scene key="cars"
+                                    title='装车信息'
+                                    LeftButton={LeftButton}
+                                    component={Cars}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="searchCar"
+                                    hideTabBar
+                                    component={SearchCar}
+                                    navBar={NavSearchCarBar} />
+                                <Scene key="carInfo"
+                                    title='商品车信息'
+                                    LeftButton={LeftButton}
+                                    component={CarInfo}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="addCarImage"
+                                    title='添加照片'
+                                    RightButton={UploadImageForCreateCarOP}
+                                    LeftButton={LeftButton}
+                                    component={AddCarImage}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="addCar"
+                                    title='增加商品车'
+                                    RightButton={CreateCarOP}
+                                    component={AddCar}
+                                    LeftButton={LeftButton}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="make"
+                                    title='选择品牌'
+                                    LeftButton={LeftButton}
+                                    component={Make}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="city"
+                                    title='选择城市'
+                                    LeftButton={LeftButton}
+                                    component={City}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="entrust"
+                                    title='选择委托方'
+                                    component={Entrust}
+                                    LeftButton={LeftButton}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="receive"
+                                    title='选择经销商'
+                                    component={Receive}
+                                    LeftButton={LeftButton}
+                                    hideTabBar
+                                    navBar={NavBar} />
+                                <Scene key="photoViewforCarInfo"
+                                    LeftButton={LeftButton}
+                                    component={PhotoViewForCarInfo}
+                                    navBar={PhotoViewNavBar}
+                                    title='照片'
+                                    hideTabBar />
                                 <Scene key="driverQRCode"
                                     LeftButton={LeftButton}
                                     component={DriverQRCode}
@@ -181,7 +262,7 @@ export default class App extends Component {
                                     hideTabBar={true}
                                     navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" initial={true} icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
                                     initial={true}
                                     component={Truck}
@@ -213,6 +294,7 @@ export default class App extends Component {
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />
+
                                 <Scene key="searchTaskLoan"
                                     component={SearchTaskLoan}
                                     title='查询出车款'

@@ -4,24 +4,24 @@ import { Header, Title, Button, Icon, Right, Left, Body, Label } from 'native-ba
 import { Actions } from 'react-native-router-flux'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 const NavBar = props => {
-    const { title, RightButton, LeftButton, parent } = props
+    const { title, RightButton, LeftButton, parent, initParam } = props
     return (
-        <View style={[styles.container, { width }]}>
+        <View style={[styles.container, { width: width }]}>
             <StatusBar hidden={false} />
             <Header
                 androidStatusBarColor={styleColor}
                 style={[styles.header, globalStyles.styleBackgroundColor]}>
-                {LeftButton && <Left>
-                    <LeftButton />
+                {LeftButton && <Left style={{ flex: 1 }}>
+                    <LeftButton parent={parent} />
                 </Left>}
-                <Body>
-                    <Title style={[globalStyles.largeText, { color: '#fff' }]}>{title}</Title>
-                </Body>
-                <Right>
-                    {RightButton && <RightButton parent={parent} />}
+                {title && <Body style={styles.body}>
+                    <Title style={[globalStyles.xlText, { color: '#fff' }]}>{title}</Title>
+                </Body>}
+                <Right style={{ flex: title ? 2 : 1 }}>
+                    {RightButton && <RightButton parent={parent} initParam={initParam} />}
                 </Right>
             </Header>
         </View>
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    body: {
+        flex: 4
     }
 })
 

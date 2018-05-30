@@ -1,0 +1,7 @@
+export const upload_CarImage_success = 'upload_CarImage_success'
+export const upload_CarImage_failed = 'upload_CarImage_failed'
+export const upload_CarImage_waiting = 'upload_CarImage_waiting'
+export const upload_CarImage_error = 'upload_CarImage_error'
+export const upload_CarImage_partSuccess = 'upload_CarImage_partSuccess'
+export const set_indexForCreateCar = 'set_indexForCreateCar'
+export const clean_upload_CarImage = 'clean_upload_CarImage'

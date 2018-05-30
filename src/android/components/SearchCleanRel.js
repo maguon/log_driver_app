@@ -13,7 +13,7 @@ import Select from './share/Select'
 import DisposableList from '../views/select/DisposableList'
 import * as selectReceiveAction from '../../actions/SelectReceiveAction'
 import * as selectCityAction from '../../actions/SelectCityAction'
-import * as cleanRelListAction from '../../actions/CleanRelListAction'
+import * as cleanRelListAction from '../views/cleanRelList/CleanRelListAction'
 
 
 const onSelectReceive = ({ param, getReceiveListWaiting, getReceiveList, onSelect ,getCleanRelListWaiting,getCleanRelList}) => {

@@ -10,7 +10,7 @@ import CheckBox from '../components/form/CheckBox'
 import { Actions } from 'react-native-router-flux'
 import fuelFillingTypeList from '../../config/fuelFillingType'
 import fuelFillingCheckStatusList from '../../config/fuelFillingCheckStatus'
-import * as FuelFillingRecordAction from '../../actions/FuelFillingRecordAction'
+import * as FuelFillingRecordAction from './fuelFillingRecord/FuelFillingRecordAction'
 import { connect } from 'react-redux'
 import { styleColor } from '../GlobalStyles'
 class FuelFillingSearch extends Component {

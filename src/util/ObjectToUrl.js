@@ -9,3 +9,12 @@ export const ObjectToUrl = (obj) => {
     return url
 }
 
+export const objectExceptNull = (param) => {
+    let obj = { ...param }
+    for (key in obj) {
+        if (!obj[key] && obj[key] != 0 && obj[key] != '') {
+            delete obj[key]
+        }
+    }
+    return obj
+}

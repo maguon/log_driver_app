@@ -1,6 +1,6 @@
-import { PixelRatio,Dimensions } from 'react-native'
+import { PixelRatio, Dimensions } from 'react-native'
 
-export const fontSizeCoeff = Dimensions.get('window').width/360/ PixelRatio.getFontScale()
+export const fontSizeCoeff = Dimensions.get('window').width / 360 / PixelRatio.getFontScale()
 
 export const sleep = (time) => {
     return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ export const moneyFormat = (s, n) => {
         t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
     }
     return t.split("").reverse().join("") + "." + r;
-} 
+}
 
 export const objectExceptNull = (param) => {
     let obj = { ...param }

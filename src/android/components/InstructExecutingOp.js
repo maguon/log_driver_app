@@ -8,8 +8,8 @@ import { Button, Icon } from 'native-base'
 import gobalStyles from '../GlobalStyles'
 import {connect} from 'react-redux'
 import moment from 'moment'
-import * as homeAction from '../../actions/HomeAction'
-import * as instructExecutingAction from '../../actions/InstructExecutingAction'
+import * as homeAction from '../views/blockInitial/home/HomeAction'
+import * as instructExecutingAction from '../views/instructExecuting/InstructExecutingAction'
 
 
 const InstructExecutingOp = props => {

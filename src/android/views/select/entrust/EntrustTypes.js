@@ -1,0 +1,5 @@
+export const GET_Entrusts_SUCCESS = 'GET_Entrusts_SUCCESS'
+export const GET_Entrusts_FAILED = 'GET_Entrusts_FAILED'
+export const GET_Entrusts_WAITING = 'GET_Entrusts_WAITING'
+export const GET_Entrusts_ERROR = 'GET_Entrusts_ERROR'
+export const GET_Entrusts_SERVICEERROR = 'GET_Entrusts_SERVICEERROR'

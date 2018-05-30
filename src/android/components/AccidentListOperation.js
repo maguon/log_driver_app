@@ -15,7 +15,7 @@ import { Button, Spinner, Icon, } from 'native-base'
 import { submit } from 'redux-form'
 import { reduxForm, Field } from 'redux-form'
 import DatePicker from './share/DatePicker'
-import * as accidentListAction from '../../actions/AccidentListAction'
+import * as accidentListAction from '../views/accidentList/AccidentListAction'
 
 
 const { width } = Dimensions.get('window')
