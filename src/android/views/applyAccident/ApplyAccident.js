@@ -164,7 +164,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'applyAccidentForm',
     onSubmit: (values, dispatch, props) => {
         dispatch(applyAccidentAction.applyAccident(values))
-        console.log('onSubmitvalues',values)
     }
 })(ApplyAccident))
 

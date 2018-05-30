@@ -124,7 +124,7 @@ class DriverInfo extends Component {
                             </View>
                             <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
                                 <FontAwesomeIcon name='mobile-phone' size={16} />
-                                <Text style={{ paddingLeft: 5 }}>{driverInfo.tel ? driverInfo.tel : ''}</Text>
+                                <Text style={{ paddingLeft: 5 }}>{driverInfo.mobile ? driverInfo.mobile : ''}</Text>
                             </View>
                         </View>
                     </View>
