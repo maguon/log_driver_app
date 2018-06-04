@@ -68,8 +68,6 @@ class InstructExecuting extends Component {
     }
 
     renderLoadTaskItem(item, key, task_status) {
-        //console.log('item', item)
-        // console.log('task_status', task_status)
         const { taskInfo } = this.props.instructExecutingReducer.data
         if (item.load_task_status != 1) {
             return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}>

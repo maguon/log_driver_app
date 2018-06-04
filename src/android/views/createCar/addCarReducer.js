@@ -29,8 +29,8 @@ export default handleActions({
                 vin,
                 status: 1
             },
-            addCar: {
-                ...initialState.addCar,
+            createCar: {
+                ...initialState.createCar,
                 isResultStatus: 2
             }
         }
@@ -39,8 +39,8 @@ export default handleActions({
         const { payload: { failedMsg } } = action
         return {
             ...state,
-            addCar: {
-                ...initialState.addCar,
+            createCar: {
+                ...initialState.createCar,
                 isResultStatus: 4,
                 failedMsg
             }
@@ -49,8 +49,8 @@ export default handleActions({
     [actionTypes.addCarTypes.ADD_Car_WAITING]: (state, action) => {
         return {
             ...state,
-            addCar: {
-                ...initialState.addCar,
+            createCar: {
+                ...initialState.createCar,
                 isResultStatus: 1
             }
         }
@@ -59,8 +59,8 @@ export default handleActions({
         const { payload: { errorMsg } } = action
         return {
             ...state,
-            addCar: {
-                ...initialState.addCar,
+            createCar: {
+                ...initialState.createCar,
                 isResultStatus: 3,
                 errorMsg
             }

@@ -45,7 +45,10 @@ export const initApp = (param, tryCount = 1, currentStep = 1) => (dispatch) => {
 export const validateVersion = (param, tryCount = 1, currentStep = 1) => async (dispatch) => {
     try {
         const url = `${base_host}/app?${ObjectToUrl(param.optionalParam)}`
+        console.log('url',url)
         const res = await httpRequest.get(url)
+        console.log('url',url)
+        
         if (res.success) {
             let data = {
                 currentVersion: android_app.version,
@@ -79,6 +82,7 @@ export const validateVersion = (param, tryCount = 1, currentStep = 1) => async (
             dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Failed, payload: { failedMsg: res.msg, step: currentStep } })
         }
     } catch (err) {
+        console.log('err',err)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {
