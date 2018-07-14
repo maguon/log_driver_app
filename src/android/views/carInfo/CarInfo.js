@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux'
 import * as carInfoAction from './CarInfoAction'
 import moment from 'moment'
-import ImageItem from '../../components/share/ImageItem'
+import ImageItem from '../../components/share/imageItem/ImageItem'
 import { file_host } from '../../../config/Host'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { Actions } from 'react-native-router-flux'

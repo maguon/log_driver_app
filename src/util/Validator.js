@@ -27,7 +27,7 @@ export const validate = (value, verifications) => {
 
 export const required = (msg) => (value) => (!value && value != 0 && value != '') ? msg : undefined
 
-export const requiredObj = (msg) => (value) => Object.keys(value).length == 0 ? msg : undefined
+export const requiredObj = (msg) => (value) => (!value || Object.keys(value).length == 0 || (!value.id && value.id != 0 && value.id != '')) ? msg : undefined
 
 const validateLength = (value, condition) => {
     if (value.length >= condition.arguments[0] && value.length <= condition.arguments[1]) {

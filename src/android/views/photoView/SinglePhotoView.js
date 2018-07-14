@@ -54,6 +54,7 @@ export default class SinglePhotoView extends Component {
     renderPhoteView() {
         const { initParam } = this.props
         return initParam.imageUrlList.map((item, i) => {
+            console.log('item',item)
             return <View key={i} style={{ flex: 1 }} >
                 <PhotoView
                     source={{ uri: `${item}` }}
@@ -68,6 +69,7 @@ export default class SinglePhotoView extends Component {
     }
 
     render() {
+        console.log('this.props',this.props)
         return (
             <View style={{ flex: 1, backgroundColor: '#000' }}>
                 <Swiper

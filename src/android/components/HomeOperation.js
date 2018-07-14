@@ -1,22 +1,35 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     StyleSheet,
     Text
 } from 'react-native'
-import { Actions } from 'react-native-router-flux'
-import { Button, Icon } from 'native-base'
+import { Button } from 'native-base'
 import gobalStyles from '../GlobalStyles'
+import { connect } from 'react-redux'
+import * as homeAction from '../views/blockInitial/home/HomeAction'
 
 const HomeOperation = props => {
-    const { parent } = props
+    const { getMileageInfo, getMileageInfoWaiting } = props
     return (
-        <Button transparent onPress={() => Actions.refresh({ isRefresh: true })}>
-            <Text style={[gobalStyles.smallText,{ color: '#fff' }]} >刷新</Text>
+        <Button transparent onPress={() => {
+            getMileageInfoWaiting()
+            getMileageInfo()
+        }}>
+            <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
         </Button>
     )
 }
 
-export default HomeOperation
+const mapDispatchToProps = (dispatch) => ({
+    getMileageInfo: () => {
+        dispatch(homeAction.getMileageInfo())
+    },
+    getMileageInfoWaiting: () => {
+        dispatch(homeAction.getMileageInfoWaiting())
+    }
+})
+
+export default connect(null, mapDispatchToProps)(HomeOperation)
 
 const styles = StyleSheet.create({
     text: {

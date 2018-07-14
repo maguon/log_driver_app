@@ -5,8 +5,7 @@ const initialState = {
     createFuelFillingApply: {
         isResultStatus: 0,
         errorMsg: '',
-        failedMsg: '',
-        serviceFailedMsg: ''
+        failedMsg: ''
     }
 }
 
@@ -30,16 +29,16 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.fuelFillingApplyTypes.CREATE_FuelFilling_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            createFuelFillingApply: {
-                ...state.createFuelFillingApply,
-                isResultStatus: 5,
-                serviceFailedMsg: data
-            }
-        }
-    },
+    // [(actionTypes.fuelFillingApplyTypes.CREATE_FuelFilling_SERVICEERROR)]: (state, action) => {
+    //     const { payload: { data } } = action
+    //     return {
+    //         createFuelFillingApply: {
+    //             ...state.createFuelFillingApply,
+    //             isResultStatus: 5,
+    //             serviceFailedMsg: data
+    //         }
+    //     }
+    // },
     [(actionTypes.fuelFillingApplyTypes.CREATE_FuelFilling_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -59,7 +58,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.fuelFillingApplyTypes.RESET_CREATE_FuelFilling)]: (state, action) => {
-        return { ...initialState }
-    }
+    // [(actionTypes.fuelFillingApplyTypes.RESET_CREATE_FuelFilling)]: (state, action) => {
+    //     return { ...initialState }
+    // }
 }, initialState)

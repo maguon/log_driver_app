@@ -3,22 +3,20 @@ import {
     Text,
     View,
     FlatList,
-    Button,
-    ActivityIndicator,
-    InteractionManager,
+    StyleSheet,
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Icon } from 'native-base'
+import { Spinner, Container } from 'native-base'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as homeAction from './HomeAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
-import { MapView, Marker } from 'react-native-amap3d'
-import AMapLocation from 'react-native-amap-location'
-import { styleColor } from '../../../GlobalStyles'
+import { MapView } from 'react-native-amap3d'
+import globalStyles, { styleColor } from '../../../GlobalStyles'
 import * as  instructExecutingAction from '../../instructExecuting/InstructExecutingAction'
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -27,116 +25,51 @@ class Home extends Component {
             longitude: 0
         }
         this.renderTaskItem = this.renderTaskItem.bind(this)
-        this.changeTaskStatus = this.changeTaskStatus.bind(this)
         this.renderListHeader = this.renderListHeader.bind(this)
-        this.initView = this.initView.bind(this)
     }
 
     componentDidMount() {
-        this.listener = AMapLocation.addEventListener((data) => { })
-        AMapLocation.startLocation({
-            accuracy: 'HighAccuracy',
-            killProcess: true,
-            needDetail: true,
-        });
-        this.props.setGetMileageInfoWaiting()
-        this.initView()
-
+        this.props.getMileageInfoWaiting()
+        this.props.getMileageInfo()
     }
-
-    initView() {
-        const { user } = this.props.userReducer.data
-        InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
-            mileageInfoParam: {
-                OptionalParam: {
-                    taskStatus: 9,
-                    loadDistance: 5,
-                    noLoadDistance: 5,
-                    dateIdStart: moment().format('YYYY-MM-01'),
-                    dateIdEnd: moment().format('YYYY-MM-DD')
-                }
-            },
-            truckDispatchParam: {
-                OptionalParam: {
-                    dispatchFlag: 1
-                }
-            },
-            taskListParam: {
-                OptionalParam: {
-                    taskStatusArr: '1,2,3,4,9'
-                }
-            },
-            getDriverId: {
-                requiredParam: {
-                    userId: user.userId
-                }
-            }
-        }))
-    }
-
-    changeTaskStatus() {
-
-    }
-
-    componentWillUnmount() {
-        // AMapLocation.stopLocation()
-        // this.listener.remove()
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { isRefresh } = nextProps
-        if (isRefresh) {
-            this.initView()
-            Actions.refresh({ isRefresh: !isRefresh })
-        }
-    }
-
-
 
     renderListHeader() {
-        const { mileageInfo, truckDispatch } = this.props.homeReducer.data
+        const { homeReducer: { data: { mileageInfo, truckDispatch } } } = this.props
         return (
             <View>
-                <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 10 }}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: styleColor, fontSize: 11 }}>重载里程</Text>
-                            <Text style={{ color: styleColor }}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
-                        </View>
+                <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={[globalStyles.smallText, globalStyles.styleColor]}>重载里程</Text>
+                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.load_distance ? `${mileageInfo.load_distance}` : '0'}</Text>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: styleColor, fontSize: 11 }}>本月里程</Text>
-                            <Text style={{ color: styleColor }}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
-                            <Text style={{ color: styleColor, fontSize: 11 }}>公里</Text>
-                        </View>
+                    <View style={{ borderRadius: 50, width: 100, height: 100, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月里程</Text>
+                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
+                        <Text style={[globalStyles.smallText, globalStyles.styleColor]}>公里</Text>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: styleColor, fontSize: 11 }}>空载里程</Text>
-                            <Text style={{ color: styleColor }}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
-                        </View>
+                    <View style={{ borderRadius: 40, width: 80, height: 80, backgroundColor: '#e5f1dc', borderWidth: 4, borderColor: '#acd086', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={[globalStyles.smallText, globalStyles.styleColor]}>空载里程</Text>
+                        <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.no_load_distance ? `${mileageInfo.no_load_distance}` : '0'}</Text>
                     </View>
                 </View>
                 <View>
-
                     <View style={{ flexDirection: 'row', backgroundColor: '#9AAAB2', paddingVertical: 5, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center' }}>
                         {truckDispatch.dispatch_flag == 0 && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>该车辆暂时不能接受调度任务</Text>
+                            <Text style={[globalStyles.smallText, { color: '#fff', paddingLeft: 10 }]}>该车辆暂时不能接受调度任务</Text>
                         </View>}
                         {truckDispatch.dispatch_flag == 1 && !!truckDispatch.current_city && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
+                            <Text style={[globalStyles.smallText, { color: '#fff', paddingLeft: 10 }]}>{truckDispatch.city_name ? `${truckDispatch.city_name}` : ''}</Text>
                         </View>}
                         {truckDispatch.dispatch_flag == 1 && !!truckDispatch.task_start && <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <Ionicons name='ios-pin' style={{ color: '#dce2e7' }} size={20} />
-                            <Text style={{ color: '#fff', paddingLeft: 10, fontSize: 11 }}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}</Text>
+                            <Text style={[globalStyles.smallText, { color: '#fff', paddingLeft: 10 }]}>{truckDispatch.task_start_name ? `${truckDispatch.task_start_name}` : ''}</Text>
                             <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#fff' }} />
-                            <Text style={{ color: '#fff', paddingLeft: 5, fontSize: 11 }}>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
+                            <Text style={[globalStyles.smallText, { color: '#fff', paddingLeft: 5 }]}>{truckDispatch.task_end_name ? `${truckDispatch.task_end_name}` : ''}</Text>
                         </View>}
                         {truckDispatch.dispatch_flag == 1 && !!truckDispatch.task_start && <View>
-                            <Text style={{ color: '#fff', fontSize: 11 }}>在途</Text>
+                            <Text style={[globalStyles.smallText, { color: '#fff' }]}>在途</Text>
                         </View>}
                     </View>
                     <View style={{ height: 180 }}>
@@ -166,6 +99,14 @@ class Home extends Component {
     renderTaskItem(item, key) {
         const { setTaskInfo } = this.props
         return <TouchableOpacity key={key} onPress={() => {
+            // const url='tel:13889661994'
+            // Linking.canOpenURL(url).then(supported => {
+            //     if (!supported) {
+            //         console.log('Can\'t handle url: ' + url);
+            //     } else {
+            //         return Linking.openURL(url);
+            //     }
+            // }).catch(err => console.error('An error occurred', err));
             setTaskInfo(item)
             Actions.instructExecuting()
         }}>
@@ -173,12 +114,12 @@ class Home extends Component {
                 <View style={{ flexDirection: 'row', backgroundColor: '#edf1f4', paddingVertical: 5, justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <MaterialCommunityIcon name='truck' style={{ color: styleColor, paddingHorizontal: 5 }} size={20} />
-                        <Text style={{ color: '#8e9fa3', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
+                        <Text style={[globalStyles.midText, { color: '#8e9fa3', fontWeight: 'bold' }]}>{item.city_route_start ? item.city_route_start : ''}</Text>
                         <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                        <Text style={{ color: '#8e9fa3', fontWeight: 'bold', paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
+                        <Text style={[globalStyles.midText, { color: '#8e9fa3', fontWeight: 'bold', paddingLeft: 5 }]}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-                        <Text style={{ color: '#8e9fa3', paddingRight: 10, fontSize: 11 }}>
+                        <Text style={[globalStyles.smallText, { color: '#8e9fa3', paddingRight: 10 }]}>
                             {item.task_status == 1 && '未接受'}
                             {item.task_status == 2 && '已接受'}
                             {item.task_status == 3 && '已执行'}
@@ -190,92 +131,34 @@ class Home extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', paddingHorizontal: 5, paddingVertical: 5, backgroundColor: '#fff', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={{ color: '#8e9fa3', fontSize: 11 }}>指令时间：{item.task_plan_date ? moment(new Date(item.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
+                        <Text style={[globalStyles.smallText, { color: '#8e9fa3' }]}>指令时间：{item.task_plan_date ? moment(new Date(item.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        {/* <Text style={{ color: '#8e9fa3', paddingRight: 50, fontSize: 11 }}>指定装载：{item.plan_count ? `${item.plan_count}` : '0'}</Text> */}
                     </View>
                 </View>
-                {/* <View style={{
-                    position: 'absolute',
-                    right: 10, top: 10
-                }}>
-                    {item.task_status == 1 && <TouchableOpacity onPress={() => this.changeTaskStatus(2)}>
-                        <View style={{
-                            borderRadius: 15,
-                            width: 30,
-                            height: 30,
-                            backgroundColor: styleColor,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text style={{ color: '#fff', fontSize: 11 }}>接受</Text>
-                        </View>
-                    </TouchableOpacity>}
-                    {item.task_status == 2 && <TouchableOpacity onPress={() => this.changeTaskStatus(3)}>
-                        <View style={{
-                            borderRadius: 15,
-                            width: 30,
-                            height: 30,
-                            backgroundColor: styleColor,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text style={{ color: '#fff', fontSize: 11 }}>执行</Text>
-                        </View>
-                    </TouchableOpacity>}
-                    {item.task_status == 3 && <TouchableOpacity onPress={() => { }}>
-                        <View style={{
-                            borderRadius: 15,
-                            width: 30,
-                            height: 30,
-                            backgroundColor: '#c4c4c4',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text style={{ color: '#fff', fontSize: 11 }}>等待</Text>
-                        </View>
-                    </TouchableOpacity>}
-                    {item.task_status == 4 && <TouchableOpacity onPress={() => this.changeTaskStatus(9)}>
-                        <View style={{
-                            borderRadius: 15,
-                            width: 30,
-                            height: 30,
-                            backgroundColor: styleColor,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text style={{ color: '#fff', fontSize: 11 }}>完成</Text>
-                        </View>
-                    </TouchableOpacity>}
-                </View> */}
             </View>
         </TouchableOpacity>
     }
 
     render() {
-        const { taskList } = this.props.homeReducer.data
-        const { getHomeMileageInfo } = this.props.homeReducer
+        const { homeReducer: { data: { taskList }, getHomeMileageInfo } } = this.props
         if (getHomeMileageInfo.isResultStatus == 1) {
             return (
-                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <ActivityIndicator
-                        animating={getHomeMileageInfo.isResultStatus == 1}
-                        style={{ height: 80 }}
-                        size="large"
-                    />
-                </View>
+                <Container>
+                    <Spinner color={styleColor} />
+                </Container>
             )
         } else {
             return (
-                <View style={{ flex: 1 }}>
+                <Container>
                     <FlatList
+                        showsVerticalScrollIndicator={false}
                         keyExtractor={(item, index) => index}
                         ListHeaderComponent={this.renderListHeader()}
                         data={taskList}
                         renderItem={({ item, index }) => this.renderTaskItem(item, index)}
                     />
-                </View>
+                </Container>
             )
         }
     }
@@ -284,25 +167,16 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         homeReducer: state.homeReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMileageInfo: (param) => {
-        dispatch(homeAction.getMileageInfo(param))
+    getMileageInfo: () => {
+        dispatch(homeAction.getMileageInfo())
     },
-    setGetMileageInfoWaiting: () => {
-        dispatch(homeAction.setGetMileageInfoWaiting())
-    },
-    changeTaskStatus: (param) => {
-        dispatch(homeAction.changeTaskStatus(param))
-    },
-    setChangeTaskStatusWaiting: () => {
-        dispatch(homeAction.setChangeTaskStatusWaiting())
-    },
-    resetChangeTaskStatus: () => {
-        dispatch(homeAction.resetChangeTaskStatus())
+    getMileageInfoWaiting: () => {
+        dispatch(homeAction.getMileageInfoWaiting())
     },
     setTaskInfo: (param) => {
         dispatch(instructExecutingAction.setTaskInfo(param))

@@ -19,6 +19,6 @@ export const getReceiveList = (param) => async (dispatch) => {
     }
 }
 
-export const getReceiveListWaiting = (param) => (dispatch) => {
+export const getReceiveListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.selectReceiveActionTypes.get_receiveList_waiting, payload: {} })
 }

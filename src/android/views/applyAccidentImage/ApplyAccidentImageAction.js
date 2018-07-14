@@ -5,8 +5,8 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
 
-export const uploadAccidentImageWaiting = () => (dispatch, getState) => {
-     dispatch({ type: actionTypes.applyAccidentImageTypes.upload_ImageAtApplyAccident_waiting, payload: {} })
+export const uploadAccidentImageWaiting = () => (dispatch) => {
+    dispatch({ type: actionTypes.applyAccidentImageTypes.upload_ImageAtApplyAccident_waiting, payload: {} })
 }
 
 export const uploadAccidentImage = param => async (dispatch, getState) => {
@@ -14,22 +14,21 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
         const { cameraReses } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
-            const { userReducer: { data: { user: { userId } } },
-                applyAccidentReducer: { data: { accidentId ,truckNum} } ,
-                truckReducer:{data:{personalInfo}}
+            const { loginReducer: { data: { user } },
+                applyAccidentReducer: { data: { accidentId, truckNum } }
             } = getState()
-            const imageUploadUrl = `${file_host}/user/${userId}/image?${ObjectToUrl({ imageType: 5 })}`
+            const imageUploadUrl = `${file_host}/user/${user.uid}/image?${ObjectToUrl({ imageType: 5 })}`
             const imageUploadReses = await Promise.all(cameraSuccessReses.map(item => httpRequest.postFile(imageUploadUrl, {
                 key: 'image',
                 ...item.res
             })))
             const imageUploadSuccessReses = imageUploadReses.filter(item => item.success)
             if (imageUploadSuccessReses.length > 0) {
-                const bindDamageUrl = `${record_host}/user/${userId}/truckDamage/${accidentId}/image`
+                const bindDamageUrl = `${record_host}/user/${user.uid}/truckDamage/${accidentId}/image`
                 const bindDamageReses = await Promise.all(imageUploadSuccessReses.map(item => httpRequest.post(bindDamageUrl, {
-                    username: personalInfo.real_name,
-                    userId: personalInfo.uid,
-                    userType: personalInfo.type,
+                    username: user.real_name,
+                    userId: user.uid,
+                    userType: user.type,
                     url: item.imageId,
                     vheNo: truckNum
                 })))

@@ -1,6 +1,7 @@
 package com.log_driver_app;
 
 import com.facebook.react.ReactApplication;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.imagepicker.ImagePickerPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.jeepeng.react.xgpush.PushPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new RNSpinkitPackage(),
             new ImagePickerPackage(),
             new ImageResizerPackage(),
             new PushPackage(),  new AMap3DPackage(),

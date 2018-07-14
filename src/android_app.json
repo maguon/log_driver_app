@@ -1,3 +1,17 @@
 {
-  "version" : "0.0.3"
+  "version": "3.0.3",
+  "stage": 0,
+  "stageList": [
+    {
+      "id": 0,
+      "value": "测试版",
+      "alias": "debug"
+    },
+    {
+      "id": 4,
+      "value": "正式版",
+      "alias": "release"
+    }
+  ]
 }
+

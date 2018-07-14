@@ -7,7 +7,7 @@ const initialState = {
         total: {
             refuel_volume: null,
             refuel_money: null,
-            refuelDateStart: moment().format('YYYY-MM-01'),
+            refuelDateStart: moment().format('2018-01-01'),
             refuelDateEnd: moment().format('YYYY-MM-DD'),
             refuelAddressType: null,
             checkStatus: null
@@ -33,7 +33,7 @@ const initialState = {
 //isExecuteStatus(执行状态):[0(未执行)，1(正在执行)，2(执行完毕)]
 export default handleActions({
     [(actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
+        const { payload: { data, isComplete } } = action
         return {
             ...state,
             data: {
@@ -42,7 +42,8 @@ export default handleActions({
                     ...state.data.total,
                     ...data.total
                 },
-                fuelFillingRecordList: data.fuelFillingRecordList
+                fuelFillingRecordList: data.fuelFillingRecordList,
+                isComplete
             },
             getFuelFillingRecord: {
                 ...state.getFuelFillingRecord,
@@ -58,17 +59,6 @@ export default handleActions({
                 ...state.getFuelFillingRecord,
                 isResultStatus: 4,
                 failedMsg: data
-            }
-        }
-    },
-    [(actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            getFuelFillingRecord: {
-                ...state.getFuelFillingRecord,
-                isResultStatus: 5,
-                serviceFailedMsg: data
             }
         }
     },
@@ -97,13 +87,13 @@ export default handleActions({
 
 
     [(actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_SUCCESS)]: (state, action) => {
-        const { payload: { data } } = action
+        const { payload: { fuelFillingRecordList, isComplete } } = action
         return {
             ...state,
             data: {
                 ...state.data,
-                fuelFillingRecordList: [...state.data.fuelFillingRecordList, ...data.fuelFillingRecordList],
-                isComplete: (data.fuelFillingRecordList.length == 0 || data.fuelFillingRecordList.length % 12 > 0)
+                fuelFillingRecordList: [...state.data.fuelFillingRecordList, ...fuelFillingRecordList],
+                isComplete
             },
             getFuelFillingRecordMore: {
                 ...state.getFuelFillingRecordMore,
@@ -122,17 +112,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_SERVICEERROR)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            getFuelFillingRecordMore: {
-                ...state.getFuelFillingRecordMore,
-                isResultStatus: 5,
-                serviceFailedMsg: data
-            }
-        }
-    },
+
     [(actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
@@ -150,20 +130,6 @@ export default handleActions({
             getFuelFillingRecordMore: {
                 ...initialState.getFuelFillingRecordMore,
                 isResultStatus: 1
-            }
-        }
-    },
-
-    [(actionTypes.fuelFillingRecordTypes.CHANGE_FuelFillingSearchField)]: (state, action) => {
-        const { payload: { data } } = action
-        return {
-            ...state,
-            data: {
-                ...state.data,
-                total: {
-                    ...state.data.total,
-                    ...data
-                }
             }
         }
     }

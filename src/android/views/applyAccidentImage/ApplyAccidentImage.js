@@ -9,10 +9,10 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native'
-import ImageItem from '../../components/share/ImageItem'
+import ImageItem from '../../components/share/imageItem/ImageItem'
 import globalStyles from '../../GlobalStyles'
 import { connect } from 'react-redux'
-import CameraButton from '../../components/share/CameraButton'
+import CameraButton from '../../components/share/imageItem/CameraButton'
 import { file_host } from '../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  applyAccidentImageAction from './ApplyAccidentImageAction'

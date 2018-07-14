@@ -1,7 +1,3 @@
-/**
- * Created by lingxue on 2017/4/21.
- */
-//import { Actions } from 'react-native-router-flux'
 import * as actionTypes from '../../../actionTypes/index'
 import localStorageKey from '../../../util/LocalStorageKey'
 import localStorage from '../../../util/LocalStorage'
@@ -10,6 +6,9 @@ import { base_host } from '../../../config/Host'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import requestHeaders from '../../../util/RequestHeaders'
 import * as android_app from '../../../android_app.json'
+import { sleep } from '../../../util/util'
+import XGPush from 'react-native-xinge-push'
+import { Actions } from 'react-native-router-flux'
 
 /** 
  * 
@@ -25,182 +24,200 @@ import * as android_app from '../../../android_app.json'
  * 第二步：获取本地localstorage的数据
  * 第三步：换network request所需要的token
  */
-export const initApp = (param, tryCount = 1, currentStep = 1) => (dispatch) => {
-    if (currentStep == 1) {
-        //执行第一步
-       // console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
-        validateVersion(param, tryCount, currentStep)(dispatch)
-    } else if (currentStep == 2) {
-        //执行第二步
-       // console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
-        loadLocalStorage(null, tryCount, currentStep)(dispatch)
-    } else if (currentStep == 3) {
-        //执行第三步
-      //  console.log(`========执行第${currentStep}步    第${tryCount}次尝试========`)
-        validateToken(param, tryCount, currentStep)(dispatch)
-    }
-}
 
 //第一步：获取最新version信息
-export const validateVersion = (param, tryCount = 1, currentStep = 1) => async (dispatch) => {
+export const validateVersion = (tryCount = 1) => async (dispatch) => {
+    const currentStep = 1
     try {
-        const url = `${base_host}/app?${ObjectToUrl(param.optionalParam)}`
-        console.log('url',url)
+        dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
+        const url = `${base_host}/app?${ObjectToUrl({ app: 0, type: 1 })}`
+        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('url',url)
-        
+        console.log('res', res)
         if (res.success) {
-            let data = {
+            const versionInfo = {
                 currentVersion: android_app.version,
+                newestVersion: '',
+                url: '',
+                remark: '',
+                force_update: 0
             }
-            const newestVersionInfo = res.result.sort((a, b) => b.id - a.id)[0]
-            if (newestVersionInfo) {
-                data.newestVersion = newestVersionInfo.version
-                data.url = newestVersionInfo.url
-                data.remark = newestVersionInfo.remark
-                const currentVersionArr = android_app.version.split('.')
-                const newestVersionArr = newestVersionInfo.version.split('.')
-                if (currentVersionArr[0] < newestVersionArr[0] || currentVersionArr[1] < newestVersionArr[1] || currentVersionArr[2] < newestVersionArr[2]) {
-                    if (newestVersionInfo.force_update == 1) {
-                        data.force_update = 1
+            const currentVersionArr = android_app.version.split('.')
+            let versionList = res.result
+                .filter(item => {
+                    const itemArr = item.version.split('.')
+                    if (currentVersionArr[0] < itemArr[0]) {
+                        return true
+                    } else if (currentVersionArr[0] == itemArr[0] && currentVersionArr[1] < itemArr[1]) {
+                        return true
+                    } else if (currentVersionArr[0] == itemArr[0] && currentVersionArr[1] == itemArr[1] && currentVersionArr[2] < itemArr[2]) {
+                        return true
                     } else {
-                        data.force_update = 2 //force_update:0(版本为最新版), 1(版本需要太旧，强制更新), 2(版本需要太旧，但不需要强制更新)
+                        return false
                     }
+                })
+
+            //force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
+            if (versionList.length > 0) {
+                if (versionList.some(item => item.force_update == 1)) {
+                    versionInfo.force_update = 1
                 } else {
-                    data.force_update = 0
+                    versionInfo.force_update = 2
                 }
+                versionList = versionList.sort((a, b) => {
+                    const aArr = a.version.split('.')
+                    const bArr = b.version.split('.')
+                    if (aArr[0] < bArr[0]) {
+                        return true
+                    } else if (aArr[0] == bArr[0] && aArr[1] < bArr[1]) {
+                        return true
+                    } else if (aArr[0] == bArr[0] && aArr[1] == bArr[1] && aArr[2] < bArr[2]) {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+                versionInfo.newestVersion = versionList[0].version
+                versionInfo.url = versionList[0].url
+                versionInfo.remark = versionList[0].remark
             } else {
-                data.force_update = 0
-                data.newestVersion = android_app.version
+                versionInfo.force_update = 0
+                versionInfo.newestVersion = versionInfo.currentVersion
             }
-           // console.log(data)
-            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Success, payload: { data, step: currentStep } })
-            if (data.force_update != 1) {
-                initApp(null, 1, currentStep + 1)(dispatch)
+            if (versionInfo.force_update != 1) {
+                console.log('versionInfo', versionInfo)
+                dispatch({ type: actionTypes.initializationTypes.valdate_version_success, payload: { versionInfo, step: currentStep } })
+                // dispatch(initPush())
+                dispatch(loadLocalStorage())
+            } else {
+                dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
             }
         } else {
-            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Failed, payload: { failedMsg: res.msg, step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.valdate_version_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err',err)
+        console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {
                 await sleep(1000)
-                initApp(param, tryCount + 1, currentStep)(dispatch)
+                dispatch(validateVersion(tryCount + 1))
             } else {
-                dispatch({ type: actionTypes.initializationTypes.Valdate_Version_NetWorkError, payload: { step: currentStep } })
+                dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
             }
         } else {
-            dispatch({ type: actionTypes.initializationTypes.Valdate_Version_Error, payload: { errorMsg: err.message, step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
         }
     }
 }
 
-//第二步：获取localStorage中的user数据
-export const loadLocalStorage = (param = null, tryCount = 1, currentStep = 2) => async (dispatch) => {
+//第二步：获取deviceToken
+export const initPush = () => async (dispatch) => {
+    const currentStep = 2
     try {
-        // localStorage.save({
-        //     key: localStorageKey.USER,
-        //     data: {
-        //         userId: 93,
-        //         token: 'v4m1x9wFedXZ6S9rbV5Ax-9EAWY=9i39iMZK1a5578b3b728c1f8dbc87071b199c67f8b4ae35e233647cd1825977e83a8c812d194c41a71049edad8470b361d415a76'
-        //     }
-        // })
-        //localStorage.remove({ key: localStorageKey.USER })
-        const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
-       // console.log(localStorageRes)
-        if (localStorageRes.token && localStorageRes.userId) {
-            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Success, payload: { step: currentStep } })
-            initApp({
-                requiredParam: {
-                    userId: localStorageRes.userId,
-                    token: localStorageRes.token
-                }
-            }, 1, currentStep + 1)(dispatch)
-        }
-        else {
-            //localStorage.remove({ key: localStorageKey.USER })
-            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Failed, payload: { step: currentStep } })
+        XGPush.init(2100267013, 'A7XR278C4CTR')
+        const deviceToken = await XGPush.register('jeepeng')
+        console.log('deviceToken', deviceToken)
+        if (deviceToken) {
+            dispatch({ type: actionTypes.initializationTypes.init_XGPush_success, payload: { deviceToken, step: currentStep } })
+            console.log('currentStep', currentStep)
+            dispatch(loadLocalStorage())
+        } else {
+            dispatch({ type: actionTypes.initializationTypes.init_XGPush_failed, payload: { failedMsg: '获取deviceToken错误：deviceToken为空！' } })
         }
     } catch (err) {
-        //console.log(err)
+        console.log('err', err)
+        dispatch({ type: actionTypes.initializationTypes.init_XGPush_error, payload: { errorMsg: err } })
+    }
+}
+
+
+//第三步：获取localStorage中的user数据
+export const loadLocalStorage = () => async (dispatch) => {
+    const currentStep = 3
+    try {
+        //localStorage.remove({ key: localStorageKey.USER })
+
+        const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
+        console.log('localStorageRes', localStorageRes)
+
+        if (localStorageRes.token && localStorageRes.uid) {
+            console.log('localStorageRes', localStorageRes)
+            dispatch({ type: actionTypes.initializationTypes.load_localStorage_success, payload: { userlocalStorage: localStorageRes, step: currentStep } })
+            dispatch(validateToken())
+        }
+        else {
+            if (localStorageRes.mobile) {
+                dispatch({ type: actionTypes.loginTypes.set_userInfo, payload: { user: { mobile: localStorageRes.mobile } } })
+            } else {
+                dispatch({ type: actionTypes.loginTypes.set_userInfo, payload: { user: {} } })
+            }
+            dispatch({ type: actionTypes.initializationTypes.load_localStorage_failed, payload: { failedMsg: 'localStorage数据不全！' } })
+            Actions.mainRoot()
+        }
+    } catch (err) {
+        console.log('err', err)
         if (err.name == 'NotFoundError') {
-            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_NotFoundError, payload: { step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.load_localStorage_error, payload: { errorMsg: err } })
         } else {
             localStorage.remove({ key: localStorageKey.USER })
-            dispatch({ type: actionTypes.initializationTypes.Load_LocalStorage_Error, payload: { errorMsg: err.message, step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.load_localStorage_error, payload: { errorMsg: err } })
         }
+        Actions.mainRoot()
     }
 
 }
 
-
-
-//第三步:更换service-token ,如果更新成功将登陆数据放入userReducer
-export const validateToken = (param, tryCount = 1, currentStep = 3) => async (dispatch) => {
+//第四步:更换service-token ,如果更新成功将登陆数据放入userReducer
+export const validateToken = (tryCount = 1) => async (dispatch, getState) => {
+    const currentStep = 4
     try {
-        const url = `${base_host}/user/${param.requiredParam.userId}/token/${param.requiredParam.token}`
+        const { initializationReducer: { data: { userlocalStorage: { uid, token } } } } = getState()
+        const url = `${base_host}/user/${uid}/token/${token}`
+        console.log('url', url)
         const res = await httpRequest.get(url)
-       // console.log('res', res)
+        console.log('res', res)
+
         if (res.success) {
-            //判断请求是否成功，如果成功，更新token
-            localStorage.save({
-                key: localStorageKey.USER,
-                data: {
-                    userId: res.result.userId,
+            const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: uid })}`
+            const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
+            if (getUserInfoRes.success) {
+                const { uid, mobile, real_name, type, gender, avatar_image, status, drive_id } = getUserInfoRes.result[0]
+                const user = {
+                    uid, mobile, real_name, type, gender, avatar_image, status, drive_id,
                     token: res.result.accessToken,
-                    userType: res.result.type,
-                    userStatus: res.result.userStatus,
-                    mobile: res.result.phone
                 }
-            })
-            requestHeaders.set('auth-token', res.result.accessToken)
-            requestHeaders.set('user-type', res.result.type)
-            requestHeaders.set('user-name', res.result.phone)
-            dispatch({
-                type: actionTypes.loginTypes.Set_UserInfo, payload: {
-                    user: {
-                        userId: res.result.userId,
-                        token: res.result.accessToken,
-                        userType: res.result.type,
-                        userStatus: res.result.userStatus,
-                        mobile: res.result.phone,
-                    }
-                }
-            })
-            dispatch({ type: actionTypes.initializationTypes.validate_token_Success, payload: { step: currentStep } })
+                //判断请求是否成功，如果成功，更新token
+                localStorage.save({ key: localStorageKey.USER, data: user })
+                requestHeaders.set('auth-token', res.result.accessToken)
+                requestHeaders.set('user-type', type)
+                requestHeaders.set('user-name', mobile)
+                dispatch({ type: actionTypes.loginTypes.set_userInfo, payload: { user } })
+                dispatch({ type: actionTypes.initializationTypes.validate_token_success, payload: { step: currentStep } })
+                Actions.mainRoot()
+            } else {
+                ToastAndroid.showWithGravity(`登陆失败：无法获取用户信息！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                dispatch({ type: actionTypes.initializationTypes.validate_token_failed, payload: { failedMsg: '无法获取用户信息！' } })
+            }
         }
         else {
             //判断请求是否成功，如果失败，跳转到登录页
-            dispatch({ type: actionTypes.initializationTypes.validate_token_Failed, payload: { step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.validate_token_failed, payload: { failedMsg: res.msg } })
+            Actions.mainRoot()
         }
     } catch (err) {
-        //console.log(err)
+        console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {
                 await sleep(1000)
-                initApp(param, tryCount + 1, currentStep)(dispatch)
+                dispatch(validateToken(tryCount + 1))
             } else {
-                dispatch({ type: actionTypes.initializationTypes.validate_token_NetWorkError, payload: { param, step: currentStep } })
+                dispatch({ type: actionTypes.initializationTypes.validate_token_error, payload: { errorMsg: err } })
             }
         } else {
-            dispatch({ type: actionTypes.initializationTypes.validate_token_Error, payload: { step: currentStep } })
+            dispatch({ type: actionTypes.initializationTypes.validate_token_error, payload: { errorMsg: err } })
+            Actions.mainRoot()
         }
     }
-}
-
-
-
-export const initAppWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.initializationTypes.INIT_App_Waiting, payload: {} })
-}
-
-export const resetInitialization = () => (dispatch) => {
-    dispatch({ type: actionTypes.initializationTypes.RESET_INITIALIZATION, payload: {} })
-}
-
-export const resetGetVersion = () => (dispatch) => {
-    dispatch({ type: actionTypes.initializationTypes.RESET_GETVERSION, payload: {} })
 }

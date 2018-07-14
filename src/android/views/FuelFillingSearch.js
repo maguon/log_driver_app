@@ -1,97 +1,76 @@
-import React, { Component } from 'react'
-import {
-    Text,
-    View,
-    ScrollView
-} from 'react-native'
-import { Button } from 'native-base'
-import DateTimePicker from '../components/form/DateTimePicker'
-import CheckBox from '../components/form/CheckBox'
-import { Actions } from 'react-native-router-flux'
+import React from 'react'
+import { View, Text, InteractionManager } from 'react-native'
+import { Container, Content, Button } from 'native-base'
 import fuelFillingTypeList from '../../config/fuelFillingType'
 import fuelFillingCheckStatusList from '../../config/fuelFillingCheckStatus'
 import * as FuelFillingRecordAction from './fuelFillingRecord/FuelFillingRecordAction'
 import { connect } from 'react-redux'
-import { styleColor } from '../GlobalStyles'
-class FuelFillingSearch extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            refuelDateStart: null,
-            refuelDateEnd: null,
-            refuelAddressType: null,
-            checkStatus: null
-        }
-        this.onSearch = this.onSearch.bind(this)
-    }
+import DatePicker from '../complatedComponents/share/form/between/DatePicker'
+import CheckBox from '../complatedComponents/share/form/between/CheckBox'
+import { reduxForm, Field } from 'redux-form'
+import globalStyles, { styleColor } from '../GlobalStyles'
+import { Actions } from 'react-native-router-flux'
 
-    componentWillMount() {
-        const { refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus } = this.props.fuelFillingRecordReducer.data.total
-        this.setState({ refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus })
-    }
-
-    onSearch() {
-        this.props.changeSearchField({ ...this.state })
-        Actions.pop()
-    }
-
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ flex: 1 }}>
-                        <DateTimePicker
-                            value={this.state.refuelDateStart ? this.state.refuelDateStart : '请选择'}
-                            title='起始时间：'
-                            defaultValue={'请选择'}
-                            onValueChange={(param) => this.setState({ refuelDateStart: param })}
-                        />
-                        <DateTimePicker
-                            value={this.state.refuelDateEnd ? this.state.refuelDateEnd : '请选择'}
-                            title='终止时间：'
-                            defaultValue={'请选择'}
-                            onValueChange={(param) => this.setState({ refuelDateEnd: param })}
-                        />
-                        <CheckBox
-                            title='加油地：'
-                            listTitle='加油地'
-                            value={fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType) ?
-                                fuelFillingTypeList.find(item => item.id == this.state.refuelAddressType).value :
-                                '全部'}
-                            itemList={[{ id: 99, value: '全部' }, ...fuelFillingTypeList]}
-                            onCheck={(param) => this.setState({ refuelAddressType: param.id != 99 ? param.id : null })}
-                        />
-                        <CheckBox
-                            title='审核结果：'
-                            listTitle='审核结果'
-                            value={fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus) ?
-                                fuelFillingCheckStatusList.find(item => item.id == this.state.checkStatus).value :
-                                '全部'}
-                            itemList={[{ id: 99, value: '全部' }, ...fuelFillingCheckStatusList]}
-                            onCheck={(param) => this.setState({ checkStatus: param.id != 99 ? param.id : null })} />
-                        <View style={{ padding: 10 }}>
-                            <Button onPress={this.onSearch} full style={{ backgroundColor: styleColor }}>
-                                <Text style={{ color: '#fff' }}>搜索</Text>
-                            </Button>
-                        </View>
-                    </View>
-                </ScrollView>
-            </View>
-        )
-    }
+const FuelFillingSearch = props => {
+    const { handleSubmit } = props
+    return (
+        <Container>
+            <Content>
+                <Field name='refuelDateStart'
+                    label='起始时间'
+                    component={DatePicker} />
+                <Field name='refuelDateEnd'
+                    label='终止时间'
+                    component={DatePicker} />
+                <Field
+                    label='加油地类型'
+                    name='refuelAddressType'
+                    listTitle='加油地类型'
+                    itemList={[{ id: null, value: '全部' }, ...fuelFillingTypeList]}
+                    component={CheckBox} />
+                <Field
+                    label='审核结果'
+                    name='checkStatus'
+                    listTitle='审核结果'
+                    itemList={[{ id: null, value: '全部' }, ...fuelFillingCheckStatusList]}
+                    component={CheckBox} />
+                <View style={{ paddingHorizontal: 15, paddingTop: 40 }}>
+                    <Button onPress={handleSubmit} full style={{ backgroundColor: styleColor }}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>搜索</Text>
+                    </Button>
+                </View>
+            </Content>
+        </Container>
+    )
 }
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+    const { initParam: {
+        refuelDateStart,
+        refuelDateEnd,
+        refuelAddressType,
+        checkStatus } } = ownProps
     return {
-        fuelFillingRecordReducer: state.fuelFillingRecordReducer
+        initialValues: {
+            refuelDateStart,
+            refuelDateEnd,
+            refuelAddressType: refuelAddressType ? fuelFillingTypeList.find(item => item.id == refuelAddressType) : { id: null, value: '全部' },
+            checkStatus: checkStatus ? fuelFillingCheckStatusList.find(item => item.id == checkStatus) : { id: null, value: '全部' }
+        }
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    changeSearchField: (param) => {
-        dispatch(FuelFillingRecordAction.changeSearchField(param))
-    }
-})
+export default connect(mapStateToProps)(reduxForm({
+    form: 'fuelFillingSearch',
+    onSubmit: (values, dispatch) => {
+        dispatch(FuelFillingRecordAction.getFuelFillingRecordWaiting())
+        Actions.pop()
+        InteractionManager.runAfterInteractions(() => dispatch(FuelFillingRecordAction.getFuelFillingRecord({
+            refuelDateStart: values.refuelDateStart,
+            refuelDateEnd: values.refuelDateEnd,
+            checkStatus: values.checkStatus.id,
+            refuelAddressType: values.refuelAddressType.id,
+        })))
 
-export default connect(mapStateToProps, mapDispatchToProps)(FuelFillingSearch)
+    }
+})(FuelFillingSearch))

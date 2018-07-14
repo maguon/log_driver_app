@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import { Text, View, StatusBar, StyleSheet, Dimensions } from 'react-native'
-import { Header, Title, Button, Icon, Right, Left, Body, Label } from 'native-base'
-import { Actions } from 'react-native-router-flux'
+import React from 'react'
+import { View, StatusBar, StyleSheet, Dimensions } from 'react-native'
+import { Header, Title, Right, Left, Body } from 'native-base'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 
 const { width } = Dimensions.get('window')

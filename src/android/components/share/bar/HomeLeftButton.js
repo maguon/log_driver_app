@@ -1,8 +1,4 @@
-import React, { Component } from 'react'
-import {
-    StyleSheet,
-    Text
-} from 'react-native'
+import React from 'react'
 import { Actions } from 'react-native-router-flux'
 import { Button } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -18,8 +14,3 @@ const HomeLeftButton = props => {
 
 export default HomeLeftButton
 
-const styles = StyleSheet.create({
-    text: {
-        color: '#fff'
-    }
-})

@@ -1,49 +1,39 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import homeReducer from '../android/views/blockInitial/home/HomeReducer'
-import truckInfoReducer from '../android/views/truckInfo/TruckInfoReducer'
-import trailerInfoReducer from '../android/views/trailerInfo/TrailerInfoReducer'
 import driverInfoReducer from '../android/views/driverInfo/DriverInfoReducer'
-import userReducer from '../android/views/login/UserReducer'
+import loginReducer from '../android/complatedViews/login/LoginReducer'
 import workReducer from '../android/views/blockInitial/work/WorkReducer'
 import fuelFillingRecordReducer from '../android/views/fuelFillingRecord/FuelFillingRecordReducer'
-import cityRouteListReducer from './CityRouteListReducer'
+import cityRouteListReducer from '../android/complatedViews/select/cityRouteList/CityRouteListReducer'
 import fuelFillingApplyReducer from '../android/views/fuelFillingApply/FuelFillingApplyReducer'
 import instructReducer from '../android/views/instruct/InstructReducer'
 import branchInstructReducer from '../android/views/branchInstruct/BranchInstructReducer'
 import instructExecutingReducer from '../android/views/instructExecuting/InstructExecutingReducer'
 import branchInstructExecutingReducer from '../android/views/branchInstructExecuting/BranchInstructExecutingReducer'
 import initializationReducer from '../android/views/initialization/InitializationReducer'
-import PasswordReducer from '../android/views/passWord/PasswordReducer'
 import retrievePasswordReducer from './RetrievePasswordReducer'
-import settingReducer from '../android/views/blockInitial/setting/SettingReducer'
 import applyAccidentImageReducer from '../android/views/applyAccidentImage/ApplyAccidentImageReducer'
-import imageForAccidentReducer from './ImageForAccidentReducer'
+import imageForAccidentReducer from '../android/complatedComponents/accidentInfo/imageListForAccident/ImageForAccidentReducer'
 import applyAccidentReducer from '../android/views/applyAccident/ApplyAccidentReducer'
-import selectAddressReducer from './SelectAddressReducer'
+import selectAddressReducer from '../android/complatedViews/select/address/AddressReducer'
 import truckReducer from '../android/views/blockInitial/truck/TruckReducer'
-import selectAccidentTypeReducer from './SelectAccidentTypeReducer'
-import accidentListReducer from '../android/views/accidentList/AccidentListReducer'
-import accidentEditorReducer from './AccidentEditorReducer'
-import accidentResponsibilityListReducer from '../android/views/accidentResponsibilityList/AccidentResponsibilityListReducer'
-import cleanRelListReducer from '../android/views/cleanRelList/CleanRelListReducer'
+import selectAccidentTypeReducer from '../android/complatedViews/select/accidentTypeList/AccidentTypeReducer'
+import cleanRelListReducer from '../android/complatedViews/cleanRelList/CleanRelListReducer'
 import selectCityReducer from './SelectCityReducer'
 import selectReceiveReducer from './SelectReceiveReducer'
-import demageListReducer from '../android/views/demageList/DemageListReducer'
 import selectDriverReducer from './selectDriverReducer'
 import selectCarReducer from './selectCarReducer'
-import applyDamageImageReducer from '../android/views/applyDemageImage/ApplyDamageImageReducer'
-import applyDamageReducer from '../android/views/applyDemage/applyDamageReducer'
 import carInfoForDemageReducer from './carInfoForDemageReducer'
 import demageEditorReducer from './demageEditorReducer'
 import demageOpResultReducer from './demageOpResultReducer'
-import imageListForDemageReducer from './imageListForDemageReducer'
+import imageListForDemageReducer from '../android/components/demageInfo/imageListForDemageReducer'
 import recordForDemageReducer from './recordForDemageReducer'
-import demageResponsibilityListReducer from '../android/views/demageResponsibilityList/DemageResponsibilityListReducer'
+import demageResponsibilityListReducer from '../android/complatedViews/demageResponsibilityList/DemageResponsibilityListReducer'
 import demageResponsibilityListOperationReducer from './DemageResponsibilityListOperationReducer'
 import demageListOperationReducer from './DemageListOperationReducer'
-import taskLoanListReducer from '../android/views/taskLoanList/taskLoanListReducer'
-import taskLoanRelListReducer from '../android/views/taskLoanRelList/taskLoanRelListReducer'
+import taskLoanListReducer from '../android/complatedViews/taskLoanList/taskLoanListReducer'
+import taskLoanRelListReducer from '../android/complatedViews/taskLoanRelList/taskLoanRelListReducer'
 import carsReducer from '../android/views/cars/carsReducer'
 import carInfoReducer from '../android/views/carInfo/carInfoReducer'
 import searchCarReducer from '../android/views/select/searchCar/SearchCarReducer'
@@ -55,14 +45,60 @@ import receiveReducer from '../android/views/select/receive/receiveReducer'
 import addCarImageReducer from '../android/views/uploadImageForCreateCar/addCarImageReducer'
 
 
+//notUsed
+import demageListReducer from '../android/notUsed/demageList/DemageListReducer'
+import applyDamageImageReducer from '../android/notUsed/applyDemageImage/ApplyDamageImageReducer'
+import applyDamageReducer from '../android/notUsed/applyDemage/applyDamageReducer'
+
+//truckBlock-views-complated 
+import accidentListReducer from '../android/complatedViews/accidentList/AccidentListReducer'
+import accidentResponsibilityListReducer from '../android/complatedViews/accidentResponsibilityList/AccidentResponsibilityListReducer'
+
+// <<<End
+
+//truckBlock-components-complated 
+import truckInfoReducer from '../android/complatedViews/truck/truckInfo/truckInfoReducer'
+import truckRepairListReducer from '../android/complatedViews/truck/truckRepairList/truckRepairListReducer'
+import truckInsuranceReducer from '../android/complatedViews/truck/truckInsurance/truckInsuranceReducer'
+import truckImageReducer from '../android/complatedViews/truck/truckImage/truckImageReducer'
+import trailerInfoReducer from '../android/complatedViews/trailer/trailerInfo/trailerInfoReducer'
+import trailerInsuranceReducer from '../android/complatedViews/trailer/trailerInsurece/trailerInsuranceReducer'
+import trailerRepairListReducer from '../android/complatedViews/trailer/trailerRepairList/trailerRepairListReducer'
+import trailerImageReducer from '../android/complatedViews/trailer/trailerImage/trailerImageReducer'
+
+import accidentEditorReducer from '../android/complatedComponents/accidentInfo/addcidentEditor/AccidentEditorReducer'
+
+// <<<End
+
+
+//settingBlock-views-complated 
+import updatePasswordReducer from '../android/complatedViews/updatePassword/updatePasswordReducer'
+import personalCenterReducer from '../android/complatedViews/personalCenter/personalCenterReducer'
+
+// <<<End
 
 export default combineReducers({
     form: formReducer,
+
+    //settingBlock-views-complated 
+    updatePasswordReducer,
+    personalCenterReducer,
+
+    // <<<End
     homeReducer,
+    //component
     truckInfoReducer,
+    truckRepairListReducer,
+    truckInsuranceReducer,
+    truckImageReducer,
     trailerInfoReducer,
+    trailerInsuranceReducer,
+    trailerRepairListReducer,
+    trailerImageReducer,
+
+    // <<<End
     driverInfoReducer,
-    userReducer,
+    loginReducer,
     workReducer,
     fuelFillingRecordReducer,
     cityRouteListReducer,
@@ -72,9 +108,9 @@ export default combineReducers({
     instructExecutingReducer,
     branchInstructExecutingReducer,
     initializationReducer,
-    PasswordReducer,
+
     retrievePasswordReducer,
-    settingReducer,
+    //settingReducer,
     carsReducer,
     searchCarReducer,
     carInfoReducer,
@@ -84,7 +120,7 @@ export default combineReducers({
     makeReducer,
     receiveReducer,
     addCarImageReducer,
-    
+
     applyAccidentImageReducer,
     imageForAccidentReducer,
     applyAccidentReducer,

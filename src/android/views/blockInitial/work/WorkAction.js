@@ -36,7 +36,7 @@ export const getMileageInfo = (param) => async (dispatch) => {
     }
 }
 
-export const setGetMileageInfoWaiting = (param) => (dispatch) => {
+export const setGetMileageInfoWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.workTypes.GET_WorkMileageInfo_WAITING, payload: {} })
 }
 

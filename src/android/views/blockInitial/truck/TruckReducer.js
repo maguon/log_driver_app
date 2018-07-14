@@ -3,8 +3,7 @@ import * as actionTypes from '../../../../actionTypes/index'
 
 const initialState = {
     data: {
-        personalInfo:{},
-        driverInfo:{}
+        driverInfo: {}
     },
     getDriverInfo: {
         isResultStatus: 0,
@@ -15,11 +14,10 @@ const initialState = {
 
 export default handleActions({
     [(actionTypes.truckTypes.GET_DriverInfoAtTruck_SUCCESS)]: (state, action) => {
-        const { payload: { personalInfo, driverInfo } } = action
+        const { payload: { driverInfo } } = action
         return {
             ...state,
             data: {
-                personalInfo,
                 driverInfo
             },
             getDriverInfo: {

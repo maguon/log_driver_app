@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Button, Icon } from 'native-base'
-import * as taskLoanListAction from '../../../views/taskLoanList/taskLoanListAction'
+import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
 import { connect } from 'react-redux'
 
 const SearchTaskLoanOP = props => {

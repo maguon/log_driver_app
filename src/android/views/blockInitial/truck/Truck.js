@@ -3,26 +3,23 @@ import {
     Text,
     View,
     StyleSheet,
-    TouchableNativeFeedback,
     TouchableOpacity,
     InteractionManager
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import { ListItem, Left, Thumbnail, Body, Right, Content, Container, Separator, Icon } from 'native-base'
-import globalStyles from '../../../GlobalStyles'
+import { ListItem, Left, Thumbnail, Body, Right, Content, Container, Icon } from 'native-base'
+import globalStyles, { styleColor } from '../../../GlobalStyles'
 import { connect } from 'react-redux'
 import * as truckAction from './TruckAction'
 import FontTag from '../../../components/FontTag'
-import * as accidentListAction from '../../accidentList/AccidentListAction'
-import * as cleanRelListAction from '../../cleanRelList/CleanRelListAction'
-import * as demageListAction from '../../demageList/DemageListAction'
-import * as accidentResponsibilityListAction from '../../accidentResponsibilityList/AccidentResponsibilityListAction'
-import * as demageResponsibilityListAction from '../../demageResponsibilityList/DemageResponsibilityListAction'
-import { styleColor } from '../../../GlobalStyles'
+import * as accidentListAction from '../../../complatedViews/accidentList/AccidentListAction'
+import * as cleanRelListAction from '../../../complatedViews/cleanRelList/CleanRelListAction'
+import * as demageListAction from '../../../notUsed/demageList/DemageListAction'
+import * as accidentResponsibilityListAction from '../../../complatedViews/accidentResponsibilityList/AccidentResponsibilityListAction'
+import * as demageResponsibilityListAction from '../../../complatedViews/demageResponsibilityList/DemageResponsibilityListAction'
 import { file_host } from '../../../../config/Host'
-import * as taskLoanListAction from '../../taskLoanList/taskLoanListAction'
+import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
 
 class Truck extends Component {
     constructor(props) {
@@ -34,25 +31,23 @@ class Truck extends Component {
     }
 
     render() {
-        const { truckReducer: { data: { personalInfo: { avatar_image, real_name, mobile },
-            driverInfo: { company_name, operate_type } } }, getAccidentList, getAccidentListWaiting,
-            getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList, getCleanRelListWaiting,
-            getDemageList, getDemageListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting,
-            getTaskLoanList, getTaskLoanListWaiting } = this.props
+        const { truckReducer: { data: { driverInfo: { company_name, operate_type } } }, loginReducer: { data: { user: { avatar_image, real_name, mobile } } },
+            getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
+            getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={Actions.truckInfo}>
                         <MaterialCommunityIcons name='truck' size={30} color='#fff' />
-                        <Text style={{ color: '#fff', fontSize: 11 }}>车头资料</Text>
+                        <Text style={[globalStyles.smallText, { color: '#fff' }]}>车头资料</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={Actions.trailerInfo}>
                         <MaterialCommunityIcons name='truck-trailer' size={30} color='#fff' />
-                        <Text style={{ color: '#fff', fontSize: 11 }}>挂车资料</Text>
+                        <Text style={[globalStyles.smallText, { color: '#fff' }]}>挂车资料</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={Actions.driverInfo}>
                         <MaterialCommunityIcons name='account' size={30} color='#fff' />
-                        <Text style={{ color: '#fff', fontSize: 11 }}>个人资料</Text>
+                        <Text style={[globalStyles.smallText, { color: '#fff' }]}>个人资料</Text>
                     </TouchableOpacity>
                 </View>
                 <Content showsVerticalScrollIndicator={false} >
@@ -62,10 +57,10 @@ class Truck extends Component {
                         </Left>
                         <Body style={{ borderBottomWidth: 0 }}>
                             <View>
-                                <Text>{real_name ? `${real_name}` : ''}</Text>
+                                <Text style={globalStyles.midText}>{real_name ? `${real_name}` : ''}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text>{company_name ? `${company_name}` : ''} {mobile ? `${mobile}` : ''}</Text>
+                                <Text style={globalStyles.midText}>{company_name ? `${company_name}` : ''} {mobile ? `${mobile}` : ''}</Text>
                             </View>
                         </Body>
                         <Right style={{ borderBottomWidth: 0 }}>
@@ -187,7 +182,8 @@ class Truck extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        truckReducer: state.truckReducer
+        truckReducer: state.truckReducer,
+        loginReducer: state.loginReducer
     }
 }
 

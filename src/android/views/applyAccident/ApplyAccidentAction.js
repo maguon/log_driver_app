@@ -1,20 +1,21 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
+import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
-import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { objectExceptNull } from '../../../util/util'
 import { ToastAndroid } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export const applyAccident = (param) => async (dispatch, getState) => {
-    const { userReducer: { data: { user: { userId } } }, truckReducer: { data: { driverInfo: { id } } } } = getState()
+    const { loginReducer: { data: { user: { uid, drive_id } } } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentTypes.apply_Accident_waiting, payload: {} })
         console.log('param', param)
-        const url = `${base_host}/user/${userId}/truckAccident`
+        const url = `${base_host}/user/${uid}/truckAccident`
+        console.log('url', url)
+
         const res = await httpRequest.post(url, objectExceptNull({
             truckId: param.accidentType.id,
-            driveId: id,
+            driveId: drive_id,
             dpRouteTaskId: param.dpRouteTask ? param.dpRouteTask.id : null,
             accidentDate: param.accidentDate,
             address: param.address.value,
@@ -22,6 +23,8 @@ export const applyAccident = (param) => async (dispatch, getState) => {
             lat: param.address.lat,
             accidentExplain: param.accidentExplain
         }))
+        console.log('res', res)
+
         if (res.success) {
             dispatch({
                 type: actionTypes.applyAccidentTypes.apply_Accident_success, payload: {

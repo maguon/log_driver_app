@@ -145,6 +145,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-image-picker')
     compile project(':react-native-image-resizer')
     compile project(':react-native-xinge-push')

@@ -6,7 +6,7 @@ import {
     FlatList,
     TouchableOpacity
 } from 'react-native'
-import ImageItem from '../share/ImageItem'
+import ImageItem from '../share/imageItem/ImageItem'
 import globalStyles from '../../GlobalStyles'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'

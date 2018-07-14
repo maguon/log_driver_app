@@ -1,0 +1,70 @@
+import React from 'react'
+import {
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    TouchableOpacity
+} from 'react-native'
+import ImageItem from '../../../components/share/imageItem/ImageItem'
+import globalStyles from '../../../GlobalStyles'
+import { connect } from 'react-redux'
+import { file_host } from '../../../../config/Host'
+import { Actions } from 'react-native-router-flux'
+
+const renderItem = props => {
+    const { item, index, imageList } = props
+    return (
+        <TouchableOpacity
+            key={index}
+            style={styles.itemContainer}
+            onPress={() => Actions.singlePhotoView({ initParam: { imageUrlList: imageList.map(url => `${file_host}/image/${url.url}`), index } })} >
+            <ImageItem imageUrl={`${file_host}/image/${item.url}`} />
+        </TouchableOpacity>
+    )
+}
+
+const renderListEmpty = () => {
+    return (
+        <View style={styles.listEmptyContainer}>
+            <Text style={globalStyles.midText}>暂无照片</Text>
+        </View>
+    )
+}
+
+const ImageListForAccident = props => {
+    const { imageForAccidentReducer: { data: { imageList } }, parent } = props
+    return (
+        <FlatList
+            keyExtractor={(item, index) => index}
+            style={styles.flatList}
+            data={imageList}
+            numColumns={2}
+            ListEmptyComponent={renderListEmpty}
+            renderItem={({ item, index }) => renderItem({ item, index, parent, imageList })} />
+    )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        imageForAccidentReducer: state.imageForAccidentReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(ImageListForAccident)
+
+const styles = StyleSheet.create({
+    itemContainer: {
+        margin: 5
+    },
+    flatList: {
+        padding: 5
+    },
+    listEmptyContainer: {
+        marginTop: 100,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+})
+

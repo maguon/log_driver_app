@@ -40,7 +40,7 @@ class Work extends Component {
     }
 
     onSearch() {
-        const {user} =this.props.userReducer.data
+        const { user } = this.props.userReducer.data
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -81,7 +81,7 @@ class Work extends Component {
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
                         <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold',paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold', paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
@@ -94,9 +94,6 @@ class Work extends Component {
                     <View>
                         <Text style={{ fontSize: 11 }}>实际送达：{item.car_count ? `${item.car_count}` : '0'}</Text>
                     </View>
-                    {/* <View>
-                    <Text style={{ fontSize: 11 }}>异常：1</Text>
-                </View> */}
                 </View>
             </View>
         </TouchableOpacity>
@@ -104,7 +101,7 @@ class Work extends Component {
 
 
     componentDidMount() {
-        const {user} =this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -127,7 +124,7 @@ class Work extends Component {
             },
             getDriverId: {
                 requiredParam: {
-                    userId: user.userId
+                    userId: user.uid
                 }
             }
         }))
@@ -207,7 +204,7 @@ class Work extends Component {
 const mapStateToProps = (state) => {
     return {
         workReducer: state.workReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

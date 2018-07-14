@@ -1,9 +1,4 @@
-/**
- * Created by rbyu on 2017/5/19.
- */
 import { handleActions } from 'redux-actions'
-import * as app from '../../../android_app.json'
-import localStorageKey from '../../../util/LocalStorageKey'
 import * as actionTypes from '../../../actionTypes/index'
 
 const initialState = {
@@ -11,13 +6,17 @@ const initialState = {
         version: {
             currentVersion: '',
             newestVersion: '',
-            force_update: 0,//0(版本为最新版), 1(版本需要太旧，强制更新), 2(版本需要太旧，但不需要强制更新)
+            force_update: 1,//0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
             url: '',
             remark: ''
-        }
+        },
+        deviceInfo: {
+            deviceToken: ''
+        },
+        userlocalStorage: {}
     },
     initAPP: {
-        isResultStatus: 0,     //执行状态 : 0(未执行), 1(正在执行),2(执行结束)
+        isResultStatus: 0,     //执行状态 : 0(未执行), 1(正在执行),2(执行暂停),3(全部执行成功),4(执行结束，跳转到登录)
         step: 0,               //第N步已经执行成功
     },
     //validateVersion.isResultStatus : 0(未执行), 1(等待), 2(执行成功), 3(未知错误), 4(执行失败), 5(网络错误)
@@ -58,44 +57,14 @@ export default handleActions({
     },
 
 
-    [actionTypes.initializationTypes.Valdate_Version_Error]: (state, action) => {
-        const { payload: { errorMsg, step } } = action
-        return {
-            ...state,
-            validateVersion: {
-                ...initialState.validateVersion,
-                isResultStatus: 3,
-                errorMsg: '系统内部错误，请联系系统管理员！'
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.Valdate_Version_NetWorkError]: (state, action) => {
-        const { payload: { step } } = action
-        return {
-            ...state,
-            validateVersion: {
-                ...initialState.validateVersion,
-                isResultStatus: 5,
-                networkError: '网络错误，请检查网络后重试！'
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.Valdate_Version_Success]: (state, action) => {
-        const { payload: { data, step } } = action
+    [actionTypes.initializationTypes.valdate_version_success]: (state, action) => {
+        const { payload: { versionInfo, step } } = action
         return {
             ...state,
             data: {
+                ...state.data,
                 version: {
-                    ...state.data.version,
-                    ...data
+                    ...versionInfo
                 }
             },
             validateVersion: {
@@ -103,13 +72,13 @@ export default handleActions({
                 isResultStatus: 2,
             },
             initAPP: {
-                isResultStatus: data.force_update != 1 ? 1 : 2,
+                ...state.initAPP,
                 step
             }
         }
     },
-    [actionTypes.initializationTypes.Valdate_Version_Failed]: (state, action) => {
-        const { payload: { failedMsg, step } } = action
+    [actionTypes.initializationTypes.valdate_version_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
         return {
             ...state,
             validateVersion: {
@@ -118,20 +87,157 @@ export default handleActions({
                 failedMsg
             },
             initAPP: {
-                isResultStatus: 2,
-                step
+                ...state.initAPP,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.initializationTypes.valdate_version_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            validateVersion: {
+                ...initialState.validateVersion,
+                isResultStatus: 3,
+                errorMsg
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.initializationTypes.valdate_version_low]: (state, action) => {
+        const { payload: { versionInfo, step } } = action
+        return {
+            ...state,
+            data: {
+                version: {
+                    ...versionInfo
+                }
+            },
+            validateVersion: {
+                ...initialState.validateVersion,
+                isResultStatus: 5,
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 2
             }
         }
     },
 
 
-    [actionTypes.initializationTypes.Load_LocalStorage_Success]: (state, action) => {
+    [actionTypes.initializationTypes.init_XGPush_success]: (state, action) => {
+        const { payload: { step, deviceToken } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                deviceInfo: {
+                    deviceToken
+                }
+            },
+            initXGPush: {
+                ...initialState.initXGPush,
+                isResultStatus: 2
+            },
+            initAPP: {
+                ...state.initAPP,
+                step
+            }
+        }
+    },
+    [actionTypes.initializationTypes.init_XGPush_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            initXGPush: {
+                ...initialState.initXGPush,
+                isResultStatus: 4,
+                failedMsg
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.initializationTypes.init_XGPush_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            initXGPush: {
+                ...initialState.initXGPush,
+                isResultStatus: 3,
+                errorMsg
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 2
+            }
+        }
+    },
+
+
+
+    [actionTypes.initializationTypes.load_localStorage_success]: (state, action) => {
+        const { payload: { userlocalStorage, step } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                userlocalStorage: { ...userlocalStorage }
+            },
+            loadLocalStorage: {
+                ...initialState.loadLocalStorage,
+                isResultStatus: 2,
+            },
+            initAPP: {
+                ...state.initAPP,
+                step
+            }
+        }
+    },
+    [actionTypes.initializationTypes.load_localStorage_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            loadLocalStorage: {
+                ...initialState.loadLocalStorage,
+                isResultStatus: 4,
+                failedMsg
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 4
+            }
+        }
+    },
+    [actionTypes.initializationTypes.load_localStorage_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            loadLocalStorage: {
+                ...initialState.loadLocalStorage,
+                isResultStatus: 3,
+                errorMsg
+            },
+            initAPP: {
+                ...state.initAPP,
+                isResultStatus: 4
+            }
+        }
+    },
+
+
+
+    [actionTypes.initializationTypes.validate_token_success]: (state, action) => {
         const { payload: { step } } = action
         return {
             ...state,
-            validateVersion:{...initialState.validateVersion},
-            loadLocalStorage: {
-                ...initialState.loadLocalStorage,
+            validateToken: {
+                ...initialState.validateToken,
                 isResultStatus: 2,
             },
             initAPP: {
@@ -140,113 +246,46 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.initializationTypes.Load_LocalStorage_Failed]: (state, action) => {
-        const { payload: { step } } = action
+    [actionTypes.initializationTypes.validate_token_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
         return {
             ...state,
-            validateVersion:{...initialState.validateVersion},
-            loadLocalStorage: {
-                ...initialState.loadLocalStorage,
-                isResultStatus: 4,
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.Load_LocalStorage_NotFoundError]: (state, action) => {
-        const { payload: { step } } = action
-        return {
-            ...state,
-            validateVersion:{...initialState.validateVersion},
-            loadLocalStorage: {
-                ...initialState.loadLocalStorage,
-                isResultStatus: 5,
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.Load_LocalStorage_Error]: (state, action) => {
-        const { payload: { errorMsg, step } } = action
-        return {
-            ...state,
-            validateVersion:{...initialState.validateVersion},
-            loadLocalStorage: {
-                ...initialState.loadLocalStorage,
-                isResultStatus: 3,
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-
-
-    [actionTypes.initializationTypes.validate_token_Error]: (state, action) => {
-        const { payload: {step } } = action
-        return {
-            ...state,
-            loadLocalStorage:{...initialState.loadLocalStorage},
             validateToken: {
                 ...initialState.validateToken,
-                isResultStatus: 3
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.validate_token_Success]: (state, action) => {
-        const { payload: { step } } = action
-        return {
-            ...state,
-            loadLocalStorage:{...initialState.loadLocalStorage},
-            validateToken: {
-                ...initialState.validateToken,
-                isResultStatus: 2,
-            },
-            initAPP: {
-                isResultStatus: 2,
-                step
-            }
-        }
-    },
-    [actionTypes.initializationTypes.validate_token_Failed]: (state, action) => {
-        const { payload: { step } } = action
-        return {
-            ...state,
-            loadLocalStorage:{...initialState.loadLocalStorage},
-            validateToken: {
-                ...initialState.validateToken,
-                failedMsg: data,
+                failedMsg,
                 isResultStatus: 4
             },
             initAPP: {
-                isResultStatus: 2,
-                step
+                ...state.initAPP,
+                isResultStatus: 4
             }
         }
     },
-    [actionTypes.initializationTypes.validate_token_NetWorkError]: (state, action) => {
-        const { payload: { param, step } } = action
+    [actionTypes.initializationTypes.validate_token_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
         return {
             ...state,
-            loadLocalStorage:{...initialState.loadLocalStorage},
             validateToken: {
                 ...initialState.validateToken,
-                isResultStatus: 5,
-                param,
-                networkError:'网络错误，请检查网络后重试！'
+                isResultStatus: 3,
+                errorMsg
             },
             initAPP: {
-                isResultStatus: 2,
-                step
+                ...state.initAPP,
+                isResultStatus: 4
+            }
+        }
+    },
+
+
+    [actionTypes.initializationTypes.init_app_complete]: (state, action) => {
+        const { payload: { step } } = action
+        return {
+            ...state,
+            initAPP: {
+                ...state.initAPP,
+                step,
+                isResultStatus: 3
             }
         }
     }

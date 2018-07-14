@@ -10,8 +10,8 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import { Button, Icon, Spinner, Container } from 'native-base'
-import CameraButton from '../../components/share/CameraButton'
-import ImageItem from '../../components/share/ImageItem'
+import CameraButton from '../../components/share/imageItem/CameraButton'
+import ImageItem from '../../components/share/imageItem/ImageItem'
 import { connect } from 'react-redux'
 import * as addCarImageAction from './AddCarImageAction'
 import globalStyles from '../../GlobalStyles'
