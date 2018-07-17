@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import * as branchInstructAction from './BranchInstructAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { styleColor } from '../../GlobalStyles'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class BranchInstruct extends Component {
     constructor(props) {
@@ -36,13 +36,13 @@ class BranchInstruct extends Component {
         return <View key={key} style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
             <View style={{ flexDirection: 'row', flex: 7 }}>
                 <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                <Text style={{ color: '#ccc', fontSize: 11, paddingLeft: 10 }}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
+                <Text style={[globalStyles.smallText, { color: '#ccc', paddingLeft: 10 }]}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2 }}>
-                <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
+                <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
-                <Text style={{ color: styleColor, fontSize: 11 }}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
+                <Text style={[globalStyles.smallText, { color: styleColor }]}>{item.car_load_status == 1 && '已装车'}{item.car_load_status == 2 && '已送达'}</Text>
                 {/* <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text> */}
             </View>
         </View>
@@ -69,7 +69,7 @@ class BranchInstruct extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-                        {this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng&&<MapView
+                        {this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng && <MapView
                             locationEnabled
                             zoomLevel={14}
                             coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng ? { latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
@@ -84,13 +84,13 @@ class BranchInstruct extends Component {
                                 coordinate={this.props.branchInstructReducer.data.loadTaskInfo.lat && this.props.branchInstructReducer.data.loadTaskInfo.lng ? { latitude: this.props.branchInstructReducer.data.loadTaskInfo.lat, longitude: this.props.branchInstructReducer.data.loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}
                             />
                         </MapView>}
-                        {(!this.props.branchInstructReducer.data.loadTaskInfo.lat ||!this.props.branchInstructReducer.data.loadTaskInfo.lng)&&<View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                            <Text style={{color:'#fff'}}>未设置目的地经纬度</Text>
+                        {(!this.props.branchInstructReducer.data.loadTaskInfo.lat || !this.props.branchInstructReducer.data.loadTaskInfo.lng) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: '#fff' }}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={{ color: styleColor }}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
+                            <Text style={[globalStyles.midText, { color: styleColor }]}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
                             <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={{  paddingLeft: 5, color: styleColor }}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
+                            <Text style={[globalStyles.midText, { paddingLeft: 5, color: styleColor }]}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{
@@ -103,10 +103,10 @@ class BranchInstruct extends Component {
                         borderTopWidth: 0.5
                     }}>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>计划运送：{routeLoadInfo.plan_count ? `${routeLoadInfo.plan_count}` : '0'}</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>计划运送：{routeLoadInfo.plan_count ? `${routeLoadInfo.plan_count}` : '0'}</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: styleColor }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>实际送达：<Text style={{ color: styleColor }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
                         </View>
                         {/* <View>
                             <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{routeLoadInfo.car_exception_count ? `${routeLoadInfo.car_exception_count}` : '0'}</Text></Text>

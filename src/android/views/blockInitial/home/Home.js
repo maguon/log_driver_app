@@ -100,14 +100,6 @@ class Home extends Component {
     renderTaskItem(item, key) {
         const { setTaskInfo } = this.props
         return <TouchableOpacity key={key} onPress={() => {
-            // const url='tel:13889661994'
-            // Linking.canOpenURL(url).then(supported => {
-            //     if (!supported) {
-            //         console.log('Can\'t handle url: ' + url);
-            //     } else {
-            //         return Linking.openURL(url);
-            //     }
-            // }).catch(err => console.error('An error occurred', err));
             setTaskInfo(item)
             Actions.instructExecuting()
         }}>
