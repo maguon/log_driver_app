@@ -15,6 +15,7 @@ const DemageOpResult = props => {
     const { demageOpResultReducer: { data: { demageOpResult: {
         op_user_name, company_cost, under_cost, profit, penalty_cost, reduction_cost, transport_cost, repair_cost, refund_user_name, under_user_name, damage_type, damage_link_type } } },
         damageStatus } = props
+    console.log('props', props)
     return (
         <Content showsVerticalScrollIndicator={false}>
             {damageStatus == 3 && <View style={styles.body}>
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0.3,
         borderColor: '#777',
         paddingVertical: 15,
-        marginTop:15,
+        marginTop: 15,
         marginHorizontal: 15,
         alignItems: 'flex-end'
     }

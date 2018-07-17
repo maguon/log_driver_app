@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     StyleSheet,
     Text,
     View
 } from 'react-native'
 import globalStyles from '../../GlobalStyles'
-import { Icon } from 'native-base'
 import moment from 'moment'
 
 const DemageDetail = props => {
     const { initParam: { id, damage_status, created_on, damage_explain, drive_name, truck_num } } = props
+    console.log('props', props)
     return (
         <View style={styles.container}>
             <View style={styles.header}>

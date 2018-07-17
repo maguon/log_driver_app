@@ -11,7 +11,7 @@ export const getTaskLoanList = () => async (dispatch, getState) => {
     try {
         const state = getState()
         const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
-        const { loginReducer: { data: { drive_id } } } = state
+        const { loginReducer: { data: { user: { drive_id } } } } = state
         const url = `${base_host}/dpRouteTaskLoan?${ObjectToUrl({
             driveId: drive_id,
             taskLoanStatusArr: searchTaskLoanFormValues && searchTaskLoanFormValues.taskLoanStatusArr && searchTaskLoanFormValues.taskLoanStatusArr.id ? `${searchTaskLoanFormValues.taskLoanStatusArr.id}` : '2,3',
@@ -20,6 +20,7 @@ export const getTaskLoanList = () => async (dispatch, getState) => {
             start: 0,
             size: pageSize
         })}`
+        console.log('url',url)
         const res = await httpRequest.get(url)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
@@ -40,7 +41,7 @@ export const getTaskLoanListMore = () => async (dispatch, getState) => {
     const state = getState()
 
     const { taskLoanListReducer: { data: { taskLoanList, isComplete } }, taskLoanListReducer,
-        loginReducer: { data: { drive_id } } } = state
+        loginReducer: { data: { user: { drive_id } } } } = state
     const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
     if (taskLoanListReducer.getTaskLoanListMore.isResultStatus == 1) {
         await sleep(1000)

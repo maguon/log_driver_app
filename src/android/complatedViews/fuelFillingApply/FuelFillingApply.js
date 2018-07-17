@@ -5,19 +5,20 @@ import {
     InteractionManager
 } from 'react-native'
 import { Button, Icon, Container, Content, ListItem } from 'native-base'
-import { DatePicker, TimePicker, TextBox, CheckBox, Select } from '../../complatedComponents/share/form/between'
+import { DatePicker, TimePicker, TextBox, CheckBox, Select } from '../../complatedComponents/share/form/between/index'
 import fuelFillingTypeList from '../../../config/fuelFillingType'
 import { Actions } from 'react-native-router-flux'
 import AMapLocation from 'react-native-amap-location'
 import { connect } from 'react-redux'
 import * as fuelFillingApplyAction from './FuelFillingApplyAction'
-import * as cityRouteListAction from '../../complatedViews/select/cityRouteList/CityRouteListAction'
+import * as cityRouteListAction from '../select/cityRouteList/CityRouteListAction'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import { reduxForm, Field, change } from 'redux-form'
-import { required, requiredObj } from '../../../util/Validator'
+import { required, requiredObj, moneyValidator } from '../../../util/Validator'
 
 const requiredValidator = required('必选')
 const requiredObjValidator = requiredObj('必选')
+const validateMoney = moneyValidator('必须输入8位以内的数字！')
 
 const Address = props => {
     const { input: { value }, getPosition } = props
@@ -77,7 +78,7 @@ class FuelFillingApply extends Component {
                         label='加油时间'
                         component={TimePicker} />
                     <Field name='refuelVolume'
-                        validate={[requiredValidator]}
+                        validate={[requiredValidator, validateMoney]}
                         label='加油量'
                         isRequired={true}
                         component={TextBox} />
@@ -106,7 +107,7 @@ class FuelFillingApply extends Component {
                         itemList={[{ id: null, value: '全部' }, ...fuelFillingTypeList]}
                         component={CheckBox} />
                     <Field name='refuelMoney'
-                        validate={[requiredValidator]}
+                        validate={[requiredValidator, validateMoney]}
                         label='加油金额'
                         isRequired={true}
                         component={TextBox} />
@@ -130,9 +131,6 @@ const mapDispatchToProps = (dispatch) => ({
     createFuelFillingApply: (param) => {
         dispatch(fuelFillingApplyAction.createFuelFillingApply(param))
     },
-    resetCreateFuelFillingApply: () => {
-        dispatch(fuelFillingApplyAction.resetCreateFuelFillingApply())
-    },
     getCityRouteList: () => {
         dispatch(cityRouteListAction.getCityRouteList())
     },
@@ -147,8 +145,6 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'fuelFillingApplyForm',
     onSubmit: (values, dispatch) => {
-        console.log('onSubmit')
-        console.log('values', values)
         dispatch(fuelFillingApplyAction.createFuelFillingApply(values))
     }
 })(FuelFillingApply))

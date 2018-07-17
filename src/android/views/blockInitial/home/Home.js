@@ -35,6 +35,7 @@ class Home extends Component {
 
     renderListHeader() {
         const { homeReducer: { data: { mileageInfo, truckDispatch } } } = this.props
+        console.log('this.props', this.props)
         return (
             <View>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }}>

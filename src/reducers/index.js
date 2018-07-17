@@ -4,9 +4,9 @@ import homeReducer from '../android/views/blockInitial/home/HomeReducer'
 import driverInfoReducer from '../android/views/driverInfo/DriverInfoReducer'
 import loginReducer from '../android/complatedViews/login/LoginReducer'
 import workReducer from '../android/views/blockInitial/work/WorkReducer'
-import fuelFillingRecordReducer from '../android/views/fuelFillingRecord/FuelFillingRecordReducer'
+import fuelFillingRecordReducer from '../android/complatedViews/fuelFillingRecord/FuelFillingRecordReducer'
 import cityRouteListReducer from '../android/complatedViews/select/cityRouteList/CityRouteListReducer'
-import fuelFillingApplyReducer from '../android/views/fuelFillingApply/FuelFillingApplyReducer'
+import fuelFillingApplyReducer from '../android/complatedViews/fuelFillingApply/FuelFillingApplyReducer'
 import instructReducer from '../android/views/instruct/InstructReducer'
 import branchInstructReducer from '../android/views/branchInstruct/BranchInstructReducer'
 import instructExecutingReducer from '../android/views/instructExecuting/InstructExecutingReducer'
@@ -43,7 +43,7 @@ import entrustReducer from '../android/views/select/entrust/entrustReducer'
 import makeReducer from '../android/views/select/make/makeReducer'
 import receiveReducer from '../android/views/select/receive/receiveReducer'
 import addCarImageReducer from '../android/views/uploadImageForCreateCar/addCarImageReducer'
-
+import baseAddrListReducer from '../android/complatedViews/select/baseAddrList/baseAddrListReducer'
 
 //notUsed
 import demageListReducer from '../android/notUsed/demageList/DemageListReducer'
@@ -120,7 +120,7 @@ export default combineReducers({
     makeReducer,
     receiveReducer,
     addCarImageReducer,
-
+    baseAddrListReducer,
     applyAccidentImageReducer,
     imageForAccidentReducer,
     applyAccidentReducer,

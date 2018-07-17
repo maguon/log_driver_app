@@ -20,9 +20,9 @@ export const modifyCar = param => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.addCarTypes.modify_car_waiting, payload: {} })
         const { addCarReducer: { data: { carId } },
-            userReducer: { data: { user: { userId } } } } = getState()
+            loginReducer: { data: { user: { uid } } } } = getState()
         const { values, parent } = param
-        const url = `${base_host}/user/${userId}/car/${carId}`
+        const url = `${base_host}/user/${uid}/car/${carId}`
         const res = await httpRequest.put(url, objectExceptNull({
             vin: values.vin,
             makeId: values.make.id,
@@ -51,11 +51,23 @@ export const modifyCar = param => async (dispatch, getState) => {
 
 export const createCar = param => async (dispatch, getState) => {
     try {
-        const { userReducer: { data: { user: { userId } } } } = getState()
+        const { loginReducer: { data: { user: { uid } } } } = getState()
         const { values, parent, onSelect } = param
         dispatch({ type: actionTypes.addCarTypes.ADD_Car_WAITING, payload: {} })
-        const url = `${base_host}/user/${userId}/car`
+        const url = `${base_host}/user/${uid}/car`
         console.log('url', url)
+        console.log('postParam',objectExceptNull({
+            vin: values.vin,
+            makeId: values.make.id,
+            makeName: values.make.value != '全部' ? values.make.value : null,
+            routeStartId: values.routeStart.id,
+            routeStart: values.routeStart.value != '全部' ? values.routeStart.value : null,
+            routeEndId: values.routeEnd.id,
+            routeEnd: values.routeEnd.value != '全部' ? values.routeEnd.value : null,
+            entrustId: values.entrust.id,
+            receiveId: values.receive.id,
+            engineNum: values.engineNum
+        }))
         const res = await httpRequest.post(url, objectExceptNull({
             vin: values.vin,
             makeId: values.make.id,

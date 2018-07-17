@@ -34,19 +34,19 @@ class DriverInfo extends Component {
     }
 
     componentDidMount() {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         this.props.setGetDriverInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({
             getDriverId: {
                 requiredParam: {
-                    userId: user.userId
+                    userId: user.uid
                 }
             }
         }))
     }
 
     onPressSegment(index) {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         if (this.state.active != index) {
             if (index == 0) {
                 this.props.setGetDriverInfoWaiting()
@@ -54,7 +54,7 @@ class DriverInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getDriverInfo({
                     getDriverId: {
                         requiredParam: {
-                            userId: user.userId
+                            userId: user.uid
                         }
                     }
                 }))
@@ -64,7 +64,7 @@ class DriverInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getDriverImage({
                     getDriverId: {
                         requiredParam: {
-                            userId: user.userId
+                            userId: user.uid
                         }
                     }
                 }))
@@ -74,7 +74,7 @@ class DriverInfo extends Component {
                 InteractionManager.runAfterInteractions(() => this.props.getDriverRecord({
                     getDriverId: {
                         requiredParam: {
-                            userId: user.userId
+                            userId: user.uid
                         }
                     }
                 }))
@@ -252,7 +252,7 @@ class DriverInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         driverInfoReducer: state.driverInfoReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

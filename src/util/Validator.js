@@ -29,6 +29,14 @@ export const required = (msg) => (value) => (!value && value != 0 && value != ''
 
 export const requiredObj = (msg) => (value) => (!value || Object.keys(value).length == 0 || (!value.id && value.id != 0 && value.id != '')) ? msg : undefined
 
+export const moneyValidator =(msg) =>(value) =>{
+    if ((/^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(value))) {
+        return undefined
+    } else {
+        return msg
+    }
+}
+
 const validateLength = (value, condition) => {
     if (value.length >= condition.arguments[0] && value.length <= condition.arguments[1]) {
         return false

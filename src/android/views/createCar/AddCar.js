@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
 import {
     Text,
-    View,
-    ScrollView,
-    ToastAndroid
+    InteractionManager
 } from 'react-native'
-import { Button, Container, Content, ListItem } from 'native-base'
+import { Container, Content, ListItem } from 'native-base'
 import Select from '../../components/provisionalShare/form/Select'
 import TextBox from '../../components/provisionalShare/form/TextBox'
-import * as RouterDirection from '../../../util/RouterDirection'
 import { connect } from 'react-redux'
 import * as addCarAction from './AddCarAction'
 import { Actions } from 'react-native-router-flux'
-import { styleColor } from '../../GlobalStyles'
 import { reduxForm, Field, getFormValues, change } from 'redux-form'
 import { required } from '../../../util/Validator'
+import * as baseAddrListAction from '../../complatedViews/select/baseAddrList/baseAddrListAction'
 
 const vinRequiredValidator = required('必选')
 
@@ -28,7 +25,8 @@ class AddCar extends Component {
     }
 
     render() {
-        const { parent, createCarFormValues, resetReceive, addCarReducer: { data: { status } } } = this.props
+        const { parent, createCarFormValues, resetReceive, getBaseAddrListWaiting, getBaseAddrList,
+             addCarReducer: { data: { status } } } = this.props
         return (
             <Container>
                 <Content>
@@ -52,6 +50,20 @@ class AddCar extends Component {
                     />
                     <Field name='engineNum' label='发动机号:' component={TextBox} />
                     <Field
+                        name='entrust'
+                        label='委托方：'
+                        component={Select}
+                        onPress={({ onChange }) => {
+                            Actions.entrust({
+                                onSelect: (param) => {
+                                    const { id, short_name } = param
+                                    onChange({ id, value: short_name, item: param })
+                                },
+                                hasAll: true
+                            })
+                        }}
+                    />
+                    <Field
                         name='routeStart'
                         label='起始城市：'
                         component={Select}
@@ -66,17 +78,19 @@ class AddCar extends Component {
                         }}
                     />
                     <Field
-                        name='entrust'
-                        label='委托方：'
+                        name='baseAddr'
+                        label='发运地：'
                         component={Select}
                         onPress={({ onChange }) => {
-                            Actions.entrust({
+                            getBaseAddrListWaiting()
+                            Actions.baseAddrList({
                                 onSelect: (param) => {
-                                    const { id, short_name } = param
-                                    onChange({ id, value: short_name, item: param })
+                                    const { id, city_name } = param
+                                    onChange({ id, value: city_name, item: param })
                                 },
                                 hasAll: true
                             })
+                            InteractionManager.runAfterInteractions(()=>getBaseAddrList({cityId: createCarFormValues.routeStart.id}))
                         }}
                     />
                     <Field
@@ -125,6 +139,7 @@ const mapStateToProps = (state) => {
             vin: '',
             make: { id: null, value: '全部' },
             routeStart: { id: null, value: '全部' },
+            baseAddr: { id: null, value: '全部' },
             entrust: { id: null, value: '全部' },
             routeEnd: { id: null, value: '全部' },
             receive: { id: null, value: '全部' }
@@ -138,6 +153,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     cleanCreateCar: () => {
         dispatch(addCarAction.cleanCreateCar())
+    },
+    getBaseAddrListWaiting: () => {
+        dispatch(baseAddrListAction.getBaseAddrListWaiting())
+    },
+    getBaseAddrList: (param) => {
+        dispatch(baseAddrListAction.getBaseAddrList(param))
     }
 })
 

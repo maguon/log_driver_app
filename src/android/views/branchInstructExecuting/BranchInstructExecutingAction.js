@@ -7,10 +7,15 @@ import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
 
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
-    const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`, `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`]
+    console.log('param', param)
+    const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
+    `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
+    `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
+    `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId, statusArr: '1,2' })}`]
     try {
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        if (res[0].success && res[1].success) {
+        console.log('res', res)
+        if (res[0].success && res[1].success && res[2].success && res[3].success) {
             dispatch({
                 type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_SUCCESS,
                 payload: {
@@ -18,8 +23,12 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
                         routeLoadTaskList: res[0].result,
                         coordinate: {
                             lng: res[1].result[0].lng,
-                            lat: res[1].result[0].lat
-                        }
+                            lat: res[1].result[0].lat,
+                            address: res[1].result[0].address,
+                            single_price: res[3].result[0].single_price,
+                            cleanRelStatus: res[3].result[0].status
+                        },
+                        contactList: res[2].result
                     }
                 }
             })
@@ -31,12 +40,12 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
     }
 }
 
-export const setGetRouteLoadTaskListWaiting = (param) => (dispatch) => {
+export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_WAITING, payload: {} })
 }
 
 export const changeCarExceptionRel = (param) => async (dispatch) => {
-    const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
+    const url = `${base_host} / user / ${param.requiredParam.userId} / carExceptionRel`
     try {
         const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
@@ -49,7 +58,7 @@ export const changeCarExceptionRel = (param) => async (dispatch) => {
     }
 }
 
-export const setChangeCarExceptionRelWaiting = (param) => (dispatch) => {
+export const setChangeCarExceptionRelWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarExceptionRel_WAITING, payload: {} })
 }
 
@@ -59,8 +68,8 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
-        const { userReducer: { data: { user: { userId } } } } = getState()
-        const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
+        const { loginReducer: { data: { user: { uid } } } } = getState()
+        const url = `${base_host} / user / ${param.requiredParam.userId} / dpRouteLoadTask / ${param.requiredParam.dpRouteLoadTaskId} / loadTaskStatus / ${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
@@ -86,7 +95,7 @@ export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
                 },
                 getDriverId: {
                     requiredParam: {
-                        userId: userId
+                        userId: uid
                     }
                 }
             }))
@@ -110,16 +119,16 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch) => {
     try {
-        const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
+        const getDriverUrl = `${base_host} / user / ${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
-            const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
+            const getTruckUrl = `${base_host} / truckFirst ? ${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
             const getTruckRes = await httpRequest.get(getTruckUrl)
             if (getTruckRes.success) {
                 if (getTruckRes.result.length == 0) {
                     dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_Unbind, payload: {} })
                 } else {
-                    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}?${ObjectToUrl({ truckId: getTruckRes.result[0].id })}`
+                    const url = `${base_host} / user / ${param.requiredParam.userId} / dpRouteTaskDetail / ${param.requiredParam.dpRouteTaskDetailId} / carLoadStatus / ${param.requiredParam.carLoadStatus} ? ${ObjectToUrl({ truckId: getTruckRes.result[0].id })}`
                     const res = await httpRequest.put(url, {})
                     if (res.success) {
                         dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })
@@ -139,7 +148,7 @@ export const changeCarLoadStatus = (param) => async (dispatch) => {
     }
 }
 
-export const setChangeCarLoadStatusWaiting = (param) => (dispatch) => {
+export const setChangeCarLoadStatusWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_WAITING, payload: {} })
 }
 

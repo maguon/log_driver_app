@@ -1,10 +1,10 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
+import {  file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
-export const getDamageImageList = (param) => async (dispatch, getState) => {
+export const getDamageImageList = (param) => async (dispatch) => {
     const { id } = param
     try {
         const url = `${record_host}/damageRecord?${ObjectToUrl({ damageId: id })}`
@@ -24,11 +24,11 @@ export const getDamageImageList = (param) => async (dispatch, getState) => {
     }
 }
 
-export const getDamageImageListWaiting = () => (dispatch, getState) => {
+export const getDamageImageListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.imageListForDemageTypes.get_DamageImageList_waiting, payload: {} })
 }
 
-export const uploadDamageImageWaiting = () => (dispatch, getState) => {
+export const uploadDamageImageWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.imageListForDemageTypes.upload_ImageAtDemage_waiting, payload: {} })
 }
 

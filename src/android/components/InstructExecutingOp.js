@@ -6,17 +6,17 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { Button, Icon } from 'native-base'
 import gobalStyles from '../GlobalStyles'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import moment from 'moment'
 import * as homeAction from '../views/blockInitial/home/HomeAction'
 import * as instructExecutingAction from '../views/instructExecuting/InstructExecutingAction'
 
 
 const InstructExecutingOp = props => {
-    const { parent,getMileageInfo ,userReducer} = props
+    const {  getMileageInfo, loginReducer } = props
     return (
-        <Button transparent onPress={()=>getMileageInfo(userReducer.data.user.userId)}>
-            <Text style={[gobalStyles.smallText,styles.text]} >刷新</Text>
+        <Button transparent onPress={() => getMileageInfo(loginReducer.data.user.uid)}>
+            <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
         </Button>
     )
 }
@@ -24,11 +24,11 @@ const InstructExecutingOp = props => {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
-const mapDispatchToProps = (dispatch,ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     getMileageInfo: (userId) => {
         dispatch(homeAction.getMileageInfo({
             mileageInfoParam: {

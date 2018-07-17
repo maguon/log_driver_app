@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
 
-export const getDpRouteTask = param => async (dispatch, getState) => {
+export const getDpRouteTask = () => async (dispatch, getState) => {
     const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
     try {
         const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: id })}`
@@ -20,14 +20,13 @@ export const getDpRouteTask = param => async (dispatch, getState) => {
     }
 }
 
-export const getDpRouteTaskWaiting = param => (dispatch) => {
+export const getDpRouteTaskWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.instructExecutingTypes.get_DpRouteTaskForInstructExecuting_waiting, payload: {} })
 }
 
-export const changeLoadTaskStatus = (param) => async (dispatch,getState) => {
+export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
-        const { userReducer: { data: { user: { userId } } } } = getState()
-        
+        const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
         const res = await httpRequest.put(url, {})
         if (res.success) {
@@ -54,7 +53,7 @@ export const changeLoadTaskStatus = (param) => async (dispatch,getState) => {
                 },
                 getDriverId: {
                     requiredParam: {
-                        userId: userId
+                        userId: uid
                     }
                 }
             }))
@@ -77,10 +76,10 @@ export const setTaskInfo = (param) => (dispatch) => {
 }
 
 
-export const getLoadTaskList = () => async (dispatch,getState) => {
+export const getLoadTaskList = () => async (dispatch, getState) => {
     const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
     try {
-        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({dpRouteTaskId:id})}`
+        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({ dpRouteTaskId: id })}`
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.instructExecutingTypes.GET_LoadTaskList_SUCCESS, payload: { data: res.result } })

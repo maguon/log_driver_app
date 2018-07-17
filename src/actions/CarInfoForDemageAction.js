@@ -3,7 +3,7 @@ import { base_host, file_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getCarInfo = (param) => async (dispatch, getState) => {
+export const getCarInfo = (param) => async (dispatch) => {
     const { car_id } = param
     try {
         const url = `${base_host}/carList?${ObjectToUrl({ carId: car_id })}`
@@ -18,6 +18,6 @@ export const getCarInfo = (param) => async (dispatch, getState) => {
     }
 }
 
-export const getCarInfoWaiting = () => (dispatch, getState) => {
+export const getCarInfoWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.carInfoForDemageTypes.get_CarInfoForDemage_waiting, payload: {} })
 }

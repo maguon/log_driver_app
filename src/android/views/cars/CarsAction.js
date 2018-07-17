@@ -9,7 +9,7 @@ import moment from 'moment'
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.carsTypes.Finish_Carry_WAITING, payload: {} })
-        const { userReducer: { data: { user: { userId } } } } = getState()
+        const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, {})
         if (res.success) {
@@ -36,7 +36,7 @@ export const finishCarry = (param) => async (dispatch, getState) => {
                 },
                 getDriverId: {
                     requiredParam: {
-                        userId: userId
+                        userId: uid
                     }
                 }
             }))
@@ -87,11 +87,11 @@ export const pushCarInCommand = (param) => async (dispatch) => {
     }
 }
 
-export const resetPushCarInCommand = (param) => (dispatch) => {
+export const resetPushCarInCommand = () => (dispatch) => {
     dispatch({ type: actionTypes.carsTypes.RESET_PUSH_CarInCommand, payload: {} })
 }
 
-export const pushCarInCommandWaiting = (param) => (dispatch) => {
+export const pushCarInCommandWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_WAITING, payload: {} })
 }
 

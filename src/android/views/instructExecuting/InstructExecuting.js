@@ -5,8 +5,7 @@ import {
     FlatList,
     InteractionManager,
     ActivityIndicator,
-    TouchableOpacity,
-    StyleSheet
+    TouchableOpacity
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -34,11 +33,11 @@ class InstructExecuting extends Component {
 
     changeLoadTaskStatus(param) {
 
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         const { taskInfo } = this.props.instructExecutingReducer.data
         this.props.changeLoadTaskStatus({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 taskId: taskInfo.id,
                 taskStatus: param
             }
@@ -234,7 +233,7 @@ class InstructExecuting extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         instructExecutingReducer: state.instructExecutingReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

@@ -16,9 +16,9 @@ import DriverInfo from './views/driverInfo/DriverInfo'
 import TruckInfo from './complatedViews/truck/Truck'
 import Trailer from './complatedViews/trailer/Trailer'
 import BranchInstruct from './views/branchInstruct/BranchInstruct'
-import FuelFillingRecord from './views/fuelFillingRecord/FuelFillingRecord'
-import FuelFillingApply from './views/fuelFillingApply/FuelFillingApply'
-import FuelFillingSearch from './views/FuelFillingSearch'
+import FuelFillingRecord from './complatedViews/fuelFillingRecord/FuelFillingRecord'
+import FuelFillingApply from './complatedViews/fuelFillingApply/FuelFillingApply'
+import FuelFillingSearch from './complatedViews/FuelFillingSearch'
 import InstructExecuting from './views/instructExecuting/InstructExecuting'
 import BranchInstructExecuting from './views/branchInstructExecuting/BranchInstructExecuting'
 import CityRouteList from './complatedViews/select/cityRouteList/CityRouteList'
@@ -85,6 +85,7 @@ import NavBar from './components/share/bar/NavBar'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import PhotoViewNavBar from './components/share/bar/PhotoViewNavBar'
 
+import BaseAddrList from './complatedViews/select/baseAddrList/BaseAddrList'
 
 //settingBlock-views-complated 
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
@@ -166,7 +167,7 @@ export default class App extends Component {
                             <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                            <Scene key="homeBlock" icon={TabIcon} online='ios-home' outline='ios-home-outline' >
+                            <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
                                 <Scene key="home"
                                     initial={true}
                                     component={Home}
@@ -239,6 +240,12 @@ export default class App extends Component {
                                     component={City}
                                     hideTabBar
                                     navBar={NavBar} />
+                                <Scene key="baseAddrList"
+                                    title='选择发运地'
+                                    LeftButton={LeftButton}
+                                    component={BaseAddrList}
+                                    hideTabBar
+                                    navBar={NavBar} />
                                 <Scene key="entrust"
                                     title='选择委托方'
                                     component={Entrust}
@@ -265,9 +272,9 @@ export default class App extends Component {
                                     hideTabBar={true}
                                     navBar={NavBar} />
                             </Scene>
-                            <Scene key="truckBlock" icon={TabIcon} initial={true} online='ios-bus' outline='ios-bus-outline' >
+                            <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
-                                    
+                                    initial={true}
                                     component={Truck}
                                     title='货车管理'
                                     navBar={NavBar} />
@@ -403,13 +410,13 @@ export default class App extends Component {
                                     hideTabBar
                                     hideNavBar />
                                 <Scene key="driverInfo" LeftButton={LeftButton} component={DriverInfo} title='司机详情' hideTabBar navBar={NavBar} />
-                                <Scene key="truckInfo"   LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideTabBar navBar={NavBar} />
+                                <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideTabBar navBar={NavBar} />
                                 <Scene key="trailerInfo" LeftButton={LeftButton} component={Trailer} title='挂车资料' hideTabBar navBar={NavBar} />
                                 <Scene key="cityRouteList" LeftButton={LeftButton} component={CityRouteList} title='指令编号' hideTabBar navBar={NavBar} />
-                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} initial={true} component={FuelFillingRecord} title='加油记录' hideTabBar navBar={NavBar} />
+                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' hideTabBar navBar={NavBar} />
                                 <Scene key="fuelFillingApply" LeftButton={LeftButton} component={FuelFillingApply} title='加油申报' hideTabBar navBar={NavBar} />
                                 <Scene key="fuelFillingSearch" LeftButton={LeftButton} component={FuelFillingSearch} title='加油查询' hideTabBar navBar={NavBar} />
-                                <Scene key="singlePhotoView" component={SinglePhotoView} hideTabBar={true}  navBar={PhotoViewNavBar} LeftButton={LeftButton} />
+                                <Scene key="singlePhotoView" component={SinglePhotoView} hideTabBar={true} navBar={PhotoViewNavBar} LeftButton={LeftButton} />
                             </Scene>
                             <Scene key="driverBlock" icon={TabIcon} online='ios-contact' outline='ios-contact-outline'>
                                 <Scene key="work" initial={true} component={Work} title='工作管理' hideNavBar={false} navBar={NavBar} />

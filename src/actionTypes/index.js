@@ -3,9 +3,9 @@ import * as workTypes from '../android/views/blockInitial/work/WorkTypes'
 
 //import * as trailerInfoTypes from '../android/views/trailerInfo/TrailerInfoTypes'
 import * as driverInfoTypes from '../android/views/driverInfo/DriverInfoTypes'
-import * as fuelFillingRecordTypes from '../android/views/fuelFillingRecord/FuelFillingRecordTypes'
+import * as fuelFillingRecordTypes from '../android/complatedViews/fuelFillingRecord/FuelFillingRecordTypes'
 import * as cityRouteListTypes from '../android/complatedViews/select/cityRouteList/CityRouteListTypes'
-import * as fuelFillingApplyTypes from '../android/views/fuelFillingApply/FuelFillingApplyTypes'
+import * as fuelFillingApplyTypes from '../android/complatedViews/fuelFillingApply/FuelFillingApplyTypes'
 import * as branchInstructTypes from '../android/views/branchInstruct/BranchInstructTypes'
 import * as instructTypes from '../android/views/instruct/InstructTypes'
 import * as instructExecutingTypes from '../android/views/instructExecuting/InstructExecutingTypes'
@@ -52,7 +52,7 @@ import * as receiveTypes from '../android/views/select/receive/ReceiveTypes'
 import * as entrustTypes from '../android/views/select/entrust/EntrustTypes'
 import * as addCarImageTypes from '../android/views/uploadImageForCreateCar/AddCarImageTypes'
 
-
+import * as baseAddrListTypes from '../android/complatedViews/select/baseAddrList/baseAddrListTypes'
 
 //component
 import * as truckInfoTypes from '../android/complatedViews/truck/truckInfo/truckInfoActionTypes'
@@ -104,6 +104,9 @@ export {
     retrievePasswordTypes,
     //settingTypes,
 
+
+
+    baseAddrListTypes,
     carInfoTypes,
     addCarTypes,
     cityTypes,

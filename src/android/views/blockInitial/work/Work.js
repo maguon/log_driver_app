@@ -40,7 +40,7 @@ class Work extends Component {
     }
 
     onSearch() {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         this.props.setGetMileageInfoWaiting()
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
@@ -63,7 +63,7 @@ class Work extends Component {
             },
             getDriverId: {
                 requiredParam: {
-                    userId: user.userId
+                    userId: user.uid
                 }
             }
         }))

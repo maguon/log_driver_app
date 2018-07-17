@@ -5,19 +5,23 @@ import {
     FlatList,
     InteractionManager,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Modal,
+    Linking
 } from 'react-native'
 import { Icon, Button } from 'native-base'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { connect } from 'react-redux'
 import * as branchInstructExecutingAction from './BranchInstructExecutingAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { styleColor } from '../../GlobalStyles'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            modalVisible: false
+        }
         this.renderListItem = this.renderListItem.bind(this)
         this.renderFooter = this.renderFooter.bind(this)
         this.changeCarLoadStatus = this.changeCarLoadStatus.bind(this)
@@ -42,16 +46,17 @@ class BranchInstructExecuting extends Component {
             },
             OptionalParam: {
                 receiveId: this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
-            }
+            },
+            dpRouteTaskId: loadTaskInfo.dp_route_task_id
         }))
     }
 
     changeLoadTaskStatus() {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
         this.props.changeLoadTaskStatus({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 dpRouteLoadTaskId: loadTaskInfo.id,
                 loadTaskStatus: 7
             }
@@ -59,10 +64,10 @@ class BranchInstructExecuting extends Component {
     }
 
     changeCarLoadStatus(param) {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         this.props.changeCarLoadStatus({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 dpRouteTaskDetailId: param,
                 carLoadStatus: 2
             }
@@ -78,13 +83,13 @@ class BranchInstructExecuting extends Component {
         if (total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
                 <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: styleColor }}>
-                    <Text style={{ color: '#fff' }}>完成</Text>
+                    <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
                 </Button>
             </View>
         } else if (!total && loadTaskInfo.load_task_status == 3) {
             return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
                 <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
-                    <Text style={{ color: '#fff' }}>完成</Text>
+                    <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
                 </Button>
             </View>
         }
@@ -94,13 +99,13 @@ class BranchInstructExecuting extends Component {
         return <View key={key} style={{ flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc', alignItems: 'center' }}>
             <View style={{ flexDirection: 'row', flex: 7 }}>
                 <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                <Text style={{ color: '#ccc', fontSize: 11, paddingLeft: 10 }}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
+                <Text style={[globalStyles.smallText, { color: '#ccc', paddingLeft: 10 }]}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2 }}>
-                <Text style={{ color: '#8b959b', fontSize: 11 }}>{item.make_name ? item.make_name : ''}</Text>
+                <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-                {item.car_load_status == 2 && <Text style={{ color: styleColor, fontSize: 11, marginVertical: 10 }}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 2 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
                 {item.car_load_status == 1 && <TouchableOpacity onPress={() => this.changeCarLoadStatus(item.id)}>
                     <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
                 </TouchableOpacity>}
@@ -112,7 +117,7 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        //     console.log(this.props.initParam)
+        console.log('this.props', this.props)
         //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
@@ -128,7 +133,7 @@ class BranchInstructExecuting extends Component {
                 </View>
             )
         } else {
-            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+            const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -148,17 +153,36 @@ class BranchInstructExecuting extends Component {
                             />
                         </MapView>}
                         {(!loadTaskInfo.lat || !loadTaskInfo.lng) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#fff' }}>未设置目的地经纬度</Text>
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={{ color: styleColor }}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
+                            <Text style={[globalStyles.midText, { color: styleColor }]}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
                             <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={{ color: styleColor, paddingLeft: 5 }}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: styleColor, paddingLeft: 5 }]}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
                         </View>
                     </View>
                     <View style={{
                         flexDirection: 'row',
-                        padding: 10,
+                        padding: 15,
+                        backgroundColor: '#eff3f5',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderTopWidth: 0.5,
+                        alignItems: 'center'
+                    }}>
+                        <View style={{ flex: 2 }}>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => this.setState({ modalVisible: true })}>
+                                <Text style={[globalStyles.midText, { color: '#fff' }]}>查看联系人</Text>
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        padding: 15,
                         backgroundColor: '#eff3f5',
                         justifyContent: 'space-between',
                         borderColor: '#ccc',
@@ -166,20 +190,94 @@ class BranchInstructExecuting extends Component {
                         borderTopWidth: 0.5
                     }}>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
                         </View>
                         <View>
-                            <Text style={{ color: '#8b959b' }}>实际送达：<Text style={{ color: styleColor }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>实际送达：<Text style={{ color: styleColor }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
                         </View>
                         {/* <View>
                         <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{loadTaskInfo.car_exception_count ? `${loadTaskInfo.car_exception_count}` : '0'}</Text></Text>
                     </View> */}
+                    </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        padding: 15,
+                        backgroundColor: '#eff3f5',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderBottomWidth: 0.5
+                    }}>
+                        <View>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{loadTaskInfo.single_price ? `${loadTaskInfo.single_price}` : ''}元</Text>
+                        </View>
+                        <View>
+                            {loadTaskInfo.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}
+                            {loadTaskInfo.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
+                            {loadTaskInfo.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
+                        </View>
                     </View>
                     <FlatList
                         keyExtractor={(item, index) => index}
                         data={routeLoadTaskList}
                         renderItem={({ item, index }) => this.renderListItem(item, index)}
                         ListFooterComponent={this.renderFooter()} />
+                    <Modal
+                        animationType={"fade"}
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => this.setState({ modalVisible: false })}
+                    >
+                        <TouchableOpacity
+                            onPress={() => this.setState({ modalVisible: false })}
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                flex: 1
+                            }}>
+                            <View style={{
+                                backgroundColor: '#fff',
+                                alignSelf: 'stretch',
+                                justifyContent: 'center',
+                                borderWidth: 0.5,
+                                borderColor: '#ccc',
+                            }}>
+                                <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
+                                    <Text style={[globalStyles.midText, { paddingVertical: 10, color: styleColor, textAlign: 'center' }]}>联系人</Text>
+                                </View>
+                                <FlatList
+                                    keyExtractor={(item, index) => index}
+                                    data={contactList}
+                                    renderItem={({ item, index }) => {
+                                        return (
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                                                <Icon name='ios-person' style={{ flex: 1, fontSize: 20, color: '#ccc' }} />
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 2 }]}>{item.contacts_name}</Text>
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 3 }]}>{item.tel}</Text>
+                                                <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                                                    <TouchableOpacity style={{ width: 30, height: 30, backgroundColor: styleColor, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
+                                                        onPress={() => {
+                                                            if (item.tel) {
+                                                                const url = `tel:${item.tel}`
+                                                                Linking.canOpenURL(url).then(supported => {
+                                                                    if (!supported) {
+                                                                        console.log('Can\'t handle url: ' + url);
+                                                                    } else {
+                                                                        this.setState({ modalVisible: false })
+                                                                        return Linking.openURL(url);
+                                                                    }
+                                                                }).catch(err => console.log('An error occurred', err));
+                                                            }
+                                                        }}>
+                                                        <Icon name='ios-call' style={{ fontSize: 20, color: '#fff' }} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
+                                        )
+                                    }} />
+                            </View>
+                        </TouchableOpacity>
+                    </Modal>
                 </View>
             )
         }
@@ -189,7 +287,7 @@ class BranchInstructExecuting extends Component {
 const mapStateToProps = (state) => {
     return {
         branchInstructExecutingReducer: state.branchInstructExecutingReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 

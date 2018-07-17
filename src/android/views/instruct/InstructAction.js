@@ -19,6 +19,6 @@ export const getRouteTaskList = (param) => async (dispatch) => {
     }
 }
 
-export const setGetRouteTaskListWaiting = (param) => (dispatch) => {
+export const setGetRouteTaskListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.instructTypes.GET_RouteTaskList_WAITING, payload: {} })
 }

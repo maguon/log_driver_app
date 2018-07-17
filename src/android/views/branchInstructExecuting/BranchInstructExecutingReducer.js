@@ -4,7 +4,8 @@ import * as actionTypes from '../../../actionTypes/index'
 const initialState = {
     data: {
         routeLoadTaskList: [],
-        loadTaskInfo: {}
+        loadTaskInfo: {},
+        contactList:[]
     },
     getRouteLoadTaskList: {
         isResultStatus: 0,
@@ -44,7 +45,8 @@ export default handleActions({
                 loadTaskInfo:{
                    ...state.data.loadTaskInfo,
                    ...data.coordinate
-                }
+                },
+                contactList:data.contactList
             },
             getRouteLoadTaskList: {
                 ...state.getRouteLoadTaskList,

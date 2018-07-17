@@ -8,10 +8,9 @@ import {
     ToastAndroid,
     TouchableOpacity
 } from 'react-native'
-import { Button, Icon } from 'native-base'
+import { Button, Icon, Container } from 'native-base'
 import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import * as RouterDirection from '../../../util/RouterDirection'
 import * as carsAction from './CarsAction'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import { Actions } from 'react-native-router-flux'
@@ -41,12 +40,12 @@ class Cars extends Component {
     onSelectCar(param) {
         console.log('this.props', this.props)
         console.log('param', param)
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         const { taskInfo } = this.props.carsReducer.data
         this.props.pushCarInCommandWaiting()
         InteractionManager.runAfterInteractions(() => this.props.pushCarInCommand({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 dpRouteLoadTaskId: taskInfo.id,
             },
             OptionalParam: {
@@ -84,10 +83,10 @@ class Cars extends Component {
 
     removeCar(param) {
         const { taskInfo } = this.props.carsReducer.data
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         this.props.removeCommandCar({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 dpRouteTaskDetailId: param.data.id
             },
             OptionalParam: {
@@ -111,11 +110,11 @@ class Cars extends Component {
     }
 
     finishCarry() {
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         const { taskInfo } = this.props.carsReducer.data
         this.props.finishCarry({
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 dpRouteLoadTaskId: taskInfo.id,
                 loadTaskStatus: 3
             }
@@ -196,12 +195,12 @@ class Cars extends Component {
                                 <MaterialCommunityIcons name='car' size={14} style={{ color: '#fff' }} />
                                 <Text style={[globalStyles.smallText, { color: '#fff', fontWeight: 'bold', paddingLeft: 10 }]}>装 车</Text>
                             </Button>}
-                            {taskInfo.load_task_status == 1 && pushCarInCommand.isResultStatus != 1 && <Button small rounded
+                            {/* {taskInfo.load_task_status == 1 && pushCarInCommand.isResultStatus != 1 && <Button small rounded
                                 style={{ backgroundColor: styleColor, width: 110, height: 20, marginLeft: 10, justifyContent: 'center', flexDirection: 'row' }}
                                 onPress={() => Actions.addCar({ onSelect: this.onSelectCar })}>
                                 <MaterialCommunityIcons name='plus-circle-outline' size={14} style={{ color: '#fff' }} />
                                 <Text style={[globalStyles.smallText, { color: '#fff', fontWeight: 'bold', paddingLeft: 10 }]}>新增车辆</Text>
-                            </Button>}
+                            </Button>} */}
                         </View>
                         {taskInfo.load_task_status == 1 && pushCarInCommand.isResultStatus == 1 && <View style={{ width: 70, alignItems: 'center' }}>
                             <ActivityIndicator
@@ -228,7 +227,7 @@ class Cars extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userReducer: state.userReducer,
+        loginReducer: state.loginReducer,
         carsReducer: state.carsReducer
     }
 }

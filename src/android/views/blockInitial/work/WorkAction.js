@@ -1,5 +1,5 @@
 import httpRequest from '../../../../util/HttpRequest.js'
-import { base_host, record_host } from '../../../../config/Host'
+import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 

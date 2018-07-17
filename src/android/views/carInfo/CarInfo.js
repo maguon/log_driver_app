@@ -28,11 +28,11 @@ class CarInfo extends Component {
 
     componentDidMount() {
         this.props.getCarInfoWaiting()
-        const { user } = this.props.userReducer.data
+        const { user } = this.props.loginReducer.data
         InteractionManager.runAfterInteractions(() => this.props.getCarInfo({
             OptionalParam: { vin: this.props.initParam.vin },
             requiredParam: {
-                userId: user.userId,
+                userId: user.uid,
                 carId: this.props.initParam.carId
             }
         }))
@@ -100,7 +100,6 @@ class CarInfo extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <FlatList
-                        style={{ padding: 5 }}
                         keyExtractor={(item, index) => index}
                         numColumns={2}
                         data={imageList}
@@ -117,7 +116,7 @@ class CarInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         carInfoReducer: state.carInfoReducer,
-        userReducer: state.userReducer
+        loginReducer: state.loginReducer
     }
 }
 
