@@ -84,8 +84,18 @@ import NavSearchCarBar from './components/share/bar/NavSearchCarBar'
 import NavBar from './components/share/bar/NavBar'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import PhotoViewNavBar from './components/share/bar/PhotoViewNavBar'
+import PeccancyToolButton from './complatedComponents/op/PeccancyToolButton'
+import PeccancyLeftButton from './complatedComponents/leftButton/PeccancyLeftButton'
+import OveruseDieselOilToolButton from './complatedComponents/op/OveruseDieselOilToolButton'
+import OveruseDieselOilLeftButton from './complatedComponents/leftButton/OveruseDieselOilLeftButton'
 
 import BaseAddrList from './complatedViews/select/baseAddrList/BaseAddrList'
+import OveruseDieselOilList from './complatedViews/overuseDieselOilList/OveruseDieselOilList'
+import OveruseDieselOilInfo from './complatedViews/overuseDieselOilInfo/OveruseDieselOilInfo'
+import PeccancyList from './complatedViews/peccancyList/PeccancyList'
+import PeccancyInfo from './complatedViews/PeccancyInfo'
+import PeccancySearch from './complatedViews/PeccancySearch'
+import OveruseDieselOilSearch from './complatedViews/OveruseDieselOilSearch'
 
 //settingBlock-views-complated 
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
@@ -348,6 +358,48 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={LeftButton}
                                     RightButton={AccidentListOperation} />
+
+
+
+                                <Scene key="overuseDieselOilList"
+                                    component={OveruseDieselOilList}
+                                    title='超油扣款列表'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    RightButton={OveruseDieselOilToolButton}
+                                    LeftButton={OveruseDieselOilLeftButton} />
+                                <Scene key="overuseDieselOilInfo"
+                                    component={OveruseDieselOilInfo}
+                                    title='超油扣款详情'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="peccancyList"
+                                    component={PeccancyList}
+                                    RightButton={PeccancyToolButton}
+                                    title='违章扣款列表'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={PeccancyLeftButton} />
+                                <Scene key="peccancyInfo"
+                                    component={PeccancyInfo}
+                                    title='违章扣款详情'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="peccancySearch"
+                                    component={PeccancySearch}
+                                    title='违章扣款查询'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="overuseDieselOilSearch"
+                                    component={OveruseDieselOilSearch}
+                                    title='违章扣款查询'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+
                                 <Scene key="demageList"
                                     component={DemageList}
                                     title='质损列表'

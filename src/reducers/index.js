@@ -53,6 +53,9 @@ import applyDamageReducer from '../android/notUsed/applyDemage/applyDamageReduce
 //truckBlock-views-complated 
 import accidentListReducer from '../android/complatedViews/accidentList/AccidentListReducer'
 import accidentResponsibilityListReducer from '../android/complatedViews/accidentResponsibilityList/AccidentResponsibilityListReducer'
+import overuseDieselOilListReducer from '../android/complatedViews/overuseDieselOilList/overuseDieselOilListReducer'
+import peccancyListReducer from '../android/complatedViews/peccancyList/peccancyListReducer'
+import overuseDieselOilInfoReducer from '../android/complatedViews/overuseDieselOilInfo/overuseDieselOilInfoReducer'
 
 // <<<End
 
@@ -97,6 +100,12 @@ export default combineReducers({
     trailerImageReducer,
 
     // <<<End
+
+
+
+    overuseDieselOilListReducer,
+    overuseDieselOilInfoReducer,
+    peccancyListReducer,
     driverInfoReducer,
     loginReducer,
     workReducer,

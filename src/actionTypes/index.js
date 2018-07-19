@@ -54,6 +54,10 @@ import * as addCarImageTypes from '../android/views/uploadImageForCreateCar/AddC
 
 import * as baseAddrListTypes from '../android/complatedViews/select/baseAddrList/baseAddrListTypes'
 
+import * as peccancyList from '../android/complatedViews/peccancyList/peccancyListActionTypes'
+import * as overuseDieselOilList from '../android/complatedViews/overuseDieselOilList/overuseDieselOilListActionTypes'
+import * as overuseDieselOilInfo from '../android/complatedViews/overuseDieselOilInfo/overuseDieselOilInfoActionTypes'
+
 //component
 import * as truckInfoTypes from '../android/complatedViews/truck/truckInfo/truckInfoActionTypes'
 import * as truckRepairListActionTypes from '../android/complatedViews/truck/truckRepairList/truckRepairListActionTypes'
@@ -71,6 +75,10 @@ import * as personalCenter from '../android/complatedViews/personalCenter/person
 // <<<End
 
 export {
+    peccancyList,
+    overuseDieselOilList,
+    overuseDieselOilInfo,
+
     //settingBlock-views-complated 
     updatePassword,
     personalCenter,

@@ -20,6 +20,7 @@ import * as accidentResponsibilityListAction from '../../../complatedViews/accid
 import * as demageResponsibilityListAction from '../../../complatedViews/demageResponsibilityList/DemageResponsibilityListAction'
 import { file_host } from '../../../../config/Host'
 import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
+import * as actions from '../../../../actions'
 
 class Truck extends Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class Truck extends Component {
     render() {
         const { truckReducer: { data: { driverInfo: { company_name, operate_type } } }, loginReducer: { data: { user: { avatar_image, real_name, mobile } } },
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
-            getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting } = this.props
+            getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
+            getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -132,6 +134,36 @@ class Truck extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemGroup}>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getPeccancyListWaiting()
+                                Actions.peccancyList()
+                                InteractionManager.runAfterInteractions(getPeccancyList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='gas-station' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>违章扣款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getOveruseDieselOilListWaiting()
+                                Actions.overuseDieselOilList()
+                                InteractionManager.runAfterInteractions(getOveruseDieselOilList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='gas-station' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>超油扣款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={Actions.fuelFillingRecord}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='gas-station' size={14} color={'#bbb'} />
@@ -142,8 +174,6 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                        </View>
-                        <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getCleanRelListWaiting()
                                 Actions.cleanRelList()
@@ -226,6 +256,18 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getTaskLoanListWaiting: () => {
         dispatch(taskLoanListAction.getTaskLoanListWaiting())
+    },
+    getOveruseDieselOilList: () => {
+        dispatch(actions.overuseDieselOilList.getOveruseDieselOilList())
+    },
+    getOveruseDieselOilListWaiting: () => {
+        dispatch(actions.overuseDieselOilList.getOveruseDieselOilListWaiting())
+    },
+    getPeccancyList: () => {
+        dispatch(actions.peccancyList.getPeccancyList())
+    },
+    getPeccancyListWaiting: () => {
+        dispatch(actions.peccancyList.getPeccancyListWaiting())
     }
 })
 
@@ -236,13 +278,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         padding: 10,
-        borderWidth: 0.3,
+        borderWidth: 0.5,
         borderColor: '#ddd'
     },
 
     itemGroup: {
         margin: 5,
-        borderWidth: 0.3,
+        borderWidth: 0.5,
         borderColor: '#ddd'
     },
     itemLeft: {

@@ -87,8 +87,8 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
             if (versionInfo.force_update != 1) {
                 console.log('versionInfo', versionInfo)
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_success, payload: { versionInfo, step: currentStep } })
-                dispatch(initPush())
-                // dispatch(loadLocalStorage())
+                // dispatch(initPush())
+                dispatch(loadLocalStorage())
             } else {
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
             }

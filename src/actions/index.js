@@ -4,9 +4,17 @@ import * as updatePassword from '../android/complatedViews/updatePassword/update
 
 // <<<End
 
+import * as peccancyList from '../android/complatedViews/peccancyList/peccancyListActions'
+import * as overuseDieselOilList from '../android/complatedViews/overuseDieselOilList/overuseDieselOilListActions'
+import * as overuseDieselOilInfo from '../android/complatedViews/overuseDieselOilInfo/overuseDieselOilInfoActions'
+
 export {
     //settingBlock-views-complated 
     personalCenter,
-    updatePassword
+    updatePassword,
     // <<<End
+
+    peccancyList,
+    overuseDieselOilList,
+    overuseDieselOilInfo
 }
