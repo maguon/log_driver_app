@@ -5,6 +5,7 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as instructExecutingAction from '../instructExecuting/InstructExecutingAction'
 import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
+import { ToastAndroid } from 'react-native'
 
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
     console.log('param', param)
@@ -12,9 +13,12 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
     `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
     `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
     `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId, statusArr: '1,2' })}`]
+    console.log('urls', urls)
     try {
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
         console.log('res', res)
+        console.log('res[3].result[0]', res[3].result[0])
+
         if (res[0].success && res[1].success && res[2].success && res[3].success) {
             dispatch({
                 type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_SUCCESS,
@@ -22,21 +26,46 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
                     data: {
                         routeLoadTaskList: res[0].result,
                         coordinate: {
-                            lng: res[1].result[0].lng,
-                            lat: res[1].result[0].lat,
-                            address: res[1].result[0].address,
-                            single_price: res[3].result[0].single_price,
-                            cleanRelStatus: res[3].result[0].status
+                            actual_price: res[3].result[0] ? res[3].result[0].actual_price : null,
+                            cleanRelStatus: res[3].result[0] ? res[3].result[0].status : null
                         },
                         contactList: res[2].result
                     }
                 }
             })
         } else {
+            ToastAndroid.show('promise.all请求失败！', 10)
             dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
+        console.log('err', err)
+        ToastAndroid.show('promise.all请求错误！', 10)
         dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
+    }
+}
+
+export const getCoordinate = param => async (dispatch) => {
+    try {
+        const url = `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`
+        console.log('url', url)
+        const res = await httpRequest.get(url)
+        console.log('res', res)
+        if (res.success) {
+            dispatch({
+                type: actionTypes.branchInstructExecutingTypes.get_coordinate_success, payload: {
+                    coordinate: {
+                        lng: res.result[0].lng,
+                        lat: res.result[0].lat,
+                        address: res.result[0].address
+                    }
+                }
+            })
+        } else {
+            ToastAndroid.show('getCoordinate请求失败！', 10)
+        }
+    } catch (err) {
+        console.log('err', err)
+        ToastAndroid.show('getCoordinate请求错误！', 10)
     }
 }
 

@@ -35,6 +35,24 @@ const initialState = {
 
 //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
 export default handleActions({
+    [(actionTypes.branchInstructExecutingTypes.get_coordinate_success)]: (state, action) => {
+        const { payload: { coordinate } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                loadTaskInfo: {
+                    ...state.data.loadTaskInfo,
+                    ...coordinate
+                },
+            },
+            getRouteLoadTaskList: {
+                ...state.getRouteLoadTaskList,
+                isResultStatus: 2
+            }
+        }
+    },
+
     [(actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {

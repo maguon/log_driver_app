@@ -47,6 +47,14 @@ const ListFooterComponent = () => {
     )
 }
 
+const renderEmpty = () => {
+    return (
+        <View style={styles.listEmptyContainer}>
+            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无违章扣款记录</Text>
+        </View>
+    )
+}
+
 const PeccancyList = props => {
     const { peccancyListReducer: { data: { peccancyList, isComplete }, getPeccancyList }, peccancyListReducer, getPeccancyListMore } = props
     if (getPeccancyList.isResultStatus == 1) {
@@ -64,6 +72,7 @@ const PeccancyList = props => {
                     data={peccancyList}
                     renderItem={renderItem}
                     onEndReachedThreshold={0.2}
+                    ListEmptyComponent={renderEmpty}
                     onEndReached={() => {
                         if (getPeccancyList.isResultStatus == 2 && !isComplete) {
                             getPeccancyListMore()
@@ -91,6 +100,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(PeccancyList)
 
 
 const styles = StyleSheet.create({
+    listEmptyContainer: {
+        alignItems: 'center',
+        marginTop: 60
+    },
+    listEmptyText: {
+        color: '#aaa',
+        marginTop: 30
+    },
     footerContainer: {
         alignSelf: 'center',
         flexDirection: 'row',

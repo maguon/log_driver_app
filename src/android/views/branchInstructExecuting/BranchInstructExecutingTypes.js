@@ -30,3 +30,4 @@ export const RESET_Change_CarLoadStatus = 'RESET_Change_CarLoadStatus'
 
 
 export const SET_LoadTaskInfo = 'SET_LoadTaskInfo'
+export const get_coordinate_success = 'get_coordinate_success'

@@ -40,6 +40,13 @@ const renderItem = props => {
     )
 }
 
+const renderEmpty = () => {
+    return (
+        <View style={styles.listEmptyContainer}>
+            <Text style={[globalStyles.largeText, styles.listEmptyText]}>暂无超油扣款记录</Text>
+        </View>
+    )
+}
 
 const ListFooterComponent = () => {
     return (
@@ -68,6 +75,7 @@ const OveruseDieselOilList = props => {
                     data={overuseDieselOilList}
                     renderItem={({ item }) => renderItem({ item, getDpRouteTaskWaiting, getDpRouteTask })}
                     onEndReachedThreshold={0.2}
+                    ListEmptyComponent={renderEmpty}
                     onEndReached={() => {
                         if (getOveruseDieselOilList.isResultStatus == 2 && !isComplete) {
                             getOveruseDieselOilListMore()
@@ -100,6 +108,14 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(OveruseDieselOilList)
 
 const styles = StyleSheet.create({
+    listEmptyContainer: {
+        alignItems: 'center',
+        marginTop: 60
+    },
+    listEmptyText: {
+        color: '#aaa',
+        marginTop: 30
+    },
     footerContainer: {
         alignSelf: 'center',
         flexDirection: 'row',

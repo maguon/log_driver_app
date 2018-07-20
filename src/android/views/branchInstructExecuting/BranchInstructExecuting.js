@@ -7,7 +7,8 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     Modal,
-    Linking
+    Linking,
+    ToastAndroid
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import { connect } from 'react-redux'
@@ -40,15 +41,22 @@ class BranchInstructExecuting extends Component {
 
     initView() {
         const { loadTaskInfo } = this.props.initParam
-        InteractionManager.runAfterInteractions(() => this.props.getRouteLoadTaskList({
-            requiredParam: {
-                dpRouteLoadTaskId: loadTaskInfo.id
-            },
-            OptionalParam: {
-                receiveId: this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
-            },
-            dpRouteTaskId: loadTaskInfo.dp_route_task_id
-        }))
+        InteractionManager.runAfterInteractions(() => {
+            this.props.getCoordinate({
+                OptionalParam: {
+                    receiveId: this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
+                }
+            })
+            this.props.getRouteLoadTaskList({
+                requiredParam: {
+                    dpRouteLoadTaskId: loadTaskInfo.id
+                },
+                OptionalParam: {
+                    receiveId: this.props.branchInstructExecutingReducer.data.loadTaskInfo.receive_id,
+                },
+                dpRouteTaskId: loadTaskInfo.dp_route_task_id
+            })
+        })
     }
 
     changeLoadTaskStatus() {
@@ -175,7 +183,13 @@ class BranchInstructExecuting extends Component {
                             <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => this.setState({ modalVisible: true })}>
+                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
+                                if (contactList.length > 0) {
+                                    this.setState({ modalVisible: true })
+                                } else {
+                                    ToastAndroid.show('该经销商暂无联系人', 10)
+                                }
+                            }}>
                                 <Text style={[globalStyles.midText, { color: '#fff' }]}>查看联系人</Text>
                             </Button>
                         </View>
@@ -199,7 +213,7 @@ class BranchInstructExecuting extends Component {
                         <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{loadTaskInfo.car_exception_count ? `${loadTaskInfo.car_exception_count}` : '0'}</Text></Text>
                     </View> */}
                     </View>
-                    <View style={{
+                    {loadTaskInfo.cleanRelStatus && <View style={{
                         flexDirection: 'row',
                         padding: 15,
                         backgroundColor: '#eff3f5',
@@ -215,7 +229,7 @@ class BranchInstructExecuting extends Component {
                             {loadTaskInfo.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
                             {loadTaskInfo.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
                         </View>
-                    </View>
+                    </View>}
                     <FlatList
                         keyExtractor={(item, index) => index}
                         data={routeLoadTaskList}
@@ -312,6 +326,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setLoadTaskInfo: (param) => {
         dispatch(branchInstructExecutingAction.setLoadTaskInfo(param))
+    },
+    getCoordinate: param => {
+        dispatch(branchInstructExecutingAction.getCoordinate(param))
     }
 })
 
