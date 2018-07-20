@@ -208,7 +208,7 @@ class BranchInstructExecuting extends Component {
                         borderBottomWidth: 0.5
                     }}>
                         <View>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{loadTaskInfo.single_price ? `${loadTaskInfo.single_price}` : ''}元</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{loadTaskInfo.actual_price ? `${loadTaskInfo.actual_price}` : '0'}元</Text>
                         </View>
                         <View>
                             {loadTaskInfo.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}

@@ -45,7 +45,7 @@ export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
 }
 
 export const changeCarExceptionRel = (param) => async (dispatch) => {
-    const url = `${base_host} / user / ${param.requiredParam.userId} / carExceptionRel`
+    const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     try {
         const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
@@ -69,7 +69,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
         const { loginReducer: { data: { user: { uid } } } } = getState()
-        const url = `${base_host} / user / ${param.requiredParam.userId} / dpRouteLoadTask / ${param.requiredParam.dpRouteLoadTaskId} / loadTaskStatus / ${param.requiredParam.loadTaskStatus}`
+        const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
@@ -119,16 +119,16 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch) => {
     try {
-        const getDriverUrl = `${base_host} / user / ${param.requiredParam.userId}`
+        const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
-            const getTruckUrl = `${base_host} / truckFirst ? ${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
+            const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`
             const getTruckRes = await httpRequest.get(getTruckUrl)
             if (getTruckRes.success) {
                 if (getTruckRes.result.length == 0) {
                     dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_Unbind, payload: {} })
                 } else {
-                    const url = `${base_host} / user / ${param.requiredParam.userId} / dpRouteTaskDetail / ${param.requiredParam.dpRouteTaskDetailId} / carLoadStatus / ${param.requiredParam.carLoadStatus} ? ${ObjectToUrl({ truckId: getTruckRes.result[0].id })}`
+                    const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}/carLoadStatus/${param.requiredParam.carLoadStatus}?${ObjectToUrl({ truckId: getTruckRes.result[0].id })}`
                     const res = await httpRequest.put(url, {})
                     if (res.success) {
                         dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_CarLoadStatus_SUCCESS, payload: { data: param.requiredParam.dpRouteTaskDetailId } })

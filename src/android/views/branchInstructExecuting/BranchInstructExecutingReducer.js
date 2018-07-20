@@ -5,7 +5,7 @@ const initialState = {
     data: {
         routeLoadTaskList: [],
         loadTaskInfo: {},
-        contactList:[]
+        contactList: []
     },
     getRouteLoadTaskList: {
         isResultStatus: 0,
@@ -42,11 +42,11 @@ export default handleActions({
             data: {
                 ...state.data,
                 routeLoadTaskList: data.routeLoadTaskList,
-                loadTaskInfo:{
-                   ...state.data.loadTaskInfo,
-                   ...data.coordinate
+                loadTaskInfo: {
+                    ...state.data.loadTaskInfo,
+                    ...data.coordinate
                 },
-                contactList:data.contactList
+                contactList: data.contactList
             },
             getRouteLoadTaskList: {
                 ...state.getRouteLoadTaskList,
@@ -247,7 +247,10 @@ export default handleActions({
             ...state,
             data: {
                 ...state.data,
-                loadTaskInfo: {...data}
+                loadTaskInfo: {
+                    ...state.data.loadTaskInfo,
+                    ...data
+                }
             }
         }
     },
