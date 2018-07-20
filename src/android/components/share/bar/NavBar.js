@@ -6,9 +6,9 @@ import globalStyles, { styleColor } from '../../../GlobalStyles'
 const { width } = Dimensions.get('window')
 
 const NavBar = props => {
-    const { title, RightButton, LeftButton, parent, initParam } = props
+    const { title, RightButton, LeftButton, parent, initParam, layout: { initWidth } } = props
     return (
-        <View style={[styles.container, { width: width }]}>
+        <View style={[styles.container, { width: initWidth }]}>
             <StatusBar hidden={false} />
             <Header
                 androidStatusBarColor={styleColor}

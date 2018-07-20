@@ -37,7 +37,7 @@ const TextBox = props => {
 const NavSearchCarBar = props => {
     const { title, getCarListWaiting, getCarList, cleanCarList } = props
     return (
-        <View style={styles.container}>
+        <View style={[styles.container]}>
             <StatusBar hidden={false} />
             <Header
                 androidStatusBarColor={styleColor}
@@ -54,6 +54,11 @@ const NavSearchCarBar = props => {
                         getCarList={getCarList}
                         getCarListWaiting={getCarListWaiting} />
                 </Body>
+                <Right>
+                    <Button transparent onPress={Actions.vinScanner}>
+                        <Icon name="ios-qr-scanner" style={styles.leftIcon} />
+                    </Button>
+                </Right>
             </Header>
         </View>
     )

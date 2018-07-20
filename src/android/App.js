@@ -96,6 +96,7 @@ import PeccancyList from './complatedViews/peccancyList/PeccancyList'
 import PeccancyInfo from './complatedViews/PeccancyInfo'
 import PeccancySearch from './complatedViews/PeccancySearch'
 import OveruseDieselOilSearch from './complatedViews/OveruseDieselOilSearch'
+import VinScanner from './views/VinScanner'
 
 //settingBlock-views-complated 
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
@@ -281,6 +282,12 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
+                                <Scene key="vinScanner"
+                                    component={VinScanner}
+                                    title='扫条码'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                             </Scene>
                             <Scene key="truckBlock" icon={TabIcon} online='ios-bus' outline='ios-bus-outline' >
                                 <Scene key="truck"
@@ -399,6 +406,10 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
+
+
+
+
 
                                 <Scene key="demageList"
                                     component={DemageList}
