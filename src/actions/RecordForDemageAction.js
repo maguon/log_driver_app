@@ -8,7 +8,9 @@ export const getCarInfoRecord = (param) => async (dispatch, getState) => {
     const { loginReducer: { data: { user: { uid } } } } = getState()
     try {
         const url = `${record_host}/user/${uid}/car/${car_id}/record`
+        console.log('url',url)
         const res = await httpRequest.get(url)
+        console.log('res',res)
         if (res.success) {
             dispatch({ type: actionTypes.recordForDemageTypes.get_RecordForDemage_success, payload: { carInfoRecord: res.result[0] } })
         } else {

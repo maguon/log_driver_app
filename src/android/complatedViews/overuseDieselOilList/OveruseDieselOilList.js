@@ -31,8 +31,8 @@ const renderItem = props => {
                         <Text style={globalStyles.smallText}>货车牌号：{item.truck_num ? `${item.truck_num}` : ''} </Text>
                     </Body>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.smallText}>超油量：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_oil_quantity ? `${item.exceed_oil_quantity}` : ''}</Text>  L</Text>
-                        <Text style={globalStyles.smallText}>扣罚金额：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_oil_money ? `${item.exceed_oil_money}` : ''}</Text>  元</Text>
+                        <Text style={globalStyles.smallText}>超油量：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_oil_quantity ? `${item.exceed_oil_quantity}` : '0'}</Text>  L</Text>
+                        <Text style={globalStyles.smallText}>扣罚金额：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_oil_money ? `${item.exceed_oil_money}` : '0'}</Text>  元</Text>
                     </Body>
                 </CardItem>
             </Card>

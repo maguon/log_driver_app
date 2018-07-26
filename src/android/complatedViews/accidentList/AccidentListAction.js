@@ -14,8 +14,11 @@ export const getAccidentList = () => async (dispatch, getState) => {
         const { loginReducer: { data: { user: { uid } } } } = state
         let search = getFormValues('accidentSearchForm')(state)
         search = search ? search : {}
-        const url = `${base_host}/truckAccident?${ObjectToUrl({ declare_user_id: uid, start: 0, size: pageSize, ...search })}`
+        const url = `${base_host}/truckAccident?${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize, ...search })}`
+        console.log('url', url)
         const res = await httpRequest.get(url)
+        console.log('res', res)
+
         if (res.success) {
             dispatch({
                 type: actionTypes.accidentListTypes.get_accidentList_success,

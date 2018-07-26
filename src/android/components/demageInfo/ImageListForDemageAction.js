@@ -1,5 +1,5 @@
 import httpRequest from '../../../util/HttpRequest'
-import {  file_host, record_host } from '../../../config/Host'
+import { file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'

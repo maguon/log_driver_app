@@ -39,13 +39,13 @@ const renderItem = props => {
 }
 
 const RecordForDemage = props => {
-    const { recordForDemageReducer: { data: { carInfoRecord: { comment } } } } = props
+    const { recordForDemageReducer: { data: { carInfoRecord } } } = props
     return (
         <View style={{ flex: 1 }}>
             <ListHeader />
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={comment}
+                data={carInfoRecord ? carInfoRecord.comment : []}
                 renderItem={renderItem}
                 ListEmptyComponent={renderListEmpty} />
         </View>
