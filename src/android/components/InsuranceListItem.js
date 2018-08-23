@@ -29,9 +29,9 @@ const InsuranceListItem = props => {
                     <Text style={globalStyles.smallText}><Text style={{ fontWeight: 'bold' }}>生效期：</Text>{insuranceItem.start_date ? moment(insuranceItem.start_date).format('YYYY-MM-DD') : ''} ～ {insuranceItem.end_date ? moment(insuranceItem.end_date).format('YYYY-MM-DD') : ''}</Text>
                 </Body>
             </CardItem>
-            <CardItem footer bordered style={{ justifyContent: 'flex-end' }}>
+            {/* <CardItem footer bordered style={{ justifyContent: 'flex-end' }}>
                 <Text style={globalStyles.smallText}>保费： ¥ <Text style={{ color: 'red' }}>{insuranceItem.insure_money ? insuranceItem.insure_money : ''}</Text>元</Text>
-            </CardItem>
+            </CardItem> */}
         </Card>
     )
 }

@@ -4,9 +4,11 @@ import * as actionTypes from '../../../actionTypes/index'
 const initialState = {
     data: {
         routeLoadTaskList: [],
-        loadTaskInfo:{}
+        loadTaskInfo: {},
+        cleanCar: {},
+        contactList: []
     },
-    getRouteLoadTaskList:{
+    getRouteLoadTaskList: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
@@ -23,10 +25,9 @@ export default handleActions({
             data: {
                 ...state.data,
                 routeLoadTaskList: data.routeLoadTaskList,
-                loadTaskInfo:{
-                   ...state.data.loadTaskInfo,
-                   ...data.coordinate
-                }
+                loadTaskInfo: data.loadTaskInfo,
+                cleanCar: data.cleanCar,
+                contactList: data.contactList
             },
             getRouteLoadTaskList: {
                 ...state.getRouteLoadTaskList,

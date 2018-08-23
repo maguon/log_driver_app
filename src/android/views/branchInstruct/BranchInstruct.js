@@ -4,7 +4,11 @@ import {
     View,
     FlatList,
     InteractionManager,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity,
+    Modal,
+    Linking,
+    ToastAndroid
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -17,6 +21,9 @@ import globalStyles, { styleColor } from '../../GlobalStyles'
 class BranchInstruct extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            modalVisible: false
+        }
         this.renderListItem = this.renderListItem.bind(this)
     }
 
@@ -51,8 +58,9 @@ class BranchInstruct extends Component {
 
     render() {
         const { routeLoadInfo } = this.props.initParam
-        const { routeLoadTaskList } = this.props.branchInstructReducer.data
+        const { routeLoadTaskList, cleanCar, loadTaskInfo, contactList } = this.props.branchInstructReducer.data
         const { getRouteLoadTaskList } = this.props.branchInstructReducer
+        console.log('this.props', this.props)
         // console.log('this.props.branchInstructReducer',this.props.branchInstructReducer)
         // console.log('routeLoadInfo',routeLoadInfo)
         if (getRouteLoadTaskList.isResultStatus == 1) {
@@ -88,9 +96,37 @@ class BranchInstruct extends Component {
                             <Text style={{ color: '#fff' }}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={[globalStyles.midText, { color: styleColor }]}>{routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''} </Text>
-                            <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={[globalStyles.midText, { paddingLeft: 5, color: styleColor }]}>{routeLoadInfo.city_name ? routeLoadInfo.city_name : ''}{routeLoadInfo.short_name ? `(${routeLoadInfo.short_name})` : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: styleColor, fontWeight: 'bold' }]}>
+                                {routeLoadInfo.addr_name ? routeLoadInfo.addr_name : ''}{routeLoadInfo.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
+                                {routeLoadInfo.transfer_flag == 0 && routeLoadInfo.city_name ? ` ${routeLoadInfo.city_name}` : ''}{routeLoadInfo.transfer_flag == 0 && ' - '}{routeLoadInfo.transfer_flag == 0 && routeLoadInfo.short_name ? routeLoadInfo.short_name : ''}
+                                {routeLoadInfo.transfer_flag == 1 && routeLoadInfo.transfer_city_name ? ` ${routeLoadInfo.transfer_city_name}` : ''}{routeLoadInfo.transfer_flag == 1 && ' - '}{routeLoadInfo.transfer_flag == 1 && routeLoadInfo.transfer_addr_name ? routeLoadInfo.transfer_addr_name : ''}
+                                {routeLoadInfo.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        padding: 15,
+                        backgroundColor: '#eff3f5',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderTopWidth: 0.5,
+                        alignItems: 'center'
+                    }}>
+                        <View style={{ flex: 2 }}>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
+                                if (contactList.length > 0) {
+                                    this.setState({ modalVisible: true })
+                                } else {
+                                    ToastAndroid.show('该经销商暂无联系人', 10)
+                                }
+                            }}>
+                                <Text style={[globalStyles.midText, { color: '#fff' }]}>查看联系人</Text>
+                            </Button>
                         </View>
                     </View>
                     <View style={{
@@ -108,48 +144,85 @@ class BranchInstruct extends Component {
                         <View>
                             <Text style={[globalStyles.midText, { color: '#8b959b' }]}>实际送达：<Text style={{ color: styleColor }}>{routeLoadInfo.car_count ? `${routeLoadInfo.car_count}` : '0'}</Text></Text>
                         </View>
-                        {/* <View>
-                            <Text style={{ color: '#8b959b' }}>异常：<Text style={{ color: '#d69aa5' }}>{routeLoadInfo.car_exception_count ? `${routeLoadInfo.car_exception_count}` : '0'}</Text></Text>
-                        </View> */}
+
                     </View>
+                    {cleanCar.cleanRelStatus && <View style={{
+                        flexDirection: 'row',
+                        padding: 15,
+                        backgroundColor: '#eff3f5',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderBottomWidth: 0.5
+                    }}>
+                        <View>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{cleanCar.actual_price ? `${cleanCar.actual_price}` : '0'}元</Text>
+                        </View>
+                        <View>
+                            {cleanCar.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}
+                            {cleanCar.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
+                            {cleanCar.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
+                        </View>
+                    </View>}
                     <FlatList
                         data={routeLoadTaskList}
                         renderItem={({ item, index }) => this.renderListItem(item, index)} />
-                    {/* 
-                <View style={{ flexDirection: 'row', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                    <View style={{ flexDirection: 'row', flex: 7 }}>
-                        <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                        <Text style={{ color: '#ccc', fontSize: 11, paddingLeft: 10 }}>VIN码：<Text style={{ color: '#d69aa5' }}>12345678901234567</Text></Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', flex: 2 }}>
-                        <Text style={{ color: '#8b959b', fontSize: 11 }}>一汽大众</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
-                        <Text style={{ color: '#d69aa5', fontSize: 11 }}>异常</Text>
-                    </View>
-                </View>
-                <View style={{ flexDirection: 'row', paddingHorizontal: 10, paddingVertical: 5, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                    <View style={{ flexDirection: 'row', alignSelf: 'center', flex: 7 }}>
-                        <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                        <Text style={{ color: '#ccc', fontSize: 11, paddingLeft: 10 }}>VIN码：<Text style={{ color: '#8b959b' }}>12345678901234567</Text></Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignSelf: 'center', flex: 2 }}>
-                        <Text style={{ color: '#8b959b', fontSize: 11 }}>一汽大众</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end' }}>
-                        <View>
-                            <Icon name='ios-checkmark-circle' style={{ fontSize: 25, color: styleColor }} />
-                        </View>
-                        <View style={{ paddingLeft: 5 }}>
-                            <Icon name='md-alert' style={{ fontSize: 25, color: '#d69aa5' }} />
-                        </View>
-                    </View>
-                </View> */}
-                    {/* <View style={{ justifyContent: 'flex-end', alignSelf: 'flex-end', paddingTop: 10, paddingRight: 10 }}>
-                    <Button small rounded onPress={() => { }} style={{ backgroundColor: styleColor }}>
-                        <Text style={{ color: '#fff' }}>完成</Text>
-                    </Button>
-                </View> */}
+                    <Modal
+                        animationType={"fade"}
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => this.setState({ modalVisible: false })}
+                    >
+                        <TouchableOpacity
+                            onPress={() => this.setState({ modalVisible: false })}
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                flex: 1
+                            }}>
+                            <View style={{
+                                backgroundColor: '#fff',
+                                alignSelf: 'stretch',
+                                justifyContent: 'center',
+                                borderWidth: 0.5,
+                                borderColor: '#ccc',
+                            }}>
+                                <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
+                                    <Text style={[globalStyles.midText, { paddingVertical: 10, color: styleColor, textAlign: 'center' }]}>联系人</Text>
+                                </View>
+                                <FlatList
+                                    keyExtractor={(item, index) => index}
+                                    data={contactList}
+                                    renderItem={({ item, index }) => {
+                                        return (
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                                                {/* <Icon name='ios-person' style={{ flex: 1, fontSize: 20, color: '#ccc' }} /> */}
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 4 }]}>{item.contacts_name ? `${item.contacts_name}` : ''} {item.position ? `(${item.position})` : ''}</Text>
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 3, textAlign: 'center' }]}>{item.tel}</Text>
+                                                <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                                                    <TouchableOpacity style={{ width: 30, height: 30, backgroundColor: styleColor, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
+                                                        onPress={() => {
+                                                            if (item.tel) {
+                                                                const url = `tel:${item.tel}`
+                                                                Linking.canOpenURL(url).then(supported => {
+                                                                    if (!supported) {
+                                                                        console.log('Can\'t handle url: ' + url);
+                                                                    } else {
+                                                                        this.setState({ modalVisible: false })
+                                                                        return Linking.openURL(url);
+                                                                    }
+                                                                }).catch(err => console.log('An error occurred', err));
+                                                            }
+                                                        }}>
+                                                        <Icon name='ios-call' style={{ fontSize: 20, color: '#fff' }} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
+                                        )
+                                    }} />
+                            </View>
+                        </TouchableOpacity>
+                    </Modal>
                 </View>
             )
         }

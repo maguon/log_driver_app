@@ -53,15 +53,13 @@ const renderItem = props => {
                 </View>
             </View>
             <View style={styles.item}>
-                <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'} style={styles.itemBlockMaterialIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}</Text>
-                </View>
+                <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'} style={styles.itemBlockMaterialIcon} />
+                <Text numberOfLines={1} style={[globalStyles.midText, styles.itemBlockText, { flex: 1 }]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}</Text>
             </View>
         </TouchableOpacity>
     )
 }
-
+//<Text>事故描述：</Text>
 const ListFooterComponent = () => {
     return (
         <View style={styles.footerContainer}>

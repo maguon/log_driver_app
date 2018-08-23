@@ -20,8 +20,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, globalStyles.styleColor]}>出车款编号：{id ? `${id}` : ''}</Text>
                     </Left>
                     <Right>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, globalStyles.styleColor]}>已领取</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}>已报销</Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, globalStyles.styleColor]}>已领取</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}>已报销</Text>}
                     </Right>
                 </ListItem>
                 <ListItem onPress={() => {
@@ -41,7 +41,7 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, globalStyles.styleColor]}>出车款明细</Text>
                     </View>
                     <View>
-                        {task_loan_status == 3 && <Text style={globalStyles.midText}><Text style={{ color: '#f69e23' }}>报销金额</Text>／<Text style={{ color: 'red' }}>发放金额</Text></Text>}
+                        {task_loan_status == 2 && <Text style={globalStyles.midText}><Text style={{ color: '#f69e23' }}>报销金额</Text>／<Text style={{ color: 'red' }}>发放金额</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -49,8 +49,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>过路费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_passing_cost ? `${grant_passing_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_passing_cost ? `${refund_passing_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_passing_cost ? `${grant_passing_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_passing_cost ? `${grant_passing_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_passing_cost ? `${refund_passing_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_passing_cost ? `${grant_passing_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -58,8 +58,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>燃料费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_fuel_cost ? `${grant_fuel_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_fuel_cost ? `${refund_fuel_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_fuel_cost ? `${grant_fuel_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_fuel_cost ? `${grant_fuel_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_fuel_cost ? `${refund_fuel_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_fuel_cost ? `${grant_fuel_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -67,8 +67,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>保道费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_protect_cost ? `${grant_protect_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_protect_cost ? `${refund_protect_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_protect_cost ? `${grant_protect_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_protect_cost ? `${grant_protect_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_protect_cost ? `${refund_protect_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_protect_cost ? `${grant_protect_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -76,8 +76,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>罚款费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_penalty_cost ? `${grant_penalty_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_penalty_cost ? `${refund_penalty_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_penalty_cost ? `${grant_penalty_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_penalty_cost ? `${grant_penalty_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_penalty_cost ? `${refund_penalty_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_penalty_cost ? `${grant_penalty_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -85,8 +85,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>停车费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_parking_cost ? `${grant_parking_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_parking_cost ? `${refund_parking_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_parking_cost ? `${grant_parking_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_parking_cost ? `${grant_parking_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_parking_cost ? `${refund_parking_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_parking_cost ? `${grant_parking_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -94,8 +94,8 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { fontWeight: 'bold' }]}>打车费</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_taxi_cost ? `${grant_taxi_cost}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_taxi_cost ? `${refund_taxi_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_taxi_cost ? `${grant_taxi_cost}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_taxi_cost ? `${grant_taxi_cost}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_taxi_cost ? `${refund_taxi_cost}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_taxi_cost ? `${grant_taxi_cost}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
@@ -103,11 +103,11 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, globalStyles.styleColor, { fontWeight: 'bold' }]}>合计</Text>
                     </View>
                     <View>
-                        {task_loan_status == 2 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text>}
-                        {task_loan_status == 3 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_actual_money ? `${refund_actual_money}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text></Text>}
+                        {task_loan_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text>}
+                        {task_loan_status == 2 && <Text style={[globalStyles.midText]}><Text style={{ color: '#f69e23' }}>{refund_actual_money ? `${refund_actual_money}` : '0'}</Text>／<Text style={{ color: 'red' }}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text></Text>}
                     </View>
                 </ListItem>
-                {task_loan_status == 3 && <ListItem style={{ justifyContent: 'space-between' }}>
+                {task_loan_status == 2 && <ListItem style={{ justifyContent: 'space-between' }}>
                     <View>
                         <Text style={[globalStyles.midText, globalStyles.styleColor, { fontWeight: 'bold' }]}>还款</Text>
                     </View>
@@ -115,7 +115,7 @@ const TaskLoan = props => {
                         <Text style={[globalStyles.midText, { color: 'red' }]}>{repayment_money ? `${repayment_money}` : '0'}</Text>
                     </View>
                 </ListItem>}
-                {task_loan_status == 3 && <ListItem style={{ justifyContent: 'space-between' }}>
+                {task_loan_status == 2 && <ListItem style={{ justifyContent: 'space-between' }}>
                     <View>
                         <Text style={[globalStyles.midText, globalStyles.styleColor, { fontWeight: 'bold' }]}>盈亏</Text>
                     </View>

@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 
 
 import TabIcon from './components/TabIcon'
+import SettingTabIcon from './components/SettingTabIcon'
 import Home from './views/blockInitial/home/Home'
 import Work from './views/blockInitial/work/Work'
 import Truck from './views/blockInitial/truck/Truck'
@@ -499,7 +500,7 @@ export default class App extends Component {
                                     navBar={NavBar} />
                             </Scene>
                             {/* settingBlock-complated*/}
-                            <Scene key="settingBlock" icon={TabIcon} online='ios-settings' outline='ios-settings-outline' >
+                            <Scene key="settingBlock" icon={SettingTabIcon} online='ios-settings' outline='ios-settings-outline' >
                                 <Scene key="setting" component={Setting} initial={true} title='设置' hideNavBar={false} navBar={NavBar} />
                                 <Scene key="updatePassword"
                                     LeftButton={LeftButton}

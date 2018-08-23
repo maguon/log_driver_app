@@ -16,13 +16,15 @@ import SearchCleanRel from '../../components/SearchCleanRel'
 
 const renderItem = props => {
     const { item: { dp_route_task_id, route_start_name, addr_name, route_end_name, short_name, actual_price, car_count, load_date, status }, index } = props
+    // console.log('props', props)
     return (
         <View key={index} style={styles.itemContainer} >
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>指令编号：{dp_route_task_id ? `${dp_route_task_id}` : ''}</Text>
-                {status == 0 && <Text style={[globalStyles.midText]}>未通过</Text>}
-                {status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>未审核</Text>}
-                {status == 2 && <Text style={[globalStyles.midText]}>已通过</Text>}
+                {status != 1 && status != 2 && status != 0 && <Text style={[globalStyles.midText]}>未知</Text>}
+                {status == 0 && <Text style={[globalStyles.midText]}>已取消</Text>}
+                {status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>未领取</Text>}
+                {status == 2 && <Text style={[globalStyles.midText]}>已领取</Text>}
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>

@@ -164,9 +164,12 @@ class BranchInstructExecuting extends Component {
                             <Text style={[globalStyles.midText, { color: '#fff' }]}>未设置目的地经纬度</Text>
                         </View>}
                         <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={[globalStyles.midText, { color: styleColor }]}>{loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''} </Text>
-                            <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={[globalStyles.midText, { color: styleColor, paddingLeft: 5 }]}>{loadTaskInfo.city_name ? loadTaskInfo.city_name : ''}{loadTaskInfo.short_name ? `(${loadTaskInfo.short_name})` : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: styleColor, fontWeight: 'bold' }]}>
+                                {loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''}{loadTaskInfo.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
+                                {loadTaskInfo.transfer_flag == 0 && loadTaskInfo.city_name ? ` ${loadTaskInfo.city_name}` : ''}{loadTaskInfo.transfer_flag == 0 && ' - '}{loadTaskInfo.transfer_flag == 0 && loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}
+                                {loadTaskInfo.transfer_flag == 1 && loadTaskInfo.transfer_city_name ? ` ${loadTaskInfo.transfer_city_name}` : ''}{loadTaskInfo.transfer_flag == 1 && ' - '}{loadTaskInfo.transfer_flag == 1 && loadTaskInfo.transfer_addr_name ? loadTaskInfo.transfer_addr_name : ''}
+                                {loadTaskInfo.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            </Text>
                         </View>
                     </View>
                     <View style={{
@@ -265,9 +268,9 @@ class BranchInstructExecuting extends Component {
                                     renderItem={({ item, index }) => {
                                         return (
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                                                <Icon name='ios-person' style={{ flex: 1, fontSize: 20, color: '#ccc' }} />
-                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 2 }]}>{item.contacts_name}</Text>
-                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 3 }]}>{item.tel}</Text>
+                                                {/* <Icon name='ios-person' style={{ flex: 1, fontSize: 20, color: '#ccc' }} /> */}
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 4 }]}>{item.contacts_name ? `${item.contacts_name}` : ''} {item.position ? `(${item.position})` : ''}</Text>
+                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 3, textAlign: 'center' }]}>{item.tel}</Text>
                                                 <View style={{ flex: 1, alignItems: 'flex-end' }}>
                                                     <TouchableOpacity style={{ width: 30, height: 30, backgroundColor: styleColor, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
                                                         onPress={() => {

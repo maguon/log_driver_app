@@ -17,6 +17,8 @@ import { MapView } from 'react-native-amap3d'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 import * as  instructExecutingAction from '../../instructExecuting/InstructExecutingAction'
 
+
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -35,7 +37,7 @@ class Home extends Component {
 
     renderListHeader() {
         const { homeReducer: { data: { mileageInfo, truckDispatch } } } = this.props
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         return (
             <View>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 10, justifyContent: 'space-between', alignItems: 'center' }}>

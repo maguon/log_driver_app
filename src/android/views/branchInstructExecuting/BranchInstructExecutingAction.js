@@ -8,16 +8,16 @@ import moment from 'moment'
 import { ToastAndroid } from 'react-native'
 
 export const getRouteLoadTaskList = (param) => async (dispatch) => {
-    console.log('param', param)
+    // console.log('param', param)
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
     `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
     `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
     `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId, statusArr: '1,2' })}`]
-    console.log('urls', urls)
+    // console.log('urls', urls)
     try {
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        console.log('res', res)
-        console.log('res[3].result[0]', res[3].result[0])
+        // console.log('res', res)
+        // console.log('res[3].result[0]', res[3].result[0])
 
         if (res[0].success && res[1].success && res[2].success && res[3].success) {
             dispatch({
@@ -38,7 +38,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         ToastAndroid.show('promise.all请求错误！', 10)
         dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
     }
@@ -47,9 +47,9 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
 export const getCoordinate = param => async (dispatch) => {
     try {
         const url = `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({
                 type: actionTypes.branchInstructExecutingTypes.get_coordinate_success, payload: {
@@ -64,7 +64,7 @@ export const getCoordinate = param => async (dispatch) => {
             ToastAndroid.show('getCoordinate请求失败！', 10)
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         ToastAndroid.show('getCoordinate请求错误！', 10)
     }
 }

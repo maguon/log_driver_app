@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 import * as instructAction from './InstructAction'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
-import { styleColor } from '../../GlobalStyles'
+import globalStyles, { styleColor } from '../../GlobalStyles'
 
 class Instruct extends Component {
     constructor(props) {
@@ -28,6 +28,7 @@ class Instruct extends Component {
         }))
     }
 
+
     renderTaskItem(item, key) {
         return <TouchableOpacity
             key={key}
@@ -36,13 +37,13 @@ class Instruct extends Component {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.addr_name ? item.addr_name : ''}</Text>
-                            <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                            <Text style={{ fontSize: 15, color: '#8b959b', paddingLeft: 5, fontWeight: 'bold' }}>{item.city_name ? item.city_name : ''}{item.short_name ? `(${item.short_name})` : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>
+                                {item.addr_name ? item.addr_name : ''}{item.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
+                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}{item.transfer_flag == 0 && ' - '}{item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
+                                {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}{item.transfer_flag == 1 && ' - '}{item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                                {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            </Text>
                         </View>
-                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                            <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>经销商一</Text>
-                        </View> */}
                     </View>
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ flexDirection: 'row', flex: 1 }}>
@@ -103,7 +104,7 @@ class Instruct extends Component {
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
                                     <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{routeInfo.city_route_start ? routeInfo.city_route_start : ''}</Text>
                                     <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                                    <Text style={{ fontSize: 15, color: '#8b959b',paddingLeft: 5, fontWeight: 'bold' }}>{routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
+                                    <Text style={{ fontSize: 15, color: '#8b959b', paddingLeft: 5, fontWeight: 'bold' }}>{routeInfo.city_route_end ? routeInfo.city_route_end : ''}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
                                     <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}><Text style={{ color: '#d69aa5' }}>{routeInfo.distance ? `${routeInfo.distance}` : ''}</Text>公里</Text>
@@ -120,7 +121,7 @@ class Instruct extends Component {
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
                             </View> */}
                         </View>
-                        <View style={{ flexDirection: 'row', paddingBottom:10, justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', paddingBottom: 10, justifyContent: 'space-between' }}>
                             {/* <View style={{ flexDirection: 'row' }}>
                                 <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定执行时间：{routeInfo.task_start_date ? moment(new Date(routeInfo.task_start_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>

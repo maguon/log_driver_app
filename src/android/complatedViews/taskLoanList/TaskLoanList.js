@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, Text, TouchableOpacity, View, StyleSheet,ActivityIndicator } from 'react-native'
+import { FlatList, Text, TouchableOpacity, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { Container, Spinner } from 'native-base'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,28 +11,29 @@ import * as taskLoanListAction from './taskLoanListAction'
 
 const renderItem = props => {
     const { item: { id, truck_num, grant_date, task_loan_status, refund_date, repayment_money, grant_actual_money, refund_actual_money }, item } = props
+    console.log('props', props)
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => {
             Actions.taskLoan({ initParam: { taskLoan: item } })
         }}>
             <View style={styles.itemHeader}>
                 <Text style={globalStyles.smallText}>编号：{id ? `${id}` : ''}</Text>
-                {task_loan_status == 3 && <Text style={[globalStyles.smallText]}>已报销</Text>}
-                {task_loan_status == 2 && <Text style={[globalStyles.smallText, globalStyles.styleColor]}>已领取</Text>}
+                {task_loan_status == 1 && <Text style={[globalStyles.smallText]}>已发放</Text>}
+                {task_loan_status == 2 && <Text style={[globalStyles.smallText, globalStyles.styleColor]}>已报销</Text>}
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
                     <MaterialCommunityIcons name='truck' style={[globalStyles.styleColor, styles.itemBlockMaterialIcon]} />
                     <Text style={globalStyles.midText}>{truck_num ? `${truck_num}` : ''}</Text>
                 </View>
-                {task_loan_status == 2 && <Text style={globalStyles.midText}>领取时间：{grant_date ? `${moment(grant_date).format('YYYY-MM-DD HH:mm')}` : '0'}</Text>}
-                {task_loan_status == 3 && <Text style={globalStyles.midText}>报销时间：{refund_date ? `${moment(refund_date).format('YYYY-MM-DD HH:mm')}` : '0'}</Text>}
+                {task_loan_status == 1 && <Text style={globalStyles.midText}>领取时间：{grant_date ? `${moment(grant_date).format('YYYY-MM-DD HH:mm')}` : '0'}</Text>}
+                {task_loan_status == 2 && <Text style={globalStyles.midText}>报销时间：{refund_date ? `${moment(refund_date).format('YYYY-MM-DD HH:mm')}` : '0'}</Text>}
             </View>
             <View style={styles.item}>
-                {task_loan_status == 3 && <Text style={globalStyles.midText}>报销金额(元)：<Text style={{ color: 'red' }}>{refund_actual_money ? `${refund_actual_money}` : '0'}</Text></Text>}
-                {task_loan_status == 3 && <Text style={globalStyles.midText}>还款金额(元)：<Text style={{ color: 'red' }}>{repayment_money ? `${repayment_money}` : '0'}</Text></Text>}
-                {task_loan_status == 2 && <Text />}
-                {task_loan_status == 2 && <Text style={globalStyles.midText}>领取金额(元)：<Text style={{ color: 'red' }}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text></Text>}
+                {task_loan_status == 2 && <Text style={globalStyles.midText}>报销金额(元)：<Text style={{ color: 'red' }}>{refund_actual_money ? `${refund_actual_money}` : '0'}</Text></Text>}
+                {task_loan_status == 2 && <Text style={globalStyles.midText}>还款金额(元)：<Text style={{ color: 'red' }}>{repayment_money ? `${repayment_money}` : '0'}</Text></Text>}
+                {task_loan_status == 1 && <Text />}
+                {task_loan_status == 1 && <Text style={globalStyles.midText}>领取金额(元)：<Text style={{ color: 'red' }}>{grant_actual_money ? `${grant_actual_money}` : '0'}</Text></Text>}
             </View>
         </TouchableOpacity>
     )
