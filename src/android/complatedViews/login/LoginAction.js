@@ -6,6 +6,7 @@ import { base_host } from '../../../config/Host'
 import requestHeaders from '../../../util/RequestHeaders'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
+import * as android_app from '../../../android_app.json'
 
 export const cleanLogin = () => async (dispatch, getState) => {
     const { loginReducer: { data: { user } } } = getState()
@@ -20,6 +21,7 @@ export const cleanLogin = () => async (dispatch, getState) => {
 
 export const login = (param, tryCount = 1) => async (dispatch, getState) => {
     try {
+        // console.log('android_app', android_app)
         dispatch({ type: actionTypes.loginTypes.login_waiting, payload: {} })
         const { mobile, password } = param
         const { initializationReducer: { data: {
@@ -27,17 +29,18 @@ export const login = (param, tryCount = 1) => async (dispatch, getState) => {
             deviceInfo: { deviceToken } } } } = getState()
         const url = `${base_host}/mobileUserLogin?${ObjectToUrl({
             version: currentVersion,
-            appType: 3,
+            appType: android_app.type,
             deviceType: 1,
             deviceToken
         })}`
+        // console.log('url', url)
         const res = await httpRequest.post(url, { mobile, password })
         if (res.success) {
             if (res.result.type == 10) {
                 const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: res.result.userId })}`
-                console.log('getUserInfoUrl', getUserInfoUrl)
+                // console.log('getUserInfoUrl', getUserInfoUrl)
                 const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
-                console.log('getUserInfoRes', getUserInfoRes)
+                // console.log('getUserInfoRes', getUserInfoRes)
                 if (getUserInfoRes.success) {
                     const { uid, mobile, real_name, type, gender, avatar_image, status, drive_id } = getUserInfoRes.result[0]
                     const user = {
@@ -67,7 +70,7 @@ export const login = (param, tryCount = 1) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {

@@ -1,5 +1,7 @@
 {
   "version": "0.0.5",
+  "type": "0",
+  "android": 1,
   "stage": 0,
   "stageList": [
     {
@@ -14,4 +16,3 @@
     }
   ]
 }
-

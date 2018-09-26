@@ -9,7 +9,7 @@ import * as android_app from '../../../android_app.json'
 import { sleep } from '../../../util/util'
 import XGPush from 'react-native-xinge-push'
 import { Actions } from 'react-native-router-flux'
-
+import { ToastAndroid } from 'react-native'
 /** 
  * 
  * initApp : APP初始化
@@ -29,11 +29,12 @@ import { Actions } from 'react-native-router-flux'
 export const validateVersion = (tryCount = 1) => async (dispatch) => {
     const currentStep = 1
     try {
+        // console.log('android_app', android_app)
         dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
-        const url = `${base_host}/app?${ObjectToUrl({ app: 0, type: 1 })}`
-        console.log('url', url)
+        const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             const versionInfo = {
                 currentVersion: android_app.version,
@@ -85,10 +86,10 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
                 versionInfo.newestVersion = versionInfo.currentVersion
             }
             if (versionInfo.force_update != 1) {
-                console.log('versionInfo', versionInfo)
+                // console.log('versionInfo', versionInfo)
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_success, payload: { versionInfo, step: currentStep } })
-                //dispatch(initPush())
-                dispatch(loadLocalStorage())
+                dispatch(initPush())
+                //dispatch(loadLocalStorage())
             } else {
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
             }
@@ -96,7 +97,8 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
             dispatch({ type: actionTypes.initializationTypes.valdate_version_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
+        ToastAndroid.show(`初始化错误:${err}`, 10)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {
@@ -127,6 +129,7 @@ export const initPush = () => async (dispatch) => {
         }
     } catch (err) {
         console.log('err', err)
+        ToastAndroid.show(`初始化错误:${err}`, 10)
         dispatch({ type: actionTypes.initializationTypes.init_XGPush_error, payload: { errorMsg: err } })
     }
 }
@@ -156,6 +159,7 @@ export const loadLocalStorage = () => async (dispatch) => {
             Actions.mainRoot()
         }
     } catch (err) {
+        ToastAndroid.show(`初始化错误:${err}`, 10)
         console.log('err', err)
         if (err.name == 'NotFoundError') {
             dispatch({ type: actionTypes.initializationTypes.load_localStorage_error, payload: { errorMsg: err } })
@@ -206,6 +210,7 @@ export const validateToken = (tryCount = 1) => async (dispatch, getState) => {
             Actions.mainRoot()
         }
     } catch (err) {
+        ToastAndroid.show(`初始化错误:${err}`, 10)
         console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次

@@ -4,7 +4,7 @@ import {
     Text
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Button, Icon } from 'native-base'
+import { Button, Icon, Spinner } from 'native-base'
 import gobalStyles from '../GlobalStyles'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -13,23 +13,31 @@ import * as instructExecutingAction from '../views/instructExecuting/InstructExe
 
 
 const InstructExecutingOp = props => {
-    const {  getMileageInfo, loginReducer } = props
-    return (
-        <Button transparent onPress={() => getMileageInfo(loginReducer.data.user.uid)}>
-            <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
-        </Button>
-    )
+    const { getMileageInfo, loginReducer, instructExecutingReducer } = props
+    if (instructExecutingReducer.getLoadTaskList.isResultStatus == 1) {
+        return (
+            <Spinner color='rgba(255,255,255,0.5)' />
+        )
+    } else {
+        return (
+            <Button transparent onPress={() => getMileageInfo(loginReducer.data.user.uid)}>
+                <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
+            </Button>
+        )
+    }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        instructExecutingReducer: state.instructExecutingReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     getMileageInfo: (userId) => {
+        dispatch(instructExecutingAction.setGetLoadTaskListWaiting())
         dispatch(homeAction.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
