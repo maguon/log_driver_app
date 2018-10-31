@@ -111,17 +111,18 @@ class BranchInstructExecuting extends Component {
     }
 
     renderListItem(item, key) {
+        const { task_status } = this.props.initParam
         return <View key={key} style={{ flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc', alignItems: 'center' }}>
             <View style={{ flexDirection: 'row', flex: 7 }}>
                 <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
                 <Text style={[globalStyles.smallText, { color: '#ccc', paddingLeft: 10 }]}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2 }}>
-                <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{item.make_name ? item.make_name : ''}</Text>
+                <Text style={[globalStyles.smallText, { color: '#8b959b', marginVertical: task_status < 4 ? 10 : 0 }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-                {item.car_load_status == 2 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
-                {item.car_load_status == 1 && <TouchableOpacity onPress={() => this.changeCarLoadStatus(item.id)}>
+                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => this.changeCarLoadStatus(item.id)}>
                     <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
                 </TouchableOpacity>}
                 {/* {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
