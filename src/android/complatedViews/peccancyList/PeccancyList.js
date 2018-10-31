@@ -19,7 +19,6 @@ const renderItem = props => {
                 </CardItem>
                 <CardItem style={{ flexDirection: 'column' }}>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        {/* <Text style={globalStyles.smallText}>司机：{item.drive_name ? `${item.drive_name}` : ''} </Text> */}
                         <Text style={globalStyles.smallText}>货车牌号：{item.truck_num ? `${item.truck_num}` : ''} </Text>
                     </Body>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

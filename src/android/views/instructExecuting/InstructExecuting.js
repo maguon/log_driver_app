@@ -70,7 +70,7 @@ class InstructExecuting extends Component {
         const { taskInfo } = this.props.instructExecutingReducer.data
         console.log('item', item)
         if (item.load_task_status != 1) {
-            return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item } })}>
+            return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item ,task_status} })}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
                     <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row' }}>
@@ -137,6 +137,7 @@ class InstructExecuting extends Component {
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
         const { getLoadTaskList } = this.props.instructExecutingReducer
+        console.log(this.props)
         if (getLoadTaskList.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

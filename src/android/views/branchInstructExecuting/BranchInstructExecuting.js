@@ -83,24 +83,31 @@ class BranchInstructExecuting extends Component {
     }
 
     renderFooter() {
-        const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+
         // const { loadTaskInfo } = this.props.initParam
-        const total = routeLoadTaskList.reduce((sum, value) => {
-            return sum && value.car_load_status == 2 //&& value.exception_status != 1
-        }, true)
-        if (total && loadTaskInfo.load_task_status == 3) {
-            return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: styleColor }}>
-                    <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
-                </Button>
-            </View>
-        } else if (!total && loadTaskInfo.load_task_status == 3) {
-            return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
-                    <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
-                </Button>
-            </View>
+        const { task_status } = this.props.initParam
+        if (task_status < 4) {
+            return <View />
+        } else {
+            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+            const total = routeLoadTaskList.reduce((sum, value) => {
+                return sum && value.car_load_status == 2 //&& value.exception_status != 1
+            }, true)
+            if (total && loadTaskInfo.load_task_status == 3) {
+                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                    <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: styleColor }}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                    </Button>
+                </View>
+            } else if (!total && loadTaskInfo.load_task_status == 3) {
+                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                    <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                    </Button>
+                </View>
+            }
         }
+
     }
 
     renderListItem(item, key) {
