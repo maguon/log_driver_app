@@ -14,9 +14,10 @@ const TextBox = props => {
     const { input: { onChange, ...restProps }, getCarList, getCarListWaiting, cleanCarList } = props
     return (
         <View style={styles.inputContainer}>
-            <TextInput
+            <TextInput    
                 underlineColorAndroid='transparent'
                 placeholderTextColor='rgba(255,255,255,0.3)'
+                autoFocus={true}
                 placeholder='请输入至少6位vin码'
                 style={[globalStyles.midText, styles.input]}
                 onChangeText={(text) => {

@@ -92,9 +92,11 @@ def enableProguardInReleaseBuilds = false
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
-
         applicationId "com.log_driver_app"
         minSdkVersion 16
         targetSdkVersion 22
@@ -104,7 +106,12 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-
+        manifestPlaceholders = [
+            XG_ACCESS_ID: "2100267013",
+            XG_ACCESS_KEY: "A7XR278C4CTR",
+            HW_APPID: "e71e534fa879b",
+            PACKAGE_NAME: "com.jeepeng.push"
+        ]
     }
     signingConfigs {
             release {
