@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/17.
  */
 import React, { Component } from 'react'
-import { Text, Linking, StyleSheet, View } from 'react-native'
+import { Text, Linking, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { file_host } from '../../../config/Host'
 import { Actions } from 'react-native-router-flux'
@@ -42,6 +42,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
+        // console.log('this.props', this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -77,13 +78,14 @@ class Setting extends Component {
                             </Body>
                             <Right >
                                 {version.force_update != 0 && <TouchableOpacity onPress={() => {
-                                    if (url) {
-                                        Linking.canOpenURL(url)
+                                    console.log('url', version.url)
+                                    if (version.url) {
+                                        Linking.canOpenURL(version.url)
                                             .then(supported => {
                                                 if (!supported) {
-                                                    console.log('Can\'t handle url: ' + url)
+                                                    console.log('Can\'t handle url: ' + version.url)
                                                 } else {
-                                                    return Linking.openURL(url)
+                                                    return Linking.openURL(version.url)
                                                 }
                                             })
                                             .catch(err => console.error('An error occurred', err))

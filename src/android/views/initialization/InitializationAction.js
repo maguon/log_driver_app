@@ -32,7 +32,7 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
         // console.log('android_app', android_app)
         dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
-        // console.log('url', url)
+        //  console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
         if (res.success) {
@@ -119,16 +119,16 @@ export const initPush = () => async (dispatch) => {
     try {
         XGPush.init(2100267013, 'A7XR278C4CTR')
         const deviceToken = await XGPush.register('jeepeng')
-        console.log('deviceToken', deviceToken)
+        // console.log('deviceToken', deviceToken)
         if (deviceToken) {
             dispatch({ type: actionTypes.initializationTypes.init_XGPush_success, payload: { deviceToken, step: currentStep } })
-            console.log('currentStep', currentStep)
+            // console.log('currentStep', currentStep)
             dispatch(loadLocalStorage())
         } else {
             dispatch({ type: actionTypes.initializationTypes.init_XGPush_failed, payload: { failedMsg: '获取deviceToken错误：deviceToken为空！' } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         ToastAndroid.show(`初始化错误:${err}`, 10)
         dispatch({ type: actionTypes.initializationTypes.init_XGPush_error, payload: { errorMsg: err } })
     }
@@ -142,10 +142,10 @@ export const loadLocalStorage = () => async (dispatch) => {
         //localStorage.remove({ key: localStorageKey.USER })
 
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
-        console.log('localStorageRes', localStorageRes)
+        // console.log('localStorageRes', localStorageRes)
 
         if (localStorageRes.token && localStorageRes.uid) {
-            console.log('localStorageRes', localStorageRes)
+            // console.log('localStorageRes', localStorageRes)
             dispatch({ type: actionTypes.initializationTypes.load_localStorage_success, payload: { userlocalStorage: localStorageRes, step: currentStep } })
             dispatch(validateToken())
         }
@@ -160,7 +160,7 @@ export const loadLocalStorage = () => async (dispatch) => {
         }
     } catch (err) {
         ToastAndroid.show(`初始化错误:${err}`, 10)
-        console.log('err', err)
+        // console.log('err', err)
         if (err.name == 'NotFoundError') {
             dispatch({ type: actionTypes.initializationTypes.load_localStorage_error, payload: { errorMsg: err } })
         } else {
@@ -178,9 +178,9 @@ export const validateToken = (tryCount = 1) => async (dispatch, getState) => {
     try {
         const { initializationReducer: { data: { userlocalStorage: { uid, token } } } } = getState()
         const url = `${base_host}/user/${uid}/token/${token}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: uid })}`
@@ -211,7 +211,7 @@ export const validateToken = (tryCount = 1) => async (dispatch, getState) => {
         }
     } catch (err) {
         ToastAndroid.show(`初始化错误:${err}`, 10)
-        console.log('err', err)
+        // console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次
             if (tryCount < 20) {

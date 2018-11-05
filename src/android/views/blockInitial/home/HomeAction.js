@@ -7,11 +7,11 @@ import moment from 'moment'
 export const getMileageInfo = () => async (dispatch, getState) => {
     try {
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
-        console.log('drive_id', drive_id)
+        // console.log('drive_id', drive_id)
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
-        console.log('getTruckUrl', getTruckUrl)
+        // console.log('getTruckUrl', getTruckUrl)
         const getTruckRes = await httpRequest.get(getTruckUrl)
-        console.log('getTruckRes', getTruckRes)
+        // console.log('getTruckRes', getTruckRes)
         if (getTruckRes.success) {
             if (getTruckRes.result.length == 0) {
                 dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_Unbind, payload: {} })
@@ -26,9 +26,9 @@ export const getMileageInfo = () => async (dispatch, getState) => {
                 })}`,
                 `${base_host}/dpRouteTask?${ObjectToUrl({ taskStatusArr: '1,2,3,4,9', driveId: drive_id })}`,
                 `${base_host}/truckDispatch?${ObjectToUrl({ dispatchFlag: 1, truckId: getTruckRes.result[0].id })}`]
-                console.log('urls', urls)
+                // console.log('urls', urls)
                 const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-                console.log('res', res)
+                // console.log('res', res)
                 if (res[0].success && res[1].success && res[2].success) {
                     dispatch({
                         type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
@@ -56,7 +56,7 @@ export const getMileageInfo = () => async (dispatch, getState) => {
             dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getTruckRes.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_ERROR, payload: { data: err } })
     }
 }
