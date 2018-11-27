@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
     Text,
     View,
+    Alert,
     FlatList,
     ActivityIndicator,
     InteractionManager,
@@ -38,8 +39,8 @@ class Cars extends Component {
     }
 
     onSelectCar(param) {
-        console.log('this.props', this.props)
-        console.log('param', param)
+        // console.log('this.props', this.props)
+        // console.log('param', param)
         const { user } = this.props.loginReducer.data
         const { taskInfo } = this.props.carsReducer.data
         this.props.pushCarInCommandWaiting()
@@ -110,15 +111,29 @@ class Cars extends Component {
     }
 
     finishCarry() {
-        const { user } = this.props.loginReducer.data
-        const { taskInfo } = this.props.carsReducer.data
-        this.props.finishCarry({
-            requiredParam: {
-                userId: user.uid,
-                dpRouteLoadTaskId: taskInfo.id,
-                loadTaskStatus: 3
-            }
-        })
+        Alert.alert(
+            '提示',
+            '确认要完成装车吗？',
+            [
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: '确定', onPress: () => {
+                        const { user } = this.props.loginReducer.data
+                        const { taskInfo } = this.props.carsReducer.data
+                        this.props.finishCarry({
+
+                            requiredParam: {
+                                userId: user.uid,
+                                dpRouteLoadTaskId: taskInfo.id,
+                                loadTaskStatus: 3
+                            }
+                        })
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+
     }
 
     renderListItem(item, index) {

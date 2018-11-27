@@ -80,6 +80,11 @@ import personalCenterReducer from '../android/complatedViews/personalCenter/pers
 
 // <<<End
 
+
+// import changeMobileNoReducer from '../android/complatedViews/changeMobileNo/changeMobileNoReducer'
+import changeMobileVCodeReducer from '../android/complatedViews/changeMobileNo/changeMobileVCode/changeMobileVCodeReducer'
+
+
 export default combineReducers({
     form: formReducer,
 
@@ -156,5 +161,7 @@ export default combineReducers({
     demageResponsibilityListOperationReducer,
     demageListOperationReducer,
     taskLoanListReducer,
-    taskLoanRelListReducer
+    taskLoanRelListReducer,
+    // changeMobileNoReducer,
+    changeMobileVCodeReducer
 })

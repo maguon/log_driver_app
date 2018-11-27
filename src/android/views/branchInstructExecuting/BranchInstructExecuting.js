@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Modal,
     Linking,
+    Alert,
     ToastAndroid
 } from 'react-native'
 import { Icon, Button } from 'native-base'
@@ -60,26 +61,51 @@ class BranchInstructExecuting extends Component {
     }
 
     changeLoadTaskStatus() {
-        const { user } = this.props.loginReducer.data
-        const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
-        this.props.changeLoadTaskStatus({
-            requiredParam: {
-                userId: user.uid,
-                dpRouteLoadTaskId: loadTaskInfo.id,
-                loadTaskStatus: 7
-            }
-        })
+        Alert.alert(
+            '提示',
+            `确认完成吗？`,
+            [
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: '确定', onPress: () => {
+                        const { user } = this.props.loginReducer.data
+                        const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+                        this.props.changeLoadTaskStatus({
+                            requiredParam: {
+                                userId: user.uid,
+                                dpRouteLoadTaskId: loadTaskInfo.id,
+                                loadTaskStatus: 7
+                            }
+                        })
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     changeCarLoadStatus(param) {
-        const { user } = this.props.loginReducer.data
-        this.props.changeCarLoadStatus({
-            requiredParam: {
-                userId: user.uid,
-                dpRouteTaskDetailId: param,
-                carLoadStatus: 2
-            }
-        })
+        Alert.alert(
+            '提示',
+            `确认该车辆送达？`,
+            [
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: '确定', onPress: () => {
+                        const { user } = this.props.loginReducer.data
+                        this.props.changeCarLoadStatus({
+                            requiredParam: {
+                                userId: user.uid,
+                                dpRouteTaskDetailId: param,
+                                carLoadStatus: 2
+                            }
+                        })
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+
     }
 
     renderFooter() {
@@ -133,7 +159,7 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer

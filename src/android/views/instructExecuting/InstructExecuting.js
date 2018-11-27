@@ -5,7 +5,8 @@ import {
     FlatList,
     InteractionManager,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native'
 import { Icon, Button } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -32,16 +33,37 @@ class InstructExecuting extends Component {
     }
 
     changeLoadTaskStatus(param) {
-
-        const { user } = this.props.loginReducer.data
-        const { taskInfo } = this.props.instructExecutingReducer.data
-        this.props.changeLoadTaskStatus({
-            requiredParam: {
-                userId: user.uid,
-                taskId: taskInfo.id,
-                taskStatus: param
-            }
-        })
+        let op = ''
+        if (param == 2) {
+            op = '接受任务'
+        } else if (param == 3) {
+            op = '执行任务'
+        } else if (param == 4) {
+            op = '发车'
+        } else if (param == 9) {
+            op = '完成任务'
+        }
+        Alert.alert(
+            '提示',
+            `确认${op}吗？`,
+            [
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: '确定', onPress: () => {
+                        const { user } = this.props.loginReducer.data
+                        const { taskInfo } = this.props.instructExecutingReducer.data
+                        this.props.changeLoadTaskStatus({
+                            requiredParam: {
+                                userId: user.uid,
+                                taskId: taskInfo.id,
+                                taskStatus: param
+                            }
+                        })
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     getStepIndicatorCurrent(index) {
@@ -68,9 +90,9 @@ class InstructExecuting extends Component {
 
     renderLoadTaskItem(item, key, task_status) {
         const { taskInfo } = this.props.instructExecutingReducer.data
-        console.log('item', item)
+        // console.log('item', item)
         if (item.load_task_status != 1) {
-            return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item ,task_status} })}>
+            return <TouchableOpacity key={key} onPress={() => Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item, task_status } })}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
                     <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row' }}>
@@ -121,7 +143,7 @@ class InstructExecuting extends Component {
                             {item.load_task_status == 1 && '未达到装车条件'}
                         </Text>}
                         {taskInfo.task_status == 3 && item.load_task_status == 1 && <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                            <Button small rounded style={{ height: 20, backgroundColor: styleColor,alignSelf: 'flex-end'}} onPress={() => {
+                            <Button small rounded style={{ height: 20, backgroundColor: styleColor, alignSelf: 'flex-end' }} onPress={() => {
                                 Actions.cars({ initParam: { commandInfo: item } })
                             }}>
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>装车</Text>
@@ -137,7 +159,7 @@ class InstructExecuting extends Component {
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
         const { getLoadTaskList } = this.props.instructExecutingReducer
-        console.log(this.props)
+        // console.log(this.props)
         if (getLoadTaskList.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>

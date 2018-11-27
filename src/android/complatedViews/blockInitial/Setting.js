@@ -69,6 +69,17 @@ class Setting extends Component {
                                 <Icon name="ios-arrow-forward" />
                             </Right>
                         </ListItem>
+                        <ListItem icon onPress={Actions.changeMobileNo}>
+                            <Left>
+                                <Icon name="ios-repeat" style={globalStyles.styleColor} />
+                            </Left>
+                            <Body>
+                                <Text style={globalStyles.midText}>换绑手机</Text>
+                            </Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem>
                         <ListItem icon last>
                             <Left>
                                 <Icon name="ios-cube-outline" style={globalStyles.styleColor} />

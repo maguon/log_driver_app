@@ -72,13 +72,18 @@ import * as trailerImageActionTypes from '../android/complatedViews/trailer/trai
 import * as updatePassword from '../android/complatedViews/updatePassword/updatePasswordActionTypes'
 import * as personalCenter from '../android/complatedViews/personalCenter/personalCenterTypes'
 
+
+import * as changeMobileVCode from '../android/complatedViews/changeMobileNo/changeMobileVCode/changeMobileVCodeActionTypes'
+import * as changeMobileNo from '../android/complatedViews/changeMobileNo/changeMobileNoActionTypes'
+
 // <<<End
 
 export {
     peccancyList,
     overuseDieselOilList,
     overuseDieselOilInfo,
-
+    changeMobileVCode,
+    changeMobileNo,
     //settingBlock-views-complated 
     updatePassword,
     personalCenter,

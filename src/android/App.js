@@ -105,6 +105,9 @@ import UpdatePassword from './complatedViews/updatePassword/UpdatePassword'
 import Setting from './complatedViews/blockInitial/Setting'
 
 
+import ChangeMobileNo from './complatedViews/changeMobileNo/ChangeMobileNo'
+
+
 const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#E0E4E7',
@@ -509,6 +512,7 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
+                                <Scene key="changeMobileNo" component={ChangeMobileNo} title='换绑手机' hideNavBar={false} LeftButton={LeftButton} hideTabBar={true} navBar={NavBar} />
                                 <Scene key="personalCenter"
                                     LeftButton={LeftButton}
                                     component={PersonalCenter}

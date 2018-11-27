@@ -56,6 +56,9 @@ const validateVehicleNumber = (value) => {
 
 }
 
+export const validatePhoneNotField = (msg) => (value) => !(/^1[34578]\d{9}$/.test(value)) ? msg : undefined
+
+
 const validatePhone = (value) => {
     if ((/^1[34578]\d{9}$/.test(value))) {
         return false
