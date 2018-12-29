@@ -17,10 +17,17 @@ import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import StepIndicator from '../../components/StepIndicator'
 import globalStyles, { styleColor } from '../../GlobalStyles'
+import ConfirmModal from '../../components/ConfirmModal'
 
 class InstructExecuting extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            confirmModalVisible: false
+        }
+        this.onPressOk = this.onPressOk.bind(this)
+        this.onPressCancel = this.onPressCancel.bind(this)
         this.changeLoadTaskStatus = this.changeLoadTaskStatus.bind(this)
         this.renderLoadTaskItem = this.renderLoadTaskItem.bind(this)
         this.initView = this.initView.bind(this)
@@ -32,38 +39,66 @@ class InstructExecuting extends Component {
 
     }
 
-    changeLoadTaskStatus(param) {
-        let op = ''
-        if (param == 2) {
-            op = '接受任务'
-        } else if (param == 3) {
-            op = '执行任务'
-        } else if (param == 4) {
-            op = '发车'
-        } else if (param == 9) {
-            op = '完成任务'
+    onPressOk() {
+        this.setState({ confirmModalVisible: false })
+        const { user } = this.props.loginReducer.data
+        const { taskInfo } = this.props.instructExecutingReducer.data
+        let op
+        if (taskInfo.task_status == 1) {
+            op = 2
+        } else if (taskInfo.task_status == 2) {
+            op = 3
+        } else if (taskInfo.task_status == 3) {
+            op = 4
+        } else if (taskInfo.task_status == 4) {
+            op = 9
         }
-        Alert.alert(
-            '提示',
-            `确认${op}吗？`,
-            [
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                {
-                    text: '确定', onPress: () => {
-                        const { user } = this.props.loginReducer.data
-                        const { taskInfo } = this.props.instructExecutingReducer.data
-                        this.props.changeLoadTaskStatus({
-                            requiredParam: {
-                                userId: user.uid,
-                                taskId: taskInfo.id,
-                                taskStatus: param
-                            }
-                        })
-                    }
-                },
-            ],
-            { cancelable: false }
-        )
+        this.props.changeLoadTaskStatus({
+            requiredParam: {
+                userId: user.uid,
+                taskId: taskInfo.id,
+                taskStatus: op
+            }
+        })
+       
+    }
+
+    onPressCancel() {
+        this.setState({ confirmModalVisible: false })
+    }
+    changeLoadTaskStatus() {
+        this.setState({ confirmModalVisible: true })
+        // let op = ''
+        // if (param == 2) {
+        //     op = '接受任务'
+        // } else if (param == 3) {
+        //     op = '执行任务'
+        // } else if (param == 4) {
+        //     op = '发车'
+        // } else if (param == 9) {
+        //     op = '完成任务'
+        // }
+        // Alert.alert(
+        //     '提示',
+        //     `确认${op}吗？`,
+        //     [
+        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        //         {
+        //             text: '确定', onPress: () => {
+                        // const { user } = this.props.loginReducer.data
+                        // const { taskInfo } = this.props.instructExecutingReducer.data
+                        // this.props.changeLoadTaskStatus({
+                        //     requiredParam: {
+                        //         userId: user.uid,
+                        //         taskId: taskInfo.id,
+                        //         taskStatus: param
+                        //     }
+                        // })
+        //             }
+        //         },
+        //     ],
+        //     { cancelable: false }
+        // )
     }
 
     getStepIndicatorCurrent(index) {
@@ -159,6 +194,16 @@ class InstructExecuting extends Component {
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
         const { getLoadTaskList } = this.props.instructExecutingReducer
+        let op = ''
+        if (taskInfo.task_status == 1) {
+            op = '接受任务'
+        } else if (taskInfo.task_status == 2) {
+            op = '执行任务'
+        } else if (taskInfo.task_status == 3) {
+            op = '发车'
+        } else if (taskInfo.task_status == 4) {
+            op = '完成任务'
+        }
         // console.log(this.props)
         if (getLoadTaskList.isResultStatus == 1) {
             return (
@@ -254,6 +299,12 @@ class InstructExecuting extends Component {
                         keyExtractor={(item, index) => index}
                         data={loadTaskList}
                         renderItem={({ item, index }) => this.renderLoadTaskItem(item, index, taskInfo.task_status)} />
+                    <ConfirmModal
+                        title={`确认要${op}吗？`}
+                        isVisible={this.state.confirmModalVisible}
+                        onPressOk={this.onPressOk}
+                        onPressCancel={this.onPressCancel}
+                    />
                 </View >
             )
         }

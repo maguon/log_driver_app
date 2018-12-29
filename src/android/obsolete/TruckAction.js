@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
@@ -29,8 +28,9 @@ export const setGetTruckInfoWaiting = () => (dispatch) => {
     // dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInfo_WAITING, payload: {} })
 }
 
-export const getTruckRepairList = (param) => async (dispatch) => {
+export const getTruckRepairList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
@@ -63,8 +63,9 @@ export const setGetTruckRepairWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckRepairRelList_WAITING, payload: {} })
 }
 
-export const getTruckInsurance = (param) => async (dispatch) => {
+export const getTruckInsurance = (param) => async (dispatch,getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
@@ -98,8 +99,9 @@ export const setGetTruckInsuranceWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.truckInfoTypes.GET_TruckInsurance_WAITING, payload: {} })
 }
 
-export const getTruckImage = (param) => async (dispatch) => {
+export const getTruckImage = (param) => async (dispatch,getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host ,record_host} } } = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

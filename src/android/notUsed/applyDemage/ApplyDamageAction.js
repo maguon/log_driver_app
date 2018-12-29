@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { objectExceptNull } from '../../../util/util'
@@ -10,6 +9,7 @@ import { Actions } from 'react-native-router-flux'
 
 export const createDamage = (parent, values) => async (dispatch, getState) => {
     dispatch({ type: actionTypes.applyDamageTypes.create_Damage_waiting, payload: {} })
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     const { userReducer: { data: { user: { userId } } } } = getState()
     const { car, driver, damageExplain } = values
     try {

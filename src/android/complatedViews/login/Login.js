@@ -64,9 +64,15 @@ const Login = props => {
                         onPress={handleSubmit}>
                         <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
                     </Button>
+                    <View style={{flexDirection:'row',alignSelf:'flex-end'}}>
                     <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
-                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码？</Text>
+                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
+                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
+                    </TouchableOpacity>
+                    </View>
+
                 </View>}
             </ImageBackground>
         </Container>

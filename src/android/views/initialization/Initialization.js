@@ -27,7 +27,7 @@ class Initialization extends Component {
     }
 
     componentDidMount() {
-        this.props.validateVersion()
+        this.props.getCommunicationSetting()
     }
 
 
@@ -105,8 +105,8 @@ const mapDispatchToProps = (dispatch) => ({
     initPush: () => {
         dispatch(InitializationAction.initPush())
     },
-    validateVersion: () => {
-        dispatch(InitializationAction.validateVersion())
+    getCommunicationSetting: () => {
+        dispatch(InitializationAction.getCommunicationSetting())
     }
 
 })

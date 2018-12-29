@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes'
 import { getFormValues } from 'redux-form'
 import { ToastAndroid } from 'react-native'
@@ -8,6 +7,7 @@ import * as loginAction from '../login/LoginAction'
 export const updatePassword = () => async (dispatch, getState) => {
     const state = getState()
     const { confirmPassword, newPassword, oldPassword } = getFormValues('updatePasswordForm')(state)
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { loginReducer: { data: { user: { uid } } } } = state
     if (newPassword == confirmPassword) {
         try {

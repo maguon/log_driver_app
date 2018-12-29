@@ -1,11 +1,11 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
 export const uploadDamageImage = (params, vin) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host,file_host} } } = getState()
         const cameraSuccessReses = params.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
             const {

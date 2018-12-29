@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -9,6 +8,7 @@ const pageSize = 50
 
 export const getPeccancyList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         console.log('getState()', getState())
         console.log('param', param)
         let searchParam = {}
@@ -54,6 +54,7 @@ export const cleanPeccancyList = () => (dispatch) => {
 
 export const getPeccancyListMore = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const {
         loginReducer: { data: { user: { drive_id } } },
         peccancyListReducer: { data: { peccancyList, isComplete, search } },

@@ -1,5 +1,4 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../../config/Host'
 import * as searchCarTypes from './SearchCarTypes'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 import { sleep } from '../../../../util/util'
@@ -10,6 +9,7 @@ const pageSize = 10
 
 export const getCarList = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         const searchFormValues = getFormValues('searchCarForm')(getState())
         const url = `${base_host}/carList?${ObjectToUrl({
             vinCode: searchFormValues ? searchFormValues.vin : null,

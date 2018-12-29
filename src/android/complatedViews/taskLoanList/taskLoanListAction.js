@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -10,6 +9,7 @@ const pageSize = 50
 export const getTaskLoanList = () => async (dispatch, getState) => {
     try {
         const state = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
         const { loginReducer: { data: { user: { drive_id } } } } = state
         const url = `${base_host}/dpRouteTaskLoan?${ObjectToUrl({
@@ -20,7 +20,7 @@ export const getTaskLoanList = () => async (dispatch, getState) => {
             start: 0,
             size: pageSize
         })}`
-        console.log('url',url)
+        console.log('url', url)
         const res = await httpRequest.get(url)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
@@ -43,6 +43,7 @@ export const getTaskLoanListMore = () => async (dispatch, getState) => {
     const { taskLoanListReducer: { data: { taskLoanList, isComplete } }, taskLoanListReducer,
         loginReducer: { data: { user: { drive_id } } } } = state
     const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     if (taskLoanListReducer.getTaskLoanListMore.isResultStatus == 1) {
         await sleep(1000)
         dispatch(getTaskLoanListMore())

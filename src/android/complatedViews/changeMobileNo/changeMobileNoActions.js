@@ -1,12 +1,14 @@
 import * as reduxActionTypes from '../../../actionTypes'
 import * as reduxActions from '../../../actions'
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
+
 import { ToastAndroid } from 'react-native'
 import * as login from '../../complatedViews/login/LoginAction'
 
 export const changeMobileNo = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         // console.log('param', param)
         const { mobileNo, vCode } = param
         const { loginReducer: { data: { user: { uid } } } } = getState()

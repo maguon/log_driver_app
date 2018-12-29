@@ -83,6 +83,8 @@ import personalCenterReducer from '../android/complatedViews/personalCenter/pers
 
 // import changeMobileNoReducer from '../android/complatedViews/changeMobileNo/changeMobileNoReducer'
 import changeMobileVCodeReducer from '../android/complatedViews/changeMobileNo/changeMobileVCode/changeMobileVCodeReducer'
+import notSettleListReducer from '../android/complatedViews/notSettleList/notSettleListReducer'
+import communicationSettingReducer from '../android/complatedViews/communicationSetting/communicationSettingReducer'
 
 
 export default combineReducers({
@@ -91,7 +93,7 @@ export default combineReducers({
     //settingBlock-views-complated 
     updatePasswordReducer,
     personalCenterReducer,
-
+    communicationSettingReducer,
     // <<<End
     homeReducer,
     //component
@@ -163,5 +165,6 @@ export default combineReducers({
     taskLoanListReducer,
     taskLoanRelListReducer,
     // changeMobileNoReducer,
-    changeMobileVCodeReducer
+    changeMobileVCodeReducer,
+    notSettleListReducer
 })

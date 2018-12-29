@@ -1,10 +1,10 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
 export const getDriverInfo = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         param.getDriverInfo = {
             OptionalParam: {
@@ -31,6 +31,7 @@ export const setGetDriverInfoWaiting = () => (dispatch) => {
 
 export const getDriverRecord = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id, uid } } } } = getState()
         const url = `${record_host}/user/${uid}/tuser/${drive_id}/record`
         console.log('url', url)
@@ -52,6 +53,7 @@ export const setGetDriverRecordWaiting = () => (dispatch) => {
 
 export const getDriverImage = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         param.getDriverImage = {
             OptionalParam: {

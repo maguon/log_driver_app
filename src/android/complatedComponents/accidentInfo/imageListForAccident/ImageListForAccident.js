@@ -9,11 +9,11 @@ import {
 import ImageItem from '../../../components/share/imageItem/ImageItem'
 import globalStyles from '../../../GlobalStyles'
 import { connect } from 'react-redux'
-import { file_host } from '../../../../config/Host'
+
 import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
-    const { item, index, imageList } = props
+    const { item, index, imageList, file_host } = props
     return (
         <TouchableOpacity
             key={index}
@@ -33,6 +33,7 @@ const renderListEmpty = () => {
 }
 
 const ImageListForAccident = props => {
+    const { communicationSettingReducer: { data: { file_host } } } = props
     const { imageForAccidentReducer: { data: { imageList } }, parent } = props
     return (
         <FlatList
@@ -41,13 +42,16 @@ const ImageListForAccident = props => {
             data={imageList}
             numColumns={2}
             ListEmptyComponent={renderListEmpty}
-            renderItem={({ item, index }) => renderItem({ item, index, parent, imageList })} />
+            renderItem={({ item, index }) => renderItem({ item, index, parent, imageList, file_host })} />
     )
 }
 
+
+
 const mapStateToProps = (state) => {
     return {
-        imageForAccidentReducer: state.imageForAccidentReducer
+        imageForAccidentReducer: state.imageForAccidentReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

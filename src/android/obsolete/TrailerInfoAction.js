@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
@@ -41,8 +40,9 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 //     dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerInfo_WAITING, payload: {} })
 // }
 
-export const getTrailerRepairList = (param) => async (dispatch) => {
+export const getTrailerRepairList = (param) => async (dispatch,getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
@@ -79,8 +79,9 @@ export const setGetTrailerRepairWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerRepairRelList_WAITING, payload: {} })
 }
 
-export const getTrailerInsurance = (param) => async (dispatch) => {
+export const getTrailerInsurance = (param) => async (dispatch,getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
@@ -117,9 +118,10 @@ export const setGetTrailerInsuranceWaiting = (param) => (dispatch) => {
     dispatch({ type: actionTypes.trailerInfoTypes.GET_TrailerInsurance_WAITING, payload: {} })
 }
 
-export const getTrailerImage = (param) => async (dispatch) => {
+export const getTrailerImage = (param) => async (dispatch,getState) => {
     try {
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
+        const { communicationSettingReducer: { data: { record_host,base_host} } } = getState()
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {
             const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: getDriverRes.result[0].drive_id })}`

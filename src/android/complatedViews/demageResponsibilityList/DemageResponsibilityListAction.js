@@ -1,5 +1,5 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
+
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -10,6 +10,7 @@ const pageSize = 50
 
 export const getDemageResponsibilityList = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { loginReducer: { data: { user: { uid } } } } = state
     let search = getFormValues('demageResponsibilitySearchForm')(state)
     search = search ? search : { car: {} }
@@ -35,7 +36,7 @@ export const getDemageResponsibilityList = () => async (dispatch, getState) => {
     }
 }
 
-export const getDemageResponsibilityListWaiting = () => (dispatch,) => {
+export const getDemageResponsibilityListWaiting = () => (dispatch, ) => {
     dispatch({ type: actionTypes.demageResponsibilityListTypes.get_DemageResponsibilityList_waiting, payload: {} })
 }
 
@@ -45,6 +46,7 @@ export const getDemageResponsibilityListMore = () => async (dispatch, getState) 
         loginReducer: { data: { user: { uid } } },
         demageResponsibilityListReducer: { data: { demageResponsibilityList, isComplete } },
         demageResponsibilityListReducer } = state
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     let search = getFormValues('demageResponsibilitySearchForm')(state)
     search = search ? search : { car: {} }
     if (demageResponsibilityListReducer.getDemageResponsibilityList.isResultStatus == 1) {

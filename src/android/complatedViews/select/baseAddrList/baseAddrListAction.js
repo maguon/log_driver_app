@@ -1,10 +1,10 @@
 import httpRequest from '../../../../util/HttpRequest.js'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
-export const getBaseAddrList = (param) => async (dispatch) => {
+export const getBaseAddrList = (param) => async (dispatch,getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/baseAddr?${ObjectToUrl({ cityId: param.cityId })}`
         console.log('url', url)
         const res = await httpRequest.get(url)

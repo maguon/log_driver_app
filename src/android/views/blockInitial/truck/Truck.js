@@ -18,7 +18,6 @@ import * as cleanRelListAction from '../../../complatedViews/cleanRelList/CleanR
 import * as demageListAction from '../../../notUsed/demageList/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../complatedViews/accidentResponsibilityList/AccidentResponsibilityListAction'
 import * as demageResponsibilityListAction from '../../../complatedViews/demageResponsibilityList/DemageResponsibilityListAction'
-import { file_host } from '../../../../config/Host'
 import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
 import * as actions from '../../../../actions'
 
@@ -32,10 +31,11 @@ class Truck extends Component {
     }
 
     render() {
+        const { communicationSettingReducer: { data: { file_host} } } = this.props
         const { truckReducer: { data: { driverInfo: { company_name, operate_type } } }, loginReducer: { data: { user: { avatar_image, real_name, mobile } } },
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
             getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
-            getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList } = this.props
+            getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -164,6 +164,20 @@ class Truck extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemGroup}>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getNotSettleListWaiting()
+                                Actions.notSettleList()
+                                InteractionManager.runAfterInteractions(getNotSettleList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='clipboard-alert' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>未返还交接单</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
                             <TouchableOpacity style={styles.item} onPress={Actions.fuelFillingRecord}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='gas-station' size={14} color={'#bbb'} />
@@ -210,10 +224,12 @@ class Truck extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
     return {
         truckReducer: state.truckReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 
@@ -268,6 +284,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getPeccancyListWaiting: () => {
         dispatch(actions.peccancyList.getPeccancyListWaiting())
+    },
+    getNotSettleListWaiting: () => {
+        dispatch(actions.notSettleList.getNotSettleListWaiting())
+    },
+    getNotSettleList: () => {
+        dispatch(actions.notSettleList.getNotSettleList())
     }
 })
 

@@ -2,7 +2,6 @@ import * as actionTypes from '../../../actionTypes/index'
 import localStorageKey from '../../../util/LocalStorageKey'
 import localStorage from '../../../util/LocalStorage'
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import requestHeaders from '../../../util/RequestHeaders'
 import * as android_app from '../../../android_app.json'
@@ -25,14 +24,40 @@ import { ToastAndroid } from 'react-native'
  * 第三步：换network request所需要的token
  */
 
+export const getCommunicationSetting = () => async (dispatch) => {
+    try {
+        const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
+        console.log('localStorageRes', localStorageRes)
+        const { base_host, file_host, record_host, host } = localStorageRes
+        if (base_host && file_host && record_host && host) {
+            await dispatch({
+                type: actionTypes.communicationSetting.get_communicationSetting_success, payload: {
+                    base_host, file_host, record_host, host
+                }
+            })
+            dispatch(validateVersion())
+        } else {
+            // console.log('Actions.mainRoot')
+            Actions.mainRoot()
+        }
+
+    } catch (err) {
+        console.log('err', err)
+    }
+}
+
 //第一步：获取最新version信息
-export const validateVersion = (tryCount = 1) => async (dispatch) => {
+export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
     const currentStep = 1
     try {
         // console.log('android_app', android_app)
+        // console.log('getState',getState())
+
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        console.log('base_host', base_host)
         dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
-        //  console.log('url', url)
+        console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
         if (res.success) {
@@ -94,6 +119,11 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
             }
         } else {
+            // console.log(res.msg)
+            if (res.msg == ' service not found !') {
+                ToastAndroid.show('服务器地址设置错误，请重新设置！', 10)
+                Actions.mainRoot()
+            }
             dispatch({ type: actionTypes.initializationTypes.valdate_version_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
@@ -101,15 +131,17 @@ export const validateVersion = (tryCount = 1) => async (dispatch) => {
         ToastAndroid.show(`初始化错误:${err}`, 10)
         if (err.message == 'Network request failed') {
             //尝试20次
-            if (tryCount < 20) {
-                await sleep(1000)
-                dispatch(validateVersion(tryCount + 1))
-            } else {
-                dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
-            }
+            // if (tryCount < 20) {
+            //     await sleep(1000)
+            //     dispatch(validateVersion(tryCount + 1))
+            // } else {
+            //     dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
+            // }
+
         } else {
             dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
         }
+        Actions.mainRoot()
     }
 }
 
@@ -176,7 +208,8 @@ export const loadLocalStorage = () => async (dispatch) => {
 export const validateToken = (tryCount = 1) => async (dispatch, getState) => {
     const currentStep = 4
     try {
-        const { initializationReducer: { data: { userlocalStorage: { uid, token } } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } },
+            initializationReducer: { data: { userlocalStorage: { uid, token } } } } = getState()
         const url = `${base_host}/user/${uid}/token/${token}`
         // console.log('url', url)
         const res = await httpRequest.get(url)

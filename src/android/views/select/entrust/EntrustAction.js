@@ -1,9 +1,9 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
-export const getEntrustList = (param) => async (dispatch) => {
+export const getEntrustList = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/entrust?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)

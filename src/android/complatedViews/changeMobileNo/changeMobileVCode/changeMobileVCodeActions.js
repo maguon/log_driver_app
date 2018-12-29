@@ -1,6 +1,6 @@
 import * as reduxActionTypes from '../../../../actionTypes'
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
+
 import { sleep } from '../../../../util/util'
 import { ToastAndroid } from 'react-native'
 
@@ -24,6 +24,8 @@ export const countDown = () => async (dispatch, getState) => {
 export const getVCode = param => async (dispatch, getState) => {
     try {
         const { loginReducer: { data: { user: { uid } } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         console.log('getState()', getState())
         dispatch({ type: reduxActionTypes.changeMobileVCode.get_vCodeForChangeMobile_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/phone/${param}/mobileSms`

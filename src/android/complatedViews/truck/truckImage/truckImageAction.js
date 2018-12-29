@@ -1,9 +1,9 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { record_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 
 export const getTruckImage = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } }, truckInfoReducer: { data: { truckInfo: { truck_num } } } } = getState()
         const url = `${record_host}/user/${uid}/truck/${truck_num}/record`
         console.log('url', url)

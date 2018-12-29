@@ -7,10 +7,10 @@ import {
     Image
 } from 'react-native'
 import { Icon, Spinner } from 'native-base'
-import { file_host } from '../../../config/Host'
+import { connect } from 'react-redux'
 
 const window = Dimensions.get('window')
-export default class PhotoItem extends Component {
+class PhotoItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -27,6 +27,7 @@ export default class PhotoItem extends Component {
     }
 
     render() {
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         return (
             <TouchableOpacity onPress={this.props.onShowPhoto}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, justifyContent: 'center', alignItems: 'center', ...this.props.containerSytle }}>
@@ -43,3 +44,12 @@ export default class PhotoItem extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        communicationSettingReducer: state.communicationSettingReducer
+    }
+}
+
+
+export default connect(mapStateToProps)(PhotoItem)

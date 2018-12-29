@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host, file_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -11,6 +10,7 @@ const pageSize = 50
 export const getDemageList = () => async (dispatch, getState) => {
     const state = getState()
     const { userReducer: { data: { user: { userId } } } } = state
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     let search = getFormValues('demageSearchForm')(state)
     search = search ? search : { car: {} }
     try {
@@ -39,6 +39,7 @@ export const getDemageListWaiting = () => (dispatch, getState) => {
 
 export const getDemageListMore = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     const {
         userReducer: { data: { user: { userId } } },
         demageListReducer: { data: { demageList, isComplete } },

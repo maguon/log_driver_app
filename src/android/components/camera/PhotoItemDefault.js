@@ -4,9 +4,10 @@ import {
     View,
     Dimensions
 } from 'react-native'
-import { file_host } from '../../../config/Host'
+
 
 const window = Dimensions.get('window')
+
 export default class PhotoItemDefault extends Component {
     constructor(props) {
         super(props)

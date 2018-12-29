@@ -1,8 +1,8 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 
-export const getCityList = () => async (dispatch) => {
+export const getCityList = () => async (dispatch,getState) => {
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     const url = `${base_host}/city`
     try {
         let res = await httpRequest.get(url)

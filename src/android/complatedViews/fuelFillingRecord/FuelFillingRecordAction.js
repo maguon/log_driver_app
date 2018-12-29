@@ -1,5 +1,5 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host } from '../../../config/Host'
+
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -10,6 +10,7 @@ const pageSize = 50
 export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
     try {
         console.log('param', param)
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } }, fuelFillingRecordReducer: { data: { total } } } = getState()
         const optionalParam = {
             refuelDateStart: param ? param.refuelDateStart : total.refuelDateStart,
@@ -57,6 +58,7 @@ export const getFuelFillingRecordWaiting = () => (dispatch) => {
 
 export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { fuelFillingRecordReducer: { data: { fuelFillingRecordList, isComplete, total: { refuelDateStart, refuelDateEnd, checkStatus, refuelAddressType } } },
         fuelFillingRecordReducer,
         loginReducer: { data: { user: { drive_id } } } } = state

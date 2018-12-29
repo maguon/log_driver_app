@@ -15,7 +15,6 @@ import ImageItem from '../../components/share/imageItem/ImageItem'
 import { connect } from 'react-redux'
 import * as addCarImageAction from './AddCarImageAction'
 import globalStyles from '../../GlobalStyles'
-import { file_host } from '../../../config/Host'
 import { Actions } from 'react-native-router-flux'
 import * as routerDirection from '../../../util/RouterDirection'
 
@@ -24,7 +23,7 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, setCreateCarImageIndex } = props
+    const { item, index, uploadCarImageWaiting, uploadCarImage, imageList, parent, setCreateCarImageIndex, file_host } = props
     if (item == 'isCameraButton') {
         return renderItemCameraButton({ index, uploadCarImageWaiting, uploadCarImage })
     } else {
@@ -75,6 +74,7 @@ const renderListEmpty = props => {
 const AddCarImage = props => {
     const { parent, uploadCarImageWaiting, uploadCarImage, setCreateCarImageIndex,
         addCarImageReducer: { data: { imageList }, uploadCarImage: { isResultStatus } } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container >
             <FlatList
@@ -83,7 +83,7 @@ const AddCarImage = props => {
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadCarImageWaiting, uploadCarImage })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, uploadCarImageWaiting, uploadCarImage, setCreateCarImageIndex })} />
+                renderItem={({ item, index }) => renderItem({ parent, item, index, imageList, file_host, uploadCarImageWaiting, uploadCarImage, setCreateCarImageIndex })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -158,9 +158,11 @@ const styles = StyleSheet.create({
     }
 })
 
+
 const mapStateToProps = (state) => {
     return {
-        addCarImageReducer: state.addCarImageReducer
+        addCarImageReducer: state.addCarImageReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

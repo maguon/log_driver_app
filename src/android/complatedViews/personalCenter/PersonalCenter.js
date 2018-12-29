@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-crop-picker'
 import { Container, Left, Body, Right, List, ListItem, Thumbnail, Separator } from 'native-base'
 import * as actions from '../../../actions/index'
-import { file_host } from '../../../config/Host'
+
 
 class PersonalCenter extends Component {
     constructor(props) {

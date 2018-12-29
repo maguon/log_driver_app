@@ -1,11 +1,11 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import moment from 'moment'
 
-export const getRouteTaskList = (param) => async (dispatch) => {
+export const getRouteTaskList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.get(url)
         if (res.success) {

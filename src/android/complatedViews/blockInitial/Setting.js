@@ -4,7 +4,6 @@
 import React, { Component } from 'react'
 import { Text, Linking, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { file_host } from '../../../config/Host'
 import { Actions } from 'react-native-router-flux'
 import { Button, Container, Content, Icon, Left, Body, Right, List, ListItem, Thumbnail, Separator } from 'native-base'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -42,6 +41,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         // console.log('this.props', this.props)
         return (
             <Container>
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         loginReducer: state.loginReducer,
-        InitializationReducer: state.initializationReducer
+        InitializationReducer: state.initializationReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

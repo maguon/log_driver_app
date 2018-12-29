@@ -2,7 +2,7 @@ import * as actionTypes from '../../../actionTypes/index'
 import httpRequest from '../../../util/HttpRequest.js'
 import localStorageKey from '../../../util/LocalStorageKey'
 import localStorage from '../../../util/LocalStorage'
-import { base_host } from '../../../config/Host'
+
 import requestHeaders from '../../../util/RequestHeaders'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -22,6 +22,7 @@ export const cleanLogin = () => async (dispatch, getState) => {
 export const login = (param, tryCount = 1) => async (dispatch, getState) => {
     try {
         // console.log('android_app', android_app)
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.loginTypes.login_waiting, payload: {} })
         const { mobile, password } = param
         const { initializationReducer: { data: {

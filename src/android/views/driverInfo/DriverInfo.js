@@ -18,7 +18,6 @@ import * as driverInfoAction from './DriverInfoAction'
 import drivingLicenseTypeList from '../../../config/drivingLicenseType.json'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
-import { file_host } from '../../../config/Host'
 import { styleColor } from '../../GlobalStyles'
 
 class DriverInfo extends Component {
@@ -157,6 +156,7 @@ class DriverInfo extends Component {
 
     renderDriverPhoto() {
         const { getDriverImage } = this.props.driverInfoReducer
+        const { communicationSettingReducer: { data: { file_host} } } = this.props
         if (getDriverImage.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -252,7 +252,8 @@ class DriverInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         driverInfoReducer: state.driverInfoReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

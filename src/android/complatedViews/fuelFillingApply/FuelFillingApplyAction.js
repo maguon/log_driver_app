@@ -1,5 +1,5 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host } from '../../../config/Host'
+
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import * as fuelFillingRecordAction from '../fuelFillingRecord/FuelFillingRecordAction'
@@ -11,6 +11,7 @@ export const createFuelFillingApply = (param) => async (dispatch, getState) => {
         const { loginReducer: { data: { user: { drive_id, uid } } } } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         const getTruckRes = await httpRequest.get(getTruckUrl)
+        const { communicationSettingReducer: { data: {base_host } } } = getState()
         if (getTruckRes.success) {
             if (getTruckRes.result.length == 0) {
                 dispatch({ type: actionTypes.fuelFillingApplyTypes.CREATE_FuelFilling_FAILED, payload: { data: '未绑定车头！' } })

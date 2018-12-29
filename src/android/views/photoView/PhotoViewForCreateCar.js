@@ -8,12 +8,12 @@ import {
 import { Button, Icon } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
-import { file_host } from '../../../config/Host'
 import * as addCarImageAction from '../uploadImageForCreateCar/AddCarImageAction'
 import SinglePhotoView from './SinglePhotoView'
 
 const PhotoViewForCreateCar = props => {
     const { addCarImageReducer: { data: { imageList, index } }, setCreateCarImageIndex } = props
+    const { communicationSettingReducer: { data: { file_host} } } = props
     return (
         <SinglePhotoView
             initParam={{ imageUrlList: imageList.map(item => `${file_host}/image/${item}`), index }}
@@ -22,7 +22,8 @@ const PhotoViewForCreateCar = props => {
 }
 
 const mapStateToProps = (state) => ({
-    addCarImageReducer: state.addCarImageReducer
+    addCarImageReducer: state.addCarImageReducer,
+    communicationSettingReducer:state.communicationSettingReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({

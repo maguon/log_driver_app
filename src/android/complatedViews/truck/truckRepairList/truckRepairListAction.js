@@ -1,10 +1,10 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
 export const getTruckRepairList = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckInfoReducer: { data: { truckInfo } } } = getState()
         const url = `${base_host}/truckRepairRel?${ObjectToUrl({ truckId: truckInfo.id })}`
         console.log('url', url)

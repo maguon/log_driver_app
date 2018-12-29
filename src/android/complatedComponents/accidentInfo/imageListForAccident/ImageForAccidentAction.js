@@ -1,12 +1,13 @@
 import * as httpRequest from '../../../../util/HttpRequest'
-import { file_host, record_host } from '../../../../config/Host'
+
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 
-export const getAccidentImageList = (param) => async (dispatch) => {
+export const getAccidentImageList = (param) => async (dispatch, getState) => {
     const { accidentId } = param
     try {
+        const { communicationSettingReducer: { data: { record_host } } } = getState()
         const url = `${record_host}/truckDamage?${ObjectToUrl({ truckDamageId: accidentId })}`
         console.log('url', url)
         const res = await httpRequest.get(url)
@@ -39,6 +40,7 @@ export const uploadAccidentImageWaiting = () => (dispatch) => {
 export const uploadAccidentImage = param => async (dispatch, getState) => {
     try {
         const { cameraReses, accidentId, truck_num } = param
+        const { communicationSettingReducer: { data: { record_host, file_host } } } = getState()
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
             const { loginReducer: { data: { user } } } = getState()
@@ -90,6 +92,8 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
 export const delImage = param => async (dispatch, getState) => {
     const { loginReducer: { data: { user: { uid } } },
         imageForAccidentReducer: { data: { recordId } } } = getState()
+    const { communicationSettingReducer: { data: { record_host } } } = getState()
+
     dispatch({ type: actionTypes.imageForAccidentTypes.del_ImageAtAccidentInfo_waiting, payload: {} })
     try {
         const url = `${record_host}/user/${uid}/record/${recordId}/truckDamageImage/${param}`

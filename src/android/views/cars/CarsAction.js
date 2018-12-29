@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as instructExecutingAction from '../instructExecuting/InstructExecutingAction'
@@ -8,6 +7,7 @@ import moment from 'moment'
 
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.carsTypes.Finish_Carry_WAITING, payload: {} })
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
@@ -54,7 +54,8 @@ export const resetFinishCarry = () => (dispatch) => {
     dispatch({ type: actionTypes.carsTypes.RESET_Finish_Carry, payload: {} })
 }
 
-export const getCommandCarList = (param) => async (dispatch) => {
+export const getCommandCarList = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`
     try {
         const res = await httpRequest.get(url)
@@ -73,8 +74,9 @@ export const getCommandCarListWaiting = () => (dispatch) => {
 }
 
 
-export const pushCarInCommand = (param) => async (dispatch) => {
+export const pushCarInCommand = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.post(url, param.postParam)
         if (res.success) {
@@ -96,8 +98,9 @@ export const pushCarInCommandWaiting = () => (dispatch) => {
 }
 
 
-export const removeCommandCar = (param) => async (dispatch) => {
+export const removeCommandCar = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.carsTypes.REMOVE_CommandCar_WAITING, payload: { data: { id: param.requiredParam.dpRouteTaskDetailId } } })
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.del(url)

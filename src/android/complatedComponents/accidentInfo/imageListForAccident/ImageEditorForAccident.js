@@ -13,7 +13,6 @@ import ImageItem from '../../../components/share/imageItem/ImageItem'
 import globalStyles from '../../../GlobalStyles'
 import { connect } from 'react-redux'
 import CameraButton from '../../../components/share/imageItem/CameraButton'
-import { file_host } from '../../../../config/Host'
 import { Container } from 'native-base'
 import * as  imagForAccidentAction from './ImageForAccidentAction'
 import { Actions } from 'react-native-router-flux'
@@ -24,7 +23,7 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent, accidentId,truck_num } = props
+    const { item, index, uploadAccidentImageWaiting, uploadAccidentImage, imageList, parent, accidentId,truck_num ,file_host} = props
     if (item == 'isCameraButton') {
         return renderItemCameraButton({ index, uploadAccidentImageWaiting, uploadAccidentImage, accidentId,truck_num })
     } else {
@@ -80,6 +79,8 @@ const ImageEditorForAccident = props => {
         uploadAccidentImage,
         accidentInfo: { id,truck_num },
         imageForAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
+        const { communicationSettingReducer: { data: { file_host } } } = props
+
     return (
         <Container >
             <FlatList
@@ -89,7 +90,7 @@ const ImageEditorForAccident = props => {
                 data={imageList.length > 0 ? [...imageList, 'isCameraButton'] : imageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadAccidentImageWaiting,accidentId: id, uploadAccidentImage,truck_num })}
-                renderItem={({ item, index }) => renderItem({ parent, accidentId: id, truck_num,item, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
+                renderItem={({ item, index }) => renderItem({ parent, accidentId: id, truck_num,item,file_host, index, imageList, uploadAccidentImageWaiting, uploadAccidentImage })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -166,6 +167,7 @@ const styles = StyleSheet.create({
 
 
 const imageMapStateToProps = (state) => {
+    const { communicationSettingReducer: { data: { file_host } } } = state
     return {
         imageViewReducer: {
             imageList: state.imageForAccidentReducer.data.imageList.map(item => `${file_host}/image/${item.url}`)
@@ -181,7 +183,8 @@ const imageMapDispatchToProps = (dispatch, ownProps) => ({
 
 const mapStateToProps = (state) => {
     return {
-        imageForAccidentReducer: state.imageForAccidentReducer
+        imageForAccidentReducer: state.imageForAccidentReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

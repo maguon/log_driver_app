@@ -1,5 +1,5 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
+
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -12,6 +12,8 @@ export const getAccidentList = () => async (dispatch, getState) => {
     try {
         const state = getState()
         const { loginReducer: { data: { user: { uid } } } } = state
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
+
         let search = getFormValues('accidentSearchForm')(state)
         search = search ? search : {}
         const url = `${base_host}/truckAccident?${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize, ...search })}`
@@ -42,6 +44,8 @@ export const getAccidentListWaiting = () => (dispatch) => {
 
 export const getAccidentListMore = () => async (dispatch, getState) => {
     const state = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     const {
         loginReducer: { data: { user: { uid } } },
         accidentListReducer: { data: { accidentList, isComplete } },

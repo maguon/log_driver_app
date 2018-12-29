@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest.js'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as instructExecutingAction from '../instructExecuting/InstructExecutingAction'
@@ -7,8 +6,9 @@ import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
 import { ToastAndroid } from 'react-native'
 
-export const getRouteLoadTaskList = (param) => async (dispatch) => {
+export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
     // console.log('param', param)
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
     `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
     `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
@@ -44,8 +44,9 @@ export const getRouteLoadTaskList = (param) => async (dispatch) => {
     }
 }
 
-export const getCoordinate = param => async (dispatch) => {
+export const getCoordinate = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -73,7 +74,8 @@ export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.GET_RouteLoadTaskListExecuting_WAITING, payload: {} })
 }
 
-export const changeCarExceptionRel = (param) => async (dispatch) => {
+export const changeCarExceptionRel = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     try {
         const res = await httpRequest.post(url, param.postParam)
@@ -97,6 +99,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
@@ -146,8 +149,9 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
     dispatch({ type: actionTypes.branchInstructExecutingTypes.RESET_Change_ExecutingLoadTaskStatus, payload: {} })
 }
 
-export const changeCarLoadStatus = (param) => async (dispatch) => {
+export const changeCarLoadStatus = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

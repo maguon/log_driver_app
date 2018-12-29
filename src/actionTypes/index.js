@@ -78,16 +78,27 @@ import * as changeMobileNo from '../android/complatedViews/changeMobileNo/change
 
 // <<<End
 
+
+
+//views-complated 
+import * as notSettleList from '../android/complatedViews/notSettleList/notSettleListActionTypes'
+import * as communicationSetting from '../android/complatedViews/communicationSetting/communicationSettingActionTypes'
+
+
+// <<<End
+
 export {
     peccancyList,
     overuseDieselOilList,
     overuseDieselOilInfo,
     changeMobileVCode,
     changeMobileNo,
+    communicationSetting,
     //settingBlock-views-complated 
     updatePassword,
     personalCenter,
     // <<<End
+    notSettleList,
     //component
     truckInfoTypes,
     truckRepairListActionTypes,
@@ -155,5 +166,8 @@ export {
     demageListOperationTypes,
     taskLoanListTypes,
     taskLoanRelListTypes,
-    carsTypes
+    carsTypes,
+    
+
+
 }   

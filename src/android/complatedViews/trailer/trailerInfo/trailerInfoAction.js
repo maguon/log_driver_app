@@ -1,5 +1,4 @@
 import httpRequest from '../../../../util/HttpRequest'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
@@ -10,6 +9,7 @@ export const getTrailerInfo = (next) => async (dispatch, getState) => {
         // const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         // const getDriverRes = await httpRequest.get(getDriverUrl)
         // if (getDriverRes.success) {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         console.log('getTruckUrl', getTruckUrl)
         const getTruckRes = await httpRequest.get(getTruckUrl)

@@ -103,9 +103,10 @@ import VinScanner from './views/VinScanner'
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
 import UpdatePassword from './complatedViews/updatePassword/UpdatePassword'
 import Setting from './complatedViews/blockInitial/Setting'
-
+import CommunicationSetting from './complatedViews/communicationSetting/CommunicationSetting'
 
 import ChangeMobileNo from './complatedViews/changeMobileNo/ChangeMobileNo'
+import NotSettleList from './complatedViews/notSettleList/NotSettleList'
 
 
 const styles = StyleSheet.create({
@@ -179,7 +180,8 @@ export default class App extends Component {
                     >
                         <Scene key="loginBlock" >
                             <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar />
-                            <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} navBar={NavBar} />
+                            <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar hideNavBar={false} LeftButton={LeftButton} navBar={NavBar} />
+                            <Scene key="communicationSetting" title='通讯设置' component={CommunicationSetting} hideTabBar hideNavBar={false} LeftButton={LeftButton} navBar={NavBar} />
                         </Scene>
                         <Scene key="main" tabs={true} tabBarStyle={styles.tabBarStyle} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                             <Scene key="homeBlock" initial={true} icon={TabIcon} online='ios-home' outline='ios-home-outline' >
@@ -310,6 +312,12 @@ export default class App extends Component {
                                     component={TaskLoanList}
                                     RightButton={TaskLoanListOP}
                                     title='出车款'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
+                                <Scene key="notSettleList"
+                                    component={NotSettleList}
+                                    title='未返还交接单'
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />

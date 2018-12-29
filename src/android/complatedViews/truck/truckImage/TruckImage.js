@@ -2,7 +2,6 @@ import React from 'react'
 import { Text, FlatList, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container } from 'native-base'
 import { connect } from 'react-redux'
-import { file_host } from '../../../../config/Host'
 import SingleImageItem from '../../../components/share/imageItem/SingleImageItem'
 import ImageItem from '../../../components/share/imageItem/ImageItem'
 import { Actions } from 'react-native-router-flux'
@@ -12,7 +11,7 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, truckImageList, driving_image, license_image } = props
+    const { item, index, truckImageList, driving_image, license_image,file_host } = props
     if (item == 'isDriverImage') {
         return (
             <TouchableOpacity
@@ -50,6 +49,7 @@ const renderItem = props => {
 
 const TruckImage = props => {
     const { truckImageReducer: { data: { truckImageList } }, truckInfoReducer: { data: { truckInfo: { driving_image, license_image } } }, parent } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container>
             <FlatList
@@ -58,7 +58,7 @@ const TruckImage = props => {
                 data={['isDriverImage', 'isLicenseImage', ...truckImageList.map(item => `${file_host}/image/${item.url}`)]}
                 numColumns={2}
                 renderItem={({ item, index }) => renderItem({
-                    parent, item, index, truckImageList: truckImageList.map(item => `${file_host}/image/${item.url}`), driving_image, license_image
+                    parent, item, index, truckImageList: truckImageList.map(item => `${file_host}/image/${item.url}`), driving_image,file_host, license_image
                 })} />
         </Container>
     )
@@ -67,7 +67,8 @@ const TruckImage = props => {
 const mapStateToProps = (state) => {
     return {
         truckImageReducer: state.truckImageReducer,
-        truckInfoReducer: state.truckInfoReducer
+        truckInfoReducer: state.truckInfoReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

@@ -12,7 +12,6 @@ import { connect } from 'react-redux'
 import * as carInfoAction from './CarInfoAction'
 import moment from 'moment'
 import ImageItem from '../../components/share/imageItem/ImageItem'
-import { file_host } from '../../../config/Host'
 import * as RouterDirection from '../../../util/RouterDirection'
 import { Actions } from 'react-native-router-flux'
 import { ListItem } from 'native-base'
@@ -69,6 +68,7 @@ class CarInfo extends Component {
     }
 
     renderImage(item, i, setCarImageIndex) {
+        const { communicationSettingReducer: { data: { file_host} } } = this.props
         return (
             <TouchableOpacity
                 style={{ margin: 5 }}
@@ -113,10 +113,12 @@ class CarInfo extends Component {
 }
 
 
+
 const mapStateToProps = (state) => {
     return {
         carInfoReducer: state.carInfoReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

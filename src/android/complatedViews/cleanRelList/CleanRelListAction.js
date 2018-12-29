@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { sleep } from '../../../util/util'
@@ -11,6 +10,8 @@ const pageSize = 50
 export const getCleanRelList = (receiveId) => async (dispatch, getState) => {
     const state = getState()
     const { loginReducer: { data: { user: { drive_id } } } } = state
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     try {
         const url = `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({
             driveId: drive_id,
@@ -46,6 +47,8 @@ export const getCleanRelListMore = () => async (dispatch, getState) => {
         loginReducer: { data: { user: { drive_id } } },
         cleanRelListReducer: { data: { cleanRelList, isComplete } },
         cleanRelListReducer } = state
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     let search = getFormValues('searchCleanRelForm')(state)
     search = search ? search : {}
     if (cleanRelListReducer.getCleanRelListMore.isResultStatus == 1) {

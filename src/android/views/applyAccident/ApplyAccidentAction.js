@@ -1,5 +1,4 @@
 import * as httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { objectExceptNull } from '../../../util/util'
 import { ToastAndroid } from 'react-native'
@@ -7,6 +6,7 @@ import { Actions } from 'react-native-router-flux'
 
 export const applyAccident = (param) => async (dispatch, getState) => {
     const { loginReducer: { data: { user: { uid, drive_id } } } } = getState()
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentTypes.apply_Accident_waiting, payload: {} })
         console.log('param', param)

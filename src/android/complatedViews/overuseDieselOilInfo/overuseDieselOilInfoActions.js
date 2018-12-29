@@ -1,11 +1,11 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
 export const getDpRouteTask = (param) => async (dispatch) => {
     try {
         console.log('param',param)
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId })}`
         console.log('url', url)
         const res = await httpRequest.get(url)

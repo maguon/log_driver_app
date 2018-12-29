@@ -1,10 +1,10 @@
 import httpRequest from '../util/HttpRequest'
-import { base_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getReceiveList = (param) => async (dispatch) => {
+export const getReceiveList = (param) => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/receive?${ObjectToUrl({
             cityId: param.cityId
         })}`

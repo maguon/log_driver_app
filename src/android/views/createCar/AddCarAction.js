@@ -1,5 +1,4 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl, objectExceptNull } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -18,6 +17,7 @@ export const submit = param => (dispatch, getState) => {
 
 export const modifyCar = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         dispatch({ type: actionTypes.addCarTypes.modify_car_waiting, payload: {} })
         const { addCarReducer: { data: { carId } },
             loginReducer: { data: { user: { uid } } } } = getState()
@@ -51,6 +51,7 @@ export const modifyCar = param => async (dispatch, getState) => {
 
 export const createCar = param => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         const { loginReducer: { data: { user: { uid } } } } = getState()
         const { values, parent, onSelect } = param
         dispatch({ type: actionTypes.addCarTypes.ADD_Car_WAITING, payload: {} })

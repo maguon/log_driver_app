@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import * as actionTypes from '../../../actionTypes/index'
-import { file_host } from '../../../config/Host'
+
 
 const initialState = {
     data: {

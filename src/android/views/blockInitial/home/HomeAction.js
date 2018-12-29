@@ -1,11 +1,11 @@
 import httpRequest from '../../../../util/HttpRequest.js'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 import moment from 'moment'
 
 export const getMileageInfo = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         // console.log('drive_id', drive_id)
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`

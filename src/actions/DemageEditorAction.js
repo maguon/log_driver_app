@@ -1,5 +1,5 @@
 import httpRequest from '../util/HttpRequest'
-import { base_host, file_host, record_host } from '../config/Host'
+
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 import { getFormValues } from 'redux-form'
@@ -11,6 +11,7 @@ export const updateDamage = (param) => async (dispatch, getState) => {
     const { damageId, carId, vin } = param
     const state = getState()
     const { loginReducer: { data: { user: { uid } } } } = state
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const applyDamageForm = getFormValues('demageEditorForm')(state) ? getFormValues('demageEditorForm')(state) : {}
     const { damageExplain, driver: { value, id, truck_id, truck_num } } = applyDamageForm
     try {

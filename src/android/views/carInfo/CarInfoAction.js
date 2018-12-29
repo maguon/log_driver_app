@@ -1,9 +1,9 @@
 import httpRequest from '../../../util/HttpRequest'
-import { base_host, record_host } from '../../../config/Host'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
-export const getCarInfo = (param) => async (dispatch) => {
+export const getCarInfo = (param) => async (dispatch, getState) => {
+    const { communicationSettingReducer: { data: { record_host, base_host } } } = getState()
     const urls = [`${base_host}/car?${ObjectToUrl(param.OptionalParam)}`,
     `${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`]
     try {

@@ -15,11 +15,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import * as carsAction from './CarsAction'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import { Actions } from 'react-native-router-flux'
-
+import ConfirmModal from '../../components/ConfirmModal'
 
 class Cars extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            confirmModalVisible: false
+        }
+        this.onPressOk = this.onPressOk.bind(this)
+        this.onPressCancel = this.onPressCancel.bind(this)
         this.onSelectCar = this.onSelectCar.bind(this)
         this.removeCar = this.removeCar.bind(this)
         this.renderListItem = this.renderListItem.bind(this)
@@ -37,6 +42,8 @@ class Cars extends Component {
             taskInfo: commandInfo
         }))
     }
+
+    
 
     onSelectCar(param) {
         // console.log('this.props', this.props)
@@ -110,29 +117,51 @@ class Cars extends Component {
         }
     }
 
-    finishCarry() {
-        Alert.alert(
-            '提示',
-            '确认要完成装车吗？',
-            [
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                {
-                    text: '确定', onPress: () => {
-                        const { user } = this.props.loginReducer.data
-                        const { taskInfo } = this.props.carsReducer.data
-                        this.props.finishCarry({
 
-                            requiredParam: {
-                                userId: user.uid,
-                                dpRouteLoadTaskId: taskInfo.id,
-                                loadTaskStatus: 3
-                            }
-                        })
-                    }
-                },
-            ],
-            { cancelable: false }
-        )
+    onPressOk() {
+        this.setState({ confirmModalVisible: false })
+        const { user } = this.props.loginReducer.data
+        const { taskInfo } = this.props.carsReducer.data
+        this.props.finishCarry({
+
+            requiredParam: {
+                userId: user.uid,
+                dpRouteLoadTaskId: taskInfo.id,
+                loadTaskStatus: 3
+            }
+        })
+       
+    }
+
+    onPressCancel() {
+        this.setState({ confirmModalVisible: false })
+    }
+
+    finishCarry() {
+        this.setState({ confirmModalVisible: true })
+
+        // Alert.alert(
+        //     '提示',
+        //     '确认要完成装车吗？',
+        //     [
+        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        //         {
+        //             text: '确定', onPress: () => {
+        //                 const { user } = this.props.loginReducer.data
+        //                 const { taskInfo } = this.props.carsReducer.data
+        //                 this.props.finishCarry({
+
+        //                     requiredParam: {
+        //                         userId: user.uid,
+        //                         dpRouteLoadTaskId: taskInfo.id,
+        //                         loadTaskStatus: 3
+        //                     }
+        //                 })
+        //             }
+        //         },
+        //     ],
+        //     { cancelable: false }
+        // )
 
     }
 
@@ -232,6 +261,12 @@ class Cars extends Component {
                             renderItem={({ item, index }) => this.renderListItem(item, index)}
                             ListFooterComponent={this.renderListFooter} />
                     </View>
+                    <ConfirmModal
+                        title='确认要完成装车吗？'
+                        isVisible={this.state.confirmModalVisible}
+                        onPressOk={this.onPressOk}
+                        onPressCancel={this.onPressCancel}
+                    />
                 </View>
             )
         }

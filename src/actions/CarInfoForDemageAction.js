@@ -1,11 +1,11 @@
 import httpRequest from '../util/HttpRequest'
-import { base_host, file_host, record_host } from '../config/Host'
 import * as actionTypes from '../actionTypes'
 import { ObjectToUrl } from '../util/ObjectToUrl'
 
-export const getCarInfo = (param) => async (dispatch) => {
+export const getCarInfo = (param) => async (dispatch, getState) => {
     const { car_id } = param
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/carList?${ObjectToUrl({ carId: car_id })}`
         const res = await httpRequest.get(url)
         if (res.success) {

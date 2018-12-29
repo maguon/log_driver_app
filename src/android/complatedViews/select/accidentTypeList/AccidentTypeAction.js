@@ -1,5 +1,4 @@
 import httpRequest from '../../../../util/HttpRequest.js'
-import { base_host } from '../../../../config/Host'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
@@ -7,6 +6,7 @@ import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
 export const getAccidentType = () => async (dispatch, getState) => {
     try {
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckReducer: { data: { driverInfo: { truck_id, truck_num } } } } = getState()
         const url = `${base_host}/truckFirst?truckId=${truck_id}`
         console.log('url', url)

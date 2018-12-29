@@ -13,7 +13,6 @@ import ImageItem from '../share/imageItem/ImageItem'
 import globalStyles from '../../GlobalStyles'
 import { connect } from 'react-redux'
 import CameraButton from '../../components/share/imageItem/CameraButton'
-import { file_host } from '../../../config/Host'
 import { Container, Content, Input, Label, Icon } from 'native-base'
 import * as  imageListForDemageAction from './ImageListForDemageAction'
 import { Actions } from 'react-native-router-flux'
@@ -23,7 +22,7 @@ const containerWidth = window.width / 2
 const containerHeight = containerWidth / 16 * 9
 
 const renderItem = props => {
-    const { item, index, uploadDamageImageWaiting, uploadDamageImage, demageImageList, parent, damageId, vin } = props
+    const { item, index, uploadDamageImageWaiting, uploadDamageImage, demageImageList, parent, damageId, vin, file_host } = props
     if (item == 'isCameraButton') {
         return renderItemCameraButton({ index, uploadDamageImageWaiting, uploadDamageImage, damageId, vin })
     } else {
@@ -79,6 +78,7 @@ const ImageEditorForDemage = props => {
         uploadDamageImage,
         imageListForDemageReducer: { data: { demageImageList }, uploadDamageImage: { isResultStatus } },
         initParam: { id, vin } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container >
             <FlatList
@@ -87,7 +87,7 @@ const ImageEditorForDemage = props => {
                 data={demageImageList.length > 0 ? [...demageImageList, 'isCameraButton'] : demageImageList}
                 numColumns={2}
                 ListEmptyComponent={() => renderListEmpty({ uploadDamageImageWaiting, uploadDamageImage, damageId: id, vin })}
-                renderItem={({ item, index }) => renderItem({ parent, item, index, demageImageList, uploadDamageImageWaiting, uploadDamageImage, damageId: id, vin })} />
+                renderItem={({ item, index }) => renderItem({ parent, item, index, demageImageList, uploadDamageImageWaiting, uploadDamageImage, damageId: id, vin, file_host })} />
             <Modal
                 animationType={"fade"}
                 transparent={true}
@@ -107,6 +107,8 @@ const ImageEditorForDemage = props => {
         </Container>
     )
 }
+
+
 
 const styles = StyleSheet.create({
     cameraButtonContainer: {
@@ -163,6 +165,7 @@ const styles = StyleSheet.create({
 })
 
 const imageMapStateToProps = (state) => {
+    const { communicationSettingReducer: { data: { file_host } } } = state
     return {
         imageViewReducer: {
             imageList: state.imageListForDemageReducer.data.demageImageList.map(item => `${file_host}/image/${item.url}`)
@@ -170,15 +173,16 @@ const imageMapStateToProps = (state) => {
     }
 }
 
-const imageMapDispatchToProps = (dispatch,ownProps) => ({
+const imageMapDispatchToProps = (dispatch, ownProps) => ({
     delImage: (param) => {
-       dispatch(imageListForDemageAction.delImage(param))
+        dispatch(imageListForDemageAction.delImage(param))
     }
 })
 
 const mapStateToProps = (state) => {
     return {
-        imageListForDemageReducer: state.imageListForDemageReducer
+        imageListForDemageReducer: state.imageListForDemageReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 
