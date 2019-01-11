@@ -30,7 +30,7 @@ class Setting extends Component {
     }
 
     onPressOk() {
-        this.setState({ confirmModalVisible: false })
+       this.setState({ confirmModalVisible: false })
         this.props.cleanLogin()
     }
 

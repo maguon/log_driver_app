@@ -12,6 +12,7 @@ const window = Dimensions.get('window')
 
 const TextBox = props => {
     const { iconName, placeholderText, input: { onChange, ...restProps }, secureTextEntry = false } = props
+    console.log('props', props)
     return (
         <Item rounded style={styles.item}>
             <Icon active name={iconName} style={styles.itemIcon} />
@@ -26,58 +27,76 @@ const TextBox = props => {
     )
 }
 
-const Login = props => {
-    const { loginReducer: { loginFlow: { isResultStatus } },  handleSubmit } = props
-    return (
-        <Container style={styles.container}>
-            <StatusBar hidden={true} />
-            <ImageBackground
-                source={{ uri: 'login_back' }}
-                style={styles.backgroundImage} >
-                <View style={{ paddingTop: 80 }}>
-                    <View style={styles.logoContainer}>
-                        <Image
-                            source={{ uri: 'logo' }}
-                            style={styles.logo} />
-                    </View>
-                    <View>
-                        <Image
-                            source={{ uri: 'app_name' }}
-                            style={styles.appname} />
-                    </View>
-                </View>
-                {isResultStatus == 1 && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Spinkit type={'Circle'} color="#fff" size={70} isVisible={isResultStatus == 1} />
-                </View>}
-                {isResultStatus != 1 && <View style={styles.formContainer}><Field
-                    name='mobile'
-                    iconName='md-person'
-                    placeholderText='请输入用户名'
-                    component={TextBox} />
-                    <Field
-                        name='password'
-                        secureTextEntry={true}
-                        iconName='md-lock'
-                        placeholderText='请输入密码'
-                        component={TextBox} />
-                    <Button style={[styles.itemButton, { backgroundColor: '#00cade' }]}
-                        onPress={handleSubmit}>
-                        <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
-                    </Button>
-                    <View style={{flexDirection:'row',alignSelf:'flex-end'}}>
-                    <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
-                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
-                        <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
-                    </TouchableOpacity>
-                    </View>
+class Login extends Component {
+    constructor(props) {
+        super(props)
+    }
 
-                </View>}
-            </ImageBackground>
-        </Container>
-    )
+    render() {
+        const { handleSubmit } = this.props
+        console.log('this.props.loginReducer123123===================')
+
+        return (
+            <Container style={styles.container}>
+                <StatusBar hidden={true} />
+                <ImageBackground
+                    source={{ uri: 'login_back' }}
+                    style={styles.backgroundImage} >
+                    <View style={{ paddingTop: 80 }}>
+                        <View style={styles.logoContainer}>
+                            <Image
+                                source={{ uri: 'logo' }}
+                                style={styles.logo} />
+                        </View>
+                        <View>
+                            <Image
+                                source={{ uri: 'app_name' }}
+                                style={styles.appname} />
+                        </View>
+                    </View>
+                    {/* {isResultStatus == 1 && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Spinkit type={'Circle'} color="#fff" size={70} isVisible={isResultStatus == 1} />
+                    </View>} */}
+                    <View style={styles.formContainer}>
+                        <Field
+                            name='server'
+                            iconName='md-globe'
+                            placeholderText='请输入服务器域名'
+                            component={TextBox} />
+                        <Field
+                            name='mobile'
+                            iconName='md-person'
+                            placeholderText='请输入用户名'
+                            component={TextBox} />
+                        <Field
+                            name='password'
+                            secureTextEntry={true}
+                            iconName='md-lock'
+                            placeholderText='请输入密码'
+                            component={TextBox} />
+                        <Button style={[styles.itemButton, { backgroundColor: '#00cade' }]}
+                            onPress={handleSubmit}>
+                            <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
+                        </Button>
+                        <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                            <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
+                                <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
+                            </TouchableOpacity>
+                            {/* <TouchableOpacity style={styles.linkButton} onPress={Actions.communicationSetting}>
+                                <Text style={[globalStyles.midText, styles.linkButtonTittle]}>通讯设置</Text>
+                            </TouchableOpacity> */}
+                        </View>
+                    </View>
+                </ImageBackground>
+            </Container>
+        )
+    }
 }
+
+
+// const Login = props => {
+
+// }
 
 const styles = StyleSheet.create({
     container: {
@@ -146,14 +165,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer,
-        initialValues: state.loginReducer.data.user
+        initialValues: {
+            mobile: state.loginReducer.data.user.mobile,
+            server: state.communicationSettingReducer.data.host
+        }
     }
 }
 
 export default connect(mapStateToProps)(
     reduxForm({
         form: 'loginForm',
+        destroyOnUnmount: false,
         enableReinitialize: true,
         onSubmit: (values, dispatch) => {
             dispatch(loginAction.login(values))

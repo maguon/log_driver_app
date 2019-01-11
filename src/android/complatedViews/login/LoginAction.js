@@ -1,8 +1,9 @@
 import * as actionTypes from '../../../actionTypes/index'
+import * as actions from '../../../actions/index'
 import httpRequest from '../../../util/HttpRequest.js'
 import localStorageKey from '../../../util/LocalStorageKey'
 import localStorage from '../../../util/LocalStorage'
-
+import { sleep } from '../../../util/util'
 import requestHeaders from '../../../util/RequestHeaders'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
@@ -21,10 +22,9 @@ export const cleanLogin = () => async (dispatch, getState) => {
 
 export const login = (param, tryCount = 1) => async (dispatch, getState) => {
     try {
-        // console.log('android_app', android_app)
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.loginTypes.login_waiting, payload: {} })
-        const { mobile, password } = param
+        const { mobile, password, server } = param
+        const base_host = `http://api.${server}/api`
         const { initializationReducer: { data: {
             version: { currentVersion },
             deviceInfo: { deviceToken } } } } = getState()
@@ -55,34 +55,35 @@ export const login = (param, tryCount = 1) => async (dispatch, getState) => {
                         key: localStorageKey.USER,
                         data: user
                     })
-                    dispatch({ type: actionTypes.loginTypes.login_success, payload: { user } })
+                    await dispatch(actions.communicationSetting.saveCommunicationSetting({ url: server }))
+                    await dispatch({ type: actionTypes.loginTypes.login_success, payload: { user } })
                 } else {
-                    ToastAndroid.showWithGravity(`登陆失败：无法获取用户信息！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    ToastAndroid.show(`登陆失败：无法获取用户信息！`, 10)
                     dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: '无法获取用户信息！' } })
                 }
             }
             else {
-                ToastAndroid.showWithGravity(`登陆失败：身份错误！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                ToastAndroid.show(`登陆失败：身份错误！`, 10)
                 dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: '身份错误！' } })
             }
         } else {
             //登录失败重新登录
-            ToastAndroid.showWithGravity(`登陆失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            ToastAndroid.show(`登陆失败：${res.msg}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
         // console.log('err', err)
         if (err.message == 'Network request failed') {
             //尝试20次
-            if (tryCount < 20) {
-                await sleep(1000)
-                dispatch(login(param, tryCount + 1))
-            } else {
-                ToastAndroid.showWithGravity(`登陆失败：网络链接失败！`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // if (tryCount < 20) {
+            //     await sleep(1000)
+            //     dispatch(login(param, tryCount + 1))
+            // } else {
+                ToastAndroid.show(`登陆失败：网络链接失败！`, 10)
                 dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
-            }
+            // }
         } else {
-            ToastAndroid.showWithGravity(`登陆失败：${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            ToastAndroid.show(`登陆失败：${err}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
         }
     }

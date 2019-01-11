@@ -9,6 +9,8 @@ import { sleep } from '../../../util/util'
 import XGPush from 'react-native-xinge-push'
 import { Actions } from 'react-native-router-flux'
 import { ToastAndroid } from 'react-native'
+
+
 /** 
  * 
  * initApp : APP初始化
@@ -27,7 +29,7 @@ import { ToastAndroid } from 'react-native'
 export const getCommunicationSetting = () => async (dispatch) => {
     try {
         const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
-        console.log('localStorageRes', localStorageRes)
+        // console.log('localStorageRes', localStorageRes)
         const { base_host, file_host, record_host, host } = localStorageRes
         if (base_host && file_host && record_host && host) {
             await dispatch({
@@ -42,7 +44,8 @@ export const getCommunicationSetting = () => async (dispatch) => {
         }
 
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
+        Actions.mainRoot()
     }
 }
 
