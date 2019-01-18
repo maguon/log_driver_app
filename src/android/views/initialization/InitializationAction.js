@@ -57,12 +57,12 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
         // console.log('getState',getState())
 
         const { communicationSettingReducer: { data: { base_host } } } = getState()
-        console.log('base_host', base_host)
+        // console.log('base_host', base_host)
         dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
         console.log('url', url)
         const res = await httpRequest.get(url)
-        // console.log('res', res)
+        console.log('res', res)
         if (res.success) {
             const versionInfo = {
                 currentVersion: android_app.version,
