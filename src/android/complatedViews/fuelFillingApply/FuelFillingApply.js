@@ -94,7 +94,7 @@ class FuelFillingApply extends Component {
                                     onChange({ id, value: `${id}  ( ${city_route_start} --> ${city_route_end} )`, item: param })
                                 }
                             })
-                            InteractionManager.runAfterInteractions(getCityRouteList)
+                            InteractionManager.runAfterInteractions(()=>getCityRouteList({taskStatusArr:'1,2,3,4,9'}))
                         }}
                     />
                     <Field name='refuelAddress' component={Address} getPosition={this.getPosition} />
@@ -131,8 +131,8 @@ const mapDispatchToProps = (dispatch) => ({
     createFuelFillingApply: (param) => {
         dispatch(fuelFillingApplyAction.createFuelFillingApply(param))
     },
-    getCityRouteList: () => {
-        dispatch(cityRouteListAction.getCityRouteList())
+    getCityRouteList: (param) => {
+        dispatch(cityRouteListAction.getCityRouteList(param))
     },
     getCityRouteListWaiting: () => {
         dispatch(cityRouteListAction.getCityRouteListWaiting())

@@ -10,6 +10,7 @@ export const createFuelFillingApply = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         // console.log('base_host', base_host)
+        
         const { loginReducer: { data: { user: { drive_id, uid } } } } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         // console.log('getTruckUrl', getTruckUrl)

@@ -2,17 +2,24 @@ import httpRequest from '../../../../util/HttpRequest.js'
 import * as actionTypes from '../../../../actionTypes/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 
-export const getCityRouteList = () => async (dispatch, getState) => {
+export const getCityRouteList = param => async (dispatch, getState) => {
     try {
+        // console.log('param', param)
+        let taskStatusArr = null
+        if (param) {
+            taskStatusArr = param.taskStatusArr
+        }
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
+        // console.log('getTruckUrl', getTruckUrl)
         const getTruckRes = await httpRequest.get(getTruckUrl)
         if (getTruckRes.success) {
             if (getTruckRes.result.length == 0) {
                 dispatch({ type: actionTypes.cityRouteListTypes.GET_CityRouteList_Unbind, payload: {} })
             } else {
-                const url = `${base_host}/dpRouteTask?${ObjectToUrl({ truckId: getTruckRes.result[0].id, driveId: drive_id })}`
+                const url = `${base_host}/dpRouteTask?${ObjectToUrl({ truckId: getTruckRes.result[0].id, driveId: drive_id, taskStatusArr })}`
+                // console.log('url', url)
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     dispatch({ type: actionTypes.cityRouteListTypes.GET_CityRouteList_SUCCESS, payload: { data: res.result } })
