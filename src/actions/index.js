@@ -11,6 +11,8 @@ import * as changeMobileVCode from '../android/complatedViews/changeMobileNo/cha
 import * as changeMobileNo from '../android/complatedViews/changeMobileNo/changeMobileNoActions'
 import * as notSettleList from '../android/complatedViews/notSettleList/notSettleListActions'
 import * as communicationSetting from '../android/complatedViews/communicationSetting/communicationSettingActions'
+import * as retrievePasswordVCode from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeActions'
+import * as retrievePassword from '../android/complatedViews/retrievePassword/RetrievePasswordAction'
 
 export {
     //settingBlock-views-complated 
@@ -24,5 +26,7 @@ export {
     changeMobileVCode,
     changeMobileNo,
     notSettleList,
-    communicationSetting
+    communicationSetting,
+    retrievePasswordVCode,
+    retrievePassword
 }

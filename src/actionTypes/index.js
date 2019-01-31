@@ -13,7 +13,7 @@ import * as branchInstructExecutingTypes from '../android/views/branchInstructEx
 import * as initializationTypes from '../android/views/initialization/InitializationTypes'
 import * as loginTypes from '../android/complatedViews/login/LoginTypes'
 
-import * as retrievePasswordTypes from './RetrievePasswordTypes'
+// import * as retrievePasswordTypes from '../android/complatedViews/retrievePassword/RetrievePasswordTypes'
 //import * as settingTypes from '../android/views/blockInitial/setting/SettingTypes'
 
 import * as applyAccidentImageTypes from '../android/views/applyAccidentImage/ApplyAccidentImageTypes'
@@ -75,6 +75,8 @@ import * as personalCenter from '../android/complatedViews/personalCenter/person
 
 import * as changeMobileVCode from '../android/complatedViews/changeMobileNo/changeMobileVCode/changeMobileVCodeActionTypes'
 import * as changeMobileNo from '../android/complatedViews/changeMobileNo/changeMobileNoActionTypes'
+import * as retrievePasswordVCode from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeActionTypes'
+import * as retrievePassword from '../android/complatedViews/retrievePassword/RetrievePasswordTypes'
 
 // <<<End
 
@@ -125,7 +127,7 @@ export {
     initializationTypes,
     loginTypes,
     // passwordTypes,
-    retrievePasswordTypes,
+    // retrievePasswordTypes,
     //settingTypes,
 
 
@@ -167,7 +169,6 @@ export {
     taskLoanListTypes,
     taskLoanRelListTypes,
     carsTypes,
-    
-
-
+    retrievePasswordVCode,
+    retrievePassword
 }   

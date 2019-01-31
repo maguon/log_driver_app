@@ -29,7 +29,7 @@ import Initialization from './views/initialization/Initialization'
 import DriverQRCode from './views/DriverQRCode'
 import Orientation from 'react-native-orientation'
 import SinglePhotoView from './views/photoView/SinglePhotoView'
-import RetrievePassword from './views/RetrievePassword'
+import RetrievePassword from './complatedViews/retrievePassword/RetrievePassword'
 
 import TaskLoanList from './complatedViews/taskLoanList/TaskLoanList'
 import TaskLoan from './complatedViews/taskLoan/TaskLoan'

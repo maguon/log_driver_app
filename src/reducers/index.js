@@ -12,7 +12,7 @@ import branchInstructReducer from '../android/views/branchInstruct/BranchInstruc
 import instructExecutingReducer from '../android/views/instructExecuting/InstructExecutingReducer'
 import branchInstructExecutingReducer from '../android/views/branchInstructExecuting/BranchInstructExecutingReducer'
 import initializationReducer from '../android/views/initialization/InitializationReducer'
-import retrievePasswordReducer from './RetrievePasswordReducer'
+import retrievePasswordReducer from '../android/complatedViews/retrievePassword/RetrievePasswordReducer'
 import applyAccidentImageReducer from '../android/views/applyAccidentImage/ApplyAccidentImageReducer'
 import imageForAccidentReducer from '../android/complatedComponents/accidentInfo/imageListForAccident/ImageForAccidentReducer'
 import applyAccidentReducer from '../android/views/applyAccident/ApplyAccidentReducer'
@@ -85,6 +85,8 @@ import personalCenterReducer from '../android/complatedViews/personalCenter/pers
 import changeMobileVCodeReducer from '../android/complatedViews/changeMobileNo/changeMobileVCode/changeMobileVCodeReducer'
 import notSettleListReducer from '../android/complatedViews/notSettleList/notSettleListReducer'
 import communicationSettingReducer from '../android/complatedViews/communicationSetting/communicationSettingReducer'
+import retrievePasswordVCodeReducer from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeReducer'
+// import RetrievePasswordReducer from '../android/complatedViews/retrievePassword/RetrievePasswordReducer'
 
 
 export default combineReducers({
@@ -166,5 +168,7 @@ export default combineReducers({
     taskLoanRelListReducer,
     // changeMobileNoReducer,
     changeMobileVCodeReducer,
-    notSettleListReducer
+    notSettleListReducer,
+    retrievePasswordVCodeReducer,
+    // RetrievePasswordReducer
 })
