@@ -22,7 +22,8 @@ class BranchInstructExecuting extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            modalVisible: false
+            modalVisible: false,
+            modalContacts: false
         }
         this.renderListItem = this.renderListItem.bind(this)
         this.renderFooter = this.renderFooter.bind(this)
@@ -176,6 +177,7 @@ class BranchInstructExecuting extends Component {
             )
         } else {
             const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
+            console.log('loadTaskInfo', loadTaskInfo)
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -197,14 +199,22 @@ class BranchInstructExecuting extends Component {
                         {(!loadTaskInfo.lat || !loadTaskInfo.lng) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={[globalStyles.midText, { color: '#fff' }]}>未设置目的地经纬度</Text>
                         </View>}
-                        <View style={{ backgroundColor: 'rgba(255, 255, 255, 1)', flexDirection: 'row', padding: 5, top: 0, right: 0, justifyContent: 'space-between', position: 'absolute' }}>
-                            <Text style={[globalStyles.midText, { color: styleColor, fontWeight: 'bold' }]}>
+                        {/* {(loadTaskInfo.lat &&loadTaskInfo.lng) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>进入高德地图</Text>
+                        </View>} */}
+                        {(loadTaskInfo.lat && loadTaskInfo.lng) && <Button small style={{ backgroundColor: styleColor, top: 5, right: 5, position: 'absolute' }}
+                            onPress={() => {
+                                this.setState({ modalContacts: true })
+
+                            }}>
+                            {/* <Text style={[globalStyles.midText, { color: styleColor, fontWeight: 'bold' }]}>
                                 {loadTaskInfo.addr_name ? loadTaskInfo.addr_name : ''}{loadTaskInfo.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
                                 {loadTaskInfo.transfer_flag == 0 && loadTaskInfo.city_name ? ` ${loadTaskInfo.city_name}` : ''}{loadTaskInfo.transfer_flag == 0 && ' - '}{loadTaskInfo.transfer_flag == 0 && loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}
                                 {loadTaskInfo.transfer_flag == 1 && loadTaskInfo.transfer_city_name ? ` ${loadTaskInfo.transfer_city_name}` : ''}{loadTaskInfo.transfer_flag == 1 && ' - '}{loadTaskInfo.transfer_flag == 1 && loadTaskInfo.transfer_addr_name ? loadTaskInfo.transfer_addr_name : ''}
                                 {loadTaskInfo.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
-                            </Text>
-                        </View>
+                            </Text> */}
+                            <Text style={[globalStyles.midText, { color: '#fff', fontWeight: 'bold' }]}>地图</Text>
+                        </Button>}
                     </View>
                     <View style={{
                         flexDirection: 'row',
@@ -221,13 +231,27 @@ class BranchInstructExecuting extends Component {
                         </View>
                         <View style={{ flex: 1 }}>
                             <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
+                                Alert.alert(
+                                    '需求备注',
+                                    `${loadTaskInfo.demand_remark}`,
+                                    [
+                                        { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                                    ],
+                                    { cancelable: false }
+                                )
+                            }}>
+                                <Text style={[globalStyles.midText, { color: '#fff' }]}>备注</Text>
+                            </Button>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
                                 if (contactList.length > 0) {
                                     this.setState({ modalVisible: true })
                                 } else {
                                     ToastAndroid.show('该经销商暂无联系人', 10)
                                 }
                             }}>
-                                <Text style={[globalStyles.midText, { color: '#fff' }]}>查看联系人</Text>
+                                <Text style={[globalStyles.midText, { color: '#fff' }]}>联系人</Text>
                             </Button>
                         </View>
                     </View>
@@ -272,6 +296,47 @@ class BranchInstructExecuting extends Component {
                         data={routeLoadTaskList}
                         renderItem={({ item, index }) => this.renderListItem(item, index)}
                         ListFooterComponent={this.renderFooter()} />
+                    <Modal
+                        animationType={"fade"}
+                        transparent={true}
+                        visible={this.state.modalContacts}
+                        onRequestClose={() => this.setState({ modalContacts: false })}>
+
+                        <TouchableOpacity
+                            onPress={() => this.setState({ modalContacts: false })}
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                flex: 1
+                            }}>
+                            <View style={{
+                                backgroundColor: '#fff',
+                                alignSelf: 'stretch',
+                                justifyContent: 'center',
+                                borderWidth: 0.5,
+                                borderColor: '#ccc',
+                            }}>
+                                <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
+                                    <Text style={[globalStyles.midText, { paddingVertical: 10, color: styleColor, textAlign: 'center' }]}>请选择地图</Text>
+                                </View>
+                                <TouchableOpacity
+                                    style={{ paddingVertical: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}
+                                    onPress={() => {
+                                        this.setState({ modalContacts: false })
+                                        Linking.canOpenURL(`amapuri://route/plan/?sname=我的位置&did=BGVIS2&dlat=${loadTaskInfo.lat}&dlon=${loadTaskInfo.lng}&dname=${loadTaskInfo.address}&dev=0&t=0`).then(supported => {
+                                            if (supported) {
+                                                Linking.openURL(`amapuri://route/plan/?sname=我的位置&did=BGVIS2&dlat=${loadTaskInfo.lat}&dlon=${loadTaskInfo.lng}&dname=${loadTaskInfo.address}&dev=0&t=0`);
+                                            } else {
+                                                // console.log('无法打开该URI: ' +  'androidamap://route?dlat=40.055878&dlon=116.307854&dname=北京&t=2');
+                                            }
+                                        })
+                                    }}>
+                                    <Text>高德地图</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableOpacity>
+                    </Modal>
                     <Modal
                         animationType={"fade"}
                         transparent={true}
