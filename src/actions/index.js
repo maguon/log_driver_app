@@ -14,6 +14,12 @@ import * as communicationSetting from '../android/complatedViews/communicationSe
 import * as retrievePasswordVCode from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeActions'
 import * as retrievePassword from '../android/complatedViews/retrievePassword/RetrievePasswordAction'
 
+
+import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActions'
+import * as taskListForHome from '../android/views/blockInitial/home/taskListForHome/taskListForHomeActions'
+import * as routeTaskListForHome from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeActions'
+
+
 export {
     //settingBlock-views-complated 
     personalCenter,
@@ -28,5 +34,10 @@ export {
     notSettleList,
     communicationSetting,
     retrievePasswordVCode,
-    retrievePassword
+    retrievePassword,
+
+
+    mileageInfo,
+    taskListForHome,
+    routeTaskListForHome
 }

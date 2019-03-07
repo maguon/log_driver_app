@@ -6,6 +6,7 @@ import {
     InteractionManager,
     ActivityIndicator,
     TouchableOpacity,
+    ToastAndroid,
     Alert
 } from 'react-native'
 import { Icon, Button } from 'native-base'
@@ -42,7 +43,7 @@ class InstructExecuting extends Component {
     onPressOk() {
         this.setState({ confirmModalVisible: false })
         const { user } = this.props.loginReducer.data
-        const { taskInfo } = this.props.instructExecutingReducer.data
+        const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
         let op
         if (taskInfo.task_status == 1) {
             op = 2
@@ -53,14 +54,56 @@ class InstructExecuting extends Component {
         } else if (taskInfo.task_status == 4) {
             op = 9
         }
-        this.props.changeLoadTaskStatus({
-            requiredParam: {
-                userId: user.uid,
-                taskId: taskInfo.id,
-                taskStatus: op
+
+        if (op == 9) {
+            const loadTaskListIsFinished = loadTaskList.every(item => {
+                if (item.transfer_flag == 1) {
+                    if (item.route_end_id == taskInfo.transfer_city_id) {
+                        if (item.load_task_status == 7) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return true
+                    }
+                } else {
+                    if (item.route_end_id == taskInfo.route_end_id) {
+                        if (item.load_task_status == 7) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return true
+                    }
+                }
+            })
+            if(loadTaskListIsFinished){
+                this.props.changeLoadTaskStatus({
+                    requiredParam: {
+                        userId: user.uid,
+                        taskId: taskInfo.id,
+                        taskStatus: op
+                    }
+                })
+            }else{
+                ToastAndroid.show('有未卸车任务，请先车再完成路线！',10)
             }
-        })
-       
+        } else {
+            this.props.changeLoadTaskStatus({
+                requiredParam: {
+                    userId: user.uid,
+                    taskId: taskInfo.id,
+                    taskStatus: op
+                }
+            })
+        }
+
+
+
+
+
     }
 
     onPressCancel() {
@@ -85,15 +128,15 @@ class InstructExecuting extends Component {
         //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
         //         {
         //             text: '确定', onPress: () => {
-                        // const { user } = this.props.loginReducer.data
-                        // const { taskInfo } = this.props.instructExecutingReducer.data
-                        // this.props.changeLoadTaskStatus({
-                        //     requiredParam: {
-                        //         userId: user.uid,
-                        //         taskId: taskInfo.id,
-                        //         taskStatus: param
-                        //     }
-                        // })
+        // const { user } = this.props.loginReducer.data
+        // const { taskInfo } = this.props.instructExecutingReducer.data
+        // this.props.changeLoadTaskStatus({
+        //     requiredParam: {
+        //         userId: user.uid,
+        //         taskId: taskInfo.id,
+        //         taskStatus: param
+        //     }
+        // })
         //             }
         //         },
         //     ],
@@ -177,7 +220,7 @@ class InstructExecuting extends Component {
                         {(taskInfo.task_status == 2 || taskInfo.task_status == 1) && <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'right', flex: 1 }]}>
                             {item.load_task_status == 1 && '未达到装车条件'}
                         </Text>}
-                        {taskInfo.task_status == 3 && item.load_task_status == 1 && <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                        {taskInfo.task_status >= 3 && item.load_task_status == 1 && <View style={{ flex: 1, alignItems: 'flex-end' }}>
                             <Button small rounded style={{ height: 20, backgroundColor: styleColor, alignSelf: 'flex-end' }} onPress={() => {
                                 Actions.cars({ initParam: { commandInfo: item } })
                             }}>
@@ -193,6 +236,8 @@ class InstructExecuting extends Component {
 
     render() {
         const { taskInfo, loadTaskList } = this.props.instructExecutingReducer.data
+        console.log('loadTaskList', loadTaskList)
+        console.log('taskInfo', taskInfo)
         const { getLoadTaskList } = this.props.instructExecutingReducer
         let op = ''
         if (taskInfo.task_status == 1) {

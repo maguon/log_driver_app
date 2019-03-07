@@ -24,9 +24,9 @@ export const getMileageInfo = () => async (dispatch, getState) => {
                 })}`,
                 `${base_host}/dpRouteTask?${ObjectToUrl({ taskStatusArr: '1,2,3,4,9', driveId: drive_id })}`,
                 `${base_host}/truckDispatch?${ObjectToUrl({ dispatchFlag: 1, truckId: getTruckRes.result[0].id })}`]
-                // console.log('urls', urls)
+                //  console.log('urls', urls)
                 const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-                // console.log('res', res)
+                //  console.log('res', res)
                 let mileageInfoReduce = res[0].result.reduce((prev, curr) => {
                     // console.log('prev', prev)
                     // console.log('curr', curr)
@@ -65,7 +65,7 @@ export const getMileageInfo = () => async (dispatch, getState) => {
             dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getTruckRes.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_ERROR, payload: { data: err } })
     }
 }

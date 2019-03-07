@@ -89,6 +89,10 @@ import retrievePasswordVCodeReducer from '../android/complatedViews/retrievePass
 // import RetrievePasswordReducer from '../android/complatedViews/retrievePassword/RetrievePasswordReducer'
 
 
+import mileageInfoReducer from '../android/views/blockInitial/home/mileageInfo/mileageInfoReducer'
+import taskListForHomeReducer from '../android/views/blockInitial/home/taskListForHome/taskListForHomeReducer'
+import routeTaskListForHomeReducer from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeReducer'
+
 export default combineReducers({
     form: formReducer,
 
@@ -171,4 +175,10 @@ export default combineReducers({
     notSettleListReducer,
     retrievePasswordVCodeReducer,
     // RetrievePasswordReducer
+
+
+
+    mileageInfoReducer,
+    taskListForHomeReducer,
+    routeTaskListForHomeReducer
 })

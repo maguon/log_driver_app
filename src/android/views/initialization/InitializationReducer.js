@@ -26,6 +26,11 @@ const initialState = {
         failedMsg: '',
         networkError: ''
     },
+    initXGPush:{
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: ''
+    },
     //loadLocalStorage.isResultStatus : 0(未执行), 1(等待), 2(执行成功), 3(未知错误), 4(执行失败), 5(本地数据未找到)
     loadLocalStorage: {
         isResultStatus: 0,

@@ -28,9 +28,9 @@ export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
             ...optionalParam,
             driveId: drive_id
         })}`]
-        console.log('urls', urls)
+        // console.log('urls', urls)
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        console.log('res', res)
+        // console.log('res', res)
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_SUCCESS, payload: {
@@ -47,7 +47,7 @@ export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_FAILED, payload: { data: `${!res[0].success ? res[0].msg : ''}${!res[1].success ? res[1].msg : ''}` } })
         }
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_ERROR, payload: { data: err } })
     }
 }
@@ -76,9 +76,9 @@ export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
                     start: fuelFillingRecordList.length,
                     size: pageSize
                 })}`
-                console.log('url', url)
+                // console.log('url', url)
                 const res = await httpRequest.get(url)
-                console.log('res', res)
+                // console.log('res', res)
 
                 if (res.success) {
                     dispatch({

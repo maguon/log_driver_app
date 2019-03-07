@@ -89,6 +89,12 @@ import * as communicationSetting from '../android/complatedViews/communicationSe
 
 // <<<End
 
+
+
+import * as taskListForHome from '../android/views/blockInitial/home/taskListForHome/taskListForHomeActionTypes'
+import * as routeTaskListForHome from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeActionTypes'
+import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActionTypes'
+
 export {
     peccancyList,
     overuseDieselOilList,
@@ -170,5 +176,11 @@ export {
     taskLoanRelListTypes,
     carsTypes,
     retrievePasswordVCode,
-    retrievePassword
+    retrievePassword,
+
+
+
+    taskListForHome,
+    routeTaskListForHome,
+    mileageInfo
 }   

@@ -1,0 +1,10 @@
+export const get_routeTaskListForHome_success = 'get_routeTaskListForHome_success'
+export const get_routeTaskListForHome_failed = 'get_routeTaskListForHome_failed'
+export const get_routeTaskListForHome_error = 'get_routeTaskListForHome_error'
+export const get_routeTaskListForHome_waiting = 'get_routeTaskListForHome_waiting'
+
+
+export const get_routeTaskListForHomeMore_success = 'get_routeTaskListForHomeMore_success'
+export const get_routeTaskListForHomeMore_failed = 'get_routeTaskListForHomeMore_failed'
+export const get_routeTaskListForHomeMore_error = 'get_routeTaskListForHomeMore_error'
+export const get_routeTaskListForHomeMore_waiting = 'get_routeTaskListForHomeMore_waiting'
