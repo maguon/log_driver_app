@@ -4,9 +4,7 @@ import {
     View,
     StyleSheet,
     FlatList,
-    TouchableOpacity,
-    ActivityIndicator,
-    ToastAndroid
+    TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 import globalStyles, { styleColor } from '../../../../GlobalStyles'
@@ -14,7 +12,6 @@ import { Container, Spinner } from 'native-base'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import moment from 'moment'
 import * as  instructExecutingAction from '../../../instructExecuting/InstructExecutingAction'
-import * as reduxActions from '../../../../../actions/index'
 import { Actions } from 'react-native-router-flux'
 
 
@@ -59,39 +56,21 @@ const TaskListItem = props => {
 const TaskListEmpty = () => {
     return (
         <View style={styles.taskListEmpty}>
-            <Text style={globalStyles.midText}>暂无未完成路线</Text>
+            <Text style={globalStyles.midText}>暂无路线</Text>
         </View>
     )
 }
 
-const TaskListFooter = props => {
-    return (
-        <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
-            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
-        </View>
-    )
-}
 
 const TaskListForHome = props => {
-    const { taskListForHomeReducer: { data: { taskList, isCompleted }, getTaskListForHome }, setTaskInfo,taskListForHomeReducer,
-        getTaskListForHomeMore } = props
+    const { taskListForHomeReducer: { data: { taskList }, getTaskListForHome }, setTaskInfo } = props
     if (getTaskListForHome.isResultStatus != 1) {
         if (taskList.length > 0) {
             return (
                 <FlatList
                     keyExtractor={(item, index) => index}
                     data={taskList}
-                    onEndReachedThreshold={0.2}
                     removeClippedSubviews={true}
-                    onEndReached={() => {
-                        if (getTaskListForHome.isResultStatus == 2 && !isCompleted) {
-                            getTaskListForHomeMore()
-                        }else{
-                            ToastAndroid.show('已全部加载完毕！', 10)
-                        }
-                    }}
-                    ListFooterComponent={taskListForHomeReducer.getTaskListForHomeMore.isResultStatus == 1 ? TaskListFooter : <View />}
                     renderItem={itemProps => TaskListItem({ setTaskInfo, ...itemProps })} />
             )
         } else {
@@ -117,9 +96,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     setTaskInfo: (param) => {
         dispatch(instructExecutingAction.setTaskInfo(param))
-    },
-    getTaskListForHomeMore: () => {
-        dispatch(reduxActions.taskListForHome.getTaskListForHomeMore())
     }
 })
 

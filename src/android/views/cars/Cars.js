@@ -139,30 +139,6 @@ class Cars extends Component {
 
     finishCarry() {
         this.setState({ confirmModalVisible: true })
-
-        // Alert.alert(
-        //     '提示',
-        //     '确认要完成装车吗？',
-        //     [
-        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        //         {
-        //             text: '确定', onPress: () => {
-        //                 const { user } = this.props.loginReducer.data
-        //                 const { taskInfo } = this.props.carsReducer.data
-        //                 this.props.finishCarry({
-
-        //                     requiredParam: {
-        //                         userId: user.uid,
-        //                         dpRouteLoadTaskId: taskInfo.id,
-        //                         loadTaskStatus: 3
-        //                     }
-        //                 })
-        //             }
-        //         },
-        //     ],
-        //     { cancelable: false }
-        // )
-
     }
 
     renderListItem(item, index) {

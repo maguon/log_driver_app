@@ -4,17 +4,12 @@ import {
     View,
     StyleSheet,
     FlatList,
-    TouchableOpacity,
-    ActivityIndicator,
-    ToastAndroid
+    TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 import globalStyles, { styleColor } from '../../../../GlobalStyles'
 import { Container, Spinner, Button } from 'native-base'
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import moment from 'moment'
-import * as  instructExecutingAction from '../../../instructExecuting/InstructExecutingAction'
-import * as reduxActions from '../../../../../actions/index'
 import { Actions } from 'react-native-router-flux'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
@@ -22,7 +17,6 @@ const RouteTaskListItem = props => {
     const { item } = props
     if (item.load_task_status != 1) {
         return <TouchableOpacity onPress={() => {
-            console.log('branchInstructExecuting')
             Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item, task_status: item.task_status } })
         }}>
             <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10, alignItems: 'center' }}>
@@ -92,41 +86,20 @@ const RouteTaskListItem = props => {
 const RouteTaskListEmpty = () => {
     return (
         <View style={styles.taskListEmpty}>
-            <Text style={globalStyles.midText}>暂无未完成路线</Text>
+            <Text style={globalStyles.midText}>暂无任务</Text>
         </View>
     )
 }
-
-const RouteTaskListFooter = props => {
-    return (
-        <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
-            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
-        </View>
-    )
-}
-
 
 const RouteTaskListForHome = props => {
-    const { routeTaskListForHomeReducer: { data: { routeTaskList, isCompleted }, getRouteTaskListForHome }, routeTaskListForHomeReducer,
-        getRouteTaskListForHomeMore } = props
-    // console.log('props', props)
+    const { routeTaskListForHomeReducer: { data: { routeTaskList }, getRouteTaskListForHome } } = props
     if (getRouteTaskListForHome.isResultStatus != 1) {
         if (routeTaskList.length > 0) {
             return (
                 <FlatList
                     keyExtractor={(item, index) => index}
                     data={routeTaskList}
-                    onEndReachedThreshold={0.2}
                     removeClippedSubviews={true}
-                    onEndReached={() => {
-                        if (getRouteTaskListForHome.isResultStatus == 2 && !isCompleted) {
-                            getRouteTaskListForHomeMore()
-                        } else {
-                            ToastAndroid.show('已全部加载完毕！', 10)
-                        }
-                    }}
-                    ListFooterComponent={routeTaskListForHomeReducer.getRouteTaskListForHomeMore.isResultStatus == 1 ? RouteTaskListFooter : <View />}
                     renderItem={itemProps => RouteTaskListItem({ ...itemProps })} />
             )
         } else {
@@ -144,19 +117,18 @@ const RouteTaskListForHome = props => {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+    const { taskId } = ownProps
+    const { routeTaskListForHomeReducer: { data: { routeTaskList } } } = state
     return {
-        routeTaskListForHomeReducer: state.routeTaskListForHomeReducer,
+        routeTaskListForHomeReducer: {
+            ...state.routeTaskListForHomeReducer,
+            data: {
+                routeTaskList: !taskId ? routeTaskList : routeTaskList.filter(item => item.dp_route_task_id == taskId)
+            }
+        }
     }
 }
-
-
-const mapDispatchToProps = (dispatch) => ({
-    getRouteTaskListForHomeMore: () => {
-        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHomeMore())
-    }
-})
-
 
 const styles = StyleSheet.create({
     taskListEmpty: {
@@ -175,4 +147,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouteTaskListForHome) 
+export default connect(mapStateToProps)(RouteTaskListForHome) 

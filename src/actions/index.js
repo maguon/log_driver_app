@@ -18,7 +18,7 @@ import * as retrievePassword from '../android/complatedViews/retrievePassword/Re
 import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActions'
 import * as taskListForHome from '../android/views/blockInitial/home/taskListForHome/taskListForHomeActions'
 import * as routeTaskListForHome from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeActions'
-
+import * as taskForInstructExecuting from '../android/views/instructExecuting/taskForInstructExecuting/taskForInstructExecutingActions'
 
 export {
     //settingBlock-views-complated 
@@ -39,5 +39,6 @@ export {
 
     mileageInfo,
     taskListForHome,
-    routeTaskListForHome
+    routeTaskListForHome,
+    taskForInstructExecuting
 }

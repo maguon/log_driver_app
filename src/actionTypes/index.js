@@ -94,6 +94,7 @@ import * as communicationSetting from '../android/complatedViews/communicationSe
 import * as taskListForHome from '../android/views/blockInitial/home/taskListForHome/taskListForHomeActionTypes'
 import * as routeTaskListForHome from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeActionTypes'
 import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActionTypes'
+import * as taskForInstructExecuting from '../android/views/instructExecuting/taskForInstructExecuting/taskForInstructExecutingActionTypes'
 
 export {
     peccancyList,
@@ -182,5 +183,6 @@ export {
 
     taskListForHome,
     routeTaskListForHome,
-    mileageInfo
+    mileageInfo,
+    taskForInstructExecuting
 }   

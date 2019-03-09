@@ -6,19 +6,26 @@ import {
 import { Button, Spinner } from 'native-base'
 import gobalStyles, { styleColor } from '../GlobalStyles'
 import { connect } from 'react-redux'
-import * as homeAction from '../views/blockInitial/home/HomeAction'
+import * as reduxActions from '../../actions/index'
+// import * as homeAction from '../views/blockInitial/home/HomeAction'
+
 
 const HomeOperation = props => {
-    const { getMileageInfo, getMileageInfoWaiting, homeReducer } = props
+    const { getMileageInfo, getMileageInfoWaiting, getTaskListForHome,
+        getTaskListForHomeWaiting, getRouteTaskListForHome, getRouteTaskListForHomeWaiting, homeReducer } = props
     if (homeReducer.getHomeMileageInfo.isResultStatus == 1) {
         return (
-            <Spinner color= 'rgba(255,255,255,0.5)' />
+            <Spinner color='rgba(255,255,255,0.5)' />
         )
     } else {
         return (
             <Button transparent onPress={() => {
                 getMileageInfoWaiting()
+                getTaskListForHomeWaiting()
+                getRouteTaskListForHomeWaiting()
                 getMileageInfo()
+                getTaskListForHome()
+                getRouteTaskListForHome()
             }}>
                 <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
             </Button>
@@ -35,11 +42,23 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    getMileageInfo: () => {
-        dispatch(homeAction.getMileageInfo())
-    },
     getMileageInfoWaiting: () => {
-        dispatch(homeAction.getMileageInfoWaiting())
+        dispatch(reduxActions.mileageInfo.getMileageInfoWaiting())
+    },
+    getMileageInfo: () => {
+        dispatch(reduxActions.mileageInfo.getMileageInfo())
+    },
+    getTaskListForHome: () => {
+        dispatch(reduxActions.taskListForHome.getTaskListForHome())
+    },
+    getTaskListForHomeWaiting: () => {
+        dispatch(reduxActions.taskListForHome.getTaskListForHomeWaiting())
+    },
+    getRouteTaskListForHome: () => {
+        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
+    },
+    getRouteTaskListForHomeWaiting: () => {
+        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHomeWaiting())
     }
 })
 

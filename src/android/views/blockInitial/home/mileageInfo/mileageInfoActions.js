@@ -13,7 +13,9 @@ export const getMileageInfo = () => async (dispatch, getState) => {
             dateIdEnd: moment().format('YYYY-MM-DD'),
             driveId: drive_id
         })}`
+        console.log('url',url)
         const res = await httpRequest.get(url)
+        console.log('res',res)
         if (res.success) {
             const mileageInfoReduce = res.result.reduce((prev, curr) => {
                 const { load_distance: currLoad_distance = 0,
