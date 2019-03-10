@@ -3,24 +3,32 @@ import {
     StyleSheet,
     Text
 } from 'react-native'
-import { Actions } from 'react-native-router-flux'
-import { Button, Icon, Spinner } from 'native-base'
+import { Button, Spinner } from 'native-base'
 import gobalStyles from '../GlobalStyles'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import * as homeAction from '../views/blockInitial/home/HomeAction'
-import * as instructExecutingAction from '../views/instructExecuting/InstructExecutingAction'
+import * as reduxActions from '../../actions/index'
+
 
 
 const InstructExecutingOp = props => {
-    const { getMileageInfo, loginReducer, instructExecutingReducer } = props
-    if (instructExecutingReducer.getLoadTaskList.isResultStatus == 1) {
+    const { getMileageInfo, getTaskList, getRouteTaskList, getMileageInfoWaiting, getTaskListForHomeWaiting, getRouteTaskListForHomeWaiting,
+        mileageInfoReducer, routeTaskListForHomeReducer, taskListForHomeReducer } = props
+    if (taskListForHomeReducer.getTaskListForHome.isResultStatus == 1
+        || mileageInfoReducer.getMileageInfo.isResultStatus == 1
+        || routeTaskListForHomeReducer.getRouteTaskListForHome.isResultStatus == 1) {
         return (
             <Spinner color='rgba(255,255,255,0.5)' />
         )
     } else {
         return (
-            <Button transparent onPress={() => getMileageInfo(loginReducer.data.user.uid)}>
+            <Button transparent onPress={() => {
+                getMileageInfoWaiting()
+                getTaskListForHomeWaiting()
+                getRouteTaskListForHomeWaiting()
+                getMileageInfo()
+                getTaskList()
+                getRouteTaskList()
+            }}>
                 <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
             </Button>
         )
@@ -30,42 +38,30 @@ const InstructExecutingOp = props => {
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer,
-        instructExecutingReducer: state.instructExecutingReducer
+        mileageInfoReducer: state.mileageInfoReducer,
+        routeTaskListForHomeReducer: state.routeTaskListForHomeReducer,
+        taskListForHomeReducer: state.taskListForHomeReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMileageInfo: (userId) => {
-        dispatch(instructExecutingAction.setGetLoadTaskListWaiting())
-        dispatch(homeAction.getMileageInfo({
-            mileageInfoParam: {
-                OptionalParam: {
-                    taskStatus: 9,
-                    loadDistance: 5,
-                    noLoadDistance: 5,
-                    dateIdStart: moment().format('YYYY-MM-01'),
-                    dateIdEnd: moment().format('YYYY-MM-DD')
-                }
-            },
-            truckDispatchParam: {
-                OptionalParam: {
-                    dispatchFlag: 1
-                }
-            },
-            taskListParam: {
-                OptionalParam: {
-                    taskStatusArr: '1,2,3,4,9'
-                }
-            },
-            getDriverId: {
-                requiredParam: {
-                    userId
-                }
-            }
-        }))
-        dispatch(instructExecutingAction.getDpRouteTask())
-        dispatch(instructExecutingAction.getLoadTaskList())
+    getMileageInfo: () => {
+        dispatch(reduxActions.mileageInfo.getMileageInfo())
+    },
+    getMileageInfoWaiting: () => {
+        dispatch(reduxActions.mileageInfo.getMileageInfoWaiting())
+    },
+    getTaskList: () => {
+        dispatch(reduxActions.taskListForHome.getTaskListForHome())
+    },
+    getTaskListForHomeWaiting: () => {
+        dispatch(reduxActions.taskListForHome.getTaskListForHomeWaiting())
+    },
+    getRouteTaskList: () => {
+        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
+    },
+    getRouteTaskListForHomeWaiting: () => {
+        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHomeWaiting())
     }
 })
 

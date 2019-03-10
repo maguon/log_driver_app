@@ -11,7 +11,7 @@ export const getTaskListForHome = () => async (dispatch, getState) => {
             driveId: drive_id
         })}`
         const res = await httpRequest.get(url)
-        console.log('taskListRes',res)
+        // console.log('taskListRes',res)
         if (res.success) {
             dispatch({
                 type: actionTypes.taskListForHome.get_taskListForHome_success, payload: {

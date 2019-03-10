@@ -2,10 +2,11 @@ import httpRequest from '../../../../util/HttpRequest'
 import * as reduxActionTypes from '../../../../actionTypes/index'
 import * as reduxActions from '../../../../actions/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
+import {Actions} from 'react-native-router-flux'
 
 export const changeTaskStatus = reqParam => async (dispatch, getState) => {
     try {
-        // console.log('reqParam', reqParam)
+        //  console.log('reqParam', reqParam)
         dispatch({ type: reduxActionTypes.taskForInstructExecuting.change_taskStatusForInstructExecuting_waiting, payload: {} })
         const { loginReducer: { data: { user: { uid } } },
             communicationSettingReducer: { data: { base_host } } } = getState()
@@ -18,38 +19,14 @@ export const changeTaskStatus = reqParam => async (dispatch, getState) => {
             dispatch(reduxActions.mileageInfo.getMileageInfo())
             dispatch(reduxActions.taskListForHome.getTaskListForHome())
             dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
-            // dispatch(homeAction.getMileageInfo({
-            //     mileageInfoParam: {
-            //         OptionalParam: {
-            //             taskStatus: 9,
-            //             loadDistance: 5,
-            //             noLoadDistance: 5,
-            //             dateIdStart: moment().format('YYYY-MM-01'),
-            //             dateIdEnd: moment().format('YYYY-MM-DD')
-            //         }
-            //     },
-            //     truckDispatchParam: {
-            //         OptionalParam: {
-            //             dispatchFlag: 1
-            //         }
-            //     },
-            //     taskListParam: {
-            //         OptionalParam: {
-            //             taskStatusArr: '1,2,3,4,9'
-            //         }
-            //     },
-            //     getDriverId: {
-            //         requiredParam: {
-            //             userId: uid
-            //         }
-            //     }
-            // }))
-
+            if(reqParam.taskStatus==9){
+                Actions.pop()
+            }
         } else {
             dispatch({ type: reduxActionTypes.taskForInstructExecuting.change_taskStatusForInstructExecuting_failed, payload: { failedMsg: `${res.msg}` } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: reduxActionTypes.taskForInstructExecuting.change_taskStatusForInstructExecuting_error, payload: { errorMsg: `${err}` } })
     }
 }

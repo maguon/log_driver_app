@@ -155,19 +155,19 @@ class TaskForInstructExecuting extends Component {
                             </View>
                         </View>
                         <View>
-                            {taskInfo.task_status == 1 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={() => this.changeLoadTaskStatus(2)}>
+                            {taskInfo.task_status == 1 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={changeLoadTaskStatus}>
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>接受</Text>
                             </Button>}
-                            {taskInfo.task_status == 2 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={() => this.changeLoadTaskStatus(3)}>
+                            {taskInfo.task_status == 2 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={changeLoadTaskStatus}>
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>执行</Text>
                             </Button>}
-                            {taskInfo.task_status == 3 && routeTaskList.length == 0 && < Button small rounded style={{ backgroundColor: styleColor }} onPress={() => this.changeLoadTaskStatus(4)}>
+                            {taskInfo.task_status == 3 && routeTaskList.length == 0 && < Button small rounded style={{ backgroundColor: styleColor }} onPress={changeLoadTaskStatus}>
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>发车</Text>
                             </Button>}
                             {taskInfo.task_status == 3 && routeTaskList.length > 0 && < Button small rounded disabled >
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>等待装车</Text>
                             </Button>}
-                            {taskInfo.task_status == 4 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={() => this.changeLoadTaskStatus(9)}>
+                            {taskInfo.task_status == 4 && <Button small rounded style={{ backgroundColor: styleColor }} onPress={changeLoadTaskStatus}>
                                 <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>完成</Text>
                             </Button>}
                         </View>

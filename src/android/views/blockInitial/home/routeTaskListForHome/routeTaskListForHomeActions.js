@@ -11,7 +11,7 @@ export const getRouteTaskListForHome = () => async (dispatch, getState) => {
             driveId: drive_id
         })}`
         const res = await httpRequest.get(url)
-        console.log('routeTaskListRes',res)
+        // console.log('routeTaskListRes',res)
 
         if (res.success) {
             dispatch({

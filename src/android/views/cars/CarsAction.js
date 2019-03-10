@@ -1,9 +1,8 @@
 import httpRequest from '../../../util/HttpRequest'
 import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
-import * as instructExecutingAction from '../instructExecuting/InstructExecutingAction'
-import * as homeAction from '../blockInitial/home/HomeAction'
-import moment from 'moment'
+import * as reduxActions from '../../../actions/index'
+import { Actions } from 'react-native-router-flux'
 
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
@@ -14,34 +13,10 @@ export const finishCarry = (param) => async (dispatch, getState) => {
         const res = await httpRequest.put(url, {})
         if (res.success) {
             dispatch({ type: actionTypes.carsTypes.Finish_Carry_SUCCESS, payload: { data: param.requiredParam.loadTaskStatus } })
-            dispatch(homeAction.getMileageInfo({
-                mileageInfoParam: {
-                    OptionalParam: {
-                        taskStatus: 9,
-                        loadDistance: 5,
-                        noLoadDistance: 5,
-                        dateIdStart: moment().format('YYYY-MM-01'),
-                        dateIdEnd: moment().format('YYYY-MM-DD')
-                    }
-                },
-                truckDispatchParam: {
-                    OptionalParam: {
-                        dispatchFlag: 1
-                    }
-                },
-                taskListParam: {
-                    OptionalParam: {
-                        taskStatusArr: '1,2,3,4,9'
-                    }
-                },
-                getDriverId: {
-                    requiredParam: {
-                        userId: uid
-                    }
-                }
-            }))
-            dispatch(instructExecutingAction.getDpRouteTask())
-            dispatch(instructExecutingAction.getLoadTaskList())
+            dispatch(reduxActions.mileageInfo.getMileageInfo())
+            dispatch(reduxActions.taskListForHome.getTaskListForHome())
+            dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
+            Actions.pop()
         } else {
             dispatch({ type: actionTypes.carsTypes.Finish_Carry_FAILED, payload: { data: res.msg } })
         }

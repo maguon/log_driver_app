@@ -5,6 +5,8 @@ import * as instructExecutingAction from '../instructExecuting/InstructExecuting
 import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
 import { ToastAndroid } from 'react-native'
+import * as reduxActions from '../../../actions/index'
+import {Actions} from 'react-native-router-flux'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
     // console.log('param', param)
@@ -105,34 +107,38 @@ export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
-            dispatch(homeAction.getMileageInfo({
-                mileageInfoParam: {
-                    OptionalParam: {
-                        taskStatus: 9,
-                        loadDistance: 5,
-                        noLoadDistance: 5,
-                        dateIdStart: moment().format('YYYY-MM-01'),
-                        dateIdEnd: moment().format('YYYY-MM-DD')
-                    }
-                },
-                truckDispatchParam: {
-                    OptionalParam: {
-                        dispatchFlag: 1
-                    }
-                },
-                taskListParam: {
-                    OptionalParam: {
-                        taskStatusArr: '1,2,3,4,9'
-                    }
-                },
-                getDriverId: {
-                    requiredParam: {
-                        userId: uid
-                    }
-                }
-            }))
-            dispatch(instructExecutingAction.getDpRouteTask())
-            dispatch(instructExecutingAction.getLoadTaskList())
+            dispatch(reduxActions.mileageInfo.getMileageInfo())
+            dispatch(reduxActions.taskListForHome.getTaskListForHome())
+            dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
+            Actions.pop()
+            // dispatch(homeAction.getMileageInfo({
+            //     mileageInfoParam: {
+            //         OptionalParam: {
+            //             taskStatus: 9,
+            //             loadDistance: 5,
+            //             noLoadDistance: 5,
+            //             dateIdStart: moment().format('YYYY-MM-01'),
+            //             dateIdEnd: moment().format('YYYY-MM-DD')
+            //         }
+            //     },
+            //     truckDispatchParam: {
+            //         OptionalParam: {
+            //             dispatchFlag: 1
+            //         }
+            //     },
+            //     taskListParam: {
+            //         OptionalParam: {
+            //             taskStatusArr: '1,2,3,4,9'
+            //         }
+            //     },
+            //     getDriverId: {
+            //         requiredParam: {
+            //             userId: uid
+            //         }
+            //     }
+            // }))
+            // dispatch(instructExecutingAction.getDpRouteTask())
+            // dispatch(instructExecutingAction.getLoadTaskList())
         } else {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_FAILED, payload: { data: res.msg } })
         }
