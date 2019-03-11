@@ -15,7 +15,6 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 const RouteTaskListItem = props => {
     const { item } = props
-
     // 未装车
     if (item.load_task_status == 1) {
         return (
@@ -69,6 +68,7 @@ const RouteTaskListItem = props => {
                     <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'left', flex: 1 }]}>实际运送：<Text style={{ color: styleColor }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                     <View style={{ flex: 1, alignItems: 'flex-end' }}>
                         <Button small rounded style={{ height: 20, backgroundColor: 'red', alignSelf: 'flex-end' }} onPress={() => {
+                            console.log('item',item)
                             Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item, task_status: item.task_status } })
                         }}>
                             <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>卸车</Text>
@@ -118,7 +118,6 @@ const RouteTaskListItem = props => {
             </View>
 
         </TouchableOpacity>
-
     }
 }
 

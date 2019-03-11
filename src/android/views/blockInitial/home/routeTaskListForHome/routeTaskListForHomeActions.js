@@ -7,7 +7,8 @@ export const getRouteTaskListForHome = () => async (dispatch, getState) => {
         loginReducer: { data: { user: { drive_id } } } } = getState()
     try {
         const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({
-            loadTaskStatusArr: '1,3',
+            // loadTaskStatusArr: '1,3',
+            taskStatusArr: '1,2,3,4,9',
             driveId: drive_id
         })}`
         const res = await httpRequest.get(url)

@@ -45,9 +45,9 @@ class Work extends Component {
         InteractionManager.runAfterInteractions(() => this.props.getMileageInfo({
             mileageInfoParam: {
                 OptionalParam: {
-                    taskStatus: 10,
-                    loadDistance: 5,
-                    noLoadDistance: 5,
+                    taskStatus: 9,
+                    // loadDistance: 5,
+                    // noLoadDistance: 5,
                     // driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd

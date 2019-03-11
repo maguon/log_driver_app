@@ -8,14 +8,14 @@ export const getMileageInfo = () => async (dispatch, getState) => {
         const { communicationSettingReducer: { data: { base_host } },
             loginReducer: { data: { user: { drive_id } } } } = getState()
         const url = `${base_host}/driveDistanceLoadStat?${ObjectToUrl({
-            taskStatus: 10,
+            taskStatus: 9,
             dateIdStart: moment().format('YYYY-MM-01'),
             dateIdEnd: moment().format('YYYY-MM-DD'),
             driveId: drive_id
         })}`
-        console.log('url',url)
+        // console.log('url',url)
         const res = await httpRequest.get(url)
-        console.log('res',res)
+        // console.log('res',res)
         if (res.success) {
             const mileageInfoReduce = res.result.reduce((prev, curr) => {
                 const { load_distance: currLoad_distance = 0,

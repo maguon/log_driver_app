@@ -60,9 +60,7 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
         // console.log('base_host', base_host)
         dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
         const url = `${base_host}/app?${ObjectToUrl({ app: android_app.type, type: android_app.android })}`
-        console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
         if (res.success) {
             const versionInfo = {
                 currentVersion: android_app.version,
@@ -71,10 +69,10 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
                 remark: '',
                 force_update: 0
             }
-            const currentVersionArr = android_app.version.split('.')
+            const currentVersionArr = android_app.version.split('.').map(item => Number(item))
             let versionList = res.result
                 .filter(item => {
-                    const itemArr = item.version.split('.')
+                    const itemArr = item.version.split('.').map(item => Number(item))
                     if (currentVersionArr[0] < itemArr[0]) {
                         return true
                     } else if (currentVersionArr[0] == itemArr[0] && currentVersionArr[1] < itemArr[1]) {
@@ -85,7 +83,6 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
                         return false
                     }
                 })
-
             //force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
             if (versionList.length > 0) {
                 if (versionList.some(item => item.force_update == 1)) {
@@ -94,8 +91,8 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
                     versionInfo.force_update = 2
                 }
                 versionList = versionList.sort((a, b) => {
-                    const aArr = a.version.split('.')
-                    const bArr = b.version.split('.')
+                    const aArr = a.version.split('.').map(item => Number(item))
+                    const bArr = b.version.split('.').map(item => Number(item))
                     if (aArr[0] < bArr[0]) {
                         return true
                     } else if (aArr[0] == bArr[0] && aArr[1] < bArr[1]) {
@@ -106,9 +103,12 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
                         return false
                     }
                 })
+
                 versionInfo.newestVersion = versionList[0].version
                 versionInfo.url = versionList[0].url
                 versionInfo.remark = versionList[0].remark
+                // console.log('versionInfo', versionInfo)
+
             } else {
                 versionInfo.force_update = 0
                 versionInfo.newestVersion = versionInfo.currentVersion

@@ -10,10 +10,10 @@ export const getMileageInfo = (param) => async (dispatch, getState) => {
         if (getDriverRes.success) {
             param.mileageInfoParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
             param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
-            const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
-            console.log('urls', urls)
+            const urls = [`${base_host}/driveDistanceLoadStat?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
+            // console.log('urls', urls)
             const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-            console.log('res', res)
+            // console.log('res', res)
 
             if (res[0].success && res[1].success) {
 
@@ -27,7 +27,7 @@ export const getMileageInfo = (param) => async (dispatch, getState) => {
                     }
                 }, { load_distance: 0, no_load_distance: 0 })
                 mileageInfoReduce.distanceCount = mileageInfoReduce.load_distance + mileageInfoReduce.no_load_distance
-                console.log('mileageInfoReduce', mileageInfoReduce)
+                // console.log('mileageInfoReduce', mileageInfoReduce)
                 dispatch({
                     type: actionTypes.workTypes.GET_WorkMileageInfo_SUCCESS, payload: {
                         data: {
