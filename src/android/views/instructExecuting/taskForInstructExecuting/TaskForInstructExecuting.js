@@ -72,9 +72,31 @@ class TaskForInstructExecuting extends Component {
     onPressOk() {
         this.setState({ confirmModalVisible: false })
         const { taskInfo,
-            routeTaskListForHomeReducer: { data: { routeTaskList } } } = this.props
+            routeTaskListForHomeReducer: { data: { routeTaskList } },
+            taskListForHomeReducer: { data: { taskList } } } = this.props
         const nextStepIndex = getNextStepIndex(taskInfo.task_status)
-        if (nextStepIndex == 9) {
+
+        if (nextStepIndex == 3) {
+            const taskListIsFinished = taskList
+                .filter(item => item.id != taskInfo.id)
+                .every(item => item.task_status != 3 && item.task_status != 4)
+            if (taskListIsFinished) {
+                this.props.changeTaskStatus({
+                    taskId: taskInfo.id,
+                    taskStatus: nextStepIndex
+                })
+            } else {
+                Alert.alert(
+                    '提示',
+                    '有未完成路线，请完成所有其他已执行的路线，再执行其他路线！',
+                    [
+                        { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    ],
+                    { cancelable: false }
+                )
+                // ToastAndroid.show('有未完成路线，请完成所有其他已执行的路线，再执行其他路线！', 10)
+            }
+        } else if (nextStepIndex == 9) {
             const loadTaskListIsFinished = routeTaskList.every(item => {
                 if (item.transfer_flag == 1) {
                     if (item.route_end_id == taskInfo.transfer_city_id) {
@@ -219,6 +241,7 @@ const mapStateToProps = (state, ownProps) => {
     const { taskId } = ownProps
     return {
         routeTaskListForHomeReducer: state.routeTaskListForHomeReducer,
+        taskListForHomeReducer: state.taskListForHomeReducer,
         routeTaskList: state.routeTaskListForHomeReducer.data.routeTaskList.filter(item => item.dp_route_task_id == taskId),
         taskInfo: state.taskListForHomeReducer.data.taskList.find(item => item.id == taskId)
     }

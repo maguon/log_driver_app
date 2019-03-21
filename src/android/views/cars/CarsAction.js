@@ -3,6 +3,7 @@ import * as actionTypes from '../../../actionTypes/index'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as reduxActions from '../../../actions/index'
 import { Actions } from 'react-native-router-flux'
+import { ToastAndroid } from 'react-native'
 
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
@@ -57,6 +58,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
         if (res.success) {
             dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
         } else {
+            ToastAndroid.show(`${res.msg}`, 10)
             dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
