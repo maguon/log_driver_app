@@ -13,9 +13,9 @@ const OveruseDieselOilSearch = props => {
     return (
         <Container>
             <Content>
-                <Field name='dpRouteTaskId'
+                {/* <Field name='dpRouteTaskId'
                     label='调度指令'
-                    component={TextBox} />
+                    component={TextBox} /> */}
                 <Field
                     label='结算状态'
                     name='statStatus'
@@ -23,10 +23,10 @@ const OveruseDieselOilSearch = props => {
                     itemList={[{ id: 1, value: '未扣' }, { id: 2, value: '已扣' }]}
                     component={CheckBox} />
                 <Field name='startDate'
-                    label='指令时间（始）'
+                    label='核油时间（始）'
                     component={DatePicker} />
                 <Field name='endDate'
-                    label='指令时间（终）'
+                    label='核油时间（终）'
                     component={DatePicker} />
                 <Button full style={[globalStyles.styleBackgroundColor, { margin: 15 }]} onPress={handleSubmit}>
                     <Text style={[globalStyles.midText, { color: '#fff' }]}>确定</Text>

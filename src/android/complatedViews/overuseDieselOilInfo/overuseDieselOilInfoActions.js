@@ -7,9 +7,9 @@ export const getDpRouteTask = (param) => async (dispatch) => {
         console.log('param',param)
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({
                 type: actionTypes.overuseDieselOilInfo.get_dpRouteTaskForOveruseDieselOil_success, payload: {

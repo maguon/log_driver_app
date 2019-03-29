@@ -15,7 +15,7 @@ export const getCarList = () => async (dispatch, getState) => {
             vinCode: searchFormValues ? searchFormValues.vin : null,
             start: 0,
             active: 1,
-            carStatus: 1,
+            carStatusArr: '1,2',
             size: pageSize
         })}`
         const res = await httpRequest.get(url)
