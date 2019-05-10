@@ -160,7 +160,7 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        // console.log('this.props', this.props)
+       
         //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
@@ -177,7 +177,7 @@ class BranchInstructExecuting extends Component {
             )
         } else {
             const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
-            console.log('loadTaskInfo', loadTaskInfo)
+            // console.log('loadTaskInfo', loadTaskInfo)
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -226,7 +226,7 @@ class BranchInstructExecuting extends Component {
                         alignItems: 'center'
                     }}>
                         <View style={{ flex: 2 }}>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}{loadTaskInfo.make_name ? `(${loadTaskInfo.make_name})` : ''}</Text>
                             <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
                         </View>
                         <View style={{ flex: 1 }}>

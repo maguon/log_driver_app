@@ -17,6 +17,7 @@ import { Actions } from 'react-native-router-flux'
 
 const TaskListItem = props => {
     const { item, setTaskInfo } = props
+    console.log('props', props)
     return (
         <TouchableOpacity onPress={() => {
             setTaskInfo(item)
@@ -30,6 +31,9 @@ const TaskListItem = props => {
                         <MaterialCommunityIcon name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
                         <Text style={[globalStyles.midText, { color: '#8e9fa3', fontWeight: 'bold', paddingLeft: 5 }]}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
+                    {item.reverse_flag == 1 && <View style={{ flexDirection: 'row',alignItems: 'flex-end' }}>
+                        <Text style={[globalStyles.smallText, { color: '#8e9fa3' }]}>倒板</Text>
+                    </View>}
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
                         <Text style={[globalStyles.smallText, { color: '#8e9fa3', paddingRight: 10 }]}>
                             {item.task_status == 1 && '未接受'}

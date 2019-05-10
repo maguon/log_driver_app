@@ -60,7 +60,7 @@ class BranchInstruct extends Component {
         const { routeLoadInfo } = this.props.initParam
         const { routeLoadTaskList, cleanCar, loadTaskInfo, contactList } = this.props.branchInstructReducer.data
         const { getRouteLoadTaskList } = this.props.branchInstructReducer
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         // console.log('this.props.branchInstructReducer',this.props.branchInstructReducer)
         // console.log('routeLoadInfo',routeLoadInfo)
         if (getRouteLoadTaskList.isResultStatus == 1) {
@@ -114,7 +114,7 @@ class BranchInstruct extends Component {
                         alignItems: 'center'
                     }}>
                         <View style={{ flex: 2 }}>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}</Text>
+                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}{routeLoadInfo.make_name ? `(${routeLoadInfo.make_name})` : ''}</Text>
                             <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
                         </View>
                         <View style={{ flex: 1 }}>
@@ -164,6 +164,7 @@ class BranchInstruct extends Component {
                         </View>
                     </View>}
                     <FlatList
+                        keyExtractor={(item, index) => index}
                         data={routeLoadTaskList}
                         renderItem={({ item, index }) => this.renderListItem(item, index)} />
                     <Modal

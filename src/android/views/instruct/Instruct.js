@@ -30,6 +30,7 @@ class Instruct extends Component {
 
 
     renderTaskItem(item, key) {
+        // console.log('item', item)
         return <TouchableOpacity
             key={key}
             onPress={() => Actions.branchInstruct({ initParam: { routeLoadInfo: item } })}>
@@ -39,11 +40,18 @@ class Instruct extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>
                                 {item.addr_name ? item.addr_name : ''}{item.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
-                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}{item.transfer_flag == 0 && ' - '}{item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
-                                {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}{item.transfer_flag == 1 && ' - '}{item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
-                                {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}
+                                {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}
                             </Text>
                         </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                        <Text style={[globalStyles.midText]}>
+                            {item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
+                            {item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                            {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            {item.make_name ? `(${item.make_name})` : ''}
+                        </Text>
                     </View>
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ flexDirection: 'row', flex: 1 }}>
@@ -74,6 +82,7 @@ class Instruct extends Component {
     }
 
     render() {
+        console.log('this.props', this.props)
         const { routeInfo } = this.props.initParam
         const { taskList } = this.props.instructReducer.data
         const { getRouteTaskList } = this.props.instructReducer
@@ -130,6 +139,10 @@ class Instruct extends Component {
                                 <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
                                 <Text style={{ fontSize: 11, paddingLeft: 5, color: '#8b959b' }}>指定调度：{routeInfo.route_op_name ? routeInfo.route_op_name : ''}</Text>
                             </View>
+                            {routeInfo.reverse_flag == 1&& <View style={{ flexDirection: 'row' }}>
+                            <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>倒板</Text>
+                        </View>}
+
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row' }}>
@@ -148,6 +161,7 @@ class Instruct extends Component {
                         </View>
                     </View>
                     <FlatList
+                        keyExtractor={(item, index) => index}
                         data={taskList}
                         renderItem={({ item, index }) => this.renderTaskItem(item, key)} />
                 </View>

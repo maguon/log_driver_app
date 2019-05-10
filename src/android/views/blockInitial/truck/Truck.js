@@ -31,11 +31,12 @@ class Truck extends Component {
     }
 
     render() {
-        const { communicationSettingReducer: { data: { file_host} } } = this.props
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         const { truckReducer: { data: { driverInfo: { company_name, operate_type } } }, loginReducer: { data: { user: { avatar_image, real_name, mobile } } },
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
             getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
-            getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList } = this.props
+            getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList,
+            getSalaryListWaiting, getSalaryList } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -188,7 +189,7 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.item} onPress={() => {
+                            {/* <TouchableOpacity style={styles.item} onPress={() => {
                                 getCleanRelListWaiting()
                                 Actions.cleanRelList()
                                 InteractionManager.runAfterInteractions(getCleanRelList)
@@ -210,6 +211,20 @@ class Truck extends Component {
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>出车款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity> */}
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getSalaryListWaiting()
+                                Actions.salaryList()
+                                InteractionManager.runAfterInteractions(getSalaryList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='currency-cny' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>工资</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>
@@ -290,6 +305,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getNotSettleList: () => {
         dispatch(actions.notSettleList.getNotSettleList())
+    },
+    getSalaryList: () => {
+        dispatch(actions.salaryList.getSalaryList())
+    },
+    getSalaryListWaiting: () => {
+        dispatch(actions.salaryList.getSalaryListWaiting())
     }
 })
 

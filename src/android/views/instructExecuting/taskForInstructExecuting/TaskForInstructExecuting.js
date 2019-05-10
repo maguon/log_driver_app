@@ -147,6 +147,7 @@ class TaskForInstructExecuting extends Component {
     render() {
         const { taskInfo, routeTaskList } = this.props
         const nextStepName = getNextStepName(taskInfo.task_status)
+        console.log('this.props', this.props)
         return (
             <View>
                 <StepIndicator
@@ -199,6 +200,9 @@ class TaskForInstructExecuting extends Component {
                             <Icon name='ios-clock-outline' style={{ fontSize: 15, color: '#8b959b' }} />
                             <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>指令执行时间：{taskInfo.task_plan_date ? moment(new Date(taskInfo.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
                         </View>
+                        {taskInfo.reverse_flag == 1&& <View style={{ flexDirection: 'row' }}>
+                            <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>倒板</Text>
+                        </View>}
                     </View>
                     <View style={{ flexDirection: 'row', paddingBottom: 10, justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>

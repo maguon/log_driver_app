@@ -10,21 +10,21 @@ const pageSize = 50
 export const getOveruseDieselOilList = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
-        console.log('getState()', getState())
+        // console.log('getState()', getState())
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         let searchParam = {}
         if (param) {
             searchParam = {
                 oilDateStart: param.startDate ? param.startDate : null,
                 oilDateEnd: param.endDate ? param.endDate : null,
-                settleStatus: param.statStatus ? param.statStatus.id : null
+                oilStatus: param.statStatus ? param.statStatus.id : null
             }
         }
-        console.log('searchParam', searchParam)
+        // console.log('searchParam', searchParam)
         const url = `${base_host}/driveExceedOil?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({
                 type: actionTypes.overuseDieselOilList.get_overuseDieselOilList_success, payload: {
@@ -38,7 +38,7 @@ export const getOveruseDieselOilList = (param) => async (dispatch, getState) => 
         }
     }
     catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.overuseDieselOilList.get_overuseDieselOilList_error, payload: { errorMsg: err } })
     }
 }

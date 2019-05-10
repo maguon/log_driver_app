@@ -29,7 +29,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.branchInstructTypes.GET_RouteLoadTaskList_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.branchInstructTypes.GET_RouteLoadTaskList_ERROR, payload: { data: err } })
     }
 }

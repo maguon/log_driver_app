@@ -10,33 +10,32 @@ import moment from 'moment'
 const renderItem = props => {
     const { item, getDpRouteTask, getDpRouteTaskWaiting } = props
     return (
-        <TouchableOpacity onPress={() => {
-            getDpRouteTaskWaiting()
-            Actions.overuseDieselOilInfo({ initParam: { overuseDieselOilId: item.id } })
-            InteractionManager.runAfterInteractions(() => getDpRouteTask({ dpRouteTaskId: item.dp_route_task_id }))
-        }}>
+        <View >
             <Card style={{ backgroundColor: '#fff' }}>
                 <CardItem header style={{ justifyContent: 'space-between' }}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor]}>超油结算编号：{item.id ? `${item.id}` : ''}</Text>
-                    {item.settle_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
-                    {item.settle_status == 2 && <Text style={globalStyles.midText}>已扣</Text>}
+                    {item.oil_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>处理中</Text>}
+                    {item.oil_status == 2 && <Text style={globalStyles.midText}>未处理</Text>}
                 </CardItem>
                 <CardItem style={{ flexDirection: 'column' }}>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.smallText}>核油日期：{item.oil_date ? `${moment(item.oil_date).format('YYYY-MM-DD')}` : ''}</Text>
-                        {/* <Text style={globalStyles.smallText}>司机：张宝全 </Text> */}
+                        <Text style={globalStyles.smallText}>计划用油量：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.plan_oil ? `${item.plan_oil}` : '0'}</Text>  L</Text>
+                        <Text style={globalStyles.smallText}>计划尿素量：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.plan_urea ? `${item.plan_urea}` : '0'}</Text></Text>
                     </Body>
-                    {/* <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={globalStyles.smallText}>调度编号：{item.dp_route_task_id ? `${item.dp_route_task_id}` : ''}</Text>
-                        <Text style={globalStyles.smallText}>货车牌号：{item.truck_num ? `${item.truck_num}` : ''} </Text>
-                    </Body> */}
+                    <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={globalStyles.smallText}>实际用油量：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.actual_oil ? `${item.actual_oil}` : '0'}</Text>  L</Text>
+                        <Text style={globalStyles.smallText}>实际尿素：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.actual_urea ? `${item.actual_urea}` : '0'}</Text></Text>
+                    </Body>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={globalStyles.smallText}>超量油：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_oil ? `${item.exceed_oil}` : '0'}</Text>  L</Text>
-                        <Text style={globalStyles.smallText}>超量金额：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.actual_money ? `${item.actual_money}` : '0'}</Text>  元</Text>
+                        <Text style={globalStyles.smallText}>超量尿素：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.exceed_urea ? `${item.exceed_urea}` : '0'}</Text></Text>
+                    </Body>
+                    <Body style={{ flexDirection: 'row', justifyContent: 'space-between',alignSelf:'flex-end' }}>
+                        <Text style={globalStyles.smallText}>核油日期：{item.oil_date ? `${moment(item.oil_date).format('YYYY-MM-DD')}` : ''}</Text>
                     </Body>
                 </CardItem>
             </Card>
-        </TouchableOpacity>
+        </View>
     )
 }
 

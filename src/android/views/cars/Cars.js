@@ -108,7 +108,7 @@ class Cars extends Component {
         const { taskInfo } = this.props.carsReducer.data
         if (taskInfo.load_task_status == 1) {
             return <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <Button small style={{ backgroundColor: styleColor, padding: 10, margin: 10 }} onPress={this.finishCarry}>
+                <Button small style={{ backgroundColor: styleColor, padding: 10,marginBottom:10,marginLeft:10,marginRight:10,marginTop:30 }} onPress={this.finishCarry}>
                     <Text style={[globalStyles.midText, { color: '#fff' }]}>完成装车</Text>
                 </Button>
             </View>

@@ -9,11 +9,12 @@ import moment from 'moment'
 
 const renderItem = props => {
     const { item } = props
+    console.log('item',item)
     return (
         <TouchableOpacity onPress={() => Actions.peccancyInfo({ initParam: { peccancyId: item.id } })}>
             <Card style={{ backgroundColor: '#fff' }}>
                 <CardItem header style={{ justifyContent: 'space-between' }}>
-                    <Text style={[globalStyles.midText, globalStyles.styleColor]}>超油结算编号：{item.id ? `${item.id}` : ''}</Text>
+                    <Text style={[globalStyles.midText, globalStyles.styleColor]}>违章扣款编号：{item.id ? `${item.id}` : ''}</Text>
                     {item.stat_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
                     {item.stat_status == 2 && <Text style={globalStyles.midText}>已扣</Text>}
                 </CardItem>
@@ -23,13 +24,12 @@ const renderItem = props => {
                     </Body>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={globalStyles.smallText}>扣分：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.fine_score ? `${item.fine_score}` : '0'}</Text></Text>
-                        <Text style={globalStyles.smallText}>扣罚金额：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.fine_money ? `${item.fine_money}` : '0'}</Text>元</Text>
+                        <Text style={globalStyles.smallText}>个人承担罚款：<Text style={{ color: 'red', fontWeight: 'bold' }}>{item.under_money ? `${item.under_money}` : '0'}</Text>元</Text>
                     </Body>
                 </CardItem>
-                <CardItem footer style={{ justifyContent: 'flex-end' }}>
-                    <Text style={globalStyles.smallText}>{item.start_date ? `${moment(item.start_date).format('YYYY-MM-DD')}` : ''}</Text>
-                    <Text style={[globalStyles.smallText, { marginHorizontal: 15 }]}>至</Text>
-                    <Text style={globalStyles.smallText}>{item.end_date ? `${moment(item.end_date).format('YYYY-MM-DD')}` : ''}</Text>
+                <CardItem footer style={{  flexDirection: 'row', justifyContent: 'space-between'  }}>
+                    <Text style={globalStyles.smallText}>违章时间：{item.start_date ? `${moment(item.start_date).format('YYYY-MM-DD')}` : ''}</Text>
+                    {item.handle_date&&<Text style={globalStyles.smallText}>处理时间：{`${moment(item.handle_date).format('YYYY-MM-DD')}` }</Text>}
                 </CardItem>
             </Card>
         </TouchableOpacity>

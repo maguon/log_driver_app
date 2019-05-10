@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux'
 import * as workAction from './WorkAction'
-import { styleColor } from '../../../GlobalStyles'
+import globalStyles, { styleColor } from '../../../GlobalStyles'
 
 class Work extends Component {
     constructor(props) {
@@ -74,16 +74,17 @@ class Work extends Component {
             key={key}
             onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}>
             <View style={{ marginHorizontal: 10, marginTop: 10, borderColor: '#ccc', borderWidth: 0.5 }}>
-                <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', padding: 10, alignItems: 'center', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <MaterialCommunityIcons name='truck' size={20} color={styleColor} />
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.city_route_start ? item.city_route_start : ''}</Text>
+                        <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold', paddingLeft: 10 }}>{item.city_route_start ? item.city_route_start : ''}</Text>
                         <MaterialCommunityIcons name='ray-start-arrow' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold', paddingLeft: 5 }}>{item.city_route_end ? item.city_route_end : ''}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        {item.reverse_flag == 1 && <Text style={[globalStyles.smallText, { color: '#8e9fa3' }]}>倒板</Text>}
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
                     </View>
                 </View>
@@ -193,6 +194,7 @@ class Work extends Component {
                         </View>
                     </View>
                     <FlatList
+                        keyExtractor={(item, index) => index}
                         data={data.taskList}
                         renderItem={({ item, index }) => this.renderTaskItem(item, index)} />
                 </View>}

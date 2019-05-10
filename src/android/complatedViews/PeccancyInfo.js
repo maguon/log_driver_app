@@ -27,8 +27,8 @@ const PeccancyInfo = props => {
                     <Text style={globalStyles.midText}><Text style={{ color: 'red', fontWeight: 'bold' }}>{peccancy.fine_score ? `${peccancy.fine_score}` : '0'}</Text></Text>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
-                    <Text style={globalStyles.midText}>罚款金额</Text>
-                    <Text style={globalStyles.midText}><Text style={{ color: 'red', fontWeight: 'bold' }}>{peccancy.fine_money ? `${peccancy.fine_money}` : '0'}</Text>元</Text>
+                    <Text style={globalStyles.midText}>个人承担罚款：</Text>
+                    <Text style={globalStyles.midText}><Text style={{ color: 'red', fontWeight: 'bold' }}>{peccancy.under_money ? `${peccancy.under_money}` : '0'}</Text>元</Text>
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
                     <Text style={globalStyles.midText}>操作人</Text>

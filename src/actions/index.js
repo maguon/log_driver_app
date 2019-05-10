@@ -20,6 +20,11 @@ import * as taskListForHome from '../android/views/blockInitial/home/taskListFor
 import * as routeTaskListForHome from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeActions'
 import * as taskForInstructExecuting from '../android/views/instructExecuting/taskForInstructExecuting/taskForInstructExecutingActions'
 
+
+import * as salaryList from '../android/complatedViews/salaryList/salaryListAction'
+import * as salary from '../android/complatedViews/salary/salaryAction'
+
+
 export {
     //settingBlock-views-complated 
     personalCenter,
@@ -40,5 +45,9 @@ export {
     mileageInfo,
     taskListForHome,
     routeTaskListForHome,
-    taskForInstructExecuting
+    taskForInstructExecuting,
+
+
+    salaryList,
+    salary
 }

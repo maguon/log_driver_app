@@ -96,6 +96,10 @@ import * as routeTaskListForHome from '../android/views/blockInitial/home/routeT
 import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActionTypes'
 import * as taskForInstructExecuting from '../android/views/instructExecuting/taskForInstructExecuting/taskForInstructExecutingActionTypes'
 
+
+import * as salaryList from '../android/complatedViews/salaryList/salaryListActionTypes'
+import * as salary from '../android/complatedViews/salary/salaryActionTypes'
+
 export {
     peccancyList,
     overuseDieselOilList,
@@ -184,5 +188,9 @@ export {
     taskListForHome,
     routeTaskListForHome,
     mileageInfo,
-    taskForInstructExecuting
+    taskForInstructExecuting,
+
+
+    salaryList,
+    salary
 }   

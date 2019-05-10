@@ -16,6 +16,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 const RouteTaskListItem = props => {
     const { item } = props
     // 未装车
+    // console.log('props', props)
     if (item.load_task_status == 1) {
         return (
             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
@@ -23,11 +24,19 @@ const RouteTaskListItem = props => {
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>
                             {item.addr_name ? item.addr_name : ''}{item.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
-                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}{item.transfer_flag == 0 && ' - '}{item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
-                            {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}{item.transfer_flag == 1 && ' - '}{item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
-                            {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}
+                            {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}
+
                         </Text>
                     </View>
+                </View>
+                <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                    <Text style={[globalStyles.midText,{ color: '#8b959b'}]}>
+                        {item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
+                        {item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                        {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                        {item.make_name ? `(${item.make_name})` : ''}
+                    </Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                     <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'left', flex: 1 }]}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
@@ -57,18 +66,25 @@ const RouteTaskListItem = props => {
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>
                             {item.addr_name ? item.addr_name : ''}{item.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
-                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}{item.transfer_flag == 0 && ' - '}{item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
-                            {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}{item.transfer_flag == 1 && ' - '}{item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
-                            {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                            {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}
+                            {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}
                         </Text>
                     </View>
+                </View>
+                <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                    <Text style={[globalStyles.midText,{ color: '#8b959b'}]}>
+                        {item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
+                        {item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                        {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                        {item.make_name ? `(${item.make_name})` : ''}
+                    </Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                     <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'left', flex: 1 }]}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
                     <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'left', flex: 1 }]}>实际运送：<Text style={{ color: styleColor }}>{item.car_count ? item.car_count : '0'}</Text></Text>
                     <View style={{ flex: 1, alignItems: 'flex-end' }}>
                         <Button small rounded style={{ height: 20, backgroundColor: 'red', alignSelf: 'flex-end' }} onPress={() => {
-                            console.log('item',item)
+                            console.log('item', item)
                             Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item, task_status: item.task_status } })
                         }}>
                             <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>卸车</Text>
@@ -92,12 +108,20 @@ const RouteTaskListItem = props => {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>
                                 {item.addr_name ? item.addr_name : ''}{item.load_task_type == 2 && <Text style={{ color: 'red' }}>(转)</Text>} -->
-                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}{item.transfer_flag == 0 && ' - '}{item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
-                                {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}{item.transfer_flag == 1 && ' - '}{item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                                {item.transfer_flag == 0 && item.city_name ? ` ${item.city_name}` : ''}
+                                {item.transfer_flag == 1 && item.transfer_city_name ? ` ${item.transfer_city_name}` : ''}
                                 {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
                             </Text>
                         </View>
                     </View>
+                    <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                    <Text style={[globalStyles.midText,{ color: '#8b959b'}]}>
+                        {item.transfer_flag == 0 && item.short_name ? item.short_name : ''}
+                        {item.transfer_flag == 1 && item.transfer_addr_name ? item.transfer_addr_name : ''}
+                        {item.transfer_flag == 1 && <Text style={{ color: 'red' }}>(转)</Text>}
+                        {item.make_name ? `(${item.make_name})` : ''}
+                    </Text>
+                </View>
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'left', flex: 1 }]}>计划运送：{item.plan_count ? item.plan_count : '0'}</Text>
                         <Text style={[globalStyles.smallText, { color: '#8b959b', textAlign: 'center', flex: 1 }]}>实际运送：<Text style={{ color: styleColor }}>{item.car_count ? item.car_count : '0'}</Text></Text>

@@ -108,6 +108,9 @@ import CommunicationSetting from './complatedViews/communicationSetting/Communic
 import ChangeMobileNo from './complatedViews/changeMobileNo/ChangeMobileNo'
 import NotSettleList from './complatedViews/notSettleList/NotSettleList'
 
+import SalaryList from './complatedViews/salaryList/SalaryList'
+import Salary from './complatedViews/salary/Salary'
+
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -414,15 +417,10 @@ export default class App extends Component {
                                     LeftButton={LeftButton} />
                                 <Scene key="overuseDieselOilSearch"
                                     component={OveruseDieselOilSearch}
-                                    title='违章扣款查询'
+                                    title='超油扣款查询'
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
-
-
-
-
-
                                 <Scene key="demageList"
                                     component={DemageList}
                                     title='质损列表'
@@ -430,6 +428,18 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={LeftButton}
                                     RightButton={DemageListOperation} />
+                                <Scene key="salaryList"
+                                    component={SalaryList}
+                                    title='工资列表'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="salary"
+                                    component={Salary}
+                                    title='工资详情'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                                 <Scene key="demageResponsibilityList"
                                     component={DemageResponsibilityList}
                                     title='质损列表'

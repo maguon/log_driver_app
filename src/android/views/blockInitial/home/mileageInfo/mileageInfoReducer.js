@@ -5,9 +5,9 @@ import * as actionTypes from '../../../../../actionTypes/index'
 const initialState = {
     data: {
         mileageInfo: {
-            load_distance: null,
-            no_load_distance: null,
-            distanceCount: null
+            distanceCount: null,
+            salary: null,
+            carCount: null
         }
     },
     //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),] 

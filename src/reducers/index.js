@@ -92,6 +92,8 @@ import retrievePasswordVCodeReducer from '../android/complatedViews/retrievePass
 import mileageInfoReducer from '../android/views/blockInitial/home/mileageInfo/mileageInfoReducer'
 import taskListForHomeReducer from '../android/views/blockInitial/home/taskListForHome/taskListForHomeReducer'
 import routeTaskListForHomeReducer from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeReducer'
+import salaryListReducer from '../android/complatedViews/salaryList/salaryListReducer'
+import salaryReducer from '../android/complatedViews/salary/salaryReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -180,5 +182,7 @@ export default combineReducers({
 
     mileageInfoReducer,
     taskListForHomeReducer,
-    routeTaskListForHomeReducer
+    routeTaskListForHomeReducer,
+    salaryListReducer,
+    salaryReducer
 })
