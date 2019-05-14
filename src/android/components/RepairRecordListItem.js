@@ -34,7 +34,7 @@ const Repaired = props => {
             </CardItem>
             <CardItem footer bordered style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={[globalStyles.smallText]}>维修人：<Text style={{ color: '#f27d80' }}>{item.repair_user}</Text></Text>
-                <Text style={[globalStyles.smallText]}>金额：<Text style={{ color: '#f27d80' }}>{item.repair_money}</Text>元</Text>
+                {/* <Text style={[globalStyles.smallText]}>金额：<Text style={{ color: '#f27d80' }}>{item.repair_money}</Text>元</Text> */}
             </CardItem>
         </Card>
     )

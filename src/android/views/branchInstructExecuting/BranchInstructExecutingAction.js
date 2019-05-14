@@ -4,9 +4,9 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import * as instructExecutingAction from '../instructExecuting/InstructExecutingAction'
 import * as homeAction from '../blockInitial/home/HomeAction'
 import moment from 'moment'
-import { ToastAndroid } from 'react-native'
+import { ToastAndroid, InteractionManager } from 'react-native'
 import * as reduxActions from '../../../actions/index'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
     // console.log('param', param)
@@ -102,43 +102,32 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
-        const { loginReducer: { data: { user: { uid } } } } = getState()
+        const { loginReducer: { data: { user: { drive_id } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_SUCCESS, payload: { data: res.result } })
             dispatch(reduxActions.mileageInfo.getMileageInfo())
-            dispatch(reduxActions.taskListForHome.getTaskListForHome())
+            const taskListurl = `${base_host}/dpRouteTask?${ObjectToUrl({
+                taskStatusArr: '1,2,3,4,9',
+                driveId: drive_id
+            })}`
+            const taskListRes = await httpRequest.get(taskListurl)
+            if (taskListRes.success) {
+                if (taskListRes.result.some(item => item.id == param.requiredParam.dpRouteTaskId)) {
+                    Actions.pop()
+                } else {
+                    Actions.popTo('home')
+                }
+                InteractionManager.runAfterInteractions(() => {
+                    dispatch({
+                        type: actionTypes.taskListForHome.get_taskListForHome_success, payload: {
+                            taskList: taskListRes.result
+                        }
+                    })
+                })
+            }
             dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
-            Actions.pop()
-            // dispatch(homeAction.getMileageInfo({
-            //     mileageInfoParam: {
-            //         OptionalParam: {
-            //             taskStatus: 9,
-            //             loadDistance: 5,
-            //             noLoadDistance: 5,
-            //             dateIdStart: moment().format('YYYY-MM-01'),
-            //             dateIdEnd: moment().format('YYYY-MM-DD')
-            //         }
-            //     },
-            //     truckDispatchParam: {
-            //         OptionalParam: {
-            //             dispatchFlag: 1
-            //         }
-            //     },
-            //     taskListParam: {
-            //         OptionalParam: {
-            //             taskStatusArr: '1,2,3,4,9'
-            //         }
-            //     },
-            //     getDriverId: {
-            //         requiredParam: {
-            //             userId: uid
-            //         }
-            //     }
-            // }))
-            // dispatch(instructExecutingAction.getDpRouteTask())
-            // dispatch(instructExecutingAction.getLoadTaskList())
         } else {
             dispatch({ type: actionTypes.branchInstructExecutingTypes.Change_ExecutingLoadTaskStatus_FAILED, payload: { data: res.msg } })
         }

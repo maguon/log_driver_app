@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 const RouteTaskListItem = props => {
-    const { item } = props
+    const { item,taskInfo } = props
     // 未装车
     // console.log('props', props)
     if (item.load_task_status == 1) {
@@ -60,6 +60,7 @@ const RouteTaskListItem = props => {
     }
     // 已装车
     else if (item.load_task_status == 3) {
+        // console.log('props',props)
         return (
             <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -85,7 +86,7 @@ const RouteTaskListItem = props => {
                     <View style={{ flex: 1, alignItems: 'flex-end' }}>
                         <Button small rounded style={{ height: 20, backgroundColor: 'red', alignSelf: 'flex-end' }} onPress={() => {
                             console.log('item', item)
-                            Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item, task_status: item.task_status } })
+                            Actions.branchInstructExecuting({ initParam: { loadTaskInfo: item,taskInfo, task_status: item.task_status } })
                         }}>
                             <Text style={[globalStyles.smallText, { color: '#fff', padding: 5 }]}>卸车</Text>
                         </Button>
@@ -154,7 +155,7 @@ const RouteTaskListEmpty = () => {
 }
 
 const RouteTaskListForHome = props => {
-    const { routeTaskListForHomeReducer: { data: { routeTaskList }, getRouteTaskListForHome } } = props
+    const { routeTaskListForHomeReducer: { data: { routeTaskList }, getRouteTaskListForHome },taskInfo } = props
     if (getRouteTaskListForHome.isResultStatus != 1) {
         if (routeTaskList.length > 0) {
             return (
@@ -162,7 +163,7 @@ const RouteTaskListForHome = props => {
                     keyExtractor={(item, index) => index}
                     data={routeTaskList}
                     removeClippedSubviews={true}
-                    renderItem={itemProps => RouteTaskListItem({ ...itemProps })} />
+                    renderItem={itemProps => RouteTaskListItem({ ...itemProps,taskInfo })} />
             )
         } else {
             return (
@@ -188,7 +189,8 @@ const mapStateToProps = (state, ownProps) => {
             data: {
                 routeTaskList: !taskId ? routeTaskList : routeTaskList.filter(item => item.dp_route_task_id == taskId)
             }
-        }
+        },
+        taskListForHomeReducer: state.taskListForHomeReducer
     }
 }
 

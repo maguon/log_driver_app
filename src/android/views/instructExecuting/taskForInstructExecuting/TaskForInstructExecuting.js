@@ -147,7 +147,7 @@ class TaskForInstructExecuting extends Component {
     render() {
         const { taskInfo, routeTaskList } = this.props
         const nextStepName = getNextStepName(taskInfo.task_status)
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         return (
             <View>
                 <StepIndicator

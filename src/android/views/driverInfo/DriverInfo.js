@@ -146,6 +146,15 @@ class DriverInfo extends Component {
                         <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>驾驶证检证日期：</Text>{driverInfo.license_date ? moment(driverInfo.license_date).format('YYYY-MM-DD') : ''}</Text>
                     </View>
                     <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                        <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>开户行：</Text>{driverInfo.bank_name ? `${driverInfo.bank_name}`: ''}</Text>
+                    </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                        <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>账号：</Text>{driverInfo.bank_number ? `${driverInfo.bank_number}`: ''}</Text>
+                    </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
+                        <Text style={{ fontSize: 11 }}><Text style={{ fontWeight: 'bold' }}>户名：</Text>{driverInfo.bank_user_name ? `${driverInfo.bank_user_name}`: ''}</Text>
+                    </View>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ccc', paddingHorizontal: 10, paddingVertical: 10 }}>
                         <Text style={{ fontSize: 11, fontWeight: 'bold' }}>备注：</Text>
                         <Text style={{ fontSize: 11 }}>{driverInfo.remark ? driverInfo.remark : ''}</Text>
                     </View>

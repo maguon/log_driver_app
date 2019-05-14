@@ -98,6 +98,7 @@ import PeccancyInfo from './complatedViews/PeccancyInfo'
 import PeccancySearch from './complatedViews/PeccancySearch'
 import OveruseDieselOilSearch from './complatedViews/OveruseDieselOilSearch'
 import VinScanner from './views/VinScanner'
+import FuelFillingRecordToolButton from './complatedComponents/op/FuelFillingRecordToolButton'
 
 //settingBlock-views-complated 
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
@@ -498,7 +499,7 @@ export default class App extends Component {
                                 <Scene key="truckInfo" LeftButton={LeftButton} component={TruckInfo} title='车头资料' hideTabBar navBar={NavBar} />
                                 <Scene key="trailerInfo" LeftButton={LeftButton} component={Trailer} title='挂车资料' hideTabBar navBar={NavBar} />
                                 <Scene key="cityRouteList" LeftButton={LeftButton} component={CityRouteList} title='指令编号' hideTabBar navBar={NavBar} />
-                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' hideTabBar navBar={NavBar} />
+                                <Scene key="fuelFillingRecord" LeftButton={LeftButton} component={FuelFillingRecord} title='加油记录' RightButton={FuelFillingRecordToolButton} hideTabBar navBar={NavBar} />
                                 <Scene key="fuelFillingApply" LeftButton={LeftButton} component={FuelFillingApply} title='加油申报' hideTabBar navBar={NavBar} />
                                 <Scene key="fuelFillingSearch" LeftButton={LeftButton} component={FuelFillingSearch} title='加油查询' hideTabBar navBar={NavBar} />
                                 <Scene key="singlePhotoView" component={SinglePhotoView} hideTabBar={true} navBar={PhotoViewNavBar} LeftButton={LeftButton} />

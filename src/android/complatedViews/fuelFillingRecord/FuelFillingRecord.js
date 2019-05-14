@@ -215,7 +215,7 @@ const Header = props => {
     const { fuelFillingRecordReducer: { data: { total: { refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus, refuel_money, refuel_volume } } }, fuelFillingRecordReducer } = props
     return (
         <View>
-            <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
+            {/* <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
                 <View>
                     <Button small rounded onPress={Actions.fuelFillingApply} style={{ backgroundColor: styleColor, justifyContent: 'space-around', paddingHorizontal: 10 }}>
                         <MaterialCommunityIcons name='gas-station' size={20} color='#fff' />
@@ -237,7 +237,7 @@ const Header = props => {
                         <Text style={[globalStyles.midText, { color: '#fff', paddingRight: 10 }]}>搜索</Text>
                     </Button>
                 </View>
-            </View>
+            </View> */}
             <View style={{ backgroundColor: '#f1f8f9', borderWidth: 0.5, borderColor: '#fff', marginHorizontal: 10, padding: 10, marginBottom: 10 }}>
                 <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, borderColor: '#ccc', paddingBottom: 10 }}>
                     <View>

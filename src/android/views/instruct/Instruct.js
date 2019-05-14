@@ -82,7 +82,7 @@ class Instruct extends Component {
     }
 
     render() {
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         const { routeInfo } = this.props.initParam
         const { taskList } = this.props.instructReducer.data
         const { getRouteTaskList } = this.props.instructReducer

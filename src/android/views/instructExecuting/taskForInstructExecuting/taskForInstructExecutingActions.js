@@ -3,6 +3,7 @@ import * as reduxActionTypes from '../../../../actionTypes/index'
 import * as reduxActions from '../../../../actions/index'
 import { ObjectToUrl } from '../../../../util/ObjectToUrl'
 import {Actions} from 'react-native-router-flux'
+import {InteractionManager} from 'react-native'
 
 export const changeTaskStatus = reqParam => async (dispatch, getState) => {
     try {
@@ -17,11 +18,16 @@ export const changeTaskStatus = reqParam => async (dispatch, getState) => {
         if (res.success) {
             dispatch({ type: reduxActionTypes.taskForInstructExecuting.change_taskStatusForInstructExecuting_success, payload: { data: {} } })
             dispatch(reduxActions.mileageInfo.getMileageInfo())
-            dispatch(reduxActions.taskListForHome.getTaskListForHome())
             dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
             if(reqParam.taskStatus==9){
                 Actions.pop()
+                InteractionManager.runAfterInteractions(()=>{
+                    dispatch(reduxActions.taskListForHome.getTaskListForHome())
+                })
+            }else{
+                dispatch(reduxActions.taskListForHome.getTaskListForHome())
             }
+
         } else {
             dispatch({ type: reduxActionTypes.taskForInstructExecuting.change_taskStatusForInstructExecuting_failed, payload: { failedMsg: `${res.msg}` } })
         }

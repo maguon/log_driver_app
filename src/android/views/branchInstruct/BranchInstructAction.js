@@ -4,12 +4,15 @@ import { ObjectToUrl } from '../../../util/ObjectToUrl'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
     const { communicationSettingReducer: { data: { base_host } } } = getState()
+    // console.log('param',param)
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
     `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
     `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
     `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId, statusArr: '1,2' })}`]
+    // console.log('urls',urls)
     try {
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
+        // console.log('res',res)
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.branchInstructTypes.GET_RouteLoadTaskList_SUCCESS,

@@ -133,7 +133,7 @@ class InstructExecuting extends Component {
         return (
             <Container>
                 <TaskForInstructExecuting taskId={taskInfo.id} />
-                <RouteTaskListForHome taskId={taskInfo.id} />
+                <RouteTaskListForHome taskId={taskInfo.id} taskInfo={taskInfo}/>
             </Container>
         )
         // }

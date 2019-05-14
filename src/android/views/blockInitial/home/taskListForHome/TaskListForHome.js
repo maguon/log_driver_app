@@ -17,7 +17,7 @@ import { Actions } from 'react-native-router-flux'
 
 const TaskListItem = props => {
     const { item, setTaskInfo } = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <TouchableOpacity onPress={() => {
             setTaskInfo(item)
@@ -68,6 +68,7 @@ const TaskListEmpty = () => {
 
 const TaskListForHome = props => {
     const { taskListForHomeReducer: { data: { taskList }, getTaskListForHome }, setTaskInfo } = props
+    // console.log('taskList',taskList)
     if (getTaskListForHome.isResultStatus != 1) {
         if (taskList.length > 0) {
             return (
