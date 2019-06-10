@@ -38,8 +38,9 @@ const renderListEmpty = () => {
 
 
 const Salary = props => {
-    const { salary: { plan_salary, actual_salary, truck_num, month_date_id, drive_name, grant_status },
+    const { salary: { plan_salary, actual_salary, truck_num,distance_salary,reverse_salary,enter_fee, month_date_id, drive_name, grant_status },
         salaryReducer: { data: { salaryTaskList } }, salaryReducer } = props
+    console.log('props',props)
     if (salaryReducer.getSalaryTaskList.isResultStatus == 1) {
         return (
             <Container>
@@ -68,6 +69,18 @@ const Salary = props => {
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>司机姓名</Text>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>{drive_name ? `${drive_name}` : ''}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>里程工资</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{distance_salary ? `${distance_salary}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>倒板工资</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{reverse_salary ? `${reverse_salary}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>交车打车进门费</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{enter_fee ? `${enter_fee}` : '0'}</Text>
                             </View>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>应发工资</Text>

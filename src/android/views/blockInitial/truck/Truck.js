@@ -36,7 +36,7 @@ class Truck extends Component {
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
             getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
             getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList,
-            getSalaryListWaiting, getSalaryList } = this.props
+            getSalaryListWaiting, getSalaryList,getRouteTaskFeeListWaiting,getRouteTaskFeeList } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -189,7 +189,7 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
-                            {/* <TouchableOpacity style={styles.item} onPress={() => {
+                            <TouchableOpacity style={styles.item} onPress={() => {
                                 getCleanRelListWaiting()
                                 Actions.cleanRelList()
                                 InteractionManager.runAfterInteractions(getCleanRelList)
@@ -204,6 +204,20 @@ class Truck extends Component {
                                 </Right>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.item} onPress={() => {
+                                getRouteTaskFeeListWaiting()
+                                Actions.routeTaskFee()
+                                InteractionManager.runAfterInteractions(getRouteTaskFeeList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>出车款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
+                            {/*  <TouchableOpacity style={styles.item} onPress={() => {
                                 getTaskLoanListWaiting()
                                 Actions.taskLoanList()
                                 InteractionManager.runAfterInteractions(getTaskLoanList)
@@ -311,6 +325,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getSalaryListWaiting: () => {
         dispatch(actions.salaryList.getSalaryListWaiting())
+    },
+    getRouteTaskFeeList: () => {
+        dispatch(actions.routeTaskFee.getRouteTaskFeeList())
+    },
+    getRouteTaskFeeListWaiting: () => {
+        dispatch(actions.routeTaskFee.getRouteTaskFeeListWaiting())
     }
 })
 

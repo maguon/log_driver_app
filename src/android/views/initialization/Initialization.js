@@ -15,7 +15,7 @@ import { Button } from 'native-base'
 
 const window = Dimensions.get('window')
 const ImageWidth = window.width
-const ImageHeight = window.width / 9 * 16
+const ImageHeight = window.height
 
 
 

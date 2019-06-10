@@ -14,7 +14,7 @@ const TextBox = props => {
     const { input: { onChange, ...restProps }, getCarList, getCarListWaiting, cleanCarList } = props
     return (
         <View style={styles.inputContainer}>
-            <TextInput    
+            <TextInput
                 underlineColorAndroid='transparent'
                 placeholderTextColor='rgba(255,255,255,0.3)'
                 autoFocus={true}
@@ -36,7 +36,8 @@ const TextBox = props => {
 }
 
 const NavSearchCarBar = props => {
-    const { title, getCarListWaiting, getCarList, cleanCarList } = props
+    const { title, getCarListWaiting, getCarList, cleanCarList,initParam:{commandInfo:{load_task_type}} } = props
+    // console.log('props', props)
     return (
         <View style={[styles.container]}>
             <StatusBar hidden={false} />
@@ -52,7 +53,17 @@ const NavSearchCarBar = props => {
                     <Field name='vin'
                         component={TextBox}
                         cleanCarList={cleanCarList}
-                        getCarList={getCarList}
+                        
+                        getCarList={() =>{
+                            if(load_task_type==2){
+                                getCarList({
+                                    newCurrentCityId: props.initParam.commandInfo.route_start_id,
+                                    newCurrentAddrId: props.initParam.commandInfo.base_addr_id
+                                })
+                            }else{
+                                getCarList()
+                            }
+                        } }
                         getCarListWaiting={getCarListWaiting} />
                 </Body>
                 <Right>
@@ -66,8 +77,8 @@ const NavSearchCarBar = props => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getCarList: () => {
-        dispatch(searchCarAction.getCarList())
+    getCarList: req => {
+        dispatch(searchCarAction.getCarList(req))
     },
     getCarListWaiting: () => {
         dispatch(searchCarAction.getCarListWaiting())

@@ -21,6 +21,7 @@ export const getSalaryTaskList = req => async (dispatch, getState) => {
     }
 }
 
+
 export const getSalaryTaskListWaiting = () => (dispatch) => {
     dispatch({ type: reduxActionTypes.salary.get_salaryTaskList_waiting, payload: {} })
 }

@@ -42,7 +42,6 @@ class Setting extends Component {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
         const { communicationSettingReducer: { data: { file_host } } } = this.props
-        // console.log('this.props', this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>

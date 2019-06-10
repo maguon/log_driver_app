@@ -4,21 +4,32 @@ import {
     View,
     FlatList,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity,
+    InteractionManager
 } from 'react-native'
 import { Container } from 'native-base'
 import { Spinner } from 'native-base'
 import { connect } from 'react-redux'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import * as cleanRelListAction from './CleanRelListAction'
+import * as actionTypes from '../../../actions/index'
 import moment from 'moment'
 import SearchCleanRel from '../../components/SearchCleanRel'
+import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
-    const { item: { dp_route_task_id, route_start_name, addr_name, route_end_name, short_name, actual_price, car_count, load_date, status }, index } = props
+    const { item: { dp_route_task_id, route_start_name, addr_name, receive_id, route_end_name, short_name, total_price, car_count, load_date, status },
+        item, index, getReceive, getReceiveWaiting } = props
     // console.log('props', props)
     return (
-        <View key={index} style={styles.itemContainer} >
+        <TouchableOpacity
+            onPress={() => {
+                getReceiveWaiting()
+                Actions.cleanRel({ cleanRelInfo: item })
+                InteractionManager.runAfterInteractions(() => getReceive({ receiveId: receive_id }))
+            }}
+            key={index} style={styles.itemContainer} >
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>指令编号：{dp_route_task_id ? `${dp_route_task_id}` : ''}</Text>
                 {status != 1 && status != 2 && status != 0 && <Text style={[globalStyles.midText]}>未知</Text>}
@@ -43,13 +54,13 @@ const renderItem = props => {
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车数量：{car_count ? `${car_count}` : ''}</Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车数量：{car_count ? `${car_count}` : '0'}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车费总额：<Text style={styles.itemWarnColor}>{actual_price ? `${actual_price}` : '0'}元</Text></Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车费：<Text style={styles.itemWarnColor}>{total_price ? `${total_price}` : '0'}元</Text></Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -73,7 +84,7 @@ const renderEmpty = () => {
 
 const CleanRelList = props => {
     const { cleanRelListReducer: { data: { cleanRelList, isComplete }, getCleanRelList },
-        cleanRelListReducer, getCleanRelListMore } = props
+        cleanRelListReducer, getCleanRelListMore, getReceive, getReceiveWaiting } = props
     if (getCleanRelList.isResultStatus == 1) {
         return (
             <Container>
@@ -98,7 +109,7 @@ const CleanRelList = props => {
                     }}
                     ListFooterComponent={cleanRelListReducer.getCleanRelListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
                     data={cleanRelList}
-                    renderItem={(item) => renderItem({ ...item })}
+                    renderItem={(item) => renderItem({ ...item, getReceive, getReceiveWaiting })}
                 />
             </Container>
         )
@@ -115,6 +126,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     getCleanRelListMore: () => {
         dispatch(cleanRelListAction.getCleanRelListMore())
+    },
+    getReceive: req => {
+        dispatch(actionTypes.receiveForCleanRel.getReceive(req))
+    },
+    getReceiveWaiting: () => {
+        dispatch(actionTypes.receiveForCleanRel.getReceiveWaiting())
     }
 })
 

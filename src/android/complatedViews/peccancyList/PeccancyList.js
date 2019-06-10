@@ -9,14 +9,14 @@ import moment from 'moment'
 
 const renderItem = props => {
     const { item } = props
-    console.log('item',item)
+    // console.log('item',item)
     return (
         <TouchableOpacity onPress={() => Actions.peccancyInfo({ initParam: { peccancyId: item.id } })}>
             <Card style={{ backgroundColor: '#fff' }}>
                 <CardItem header style={{ justifyContent: 'space-between' }}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor]}>违章扣款编号：{item.id ? `${item.id}` : ''}</Text>
-                    {item.stat_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
-                    {item.stat_status == 2 && <Text style={globalStyles.midText}>已扣</Text>}
+                    {/* {item.stat_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
+                    {item.stat_status == 2 && <Text style={globalStyles.midText}>已扣</Text>} */}
                 </CardItem>
                 <CardItem style={{ flexDirection: 'column' }}>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

@@ -13,12 +13,12 @@ const PeccancySearch = props => {
     return (
         <Container>
             <Content>
-                <Field
+                {/* <Field
                     label='结算状态'
                     name='statStatus'
                     listTitle='结算状态'
                     itemList={[{ id: 1, value: '未扣' }, { id: 2, value: '已扣' }]}
-                    component={CheckBox} />
+                    component={CheckBox} /> */}
                 <Field name='startDate'
                     label='起始时间'
                     component={DatePicker} />

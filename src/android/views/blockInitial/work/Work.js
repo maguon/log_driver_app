@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     TouchableOpacity
 } from 'react-native'
-import { Icon } from 'native-base'
+import { Icon,Container } from 'native-base'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -70,6 +70,7 @@ class Work extends Component {
     }
 
     renderTaskItem(item, key) {
+        console.log('item',item)
         return <TouchableOpacity
             key={key}
             onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}>
@@ -88,10 +89,15 @@ class Work extends Component {
                         <Text style={{ fontSize: 15, color: '#8b959b', fontWeight: 'bold' }}>{item.distance ? `${item.distance}` : '0'}公里</Text>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row', paddingTop: 10,paddingHorizontal:10, justifyContent: 'space-between' }}>
+                    <View>
+                        <Text style={{ fontSize: 11 }}>计划时间：{item.task_plan_date ? moment(new Date(item.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
+                    </View>
                     <View>
                         <Text style={{ fontSize: 11 }}>完成时间：{item.task_end_date ? moment(new Date(item.task_end_date)).format('YYYY-MM-DD HH:mm:ss') : ''}</Text>
                     </View>
+                </View>
+                <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'flex-end' }}>
                     <View>
                         <Text style={{ fontSize: 11 }}>实际送达：{item.car_count ? `${item.car_count}` : '0'}</Text>
                     </View>
@@ -135,7 +141,7 @@ class Work extends Component {
         const { data } = this.props.workReducer
         const { getWorkMileageInfo } = this.props.workReducer
         return (
-            <View style={{ flex: 1 }}>
+            <Container>
                 <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#9AAAB2', alignItems: 'center' }}>
                     <TouchableOpacity
                         style={{ flex: 1 }}
@@ -178,7 +184,7 @@ class Work extends Component {
                         size="large"
                     />
                 </View>}
-                {getWorkMileageInfo.isResultStatus != 1 && <View>
+                {getWorkMileageInfo.isResultStatus != 1 && <Container>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }}>
                             <Text style={{ fontSize: 11 }}>{data.mileageInfo.distanceCount ? `${data.mileageInfo.distanceCount}` : '0'}</Text>
@@ -193,12 +199,13 @@ class Work extends Component {
                             <Text style={{ fontSize: 11 }}>空载里程</Text>
                         </View>
                     </View>
-                    <FlatList
+                                    <FlatList
                         keyExtractor={(item, index) => index}
                         data={data.taskList}
                         renderItem={({ item, index }) => this.renderTaskItem(item, index)} />
-                </View>}
-            </View>
+                </Container>}
+
+            </Container>
         )
     }
 }

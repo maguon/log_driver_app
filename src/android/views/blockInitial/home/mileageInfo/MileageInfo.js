@@ -9,20 +9,21 @@ import globalStyles from '../../../../GlobalStyles'
 
 const MileageInfo = props => {
     const { mileageInfoReducer: { data: { mileageInfo }, getMileageInfo: { isResultStatus } } } = props
+    //console.log('mileageInfo',mileageInfo)
     if (isResultStatus == 1) {
         return (
             <View style={[globalStyles.styleBackgroundColor, styles.container]}>
                 <View style={[styles.item, styles.betweenItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>重载里程</Text>
+                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月里程</Text>
                     <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
                 </View>
                 <View style={[styles.item, styles.centerItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月里程</Text>
+                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>里程工资</Text>
                     <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
                     <Text style={[globalStyles.smallText, globalStyles.styleColor]}>公里</Text>
                 </View>
                 <View style={[styles.item, styles.betweenItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>空载里程</Text>
+                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月运车</Text>
                     <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
                 </View>
             </View>
@@ -35,7 +36,7 @@ const MileageInfo = props => {
                     <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
                 </View>
                 <View style={[styles.item, styles.centerItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月工资</Text>
+                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>里程工资</Text>
                     <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.salary ? `${mileageInfo.salary}` : '0'}</Text>
                     <Text style={[globalStyles.smallText, globalStyles.styleColor]}>元</Text>
                 </View>

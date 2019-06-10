@@ -23,6 +23,8 @@ import * as taskForInstructExecuting from '../android/views/instructExecuting/ta
 
 import * as salaryList from '../android/complatedViews/salaryList/salaryListAction'
 import * as salary from '../android/complatedViews/salary/salaryAction'
+import * as receiveForCleanRel from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelActions'
+import * as routeTaskFee from '../android/complatedViews/routeTaskFee/routeTaskFeeActions'
 
 
 export {
@@ -49,5 +51,7 @@ export {
 
 
     salaryList,
-    salary
+    salary,
+    receiveForCleanRel,
+    routeTaskFee
 }

@@ -11,8 +11,8 @@ const PeccancyInfo = props => {
             <Content>
                 <ListItem last style={{ justifyContent: 'space-between', backgroundColor: '#f5f5f5', borderBottomWidth: 1 }}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor]}>违章结算编号：{peccancy.id ? `${peccancy.id}` : ''}</Text>
-                    {peccancy.stat_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
-                    {peccancy.stat_status == 2 && <Text style={globalStyles.midText}>已扣</Text>}
+                    {/* {peccancy.stat_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>未扣</Text>}
+                    {peccancy.stat_status == 2 && <Text style={globalStyles.midText}>已扣</Text>} */}
                 </ListItem>
                 <ListItem style={{ justifyContent: 'space-between' }}>
                     <Text style={globalStyles.midText}>发生时间</Text>

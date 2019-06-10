@@ -7,17 +7,18 @@ import { ToastAndroid } from 'react-native'
 
 const pageSize = 10
 
-export const getCarList = () => async (dispatch, getState) => {
+export const getCarList = req => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host} } } = getState()
         const searchFormValues = getFormValues('searchCarForm')(getState())
         const url = `${base_host}/carList?${ObjectToUrl({
             vinCode: searchFormValues ? searchFormValues.vin : null,
             start: 0,
-            active: 1,
             carStatusArr: '1,2',
-            size: pageSize
+            size: pageSize,
+            ...req
         })}`
+        // console.log('url',url)
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: searchCarTypes.search_carListForSelect_success, payload: { carList: res.result } })

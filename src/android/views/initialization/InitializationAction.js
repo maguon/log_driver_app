@@ -99,10 +99,10 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
                     // console.log('a < b',a.version < b.version)
                     // console.log('a ',a.version)
                     // console.log('b ',b.version)
-                    if(a.version < b.version){
+                    if (a.version < b.version) {
                         return 1
                     }
-                    if(a.version > b.version){
+                    if (a.version > b.version) {
                         return -1
                     }
                     return 0
@@ -132,7 +132,7 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
             if (versionInfo.force_update != 1) {
                 // console.log('versionInfo', versionInfo)
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_success, payload: { versionInfo, step: currentStep } })
-                dispatch(initPush())
+                dispatch(loadDeviceToken())
                 //dispatch(loadLocalStorage())
             } else {
                 dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
@@ -146,16 +146,9 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.initializationTypes.valdate_version_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        // console.log('err', err)
         ToastAndroid.show(`初始化错误:${err}`, 10)
         if (err.message == 'Network request failed') {
-            //尝试20次
-            // if (tryCount < 20) {
-            //     await sleep(1000)
-            //     dispatch(validateVersion(tryCount + 1))
-            // } else {
-            //     dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
-            // }
+
 
         } else {
             dispatch({ type: actionTypes.initializationTypes.valdate_version_error, payload: { errorMsg: err } })
@@ -164,22 +157,35 @@ export const validateVersion = (tryCount = 1) => async (dispatch, getState) => {
     }
 }
 
+
+export const loadDeviceToken = () => async (dispatch) => {
+    try {
+        const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
+        dispatch(initPush(deviceToken))
+    } catch (err) {
+        dispatch(initPush())
+    }
+}
+
 //第二步：获取deviceToken
-export const initPush = () => async (dispatch) => {
+export const initPush = param => async (dispatch) => {
     const currentStep = 2
     try {
+        let deviceToken
         XGPush.init(2100267013, 'A7XR278C4CTR')
-        const deviceToken = await XGPush.register('jeepeng')
-        // console.log('deviceToken', deviceToken)
+        if (!param) {
+            deviceToken = await XGPush.register('jeepeng')
+            localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
+        } else {
+            deviceToken = param
+        }
         if (deviceToken) {
             dispatch({ type: actionTypes.initializationTypes.init_XGPush_success, payload: { deviceToken, step: currentStep } })
-            // console.log('currentStep', currentStep)
             dispatch(loadLocalStorage())
         } else {
             dispatch({ type: actionTypes.initializationTypes.init_XGPush_failed, payload: { failedMsg: '获取deviceToken错误：deviceToken为空！' } })
         }
     } catch (err) {
-        // console.log('err', err)
         ToastAndroid.show(`初始化错误:${err}`, 10)
         dispatch({ type: actionTypes.initializationTypes.init_XGPush_error, payload: { errorMsg: err } })
     }
@@ -191,10 +197,8 @@ export const loadLocalStorage = () => async (dispatch) => {
     const currentStep = 3
     try {
         //localStorage.remove({ key: localStorageKey.USER })
-
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
         // console.log('localStorageRes', localStorageRes)
-
         if (localStorageRes.token && localStorageRes.uid) {
             // console.log('localStorageRes', localStorageRes)
             dispatch({ type: actionTypes.initializationTypes.load_localStorage_success, payload: { userlocalStorage: localStorageRes, step: currentStep } })

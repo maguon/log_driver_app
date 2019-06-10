@@ -52,14 +52,17 @@ export const getCommandCarListWaiting = () => (dispatch) => {
 
 export const pushCarInCommand = (param) => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
-        const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail?${ObjectToUrl(param.OptionalParam)}`
-        const res = await httpRequest.post(url, param.postParam)
-        if (res.success) {
-            dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
-        } else {
-            ToastAndroid.show(`${res.msg}`, 10)
-            dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
+        const { communicationSettingReducer: { data: { base_host } }, carsReducer: { pushCarInCommand: { isResultStatus } } } = getState()
+        if (isResultStatus != 1) {
+            dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_WAITING, payload: {} })
+            const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail?${ObjectToUrl(param.OptionalParam)}`
+            const res = await httpRequest.post(url, param.postParam)
+            if (res.success) {
+                dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
+            } else {
+                ToastAndroid.show(`${res.msg}`, 10)
+                dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
+            }
         }
     } catch (err) {
         dispatch({ type: actionTypes.carsTypes.PUSH_CarInCommand_ERROR, payload: { data: err } })

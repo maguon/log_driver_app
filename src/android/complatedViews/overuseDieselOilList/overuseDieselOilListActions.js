@@ -81,9 +81,9 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
                     size: pageSize,
                     ...searchParam
                 })}`
-                console.log('url', url)
+                // console.log('url', url)
                 const res = await httpRequest.get(url)
-                console.log('res', res)
+                // console.log('res', res)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
                         dispatch({ type: actionTypes.overuseDieselOilList.get_overuseDieselOilListMore_success, payload: { overuseDieselOilList: res.result, isComplete: true } })
@@ -94,7 +94,7 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
                     dispatch({ type: actionTypes.overuseDieselOilList.get_overuseDieselOilListMore_failed, payload: { failedMsg: res.msg } })
                 }
             } catch (err) {
-                console.log('err', err)
+                // console.log('err', err)
                 dispatch({ type: actionTypes.overuseDieselOilList.get_overuseDieselOilListMore_error, payload: { errorMsg: err } })
             }
         } else {

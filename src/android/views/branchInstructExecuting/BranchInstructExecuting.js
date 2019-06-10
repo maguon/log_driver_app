@@ -76,7 +76,7 @@ class BranchInstructExecuting extends Component {
                                 userId: user.uid,
                                 dpRouteLoadTaskId: loadTaskInfo.id,
                                 loadTaskStatus: 7,
-                                dpRouteTaskId:loadTaskInfo.dp_route_task_id
+                                dpRouteTaskId: loadTaskInfo.dp_route_task_id
                             }
                         })
                     }
@@ -155,32 +155,32 @@ class BranchInstructExecuting extends Component {
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
                 {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
-
-                    const dpTask = taskList.find(tItem => tItem.task_status == 3 || tItem.task_status == 4)
-                    //    console.log(dpTask)
-                    if (dpTask) {
-                        if (dpTask.route_end_id == item.route_end_id) {
-                            this.changeCarLoadStatus(item.id)
-                        } else {
-                            Alert.alert(
-                                '警告',
-                                `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
-                                [
-                                    { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                                ],
-                                { cancelable: false }
-                            )
-                        }
-                    } else {
-                        Alert.alert(
-                            '警告',
-                            `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
-                            [
-                                { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                            ],
-                            { cancelable: false }
-                        )
-                    }
+                    this.changeCarLoadStatus(item.id)
+                    // const dpTask = taskList.find(tItem => tItem.task_status == 3 || tItem.task_status == 4)
+                    // //    console.log(dpTask)
+                    // if (dpTask) {
+                    //     if (dpTask.route_end_id == item.route_end_id) {
+                    //         this.changeCarLoadStatus(item.id)
+                    //     } else {
+                    //         Alert.alert(
+                    //             '警告',
+                    //             `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
+                    //             [
+                    //                 { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    //             ],
+                    //             { cancelable: false }
+                    //         )
+                    //     }
+                    // } else {
+                    //     Alert.alert(
+                    //         '警告',
+                    //         `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
+                    //         [
+                    //             { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    //         ],
+                    //         { cancelable: false }
+                    //     )
+                    // }
                 }}>
                     <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
                 </TouchableOpacity>}
@@ -192,7 +192,7 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        //    console.log('this.props',this.props)
+        // console.log('this.props', this.props)
         //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer

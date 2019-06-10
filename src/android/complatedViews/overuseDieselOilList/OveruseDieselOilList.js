@@ -14,8 +14,8 @@ const renderItem = props => {
             <Card style={{ backgroundColor: '#fff' }}>
                 <CardItem header style={{ justifyContent: 'space-between' }}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor]}>超油结算编号：{item.id ? `${item.id}` : ''}</Text>
-                    {item.oil_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>处理中</Text>}
-                    {item.oil_status == 2 && <Text style={globalStyles.midText}>未处理</Text>}
+                    {/* {item.oil_status == 1 && <Text style={[globalStyles.midText, { color: 'red' }]}>处理中</Text>}
+                    {item.oil_status == 2 && <Text style={globalStyles.midText}>未处理</Text>} */}
                 </CardItem>
                 <CardItem style={{ flexDirection: 'column' }}>
                     <Body style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

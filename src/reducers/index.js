@@ -94,6 +94,8 @@ import taskListForHomeReducer from '../android/views/blockInitial/home/taskListF
 import routeTaskListForHomeReducer from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeReducer'
 import salaryListReducer from '../android/complatedViews/salaryList/salaryListReducer'
 import salaryReducer from '../android/complatedViews/salary/salaryReducer'
+import receiveForCleanRelReducer from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelReducer'
+import routeTaskFeeReducer from '../android/complatedViews/routeTaskFee/routeTaskFeeReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -184,5 +186,7 @@ export default combineReducers({
     taskListForHomeReducer,
     routeTaskListForHomeReducer,
     salaryListReducer,
-    salaryReducer
+    salaryReducer,
+    receiveForCleanRelReducer,
+    routeTaskFeeReducer
 })

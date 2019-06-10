@@ -15,7 +15,9 @@ const DemageOpResult = props => {
     const { demageOpResultReducer: { data: { demageOpResult: {
         op_user_name, company_cost, under_cost, profit, penalty_cost, reduction_cost, transport_cost, repair_cost, refund_user_name, under_user_name, damage_type, damage_link_type } } },
         damageStatus } = props
-    console.log('props', props)
+    // console.log('props', props)
+    // console.log('damage_type', damage_type)
+    // console.log('damageTypeList.find(item => item.id == damage_type)',damageTypeList.find(item => item.id == damage_type))
     return (
         <Content showsVerticalScrollIndicator={false}>
             {damageStatus == 3 && <View style={styles.body}>
@@ -32,10 +34,10 @@ const DemageOpResult = props => {
                     <Text style={[styles.title, globalStyles.midText]}>责任人承担费用：</Text>
                     <Text style={globalStyles.largeText}>¥ <Text style={styles.strikingText}>{under_cost ? `${moneyFormat(under_cost, 2)}` : '0.00'}</Text> 元</Text>
                 </View>
-                <View style={[styles.text, styles.strikingItem]}>
+                {/* <View style={[styles.text, styles.strikingItem]}>
                     <Text style={[styles.title, globalStyles.midText]}>公司承担费用：</Text>
                     <Text style={globalStyles.largeText}>¥ <Text style={styles.strikingText}>{company_cost ? `${moneyFormat(company_cost, 2)}` : '0.00'}</Text> 元</Text>
-                </View>
+                </View> */}
             </View>}
             <View style={styles.footer}>
                 <Text style={globalStyles.midText}><Text style={styles.title}>处理人：</Text>{op_user_name ? `${op_user_name}` : ''}</Text>

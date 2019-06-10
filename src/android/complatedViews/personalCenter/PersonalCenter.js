@@ -8,7 +8,6 @@ import ImagePicker from 'react-native-image-crop-picker'
 import { Container, Left, Body, Right, List, ListItem, Thumbnail, Separator } from 'native-base'
 import * as actions from '../../../actions/index'
 
-
 class PersonalCenter extends Component {
     constructor(props) {
         super(props)
@@ -48,7 +47,8 @@ class PersonalCenter extends Component {
     }
 
     render() {
-        const { loginReducer: { data: { user: { real_name, avatar_image, mobile } } } } = this.props
+        const { loginReducer: { data: { user: { real_name, avatar_image, mobile } } },
+            communicationSettingReducer: { data: { file_host } } } = this.props
         return <Container>
             <View style={{ flex: 1 }}>
                 <List>
@@ -80,7 +80,8 @@ class PersonalCenter extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

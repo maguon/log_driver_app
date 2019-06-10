@@ -7,7 +7,10 @@ export const getDemageOpResult = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/damageCheck?${ObjectToUrl({ damageId: id })}`
+        console.log('url',url)
         const res = await httpRequest.get(url)
+        console.log('res',res)
+
         if (res.success) {
             dispatch({ type: actionTypes.demageOpResultTypes.get_DemageOpResult_success, payload: { demageOpResult: res.result[0] } })
         } else {

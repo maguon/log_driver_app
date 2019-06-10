@@ -16,12 +16,12 @@ const OveruseDieselOilSearch = props => {
                 {/* <Field name='dpRouteTaskId'
                     label='调度指令'
                     component={TextBox} /> */}
-                <Field
+                {/* <Field
                     label='结算状态'
                     name='statStatus'
                     listTitle='结算状态'
                     itemList={[{ id: 1, value: '处理中' }, { id: 2, value: '已处理' }]}
-                    component={CheckBox} />
+                    component={CheckBox} /> */}
                 <Field name='startDate'
                     label='核油时间（始）'
                     component={DatePicker} />

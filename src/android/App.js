@@ -111,6 +111,8 @@ import NotSettleList from './complatedViews/notSettleList/NotSettleList'
 
 import SalaryList from './complatedViews/salaryList/SalaryList'
 import Salary from './complatedViews/salary/Salary'
+import CleanRel from './complatedViews/cleanRel/CleanRel'
+import RouteTaskFee from './complatedViews/routeTaskFee/RouteTaskFee'
 
 
 const styles = StyleSheet.create({
@@ -325,6 +327,12 @@ export default class App extends Component {
                                     hideTabBar
                                     navBar={NavBar}
                                     LeftButton={LeftButton} />
+                                <Scene key="routeTaskFee"
+                                    component={RouteTaskFee}
+                                    title='出车款'
+                                    hideTabBar
+                                    navBar={NavBar}
+                                    LeftButton={LeftButton} />
                                 <Scene key="taskLoanRelList"
                                     component={TaskLoanRelList}
                                     title='关联调度任务'
@@ -487,6 +495,12 @@ export default class App extends Component {
                                 <Scene key="cleanRelList"
                                     component={CleanRelList}
                                     title='我的洗车费'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="cleanRel"
+                                    component={CleanRel}
+                                    title='洗车费详情'
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />

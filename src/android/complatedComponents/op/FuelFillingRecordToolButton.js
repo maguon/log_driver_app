@@ -5,16 +5,11 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
 const FuelFillingRecordToolButton = props => {
-    const { fuelFillingRecordReducer: { data: { total: { refuelDateStart, refuelDateEnd, refuelAddressType, checkStatus } } } } = props
+    const { fuelFillingRecordReducer: { data: { total: { oilDateStart,oilDateEnd } } } } = props
     return (
         <View style={{ flexDirection: 'row' }}>
             <Button transparent onPress={() => Actions.fuelFillingSearch({
-                initParam: {
-                    refuelDateStart,
-                    refuelDateEnd,
-                    refuelAddressType,
-                    checkStatus
-                }
+                initParam: {oilDateStart,oilDateEnd }
             })}>
                 <Icon name="ios-search" style={{ fontSize: 20, color: '#fff' }} />
             </Button>

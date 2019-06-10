@@ -9,22 +9,20 @@ const pageSize = 50
 
 export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
     try {
-        console.log('param', param)
+        // console.log('param', param)
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } }, fuelFillingRecordReducer: { data: { total } } } = getState()
         const optionalParam = {
-            refuelDateStart: param ? param.refuelDateStart : total.refuelDateStart,
-            refuelDateEnd: param ? param.refuelDateEnd : total.refuelDateEnd,
-            checkStatus: param ? param.checkStatus : total.checkStatus,
-            refuelAddressType: param ? param.refuelAddressType : total.refuelAddressType,
+            oilDateStart: param ? param.oilDateStart : total.oilDateStart,
+            oilDateEnd: param ? param.oilDateEnd : total.oilDateEnd
         }
-        const urls = [`${base_host}/driveRefuel?${ObjectToUrl({
+        const urls = [`${base_host}/driveExceedOilRel?${ObjectToUrl({
             ...optionalParam,
             driveId: drive_id,
             start: 0,
             size: pageSize
         })}`,
-        `${base_host}/refuelVolumeMoneyTotal?${ObjectToUrl({
+        `${base_host}/driveExceedOilRelCount?${ObjectToUrl({
             ...optionalParam,
             driveId: drive_id
         })}`]
@@ -59,7 +57,7 @@ export const getFuelFillingRecordWaiting = () => (dispatch) => {
 export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
     const state = getState()
     const { communicationSettingReducer: { data: { base_host } } } = getState()
-    const { fuelFillingRecordReducer: { data: { fuelFillingRecordList, isComplete, total: { refuelDateStart, refuelDateEnd, checkStatus, refuelAddressType } } },
+    const { fuelFillingRecordReducer: { data: { fuelFillingRecordList, isComplete, total: { oilDateStart, oilDateEnd } } },
         fuelFillingRecordReducer,
         loginReducer: { data: { user: { drive_id } } } } = state
 
@@ -70,9 +68,10 @@ export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_WAITING, payload: {} })
             try {
-                const url = `${base_host}/driveRefuel?${ObjectToUrl({
+                const url = `${base_host}/driveExceedOilRel?${ObjectToUrl({
                     driveId: drive_id,
-                    refuelDateStart, refuelDateEnd, checkStatus, refuelAddressType,
+                    oilDateStart,
+                    oilDateEnd,
                     start: fuelFillingRecordList.length,
                     size: pageSize
                 })}`
@@ -95,7 +94,7 @@ export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
                     dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_FAILED, payload: { failedMsg: res.msg } })
                 }
             } catch (err) {
-                console.log('err', err)
+                // console.log('err', err)
                 dispatch({ type: actionTypes.fuelFillingRecordTypes.GET_FuelFillingRecord_More_SUCCESS, payload: { errorMsg: err } })
             }
         }

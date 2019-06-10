@@ -5,12 +5,10 @@ import moment from 'moment'
 const initialState = {
     data: {
         total: {
-            refuel_volume: null,
-            refuel_money: null,
-            refuelDateStart: moment().format('2018-01-01'),
-            refuelDateEnd: moment().format('YYYY-MM-DD'),
-            refuelAddressType: null,
-            checkStatus: null
+            oilDateStart: moment().format('YYYY-MM-01'),
+            oilDateEnd: moment().format('YYYY-MM-DD'),
+            oil_money: null,
+            urea_money: null
         },
         fuelFillingRecordList: [],
         isComplete: false

@@ -14,18 +14,20 @@ export const getMileageInfo = () => async (dispatch, getState) => {
             driveId: drive_id
         })}`, `${base_host}/driveDistanceMoney?${ObjectToUrl({
             taskStatus: 9,
-            dateIdStart: moment().format('YYYY-MM-01'),
-            dateIdEnd: moment().format('YYYY-MM-DD'),
+            taskPlanDateStart: moment().format('YYYY-MM-01'),
+            taskPlanDateEnd: moment().format('YYYY-MM-DD'),
             driveId: drive_id
         })}`]
+        // console.log('urls',urls)
         const res = await Promise.all(urls.map(url => httpRequest.get(url)))
+        // console.log('res',res)
         if (res[0].success && res[1].success) {
             dispatch({
                 type: actionTypes.mileageInfo.get_mileageInfo_success,
                 payload: {
                     mileageInfo: {
-                        distanceCount: res[0].result[0].distanceCount,
-                        salary: res[1].result,
+                        distanceCount: res[0].result[0].distance,
+                        salary: res[1].result[0].distance_salary,
                         carCount: res[0].result[0].car_count
                     }
                 }

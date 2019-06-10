@@ -43,14 +43,14 @@ class Cars extends Component {
         }))
     }
 
-    
+
 
     onSelectCar(param) {
         // console.log('this.props', this.props)
         // console.log('param', param)
         const { user } = this.props.loginReducer.data
         const { taskInfo } = this.props.carsReducer.data
-        this.props.pushCarInCommandWaiting()
+        // this.props.pushCarInCommandWaiting()
         InteractionManager.runAfterInteractions(() => this.props.pushCarInCommand({
             requiredParam: {
                 userId: user.uid,
@@ -107,8 +107,8 @@ class Cars extends Component {
     renderListFooter() {
         const { taskInfo } = this.props.carsReducer.data
         if (taskInfo.load_task_status == 1) {
-            return <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <Button small style={{ backgroundColor: styleColor, padding: 10,marginBottom:10,marginLeft:10,marginRight:10,marginTop:30 }} onPress={this.finishCarry}>
+            return <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <Button small style={{ backgroundColor: styleColor, padding: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, marginTop: 50 }} onPress={this.finishCarry}>
                     <Text style={[globalStyles.midText, { color: '#fff' }]}>完成装车</Text>
                 </Button>
             </View>
@@ -130,7 +130,7 @@ class Cars extends Component {
                 loadTaskStatus: 3
             }
         })
-       
+
     }
 
     onPressCancel() {
@@ -192,6 +192,7 @@ class Cars extends Component {
     render() {
         const { carList, taskInfo } = this.props.carsReducer.data
         const { pushCarInCommand, getCommandCarList } = this.props.carsReducer
+        // console.log('this.props', this.props)
         if (getCommandCarList.isResultStatus == 1) {
             return (
                 <View style={{ flex: 1 }}>
@@ -209,9 +210,12 @@ class Cars extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, backgroundColor: '#f2f6f9', borderBottomWidth: 0.5, borderColor: '#a8a8a8' }}>
                         <Text style={globalStyles.smallText}>计划运送：{taskInfo.plan_count ? `${taskInfo.plan_count}` : '0'}</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            {taskInfo.load_task_status == 1 && pushCarInCommand.isResultStatus != 1 && <Button small rounded
-                                style={{ backgroundColor: styleColor, width: 90, height: 20, justifyContent: 'center', flexDirection: 'row' }}
-                                onPress={() => Actions.searchCar({ onSelect: this.onSelectCar, initParam: { carStatus: 1 } })}>
+                            {taskInfo.load_task_status == 1 && pushCarInCommand.isResultStatus != 1 && <Button small
+                                style={{ backgroundColor: styleColor, justifyContent: 'center', flexDirection: 'row' }}
+                                onPress={() => Actions.searchCar({
+                                    onSelect: this.onSelectCar,
+                                    initParam: { carStatus: 1, commandInfo: this.props.initParam.commandInfo }
+                                })}>
                                 <MaterialCommunityIcons name='car' size={14} style={{ color: '#fff' }} />
                                 <Text style={[globalStyles.smallText, { color: '#fff', fontWeight: 'bold', paddingLeft: 10 }]}>装 车</Text>
                             </Button>}
