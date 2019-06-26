@@ -5,6 +5,7 @@ import ReduxThunk from 'redux-thunk'//支持异步的能力
 import reducers from './reducers'
 import App from './App'
 
+import {Platform, StyleSheet, Text, View} from 'react-native';
 
 //HOC=> 调节组件
 //compose（组成）ReduxThunk（异步能力）  applyMiddleware（中间件） store由什么组件组成封装成一个新的组件

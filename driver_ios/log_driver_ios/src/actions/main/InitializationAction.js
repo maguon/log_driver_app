@@ -26,12 +26,22 @@ import * as ios_app from '../../ios_app.json'
 
 export const getComunicationSetting = () => async (dispatch) => {
     try {
-        const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
-         console.log('localStorageRes', localStorageRes)
-        const { base_host, file_host, record_host, host } = localStorageRes
+        // localStorage.save({
+        //     key: localStorageKey.SERVERADDRESS,
+        //     data: {
+        //         // http://stg.myxxjs.com:9001/api
+        //         base_host: `http://stg.myxxjs.com:9001/api`,
+        //         file_host: `http://files.stg.myxxjs.com:9001/api`,
+        //         record_host: `http://records.stg.myxxjs.com:9001/api`,
+        //         host: "myxxjs"
+        //     }
+        // })
+          const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
+         console.log('localStorageRes'+localStorageRes)
+         const { base_host, file_host, record_host, host } = localStorageRes
         if (base_host && file_host && record_host && host) {
             await dispatch({
-                type: actionTypes.communicationSetting.get_communicationSetting_success, payload: {
+                type: actionTypes.loginTypes.get_communicationSetting_success, payload: {
                     base_host, file_host, record_host, host
                 }
             })
@@ -43,23 +53,26 @@ export const getComunicationSetting = () => async (dispatch) => {
 
     } catch (err) {
          console.log('err', err)
-        Actions.mainRoot()
     }
 
 }
 
 //第一步：获取最新version信息
-export const validateVersion=()=>async (disabled,getState)=>{
+export const validateVersion=()=>async (dispatch,getState)=>{
     const currentStep=1
     try{
-        // const { conmmunicationSettingReducer:{data:{base_host}}}=getState()
-        dispatch({type:actionTypes.InitializationTypes.init_app_waiting,payload:{}})
-         const  url=`${config.base_host}/app?${ObjectToUrl({app:ios_app.type,type:ios_app.ios})}`
+        const { loginReducer:{data:{base_host}}}=getState()
+        dispatch({type:actionTypes.initializationTypes.init_app_waiting,payload:{}})
+        const  url=`${base_host}/app?${ObjectToUrl({app:ios_app.type,type:ios_app.ios})}`
+        console.log(base_host)
         const res=await httpRequest.get(url)
 
         if(res.success){
+          console.log(res)
+        }else {
 
-        }else {}
+
+        }
 
 
 

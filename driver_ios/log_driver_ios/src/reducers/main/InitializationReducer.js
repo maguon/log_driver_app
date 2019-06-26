@@ -2,11 +2,6 @@ import {handleActions} from 'redux-actions'
 import * as actionTypes from '../../actionTypes/index'
 
 const initialState = {
-    date:{
-        userId:1004,
-        fuck:'react',
-
-    },
     data: {
         version: {
             //当前版本
@@ -56,16 +51,15 @@ const initialState = {
 }
 
 export default handleActions({
-    [actionTypes.InitializationTypes.init_app_waiting]: (state, action) => {
+    [actionTypes.initializationTypes.init_app_waiting]: (state, action) => {
         return {
             ...state,
-            initApp: {
-                ...state.initApp,
-                isResultStatus: 1
+            initAPP: {
+                isResultStatus: 1,
             }
         }
     },
-    [actionTypes.InitializationTypes.valdate_version_success]: (state, action) => {
+    [actionTypes.initializationTypes.valdate_version_success]: (state, action) => {
         return {
             ...state,
             validateVersion: {
@@ -76,7 +70,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.InitializationTypes.valdate_version_failed]: (state, action) => {
+    [actionTypes.initializationTypes.valdate_version_failed]: (state, action) => {
         return {
             ...state,
             validateVersion:{
@@ -88,7 +82,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.InitializationTypes.valdate_version_error]: (state, action) => {
+    [actionTypes.initializationTypes.valdate_version_error]: (state, action) => {
         return {
             ...state,
             validateVersion:{
@@ -100,7 +94,7 @@ export default handleActions({
         }
         }
     },
-    [actionTypes.InitializationTypes.valdate_version_low]: (state, action) => {
+    [actionTypes.initializationTypes.valdate_version_low]: (state, action) => {
         return {
             ...state,
             data: {

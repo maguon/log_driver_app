@@ -6,3 +6,6 @@ export const login_waiting = 'login_waiting'
 export const set_userInfo = 'set_userInfo'
 export const change_AvatarImage = 'change_AvatarImage'
 export const clean_login = 'clean_login'
+
+export const save_communicationSetting_success='save_communicationSetting_success'
+export const get_communicationSetting_success='save_communicationSetting_success'

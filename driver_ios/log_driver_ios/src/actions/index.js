@@ -1,6 +1,9 @@
-import * as InitializationAction from './main/InitializationAction'
+import * as initializationAction from './main/InitializationAction'
+import * as communicationSettingActions from './main/CommunicationSettingActions'
+
 
 export {
-    InitializationAction,
+    initializationAction,
+    communicationSettingActions
 
 }

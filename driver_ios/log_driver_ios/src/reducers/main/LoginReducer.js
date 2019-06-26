@@ -3,13 +3,11 @@ import * as actionTypes from '../../actionTypes/index'
 
 const initialState = {
     data: {
-        user: {
-            mobile:"k",
-            token:"000000000",
-            uid:"11111",
-            status:"22222",
-            type:1
-        }
+        user: {},
+        base_host: null,
+        file_host: null,
+        record_host: null,
+        host: null
     },
     loginFlow: {
         isResultStatus: 0,     //执行状态 : 0(未执行), 1(正在执行),2(执行结束)
@@ -30,105 +28,121 @@ const initialState = {
     }
 }
 
-// export default handleActions({
-//     [actionTypes.LoginTypes.login_success]: (state, action) => {
-//         const { payload: { step, user } } = action
-//         return {
-//             ...state,
-//             data: {
-//
-//
-//             },
-//             login: {
-//                 ...initialState.login,
-//                 isResultStatus: 2
-//             },
-//             loginFlow: {
-//                 isResultStatus: 2,
-//                 step
-//             }
-//         }
-//     },
-//     [actionTypes.LoginTypes.login_failed]: (state, action) => {
-//         const { payload: { step, failedMsg } } = action
-//         return {
-//             ...state,
-//             login: {
-//                 ...initialState.login,
-//                 isResultStatus: 4,
-//                 failedMsg
-//             },
-//             loginFlow: {
-//                 isResultStatus: 2,
-//                 step
-//             }
-//         }
-//     },
-//     [actionTypes.LoginTypes.login_error]: (state, action) => {
-//         const { payload: { step, errorMsg } } = action
-//         return {
-//             ...state,
-//             login: {
-//                 ...initialState.login,
-//                 isResultStatus: 3,
-//                 errorMsg
-//             },
-//             loginFlow: {
-//                 isResultStatus: 2,
-//                 step
-//             }
-//         }
-//     },
-//
-//
-//
-//     [actionTypes.LoginTypes.loginFlow_waiting]: (state, action) => {
-//         return {
-//             ...initialState,
-//             data: {
-//                 ...state.data
-//             },
-//             loginFlow: {
-//                 ...state.loginFlow,
-//                 isResultStatus: 1,
-//             }
-//         }
-//     },
-//
-//     [actionTypes.LoginTypes.set_userInfo]: (state, action) => {
-//         const { payload: { user } } = action
-//         return {
-//             ...initialState,
-//             data: {
-//                 user
-//             }
-//         }
-//     },
-//
-//     [actionTypes.LoginTypes.change_AvatarImage]: (state, action) => {
-//         const { payload: { avatar_image } } = action
-//         return {
-//             ...state,
-//             data: {
-//                 ...state.data,
-//                 user: {
-//                     ...state.data.user,
-//                     avatar_image
-//                 }
-//             }
-//         }
-//     },
-//
-//
-//     [actionTypes.LoginTypes.clean_login]: (state, action) => {
-//         const { payload: { mobile } } = action
-//         return {
-//             ...initialState,
-//             data: {
-//                 user: {
-//                     mobile
-//                 }
-//             }
-//         }
-//     }
-// }, initialState)
+export default handleActions({
+    [(actionTypes.loginTypes.get_communicationSetting_success)]: (state, action) => {
+    const { payload: { base_host, file_host, record_host, host } } = action
+    return {
+        data: {
+            base_host, file_host, record_host, host
+        }
+    }
+},
+    [(actionTypes.loginTypes.save_communicationSetting_success)]: (state, action) => {
+    const { payload: { base_host, file_host, record_host, host } } = action
+    return {
+        data: {
+            base_host, file_host, record_host, host
+        }
+    }
+},
+    [actionTypes.loginTypes.login_success]: (state, action) => {
+        const { payload: { step, user } } = action
+        return {
+            ...state,
+            data: {
+
+
+            },
+            login: {
+                ...initialState.login,
+                isResultStatus: 2
+            },
+            loginFlow: {
+                isResultStatus: 2,
+                step
+            }
+        }
+    },
+    [actionTypes.loginTypes.login_failed]: (state, action) => {
+        const { payload: { step, failedMsg } } = action
+        return {
+            ...state,
+            login: {
+                ...initialState.login,
+                isResultStatus: 4,
+                failedMsg
+            },
+            loginFlow: {
+                isResultStatus: 2,
+                step
+            }
+        }
+    },
+    [actionTypes.loginTypes.login_error]: (state, action) => {
+        const { payload: { step, errorMsg } } = action
+        return {
+            ...state,
+            login: {
+                ...initialState.login,
+                isResultStatus: 3,
+                errorMsg
+            },
+            loginFlow: {
+                isResultStatus: 2,
+                step
+            }
+        }
+    },
+
+
+
+    [actionTypes.loginTypes.loginFlow_waiting]: (state, action) => {
+        return {
+            ...initialState,
+            data: {
+                ...state.data
+            },
+            loginFlow: {
+                ...state.loginFlow,
+                isResultStatus: 1,
+            }
+        }
+    },
+
+    [actionTypes.loginTypes.set_userInfo]: (state, action) => {
+        const { payload: { user } } = action
+        return {
+            ...initialState,
+            data: {
+                user
+            }
+        }
+    },
+
+    [actionTypes.loginTypes.change_AvatarImage]: (state, action) => {
+        const { payload: { avatar_image } } = action
+        return {
+            ...state,
+            data: {
+                ...state.data,
+                user: {
+                    ...state.data.user,
+                    avatar_image
+                }
+            }
+        }
+    },
+
+
+    [actionTypes.loginTypes.clean_login]: (state, action) => {
+        const { payload: { mobile } } = action
+        return {
+            ...initialState,
+            data: {
+                user: {
+                    mobile
+                }
+            }
+        }
+    }
+}, initialState)

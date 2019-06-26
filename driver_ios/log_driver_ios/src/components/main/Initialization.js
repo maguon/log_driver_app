@@ -6,6 +6,7 @@ import Spinkit from 'react-native-spinkit'
 import {Actions} from 'react-native-router-flux'
 import * as action from '../../actions/index'
 import Login from "./Login";
+import {validateVersion} from "../../actions/main/InitializationAction";
 
 const window = Dimensions.get('window')
 const ImageWidth = window.width
@@ -23,28 +24,28 @@ class Initialization extends Component {
 
 
     render() {
-         const {initializationReducer:{data,initApp,validateVersion}} = this.props
+         const {initializationReducer:{data,initApp,validateVersion}} = this.props;
         return (
 
             <View style={styles.container}>
                 {/*<StatusBar hidden={true}/>*/}
                 <ImageBackground source={require('../../images/init_back.png')} style={styles.image}>
-                    {initApp.isResultStatus == 1 && <Spinkit type={'Wave'}
+                    {initApp.isResultStatus == 0 && <Spinkit type={'Wave'}
                                                              color='rgba(255,255,255,0.5)'
                                                              size={70}
                                                              style={{ marginBottom: 50, alignSelf: 'center' }}
-                                                             isVisible={initApp.isResultStatus == 1} />}
-                    <Button block style={styles.button} onPress={() => Actions.Login()}>
+                                                             isVisible={initApp.isResultStatus == 0} />}
+                    <Button block style={styles.button} onPress={() => Actions.determineLogin()}>
                         <Text style={styles.buttonText}>重新获取版本号</Text>
                     </Button>
 
 
-                    <Button block style={styles.button} onPress={() => Actions.homeBlock()}>
+                    <Button block style={styles.button} onPress={() => Actions.appMain()}>
                         <Text style={styles.buttonText}>立即更新</Text>
                     </Button>
 
 
-                    <Button block style={styles.button} onPress={() => Actions.Login()}>
+                    <Button block style={styles.button} onPress={() => Actions.loginGroup()}>
                         <Text style={styles.buttonText}>重新获得deviceToken</Text>
                     </Button>
 
@@ -87,10 +88,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     // initPush: () => {
-    //     dispatch(action.InitializationAction.initPush())
+    //     dispatch(action.initializationAction.initPush())
     // },
     getCommunicationSetting: () => {
-        // dispatch(action.InitializationAction.validateVersion())
+        dispatch(action.initializationAction.getComunicationSetting())
     }
 })
 

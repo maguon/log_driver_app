@@ -1,8 +1,8 @@
-import * as InitializationTypes from './main/InitializationTypes'
-import * as CommunicationSettingActionTypes from './main/CommunicationSettingActionTypes'
-import * as LoginTypes from './main/LoginTypes'
+import * as initializationTypes from './main/InitializationTypes'
+import * as communicationSettingActionTypes from './main/CommunicationSettingActionTypes'
+import * as loginTypes from './main/LoginTypes'
 export {
-    InitializationTypes,
-    CommunicationSettingActionTypes,
-    LoginTypes,
+    initializationTypes,
+    communicationSettingActionTypes,
+    loginTypes,
 }

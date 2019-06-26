@@ -6,16 +6,16 @@ import Home from './components/main/Home'
 import Contact from './components/main/Contact'
 import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
-import HomeLeftButton from './components/main/HomeLeftButton'
+import HomeLeftButton from './components/utils/HomeLeftButton'
 import NavBar from './components/layout/NavBar'
-import HomeOperation from './components/main/HomeOperation'
+import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/layout/LeftButton'
-import DriverQRCode from './components/utils/DriverQRCode'
+import DriverQRCode from './components/main/DriverQRCode'
 import Initialization from './components/main/Initialization'
 import Login from './components/main/Login'
 import RetrievePassword from './components/main/RetrievePassword'
 import CommunicationSetting from './components/main/CommunicationSetting'
-
+import DetermineLogin from './components/main/DetermineLogin'
 import {
     Scene,
     Router,
@@ -63,6 +63,9 @@ const getSceneStyle = (props, computedProps) => {
     }
     return style
 }
+const onEnter=()=>{
+return false
+}
 
 const Root = () => {
     return (
@@ -74,39 +77,26 @@ const Root = () => {
                            hideNavBar
                     >
 
-                        <Scene initial={true} key="initialization" component={Initialization}
+                        <Scene initial={true} key="initialization" component={Initialization}/>
+                        <Scene key="determineLogin" component={DetermineLogin} onEnter={onEnter} success="loginGroup" failure="appMain"/>
 
-                        />
-                        {/*<Scene key="loginGroup" />*/}
-                        {/*<Scene key="appMain"/>*/}
-                        {/*<Scene key="version"/>*/}
-                        {/*<Scene key="guide"/>*/}
-                        <Stack
-                            key="mainRoot"
-                            component={connect(mapStateToProps)(Login)}
-                            tabs={true}
-                            // type={ActionConst.RESET}
-                            // selector={(props) => {
-                            //     const { user } = props.loginReducer.data
-                            //     if (user.mobile
-                            //         && user.token
-                            //         && user.uid
-                            //         && user.status
-                            //         && user.type) {
-                            //         return 'main'
-                            //     } else {
-                            //         return 'loginBlock'
-                            //     }
-                            // }}
-                        >
-                            <Scene key="loginGroup">
+                        {/*<Stack key="version"> </Stack>*/}
+                        {/*<Stack key="guide"> </Stack>*/}
+
+
+
+
+                            <Stack key="loginGroup">
                                 <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar/>
                                 <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar
                                        hideNavBar={false} LeftButton={LeftButton} navBar={NavBar}/>
                                 <Scene key="communicationSetting" title='通讯设置' component={CommunicationSetting}
                                        hideTabBar hideNavBar={false} LeftButton={LeftButton} navBar={NavBar}/>
-                            </Scene>
-                            <Scene key="appMain"
+                            </Stack>
+
+
+
+                            <Stack key="appMain"
                                 //tabBarPosition设置tab是在top还是bottom
                                    tabBarPosition="bottom"
                                 //是否显示标题
@@ -178,10 +168,8 @@ const Root = () => {
                                        size={30}
                                 >
                                 </Scene>
-                            </Scene>
-                            <Scene key="version"> </Scene>
-                            <Scene key="guide"> </Scene>
-                        </Stack>
+                            </Stack>
+
                     </Scene>
                 </Lightbox>
             </Modal>
