@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes/index'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
-import { ToastAndroid } from 'react-native'
+import { Toast } from 'native-base'
 
 
 
@@ -23,5 +23,5 @@ export const saveCommunicationSetting = param => (dispatch) => {
             record_host: `http://records.${url}/api`,
             host: url
         }})
-    // ToastAndroid.show('保存成功！', 10)
+     Toast.show({text:'保存成功！'})
 }

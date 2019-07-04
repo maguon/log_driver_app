@@ -2,88 +2,113 @@ import React from 'react'
 import {
     Text,
     View,
-    StyleSheet
+    StyleSheet,
+    Dimensions
 } from 'react-native'
 import { connect } from 'react-redux'
-import globalStyles from '../utils/GlobalStyles'
+import {fontSizeCoeff} from "../../util/util";
+
+
+const window=Dimensions.get('window')
 
 const MileageInfo = props => {
-    // const { mileageInfoReducer: { data: { mileageInfo }, getMileageInfo: { isResultStatus } } } = props
-    // if (isResultStatus == 1) {
-        return (
-            <View style={[globalStyles.styleBackgroundColor, styles.container]}>
-                <View style={[styles.item, styles.betweenItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>重载里程</Text>
-                    <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
-                </View>
-                <View style={[styles.item, styles.centerItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月里程</Text>
-                    <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>公里</Text>
-                </View>
-                <View style={[styles.item, styles.betweenItem]}>
-                    <Text style={[globalStyles.smallText, globalStyles.styleColor]}>空载里程</Text>
-                    <Text style={[globalStyles.largeText, globalStyles.styleColor]}>----</Text>
-                </View>
-            </View>
-        )
-    //}
-    // else {
-    //     return (
-    //         <View style={[globalStyles.styleBackgroundColor, styles.container]}>
-    //             <View style={[styles.item, styles.betweenItem]}>
-    //                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月里程</Text>
-    //                 <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
-    //             </View>
-    //             <View style={[styles.item, styles.centerItem]}>
-    //                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月工资</Text>
-    //                 <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.salary ? `${mileageInfo.salary}` : '0'}</Text>
-    //                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>元</Text>
-    //             </View>
-    //             <View style={[styles.item, styles.betweenItem]}>
-    //                 <Text style={[globalStyles.smallText, globalStyles.styleColor]}>本月运车</Text>
-    //                 <Text style={[globalStyles.largeText, globalStyles.styleColor]}>{mileageInfo.carCount ? `${mileageInfo.carCount}` : '0'}</Text>
-    //             </View>
-    //         </View>
-    //     )
-    // }
+      const { mileageInfoReducer: { data: { mileageInfo }, getMileageInfo: { isResultStatus } } } = props
+      // if (isResultStatus == 1) {
+         return (
+             <View style={[styles.container]}>
+                 <View style={[styles.betweenItem, styles.borderShadow]}>
+                     <Text style={styles.betweenText}>本月工资</Text>
+                     <Text
+                         style={styles.betweenNumber}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
+                 </View>
+                 <View style={[styles.betweenItem, styles.background]}>
 
+                     <View style={[styles.leftItem, styles.borderShadow]}>
+                         <Text style={styles.betweenText}>本月里程</Text>
+                         <Text
+                             style={styles.betweenNumber}>{mileageInfo.distanceCount ? `${mileageInfo.distanceCount}` : '0'}</Text>
+                     </View>
+                     <View style={[styles.rightItem, styles.borderShadow]}>
+                         <Text style={styles.betweenText}>本月运车</Text>
+                         <Text
+                             style={styles.betweenNumber}>{mileageInfo.carCount ? `${mileageInfo.carCount}` : '0'}</Text>
+                     </View>
+
+                 </View>
+
+             </View>
+         )
+      //}
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         mileageInfoReducer: state.mileageInfoReducer,
-//     }
-// }
+
 
 const styles = StyleSheet.create({
     betweenItem: {
-        width: 80,
+        width:window.width*0.95,
         height: 80,
-        borderRadius: 40
+        marginTop:10,
+        backgroundColor:'#73B52B',
+        borderRadius:5,
     },
-    centerItem: {
-        width: 100,
-        height: 100,
-        borderRadius: 50
+    //阴影样式
+    borderShadow:{
+        shadowOffset:{ width:2, height:2 },
+        shadowColor:'black',
+        shadowOpacity:0.2,
+        shadowRadius:1,
     },
-    item: {
-        backgroundColor: '#e5f1dc',
-        borderWidth: 4,
-        borderColor: '#acd086',
-        justifyContent: 'center',
-        alignItems: 'center'
+    background:{
+        backgroundColor:'white',
+    },
+
+    betweenText:{
+        color: "white",
+        fontSize: 14 * fontSizeCoeff,
+        marginTop: 10,
+        marginLeft:20,
+        fontWeight: "bold",
+
+    },
+    betweenNumber:{
+        color: "white",
+        fontSize: 24 * fontSizeCoeff,
+        position:"absolute",
+        bottom:10,
+        right:20,
+    },
+
+    leftItem:{
+        width:window.width*0.95/2.1,
+        backgroundColor:'#ea7f80',
+        borderRadius:5,
+        height: 80,
+
+    },
+    rightItem:{
+        width:window.width*0.95/2.1,
+        height: 80,
+        backgroundColor:'#f3a723',
+        borderRadius:5,
+        position:"absolute",
+        right:0,
     },
     container: {
         marginTop:60,
-        flexDirection: 'row',
+        backgroundColor:'white',
+        flexDirection:"column",
         paddingHorizontal: 20,
         paddingVertical: 10,
         justifyContent: 'space-between',
         alignItems: 'center'
-    }
-})
-//
-// export default connect(mapStateToProps)(MileageInfo)
+    },
 
-export default MileageInfo
+})
+const mapStateToProps = (state) => {
+    return {
+        mileageInfoReducer: state.mileageInfoReducer,
+    }
+}
+ export default connect(mapStateToProps)(MileageInfo)
+
+

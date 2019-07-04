@@ -7,7 +7,6 @@ const { width } = Dimensions.get('window')
 
 const NavBar = props => {
     const { title, RightButton, LeftButton, parent, initParam, layout: { initWidth } } = props
-    console.log("我的心在等待"+props.title)
     return (
         <View style={[styles.container, { width: initWidth }]}>
             <StatusBar hidden={false} />

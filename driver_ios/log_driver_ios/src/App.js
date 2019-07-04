@@ -9,7 +9,7 @@ import Settings from './components/main/Settings'
 import HomeLeftButton from './components/utils/HomeLeftButton'
 import NavBar from './components/layout/NavBar'
 import HomeOperation from './components/utils/HomeOperation'
-import LeftButton from './components/layout/LeftButton'
+import LeftButton from './components/utils/LeftButton'
 import DriverQRCode from './components/main/DriverQRCode'
 import Initialization from './components/main/Initialization'
 import Login from './components/main/Login'
@@ -77,8 +77,8 @@ const Root = () => {
                            hideNavBar
                     >
 
-                        <Scene initial={true} key="initialization" component={Initialization}/>
-                        <Scene key="determineLogin" component={DetermineLogin} onEnter={onEnter} success="loginGroup" failure="appMain"/>
+                        {/*<Scene initial={true} key="initialization" component={Initialization}/>*/}
+                        {/*<Scene key="determineLogin" component={DetermineLogin} onEnter={onEnter} success="loginGroup" failure="appMain"/>*/}
 
                         {/*<Stack key="version"> </Stack>*/}
                         {/*<Stack key="guide"> </Stack>*/}

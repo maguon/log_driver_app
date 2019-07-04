@@ -50,8 +50,7 @@ export default handleActions({
         return {
             ...state,
             data: {
-
-
+                user
             },
             login: {
                 ...initialState.login,
@@ -94,20 +93,6 @@ export default handleActions({
         }
     },
 
-
-
-    [actionTypes.loginTypes.loginFlow_waiting]: (state, action) => {
-        return {
-            ...initialState,
-            data: {
-                ...state.data
-            },
-            loginFlow: {
-                ...state.loginFlow,
-                isResultStatus: 1,
-            }
-        }
-    },
 
     [actionTypes.loginTypes.set_userInfo]: (state, action) => {
         const { payload: { user } } = action

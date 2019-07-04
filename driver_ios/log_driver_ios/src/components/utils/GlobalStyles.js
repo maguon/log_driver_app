@@ -14,27 +14,27 @@ const globalStyles = StyleSheet.create({
         backgroundColor: '#73B52B'
     },
     textColor:{
-        color: '#777'
+        color: '#838485'
     },
     midText: {
         fontSize: 14 * fontSizeCoeff,
-        color: '#777'
+        color: '#838485'
     },
     smallText: {
         fontSize: 12 * fontSizeCoeff,
-        color: '#777'
+        color: '#838485'
     },
     ssText: {
         fontSize: 10 * fontSizeCoeff,
-        color: '#777'
+        color: '#838485'
     },
     largeText:{
         fontSize: 16 * fontSizeCoeff,
-        color: '#777'
+        color: '#414445'
     },
     xlText:{
         fontSize: 18 * fontSizeCoeff,
-        color: '#777'
+        color: '#414445'
     },
     formIcon:{
         marginLeft: 10,
@@ -50,7 +50,8 @@ const globalStyles = StyleSheet.create({
     },
     separator:{
         height:20
-    }
+    },
+
 })
 
 export const styleColor='#73B52B'
