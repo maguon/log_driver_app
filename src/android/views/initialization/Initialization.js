@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as InitializationAction from './InitializationAction'
+import * as actionTypes from '../../../actionTypes/index'
 import Spinkit from 'react-native-spinkit'
 import {
     Linking,
@@ -17,9 +18,6 @@ const window = Dimensions.get('window')
 const ImageWidth = window.width
 const ImageHeight = window.height
 
-
-
-
 class Initialization extends Component {
     constructor(props) {
         super(props)
@@ -27,22 +25,25 @@ class Initialization extends Component {
     }
 
     componentDidMount() {
-        this.props.getCommunicationSetting()
+        this.props.start()
     }
 
-
     linkDownload(url) {
-        Linking.canOpenURL(url).then(supported => {
-            if (!supported) {
-                console.log('Can\'t handle url: ' + url)
-            } else {
-                return Linking.openURL(url)
-            }
-        }).catch(err => console.error('An error occurred', err))
+        if(url){
+            Linking.canOpenURL(url).then(supported => {
+                console.log('supported',supported)
+                if (!supported) {
+                    console.log('Can\'t handle url: ' + url)
+                } else {
+                    return Linking.openURL(url)
+                }
+            }).catch(err => console.log('An error occurred', err))   
+        }
     }
 
     render() {
-        const { initializationReducer: { data, initAPP, validateVersion } } = this.props
+        // console.log('this.props', this.props)
+        const { initializationReducer: { data, initAPP } } = this.props
         return (
             <View style={styles.container}>
                 <StatusBar hidden={true} />
@@ -52,17 +53,13 @@ class Initialization extends Component {
                         size={70}
                         style={{ marginBottom: 50, alignSelf: 'center' }}
                         isVisible={initAPP.isResultStatus == 1} />}
-                    {(initAPP.isResultStatus == 2 && initAPP.step == 0 && validateVersion.isResultStatus == 3 || validateVersion.isResultStatus == 4) &&
-                        <Button block onPress={this.props.validateVersion} style={styles.button}>
+                    {((initAPP.isResultStatus == 4 || initAPP.isResultStatus == 3) && initAPP.currentStep == 2) &&
+                        <Button block onPress={()=>this.props.validateVersion(data)} style={styles.button}>
                             <Text style={styles.buttonTiltle}>重新获取版本号</Text>
                         </Button>}
-                    {(initAPP.isResultStatus == 2 && initAPP.step == 0 && validateVersion.isResultStatus == 5) &&
+                    {((initAPP.isResultStatus == 2) && data.version.force_update == 1) &&
                         <Button block onPress={() => this.linkDownload(data.version.url)} style={styles.button}>
                             <Text style={styles.buttonTiltle}>立即更新</Text>
-                        </Button>}
-                    {(initAPP.isResultStatus == 2 && initAPP.step == 1) &&
-                        <Button block onPress={this.props.initPush} style={styles.button}>
-                            <Text style={styles.buttonTiltle}>重新获取deviceToken</Text>
                         </Button>}
                 </ImageBackground>
             </View>
@@ -102,13 +99,17 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    initPush: () => {
-        dispatch(InitializationAction.initPush())
+    validateVersion: param => {
+        dispatch({type:actionTypes.initializationTypes.init_app_waiting})
+        dispatch(InitializationAction.validateVersion(param))
     },
-    getCommunicationSetting: () => {
-        dispatch(InitializationAction.getCommunicationSetting())
-    }
+    loadUniqueID: () => {
+        dispatch(InitializationAction.loadUniqueID())
+    },
+    start: () => {
+        dispatch(InitializationAction.start())
 
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Initialization)

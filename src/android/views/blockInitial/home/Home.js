@@ -30,7 +30,7 @@ class Home extends Component {
     }
 
     render() {
-
+        // console.log('this.props',this.props)
         return (
             <Container style={globalStyles.listBackgroundColor}>
                 <MileageInfo />
@@ -65,7 +65,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         homeReducer: state.homeReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        initializationReducer: state.initializationReducer
     }
 }
 

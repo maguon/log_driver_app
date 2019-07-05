@@ -13,7 +13,7 @@ const window = Dimensions.get('window')
 
 const TextBox = props => {
     const { iconName, placeholderText, input: { onChange, ...restProps }, secureTextEntry = false } = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <Item rounded style={styles.item}>
             <Icon active name={iconName} style={styles.itemIcon} />
@@ -35,14 +35,10 @@ class Login extends Component {
 
     render() {
         const { handleSubmit, initializationReducer: { data: { version: { force_update, url } } } } = this.props
-        // console.log('this.props.loginReducer123123===================')
-        console.log('android_app', android_app)
-        console.log('force_update', force_update)
+        // console.log('Login.props', this.props)
         return (
             <Container style={styles.container}>
                 <StatusBar hidden={true} />
-
-
                 <ImageBackground
                     source={{ uri: 'login_back' }}
                     style={styles.backgroundImage} >
@@ -59,9 +55,6 @@ class Login extends Component {
                         </View>
                     </View>
                     <Text style={[globalStyles.smallText, { color: 'rgba(255,255,255,0.1)', position: 'absolute', top: 5, right: 5 }]}>{android_app.version}</Text>
-                    {/* {isResultStatus == 1 && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Spinkit type={'Circle'} color="#fff" size={70} isVisible={isResultStatus == 1} />
-                    </View>} */}
                     {force_update != 1 && <View style={styles.formContainer}>
                         <Field
                             name='server'
@@ -113,10 +106,6 @@ class Login extends Component {
     }
 }
 
-
-// const Login = props => {
-
-// }
 
 const styles = StyleSheet.create({
     container: {
@@ -198,7 +187,15 @@ export default connect(mapStateToProps)(
         form: 'loginForm',
         destroyOnUnmount: false,
         enableReinitialize: true,
-        onSubmit: (values, dispatch) => {
-            dispatch(loginAction.validateVersion(values))
+        onSubmit: (values, dispatch, props) => {
+            // console.log('onSubmitprops', props)
+            const { initializationReducer: { initAPP: {  currentStep } } } = props
+            if (currentStep < 3) {
+                // console.log('validateVersionForLogin')
+                dispatch(loginAction.validateVersionForLogin(values))
+            } else {
+                // console.log('login')
+                dispatch(loginAction.login(values))
+            }
         }
     })(Login))

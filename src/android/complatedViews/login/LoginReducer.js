@@ -74,7 +74,6 @@ export default handleActions({
     },
 
 
-
     [actionTypes.loginTypes.loginFlow_waiting]: (state, action) => {
         return {
             ...initialState,

@@ -152,18 +152,26 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
     compile project(':react-native-barcodescanner')
     compile project(':react-native-spinkit')
     compile project(':react-native-image-picker')
     compile project(':react-native-image-resizer')
-    compile project(':react-native-xinge-push')
-     
+   // compile project(':react-native-xinge-push')    
     compile project(':react-native-amap3d')
     compile project(':react-native-vector-icons')
     compile project(':react-native-photo-view')
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-orientation')
     compile project(':reactamaplocation')
+        //信鸽jar，不包含厂商通道
+    compile 'com.tencent.xinge:xinge:4.3.2-release'
+    //jg包
+    compile 'com.tencent.jg:jg:1.1'
+    //wup包
+    compile 'com.tencent.wup:wup:1.0.0.E-Release'
+    //mid包，minSdkVersion 14
+    compile 'com.tencent.mid:mid:4.0.7-Release'
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:multidex:1.0.1"
     compile "com.android.support:appcompat-v7:23.0.1"

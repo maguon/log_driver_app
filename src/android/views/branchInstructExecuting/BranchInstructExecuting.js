@@ -265,7 +265,7 @@ class BranchInstructExecuting extends Component {
                             <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
                                 Alert.alert(
                                     '需求备注',
-                                    `${loadTaskInfo.demand_remark}`,
+                                    `${loadTaskInfo.demand_remark ? loadTaskInfo.demand_remark : '无'}`,
                                     [
                                         { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                                     ],
