@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "type": "1",
+  "ios":2,
+  "stage": 4,
+  "stageList": [
+    {
+      "id": 0,
+      "value": "测试版",
+      "alias": "debug"
+    },
+    {
+      "id": 4,
+      "value": "正式版",
+      "alias": "release"
+    }
+  ]
+}
