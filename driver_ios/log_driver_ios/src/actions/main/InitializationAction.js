@@ -61,7 +61,7 @@ export const getComunicationSetting = () => async (dispatch) => {
 export const validateVersion=()=>async (dispatch,getState)=>{
     const currentStep=1
     try{
-        const { loginReducer:{data:{base_host}}}=getState()
+        const { loginReducer:{url:{base_host}}}=getState()
         dispatch({type:actionTypes.initializationTypes.init_app_waiting,payload:{}})
         const  url=`${base_host}/app?${ObjectToUrl({app:ios_app.type,type:ios_app.ios})}`
         console.log(base_host)

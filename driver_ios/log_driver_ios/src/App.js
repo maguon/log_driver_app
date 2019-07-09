@@ -1,21 +1,7 @@
+//第三方
 import React, {Component} from 'react';
 import {StyleSheet, View, Text} from "react-native";
 import {connect} from 'react-redux'
-import tabIcon from './components/utils/TabIcon'
-import Home from './components/main/Home'
-import Contact from './components/main/Contact'
-import Bus from './components/main/Bus'
-import Settings from './components/main/Settings'
-import HomeLeftButton from './components/utils/HomeLeftButton'
-import NavBar from './components/layout/NavBar'
-import HomeOperation from './components/utils/HomeOperation'
-import LeftButton from './components/utils/LeftButton'
-import DriverQRCode from './components/main/DriverQRCode'
-import Initialization from './components/main/Initialization'
-import Login from './components/main/Login'
-import RetrievePassword from './components/main/RetrievePassword'
-import CommunicationSetting from './components/main/CommunicationSetting'
-import DetermineLogin from './components/main/DetermineLogin'
 import {
     Scene,
     Router,
@@ -31,6 +17,31 @@ import {
 } from "react-native-router-flux";
 
 
+//初始页面
+import Initialization from './components/main/Initialization'
+import Login from './components/main/Login'
+import RetrievePassword from './components/main/RetrievePassword'
+import DetermineLogin from './components/main/DetermineLogin'
+
+//导航相关页面
+import Home from './components/main/Home'
+import InstructExecuting from './components/main/InstructExecuting'
+import DriverQRCode from './components/main/DriverQRCode'
+import Contact from './components/main/Contact'
+import Bus from './components/main/Bus'
+import Settings from './components/main/Settings'
+
+
+//通用
+import tabIcon from './components/utils/TabIcon'
+import HomeLeftButton from './components/utils/HomeLeftButton'
+import InstructExecutingOp from './components/utils/InstructExecutingOp'
+import NavBar from './components/layout/NavBar'
+import HomeOperation from './components/utils/HomeOperation'
+import LeftButton from './components/utils/LeftButton'
+
+
+
 const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#E0E4E7',
@@ -42,27 +53,6 @@ const styles = StyleSheet.create({
 })
 
 
-const mapStateToProps = (state) => {
-    return {
-        loginReducer: state.loginReducer
-    }
-}
-
-const getSceneStyle = (props, computedProps) => {
-    const style = {
-        flex: 1,
-        backgroundColor: '#fff',
-        shadowColor: null,
-        shadowOffset: null,
-        shadowOpacity: null,
-        shadowRadius: null,
-    }
-    if (computedProps.isActive) {
-        style.marginTop = computedProps.hideNavBar ? 0 : 65
-        style.marginBottom = computedProps.hideTabBar ? 0 : 50
-    }
-    return style
-}
 const onEnter=()=>{
 return false
 }
@@ -86,13 +76,11 @@ const Root = () => {
 
 
 
-                            <Stack key="loginGroup">
-                                <Scene key="login" initial={true} component={Login} hideNavBar hideTabBar/>
-                                <Scene key="retrievePassword" title='找回密码' component={RetrievePassword} hideTabBar
-                                       hideNavBar={false} LeftButton={LeftButton} navBar={NavBar}/>
-                                <Scene key="communicationSetting" title='通讯设置' component={CommunicationSetting}
-                                       hideTabBar hideNavBar={false} LeftButton={LeftButton} navBar={NavBar}/>
-                            </Stack>
+                            {/*<Stack key="loginGroup" >*/}
+                                {/*<Scene key="login" initial={true} component={Login} hideNavBar hideTabBar/>*/}
+                                {/*<Scene key="retrievePassword" title='找回密码'  component={RetrievePassword} hideTabBar*/}
+                                       {/*hideNavBar={false} navBar={NavBar} LeftButton={LeftButton} />*/}
+                            {/*</Stack>*/}
 
 
 
@@ -130,6 +118,17 @@ const Root = () => {
                                            LeftButton={HomeLeftButton}
                                            RightButton={HomeOperation}
                                     />
+
+                                    <Scene key="instructExecuting"
+                                           LeftButton={LeftButton}
+                                           component={InstructExecuting}
+                                           isRequirePopRefresh={true}
+                                           RightButton={InstructExecutingOp}
+                                           title='调度指令'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+
                                     <Scene key="driverQRCode"
                                            LeftButton={LeftButton}
                                            component={DriverQRCode}
@@ -185,18 +184,8 @@ class App extends Component {
     render() {
         return (
             <Root/>
-
         )
     }
 }
-
-//
-//
-// const mapStateToProps = (state) => {
-//     return {
-//         testComponentReducer: state.testComponentReducer
-//     }
-// }
-
 
 export default App

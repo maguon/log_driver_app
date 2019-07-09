@@ -161,15 +161,18 @@ export const login = (param) => async (dispatch, getState) => {
                     requestHeaders.set('auth-token',res.result.accessToken)
                     requestHeaders.set('user-type',type)
                     requestHeaders.set('user-name', mobile)
+                    console.log("user",JSON.stringify(user))
                     //保存user信息
                     localStorage.save({
                         key: localStorageKey.USER,
                         data: user
                     })
                     //更新store数据
-                     await dispatch(actions.communicationSettingActions.saveCommunicationSetting({url:server}))
-                     await dispatch({type:actionTypes.loginTypes.login_success,payload:{user}})
-                     Actions.appMain()
+                    await dispatch(actions.communicationSettingActions.saveCommunicationSetting({url:server}))
+                    await dispatch({type:actionTypes.loginTypes.login_success,payload:{user}})
+
+                    console.log('server',server)
+                    Actions.appMain()
                 }else {
                     Toast.show({
                         text:'登陆失败：无法获取用户信息！'

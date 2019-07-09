@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {InteractionManager} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import {Container,Tab,Tabs} from 'native-base'
 import globalStyles from '../utils/GlobalStyles'
@@ -9,6 +9,7 @@ import RouteTaskListForHome from '../layout/RouteTaskListForHome'
 import {connect }from "react-redux";
  import * as actions from '../../actions/index'
 
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -16,7 +17,17 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.getMileageInfo()
+        this.props.getMileageInfoWaiting()
+        this.props.getTaskListForHomeWaiting()
+        this.props.getRouteTaskListForHomeWaiting()
+
+        //(交互管理器)在用户交互和动画结束以后执行任务
+        InteractionManager.runAfterInteractions(() => {
+            //执行耗时的同步任务
+            this.props.getMileageInfo()
+            this.props.getTaskListForHome()
+            this.props.getRouteTaskListForHome()
+        })
     }
 
     render() {
@@ -32,7 +43,6 @@ class Home extends Component {
                         textStyle={[globalStyles.largeText, { color: '#73B52B' }]}
                         heading="路线">
                         <Container>
-
                             <TaskListForHome />
                         </Container>
                     </Tab>
@@ -43,7 +53,7 @@ class Home extends Component {
                         textStyle={[globalStyles.largeText, { color: '#73B52B' }]}
                         heading="任务">
                         <Container>
-                            {/*<RouteTaskListForHome />*/}
+                            <RouteTaskListForHome />
                         </Container>
                     </Tab>
 
@@ -62,28 +72,37 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getMileageInfo: () => {
-        dispatch(actions.mileageInfoAction.getMileageInfo())
-    },
+
     // setTaskInfo: (param) => {
     //     dispatch(instructExecutingAction.setTaskInfo(param))
     // },
-    // getMileageInfoWaiting: () => {
-    //     dispatch(actions.mileageInfo.getMileageInfoWaiting())
-    // },
-    //
-    // getTaskListForHome: () => {
-    //     dispatch(actions.taskListForHome.getTaskListForHome())
-    // },
-    // getTaskListForHomeWaiting: () => {
-    //     dispatch(actions.taskListForHome.getTaskListForHomeWaiting())
-    // },
-    // getRouteTaskListForHome: () => {
-    //     dispatch(actions.routeTaskListForHome.getRouteTaskListForHome())
-    // },
-    // getRouteTaskListForHomeWaiting: () => {
-    //     dispatch(actions.routeTaskListForHome.getRouteTaskListForHomeWaiting())
-    // }
+
+
+
+    getMileageInfo: () => {
+        dispatch(actions.mileageInfoAction.getMileageInfo())
+    },
+    getMileageInfoWaiting: () => {
+        dispatch(actions.mileageInfoAction.getMileageInfoWaiting())
+    },
+
+
+
+    getTaskListForHome: () => {
+        dispatch(actions.taskListForHomeAction.getTaskListForHome())
+    },
+    getTaskListForHomeWaiting: () => {
+        dispatch(actions.taskListForHomeAction.getTaskListForHomeWaiting())
+    },
+
+
+
+    getRouteTaskListForHome: () => {
+        dispatch(actions.routeTaskListForHomeAction.getRouteTaskListForHome())
+    },
+    getRouteTaskListForHomeWaiting: () => {
+        dispatch(actions.routeTaskListForHomeAction.getRouteTaskListForHomeWaiting())
+    }
 
 })
 

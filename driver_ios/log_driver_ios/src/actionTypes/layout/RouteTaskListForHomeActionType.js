@@ -1,0 +1,4 @@
+export const get_routeTaskListForHome_success = 'get_routeTaskListForHome_success'
+export const get_routeTaskListForHome_failed = 'get_routeTaskListForHome_failed'
+export const get_routeTaskListForHome_error = 'get_routeTaskListForHome_error'
+export const get_routeTaskListForHome_waiting = 'get_routeTaskListForHome_waiting'

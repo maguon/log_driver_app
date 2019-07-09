@@ -16,10 +16,10 @@ const NavBar = props => {
                     <LeftButton parent={parent} />
                 </Left>}
                 {title && <Body style={styles.body}>
-                    <Title style={[globalStyles.xlText, { color: '#fff' }]}>{title}</Title>
+                    <Title style={[globalStyles.xlText, { color: '#fff'}]}>{title}</Title>
                 </Body>}
 
-                <Right style={{ flex: title ? 2 : 1 }}>
+                <Right style={{ flex:1}}>
                     {RightButton && <RightButton parent={parent} initParam={initParam} />}
                 </Right>
             </Header>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     body: {
-        flex: 4
+        flex: 4,
     }
 })
 

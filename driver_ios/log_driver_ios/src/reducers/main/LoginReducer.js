@@ -5,6 +5,9 @@ const initialState = {
     data: {
         user: {},
         base_host: null,
+    },
+    url:{
+        base_host: null,
         file_host: null,
         record_host: null,
         host: null
@@ -32,7 +35,8 @@ export default handleActions({
     [(actionTypes.loginTypes.get_communicationSetting_success)]: (state, action) => {
     const { payload: { base_host, file_host, record_host, host } } = action
     return {
-        data: {
+        ...state,
+       url: {
             base_host, file_host, record_host, host
         }
     }
@@ -40,11 +44,15 @@ export default handleActions({
     [(actionTypes.loginTypes.save_communicationSetting_success)]: (state, action) => {
     const { payload: { base_host, file_host, record_host, host } } = action
     return {
-        data: {
+        ...state,
+        url: {
             base_host, file_host, record_host, host
         }
     }
 },
+
+
+
     [actionTypes.loginTypes.login_success]: (state, action) => {
         const { payload: { step, user } } = action
         return {

@@ -11,7 +11,7 @@ const initialState = {
         }
     },
     //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),]
-    getMileageInfo: {
+    MileageInfo: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: ''
@@ -28,8 +28,8 @@ export default handleActions({
                 ...state.data,
                 mileageInfo
             },
-            getMileageInfo: {
-                ...state.getMileageInfo,
+            MileageInfo: {
+                ...state.MileageInfo,
                 isResultStatus: 2
             }
         }
@@ -39,8 +39,8 @@ export default handleActions({
     [(actionTypes.mileageInfoActionsType.get_mileageInfo_waiting)]: (state, action) => {
         return {
             ...state,
-            getMileageInfo: {
-                ...state.getMileageInfo,
+            MileageInfo: {
+                ...state.MileageInfo,
                 isResultStatus: 1
             }
         }
@@ -50,8 +50,8 @@ export default handleActions({
         const { payload: { failedMsg } } = action
         return {
             ...state,
-            getMileageInfo: {
-                ...state.getMileageInfo,
+            MileageInfo: {
+                ...state.MileageInfo,
                 isResultStatus: 4,
                 failedMsg
             }
@@ -62,8 +62,8 @@ export default handleActions({
         const { payload: { errorMsg } } = action
         return {
             ...state,
-            getMileageInfo: {
-                ...state.getMileageInfo,
+            MileageInfo: {
+                ...state.MileageInfo,
                 isResultStatus: 3,
                 errorMsg
             }

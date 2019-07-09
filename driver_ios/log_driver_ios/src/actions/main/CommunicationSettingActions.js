@@ -16,6 +16,7 @@ export const saveCommunicationSetting = param => (dispatch) => {
             host: url
         }
     })
+    console.log('url',url)
     dispatch({
         type: actionTypes.loginTypes.save_communicationSetting_success, payload: {
             base_host: `http://api.${url}/api`,

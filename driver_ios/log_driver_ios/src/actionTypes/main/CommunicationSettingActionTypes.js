@@ -1,2 +1,2 @@
-export const save_communicationSetting_success='save_communicationSetting_success'
-export const get_communicationSetting_success='save_communicationSetting_success'
+export const save_communicationSetting_success = 'save_communicationSetting_success'
+export const get_communicationSetting_success = 'get_communicationSetting_success'
