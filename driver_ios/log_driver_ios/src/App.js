@@ -25,7 +25,7 @@ import DetermineLogin from './components/main/DetermineLogin'
 
 //导航相关页面
 import Home from './components/main/Home'
-import InstructExecuting from './components/main/InstructExecuting'
+// import InstructExecuting from './components/main/InstructExecuting'
 import DriverQRCode from './components/main/DriverQRCode'
 import Contact from './components/main/Contact'
 import Bus from './components/main/Bus'
@@ -35,7 +35,7 @@ import Settings from './components/main/Settings'
 //通用
 import tabIcon from './components/utils/TabIcon'
 import HomeLeftButton from './components/utils/HomeLeftButton'
-import InstructExecutingOp from './components/utils/InstructExecutingOp'
+// import InstructExecutingOp from './components/utils/InstructExecutingOp'
 import NavBar from './components/layout/NavBar'
 import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/utils/LeftButton'
@@ -119,15 +119,15 @@ const Root = () => {
                                            RightButton={HomeOperation}
                                     />
 
-                                    <Scene key="instructExecuting"
-                                           LeftButton={LeftButton}
-                                           component={InstructExecuting}
-                                           isRequirePopRefresh={true}
-                                           RightButton={InstructExecutingOp}
-                                           title='调度指令'
-                                           hideNavBar={false}
-                                           hideTabBar={true}
-                                           navBar={NavBar} />
+                                    {/*<Scene key="instructExecuting"*/}
+                                           {/*LeftButton={LeftButton}*/}
+                                           {/*component={InstructExecuting}*/}
+                                           {/*isRequirePopRefresh={true}*/}
+                                           {/*RightButton={InstructExecutingOp}*/}
+                                           {/*title='调度指令'*/}
+                                           {/*hideNavBar={false}*/}
+                                           {/*hideTabBar={true}*/}
+                                           {/*navBar={NavBar} />*/}
 
                                     <Scene key="driverQRCode"
                                            LeftButton={LeftButton}

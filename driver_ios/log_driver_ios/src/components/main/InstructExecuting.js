@@ -1,5 +1,5 @@
-import React,{Component} from 'react'
-import {} from 'react-native'
-import {} from 'native-base'
-import {} from 'react-redux'
-
+// import React,{Component} from 'react'
+// import {} from 'react-native'
+// import {} from 'native-base'
+// import {} from 'react-redux'
+//
