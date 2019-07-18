@@ -70,7 +70,7 @@ class Work extends Component {
     }
 
     renderTaskItem(item, key) {
-        console.log('item',item)
+        // console.log('item',item)
         return <TouchableOpacity
             key={key}
             onPress={() => Actions.instruct({ initParam: { routeInfo: item } })}>

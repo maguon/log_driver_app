@@ -17,6 +17,8 @@ import * as branchInstructAction from './BranchInstructAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../../GlobalStyles'
+import * as reduxActions from '../../../actions/index'
+import * as routerDirection from '../../../util/RouterDirection'
 
 class BranchInstruct extends Component {
     constructor(props) {
@@ -37,7 +39,7 @@ class BranchInstruct extends Component {
             OptionalParam: {
                 receiveId: this.props.initParam.routeLoadInfo.receive_id,
             },
-            dpRouteTaskId:this.props.initParam.routeLoadInfo.dp_route_task_id
+            dpRouteTaskId: this.props.initParam.routeLoadInfo.dp_route_task_id
         }))
     }
 
@@ -62,7 +64,8 @@ class BranchInstruct extends Component {
         const { routeLoadInfo } = this.props.initParam
         const { routeLoadTaskList, cleanCar, loadTaskInfo, contactList } = this.props.branchInstructReducer.data
         const { getRouteLoadTaskList } = this.props.branchInstructReducer
-        // console.log('this.props', this.props)
+        console.log('this.props', this.props)
+        const { getCleanFeeListWaiting, getCleanFeeList ,parent} = this.props
         // console.log('this.props.branchInstructReducer',this.props.branchInstructReducer)
         // console.log('routeLoadInfo',routeLoadInfo)
         if (getRouteLoadTaskList.isResultStatus == 1) {
@@ -152,18 +155,27 @@ class BranchInstruct extends Component {
                         flexDirection: 'row',
                         padding: 15,
                         backgroundColor: '#eff3f5',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-end',
                         borderColor: '#ccc',
                         borderBottomWidth: 0.5
                     }}>
-                        <View>
+                        <Button small style={{ backgroundColor: styleColor }}
+                            onPress={() => {
+                                getCleanFeeListWaiting()
+                                routerDirection.cleanFeeList(parent)()
+                                InteractionManager.runAfterInteractions(() =>
+                                    getCleanFeeList({ dpRouteTaskId: routeLoadInfo.dp_route_task_id, dpRouteLoadTaskId:routeLoadInfo.id  }))
+                            }} >
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>查看洗车费</Text>
+                        </Button>
+                        {/* <View>
                             <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{cleanCar.actual_price ? `${cleanCar.actual_price}` : '0'}元</Text>
                         </View>
                         <View>
                             {cleanCar.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}
                             {cleanCar.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
                             {cleanCar.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
-                        </View>
+                        </View> */}
                     </View>}
                     <FlatList
                         keyExtractor={(item, index) => index}
@@ -244,6 +256,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setGetRouteLoadTaskListWaiting: () => {
         dispatch(branchInstructAction.setGetRouteLoadTaskListWaiting())
+    },
+    getCleanFeeList: req => {
+        dispatch(reduxActions.cleanFeeList.getCleanFeeList(req))
+    },
+    getCleanFeeListWaiting: () => {
+        dispatch(reduxActions.cleanFeeList.getCleanFeeListWaiting())
     }
 })
 

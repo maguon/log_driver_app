@@ -96,6 +96,7 @@ import salaryListReducer from '../android/complatedViews/salaryList/salaryListRe
 import salaryReducer from '../android/complatedViews/salary/salaryReducer'
 import receiveForCleanRelReducer from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelReducer'
 import routeTaskFeeReducer from '../android/complatedViews/routeTaskFee/routeTaskFeeReducer'
+import cleanFeeListReducer from '../android/complatedViews/cleanFeeList/cleanFeeListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -188,5 +189,7 @@ export default combineReducers({
     salaryListReducer,
     salaryReducer,
     receiveForCleanRelReducer,
-    routeTaskFeeReducer
+    routeTaskFeeReducer,
+
+    cleanFeeListReducer
 })

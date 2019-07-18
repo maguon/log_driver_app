@@ -113,6 +113,7 @@ import SalaryList from './complatedViews/salaryList/SalaryList'
 import Salary from './complatedViews/salary/Salary'
 import CleanRel from './complatedViews/cleanRel/CleanRel'
 import RouteTaskFee from './complatedViews/routeTaskFee/RouteTaskFee'
+import CleanFeeList from './complatedViews/cleanFeeList/CleanFeeList'
 
 
 const styles = StyleSheet.create({
@@ -297,6 +298,12 @@ export default class App extends Component {
                                 <Scene key="vinScanner"
                                     component={VinScanner}
                                     title='扫条码'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+                                <Scene key="cleanFeeListAtHomeBlock"
+                                    component={CleanFeeList}
+                                    title='洗车费'
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
@@ -498,6 +505,15 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     hideTabBar
                                     LeftButton={LeftButton} />
+                                <Scene key="cleanFeeListAtTruckBlock"
+                                    component={CleanFeeList}
+                                    title='洗车费'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
+
+
+
                                 <Scene key="cleanRel"
                                     component={CleanRel}
                                     title='洗车费详情'
@@ -534,6 +550,12 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
+                                <Scene key="cleanFeeListAtDriverBlock"
+                                    component={CleanFeeList}
+                                    title='洗车费'
+                                    navBar={NavBar}
+                                    hideTabBar
+                                    LeftButton={LeftButton} />
                             </Scene>
                             {/* settingBlock-complated*/}
                             <Scene key="settingBlock" icon={SettingTabIcon} online='ios-settings' outline='ios-settings-outline' >

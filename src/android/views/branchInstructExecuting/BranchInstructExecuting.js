@@ -17,6 +17,10 @@ import * as branchInstructExecutingAction from './BranchInstructExecutingAction'
 import { MapView, Marker } from 'react-native-amap3d'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, { styleColor } from '../../GlobalStyles'
+import * as routerDirection from '../../../util/RouterDirection'
+import * as reduxActions from '../../../actions/index'
+
+
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -192,11 +196,16 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
+        console.log('this.props', this.props)
+
         // console.log('this.props', this.props)
         //console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
         //const { loadTaskInfo } = this.props.initParam
         const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
-
+        const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
+        const { parent, getCleanFeeList, getCleanFeeListWaiting, initParam:{taskInfo} } = this.props
+        // console.log('loadTaskInfo', loadTaskInfo)
+        // console.log('taskInfo', taskInfo)
         if (getRouteLoadTaskList.isResultStatus == 1) {
             return (
                 <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -208,8 +217,8 @@ class BranchInstructExecuting extends Component {
                 </View>
             )
         } else {
-            const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
-            // console.log('loadTaskInfo', loadTaskInfo)
+
+            
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -310,18 +319,28 @@ class BranchInstructExecuting extends Component {
                         flexDirection: 'row',
                         padding: 15,
                         backgroundColor: '#eff3f5',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-end',
                         borderColor: '#ccc',
                         borderBottomWidth: 0.5
                     }}>
-                        <View>
+                        <Button small style={{ backgroundColor: styleColor }}
+                            onPress={() => {
+                                getCleanFeeListWaiting()
+                                routerDirection.cleanFeeList(parent)()
+                                InteractionManager.runAfterInteractions(() => 
+                                getCleanFeeList({ dpRouteTaskId: taskInfo.id, dpRouteLoadTaskId: loadTaskInfo.id }))
+                            }} >
+                            <Text style={[globalStyles.midText, { color: '#fff' }]}>查看洗车费</Text>
+                        </Button>
+                        {/* <View >
+
                             <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{loadTaskInfo.actual_price ? `${loadTaskInfo.actual_price}` : '0'}元</Text>
                         </View>
                         <View>
                             {loadTaskInfo.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}
                             {loadTaskInfo.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
                             {loadTaskInfo.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
-                        </View>
+                        </View> */}
                     </View>}
                     <FlatList
                         keyExtractor={(item, index) => index}
@@ -464,6 +483,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getCoordinate: param => {
         dispatch(branchInstructExecutingAction.getCoordinate(param))
+    },
+    getCleanFeeList: req => {
+        dispatch(reduxActions.cleanFeeList.getCleanFeeList(req))
+    },
+    getCleanFeeListWaiting: () => {
+        dispatch(reduxActions.cleanFeeList.getCleanFeeListWaiting())
     }
 })
 

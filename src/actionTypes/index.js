@@ -101,6 +101,7 @@ import * as salaryList from '../android/complatedViews/salaryList/salaryListActi
 import * as salary from '../android/complatedViews/salary/salaryActionTypes'
 import * as receiveForCleanRel from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelActionTypes'
 import * as routeTaskFee from '../android/complatedViews/routeTaskFee/routeTaskFeeActionTypes'
+import * as cleanFeeList from '../android/complatedViews/cleanFeeList/cleanFeeListActionTypes'
 
 
 export {
@@ -197,5 +198,6 @@ export {
     salaryList,
     salary,
     receiveForCleanRel,
-    routeTaskFee
+    routeTaskFee,
+    cleanFeeList
 }   

@@ -27,6 +27,8 @@ import * as receiveForCleanRel from '../android/complatedViews/cleanRel/receiveF
 import * as routeTaskFee from '../android/complatedViews/routeTaskFee/routeTaskFeeActions'
 import * as initialization from '../android/views/initialization/InitializationAction'
 
+import * as cleanFeeList from '../android/complatedViews/cleanFeeList/cleanFeeListActions'
+
 
 export {
     //settingBlock-views-complated 
@@ -55,5 +57,8 @@ export {
     salary,
     receiveForCleanRel,
     routeTaskFee,
-    initialization
+    initialization,
+
+
+    cleanFeeList
 }
