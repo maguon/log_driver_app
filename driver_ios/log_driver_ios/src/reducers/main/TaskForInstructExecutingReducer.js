@@ -1,0 +1,55 @@
+import { handleActions } from 'redux-actions'
+import * as actionTypes from '../../actionTypes/index'
+
+const initialState = {
+    changeTaskStatus: {
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+        serviceFailedMsg: ''
+    }
+}
+
+
+export default handleActions({
+    [(actionTypes.taskForInstructExecutingActionType.change_taskStatusForInstructExecuting_success)]: (state, action) => {
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.taskForInstructExecutingActionType.change_taskStatusForInstructExecuting_failed)]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [(actionTypes.taskForInstructExecutingActionType.change_taskStatusForInstructExecuting_error)]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...state.changeTaskStatus,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+    [(actionTypes.taskForInstructExecutingActionType.change_taskStatusForInstructExecuting_waiting)]: (state, action) => {
+        return {
+            ...state,
+            changeTaskStatus: {
+                ...initialState.changeTaskStatus,
+                isResultStatus: 1
+            }
+        }
+    }
+}, initialState)

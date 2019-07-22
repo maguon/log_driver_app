@@ -25,8 +25,10 @@ import DetermineLogin from './components/main/DetermineLogin'
 
 //导航相关页面
 import Home from './components/main/Home'
-// import InstructExecuting from './components/main/InstructExecuting'
+import InstructExecuting from './components/main/InstructExecuting'
 import DriverQRCode from './components/main/DriverQRCode'
+import Cars from './components/main/Cars'
+import BranchInstructExecuting from './components/main/BranchInstructExecuting'
 import Contact from './components/main/Contact'
 import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
@@ -35,9 +37,9 @@ import Settings from './components/main/Settings'
 //通用
 import tabIcon from './components/utils/TabIcon'
 import HomeLeftButton from './components/utils/HomeLeftButton'
-// import InstructExecutingOp from './components/utils/InstructExecutingOp'
-import NavBar from './components/layout/NavBar'
-import HomeOperation from './components/utils/HomeOperation'
+import InstructExecutingOp from './components/utils/InstructExecutingOp'
+import NavBar from './components/utils/NavBar'
+//import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/utils/LeftButton'
 
 
@@ -112,23 +114,12 @@ const Root = () => {
                                 >
                                     <Scene key="home"
                                            initial={true}
-                                           component={Home}
                                            hideNavBar={false}
                                            navBar={NavBar}
+                                           component={Home}
                                            LeftButton={HomeLeftButton}
-                                           RightButton={HomeOperation}
+                                           RightButton={InstructExecutingOp}
                                     />
-
-                                    {/*<Scene key="instructExecuting"*/}
-                                           {/*LeftButton={LeftButton}*/}
-                                           {/*component={InstructExecuting}*/}
-                                           {/*isRequirePopRefresh={true}*/}
-                                           {/*RightButton={InstructExecutingOp}*/}
-                                           {/*title='调度指令'*/}
-                                           {/*hideNavBar={false}*/}
-                                           {/*hideTabBar={true}*/}
-                                           {/*navBar={NavBar} />*/}
-
                                     <Scene key="driverQRCode"
                                            LeftButton={LeftButton}
                                            component={DriverQRCode}
@@ -136,7 +127,32 @@ const Root = () => {
                                            hideNavBar={false}
                                            hideTabBar={true}
                                            navBar={NavBar}/>
+                                    <Scene key="instructExecuting"
+                                           LeftButton={LeftButton}
+                                           component={InstructExecuting}
+                                           isRequirePopRefresh={true}
+                                           RightButton={InstructExecutingOp}
+                                           title='调度指令'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="branchInstructExecuting"
+                                           component={BranchInstructExecuting}
+                                           LeftButton={LeftButton}
+                                           title='调度指令'
+                                           isRequirePopRefresh={true}
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="cars"
+                                           title='装车信息'
+                                           LeftButton={LeftButton}
+                                           component={Cars}
+                                           hideTabBar
+                                           navBar={NavBar} />
                                 </Scene>
+
+
                                 <Scene key="bus"
                                        navBar={NavBar}
                                        component={Bus}
@@ -146,7 +162,13 @@ const Root = () => {
                                        outline='ios-bus'
                                        size={30}
                                 >
+
+
+
                                 </Scene>
+
+
+
                                 <Scene key="contact"
                                        navBar={NavBar}
                                        component={Contact}
@@ -157,6 +179,9 @@ const Root = () => {
                                        size={30}
                                 >
                                 </Scene>
+
+
+
                                 <Scene key="settings"
                                        navBar={NavBar}
                                        component={Settings}

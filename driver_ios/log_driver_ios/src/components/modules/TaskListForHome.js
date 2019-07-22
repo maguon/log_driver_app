@@ -23,6 +23,7 @@ const TaskListItem = props => {
     return (
         <TouchableOpacity onPress={() => {
             setTaskInfo(item)
+            Actions.instructExecuting()
         }}>
             <View style={styles.taskItem}>
                 <View style={styles.item}>

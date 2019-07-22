@@ -1,21 +1,27 @@
 import * as initializationTypes from './main/InitializationTypes'
-import * as communicationSettingActionTypes from './main/CommunicationSettingActionTypes'
+import * as homeTypes from './main/HomeTypes'
 import * as loginTypes from './main/LoginTypes'
-import * as taskListForHomeActionTypes from './layout/TaskListForHomeActionTypes'
-import * as mileageInfoActionsType from './layout/MileageInfoActionsType'
+import * as taskListForHomeActionTypes from './modules/TaskListForHomeActionTypes'
+import * as mileageInfoActionsType from './modules/MileageInfoActionsType'
 import * as retrievePasswordTypes from './main/RetrievePasswordTypes'
 import * as retrievePasswordVCodeActionType from './main/RetrievePasswordVCodeActionType'
-import * as routeTaskListForHomeActionType from './layout/RouteTaskListForHomeActionType'
+import * as routeTaskListForHomeActionType from './modules/RouteTaskListForHomeActionType'
 import * as instructExecutingActionType from './main/InstructExecutingActionType'
+import * as taskForInstructExecutingActionType from './main/TaskForInstructExecutingActionType'
+import * as carsActionType from './main/CarsActionType'
+import * as branchInstructExecutingActionType from './main/BranchInstructExecutingActionType'
 
 export {
     initializationTypes,
-    communicationSettingActionTypes,
     loginTypes,
+    homeTypes,
     taskListForHomeActionTypes,
     mileageInfoActionsType,
     retrievePasswordTypes,
     retrievePasswordVCodeActionType,
     routeTaskListForHomeActionType,
-    instructExecutingActionType
+    instructExecutingActionType,
+    taskForInstructExecutingActionType,
+    carsActionType,
+    branchInstructExecutingActionType
 }

@@ -12,7 +12,6 @@ import {Container,Spinner,Button} from 'native-base'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import moment from 'moment'
 import {Actions} from 'react-native-router-flux'
-
 import globalStyles,{styleColor} from '../utils/GlobalStyles'
 
 const window=Dimensions.get('window')

@@ -4,18 +4,19 @@ import {
     Text
 } from 'react-native'
 import { Button, Spinner } from 'native-base'
-import gobalStyles from '../GlobalStyles'
+import globalStyles from '../utils/GlobalStyles'
 import { connect } from 'react-redux'
-import * as reduxActions from '../../actions/index'
+import * as actions from '../../actions/index'
 
 
 
 const InstructExecutingOp = props => {
-    const { getMileageInfo, getTaskList, getRouteTaskList, getMileageInfoWaiting, getTaskListForHomeWaiting, getRouteTaskListForHomeWaiting,
+    const { getMileageInfo, getTaskListForHome, getRouteTaskListForHome, getMileageInfoWaiting, getTaskListForHomeWaiting, getRouteTaskListForHomeWaiting,
         mileageInfoReducer, routeTaskListForHomeReducer, taskListForHomeReducer } = props
-    if (taskListForHomeReducer.getTaskListForHome.isResultStatus == 1
-        || mileageInfoReducer.getMileageInfo.isResultStatus == 1
-        || routeTaskListForHomeReducer.getRouteTaskListForHome.isResultStatus == 1) {
+    console.log("taskListForHomeReducer.getTaskListForHome.isResultStatus"+taskListForHomeReducer.getTaskListHome.isResultStatus)
+    if (taskListForHomeReducer.getTaskListHome.isResultStatus == 1
+        || mileageInfoReducer.MileageInfo.isResultStatus == 1
+        || routeTaskListForHomeReducer.getRouteTaskListHome.isResultStatus == 1) {
         return (
             <Spinner color='rgba(255,255,255,0.5)' />
         )
@@ -26,10 +27,10 @@ const InstructExecutingOp = props => {
                 getTaskListForHomeWaiting()
                 getRouteTaskListForHomeWaiting()
                 getMileageInfo()
-                getTaskList()
-                getRouteTaskList()
+                getTaskListForHome()
+                getRouteTaskListForHome()
             }}>
-                <Text style={[gobalStyles.smallText, styles.text]} >刷新</Text>
+                <Text style={[globalStyles.smallText, styles.text]} >刷新</Text>
             </Button>
         )
     }
@@ -46,22 +47,22 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     getMileageInfo: () => {
-        dispatch(reduxActions.mileageInfo.getMileageInfo())
+        dispatch(actions.mileageInfoAction.getMileageInfo())
     },
     getMileageInfoWaiting: () => {
-        dispatch(reduxActions.mileageInfo.getMileageInfoWaiting())
+        dispatch(actions.mileageInfoAction.getMileageInfoWaiting())
     },
-    getTaskList: () => {
-        dispatch(reduxActions.taskListForHome.getTaskListForHome())
+    getTaskListForHome: () => {
+        dispatch(actions.taskListForHomeAction.getTaskListForHome())
     },
     getTaskListForHomeWaiting: () => {
-        dispatch(reduxActions.taskListForHome.getTaskListForHomeWaiting())
+        dispatch(actions.taskListForHomeAction.getTaskListForHomeWaiting())
     },
-    getRouteTaskList: () => {
-        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHome())
+    getRouteTaskListForHome: () => {
+        dispatch(actions.routeTaskListForHomeAction.getRouteTaskListForHome())
     },
     getRouteTaskListForHomeWaiting: () => {
-        dispatch(reduxActions.routeTaskListForHome.getRouteTaskListForHomeWaiting())
+        dispatch(actions.routeTaskListForHomeAction.getRouteTaskListForHomeWaiting())
     }
 })
 

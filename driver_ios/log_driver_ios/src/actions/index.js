@@ -1,23 +1,31 @@
 import * as initializationAction from './main/InitializationAction'
 import * as communicationSettingActions from './main/CommunicationSettingActions'
 import * as loginAction from './main/LoginAction'
-import * as mileageInfoAction from './layout/MileageInfoActions'
+import * as homeAction from './main/HomeAction'
+import * as mileageInfoAction from './modules/MileageInfoActions'
 import * as retrievePasswordAction from './main/RetrievePasswordAction'
 import * as retrievePasswordVCodeAction from './main/RetrievePasswordVCodeAction'
-import * as taskListForHomeAction from './layout/TaskListForHomeAction'
-import * as routeTaskListForHomeAction from './layout/RouteTaskListForHomeAction'
+import * as taskListForHomeAction from './modules/TaskListForHomeAction'
+import * as routeTaskListForHomeAction from './modules/RouteTaskListForHomeAction'
 import * as instructExecutingAction from './main/InstructExecutingAction'
+import * as taskForInstructExecutingAction from './main/TaskForInstructExecutingAction'
+import * as carsAction from './main/CarsAction'
+import * as branchInstructExecutingAction from './main/BranchInstructExecutingAction'
 
 
 export {
     initializationAction,
     communicationSettingActions,
     loginAction,
+    homeAction,
     mileageInfoAction,
     retrievePasswordAction,
     retrievePasswordVCodeAction,
     taskListForHomeAction,
     routeTaskListForHomeAction,
-    instructExecutingAction
+    instructExecutingAction,
+    taskForInstructExecutingAction,
+    carsAction,
+    branchInstructExecutingAction
 
 }

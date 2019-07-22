@@ -3,9 +3,9 @@ import {InteractionManager} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import {Container,Tab,Tabs} from 'native-base'
 import globalStyles from '../utils/GlobalStyles'
-import MileageInfo from '../layout/MileageInfo'
-import TaskListForHome from '../layout/TaskListForHome'
-import RouteTaskListForHome from '../layout/RouteTaskListForHome'
+import MileageInfo from '../modules/MileageInfo'
+import TaskListForHome from '../modules/TaskListForHome'
+import RouteTaskListForHome from '../modules/RouteTaskListForHome'
 import {connect }from "react-redux";
  import * as actions from '../../actions/index'
 
@@ -73,9 +73,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 
-    // setTaskInfo: (param) => {
-    //     dispatch(instructExecutingAction.setTaskInfo(param))
-    // },
+    setTaskInfo: (param) => {
+        dispatch(actions.instructExecutingAction.setTaskInfo(param))
+    },
 
 
 
