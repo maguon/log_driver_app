@@ -229,8 +229,8 @@ class TaskForInstructExecuting extends Component {
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>实际运输：
-                             ???
+                            <Text style={[globalStyles.smallText, {paddingLeft: 5, color: '#8b959b' }]}>实际运输：
+                                {taskInfo.real_count ? taskInfo.real_count : 0}
                             </Text>
                         </View>
                     </View>
@@ -254,7 +254,7 @@ const mapStateToProps = (state, ownProps) => {
         routeTaskListForHomeReducer: state.routeTaskListForHomeReducer,
         taskListForHomeReducer: state.taskListForHomeReducer,
         routeTaskList: state.routeTaskListForHomeReducer.data.routeTaskList.filter(item => item.dp_route_task_id == taskId),
-        taskInfo: state.taskListForHomeReducer.data.taskList.filter(item => item.id == taskId)
+        taskInfo: state.taskListForHomeReducer.data.taskList.find(item => item.id == taskId)
     }
 }
 

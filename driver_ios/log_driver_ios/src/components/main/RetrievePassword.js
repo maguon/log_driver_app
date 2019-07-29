@@ -16,7 +16,7 @@ const RetrievePassword = props => {
     const {formValues = {}, handleSubmit} = props
     return (
         <Container style={{flex: 1, justifyContent: 'space-between'}}>
-            <View  style={{marginTop:60}}>
+            <View  >
 
                 <Field
                     name='server'

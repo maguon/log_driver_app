@@ -1,6 +1,6 @@
 import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
-import * as actions from '../../actions/index'
+import * as actions from '../index'
 import {Actions} from 'react-native-router-flux'
 import {InteractionManager} from 'react-native'
 
@@ -8,8 +8,7 @@ export const changeTaskStatus = reqParam => async (dispatch, getState) => {
     try {
         //  console.log('reqParam', reqParam)
         dispatch({ type: actionTypes.taskForInstructExecutingActionType.change_taskStatusForInstructExecuting_waiting, payload: {} })
-        const { loginReducer: { data: { user: { uid } } },
-            communicationSettingReducer: { data: { base_host } } } = getState()
+        const { loginReducer: { data: { user: { uid } },url:{base_host} } }= getState()
         const url = `${base_host}/user/${uid}/dpRouteTask/${reqParam.taskId}/taskStatus/${reqParam.taskStatus}`
         // console.log('url', url)
         const res = await httpRequest.put(url, {})

@@ -1,6 +1,6 @@
 import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
-import * as actions from '../../actions/index'
+import * as actions from '../index'
 import { change } from 'redux-form'
 import { Toast } from 'native-base'
 

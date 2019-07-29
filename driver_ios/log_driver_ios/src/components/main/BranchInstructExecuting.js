@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
     Text,
     View,
@@ -10,12 +10,13 @@ import {
     Linking,
     Alert,
 } from 'react-native'
-import { Icon, Button ,Toast} from 'native-base'
-import { connect } from 'react-redux'
+import {Icon, Button, Toast} from 'native-base'
+import {connect} from 'react-redux'
 import * as actions from '../../actions/index'
-// import { MapView, Marker } from 'react-native-amap3d'
-import globalStyles, { styleColor } from '../utils/GlobalStyles'
-
+import {MapView, Marker} from 'react-native-amap3d'
+import globalStyles, {styleColor} from '../utils/GlobalStyles'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 
 class BranchInstructExecuting extends Component {
@@ -42,7 +43,7 @@ class BranchInstructExecuting extends Component {
     }
 
     initView() {
-        const { loadTaskInfo } = this.props.initParam
+        const {loadTaskInfo} = this.props.initParam
         InteractionManager.runAfterInteractions(() => {
             this.props.getCoordinate({
                 OptionalParam: {
@@ -66,11 +67,11 @@ class BranchInstructExecuting extends Component {
             '提示',
             `确认完成吗？`,
             [
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {
                     text: '确定', onPress: () => {
-                        const { user } = this.props.loginReducer.data
-                        const { loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+                        const {user} = this.props.loginReducer.data
+                        const {loadTaskInfo} = this.props.branchInstructExecutingReducer.data
                         this.props.changeLoadTaskStatus({
                             requiredParam: {
                                 userId: user.uid,
@@ -82,7 +83,7 @@ class BranchInstructExecuting extends Component {
                     }
                 },
             ],
-            { cancelable: false }
+            {cancelable: false}
         )
     }
 
@@ -91,10 +92,10 @@ class BranchInstructExecuting extends Component {
             '提示',
             `确认该车辆送达？`,
             [
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {
                     text: '确定', onPress: () => {
-                        const { user } = this.props.loginReducer.data
+                        const {user} = this.props.loginReducer.data
                         this.props.changeCarLoadStatus({
                             requiredParam: {
                                 userId: user.uid,
@@ -105,7 +106,7 @@ class BranchInstructExecuting extends Component {
                     }
                 },
             ],
-            { cancelable: false }
+            {cancelable: false}
         )
 
     }
@@ -113,24 +114,27 @@ class BranchInstructExecuting extends Component {
     renderFooter() {
 
         // const { loadTaskInfo } = this.props.initParam
-        const { task_status } = this.props.initParam
+        const {task_status} = this.props.initParam
+        console.log("task_status+++++++++++++++++++++++++++"+task_status)
         if (task_status < 4) {
-            return <View />
+            return <View/>
         } else {
-            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+            const {routeLoadTaskList, loadTaskInfo} = this.props.branchInstructExecutingReducer.data
             const total = routeLoadTaskList.reduce((sum, value) => {
                 return sum && value.car_load_status == 2 //&& value.exception_status != 1
             }, true)
             if (total && loadTaskInfo.load_task_status == 3) {
-                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                    <Button small rounded onPress={this.changeLoadTaskStatus} style={{ backgroundColor: styleColor }}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                return
+                <View style={{padding: 10, alignSelf: 'flex-end'}}>
+                    <Button small rounded onPress={this.changeLoadTaskStatus} style={{backgroundColor:'#76b92c'}}>
+                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
                     </Button>
                 </View>
             } else if (!total && loadTaskInfo.load_task_status == 3) {
-                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
-                    <Button small rounded disabled style={{ backgroundColor: '#c4c4c4' }}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                return
+                <View style={{padding: 10, alignSelf: 'flex-end'}}>
+                    <Button small rounded disabled style={{backgroundColor: '#c4c4c4'}}>
+                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
                     </Button>
                 </View>
             }
@@ -141,23 +145,37 @@ class BranchInstructExecuting extends Component {
     renderListItem(item, key) {
         // console.log('item', item)
         // console.log('this.props',this.props)
-        const { taskListForHomeReducer: { data: { taskList } } } = this.props
+        const {taskListForHomeReducer: {data: {taskList}}} = this.props
 
-        const { task_status } = this.props.initParam
-        return <View key={key} style={{ flexDirection: 'row', paddingHorizontal: 10, justifyContent: 'space-between', borderBottomWidth: 0.5, borderColor: '#ccc', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', flex: 7 }}>
-                <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                <Text style={[globalStyles.smallText, { color: '#ccc', paddingLeft: 10 }]}>VIN码：<Text style={{ color: item.exception_status == 1 ? '#d69aa5' : '#8b959b' }}>{item.vin ? item.vin : ''}</Text></Text>
+        const {task_status} = this.props.initParam
+        return <View key={key} style={{
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+            justifyContent: 'space-between',
+            borderBottomWidth: 0.5,
+            borderColor: '#ccc',
+            alignItems: 'center'
+        }}>
+            <View style={{flexDirection: 'row', flex: 7}}>
+                <Icon name='ios-car' style={{fontSize: 15, color: '#8b959b'}}/>
+                <Text style={[globalStyles.smallText, {color: '#8b959b', paddingLeft: 10}]}>VIN码：<Text
+                    style={{color: item.exception_status == 1 ? '#d69aa5' : '#8b959b'}}>{item.vin ? item.vin : ''}</Text></Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 2 }}>
-                <Text style={[globalStyles.smallText, { color: '#8b959b', marginVertical: task_status < 4 ? 10 : 0 }]}>{item.make_name ? item.make_name : ''}</Text>
+            <View style={{flexDirection: 'row', flex: 2}}>
+                <Text style={[globalStyles.smallText, {
+                    color: '#8b959b',
+                    marginVertical: task_status < 4 ? 10 : 0
+                }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+            <View style={{flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
+                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, {
+                    color: styleColor,
+                    marginVertical: 10
+                }]}>{item.car_load_status == 2 && '已送达'}</Text>}
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
                     this.changeCarLoadStatus(item.id)
                 }}>
-                    <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
+                    <Icon name='ios-checkmark-circle' style={{color: styleColor, fontSize: 25, marginVertical: 5}}/>
                 </TouchableOpacity>}
             </View>
         </View>
@@ -165,138 +183,176 @@ class BranchInstructExecuting extends Component {
 
 
     render() {
-        // console.log('this.props', this.props)
-        // console.log('this.props.branchInstructExecutingReducer', this.props.branchInstructExecutingReducer)
+        //console.log('this.props====================', this.props)
+        //console.log('this.props.branchInstructExecutingReducer======================', this.props.branchInstructExecutingReducer)
         // const { loadTaskInfo } = this.props.initParam
-        const { getRouteLoadTaskList } = this.props.branchInstructExecutingReducer
+        const {getRouteLoadTaskList} = this.props.branchInstructExecutingReducer
+
+        //console.log('getRouteLoadTaskList======================', getRouteLoadTaskList)
+
 
         if (getRouteLoadTaskList.isResultStatus == 1) {
             return (
-                <View style={{ backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{backgroundColor: '#fff', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <ActivityIndicator
                         animating={getRouteLoadTaskList.isResultStatus == 1}
-                        style={{ height: 80 }}
+                        style={{height: 80}}
                         size="large"
                     />
                 </View>
             )
         } else {
-            const { routeLoadTaskList, loadTaskInfo, contactList } = this.props.branchInstructExecutingReducer.data
+            const {routeLoadTaskList, loadTaskInfo, contactList} = this.props.branchInstructExecutingReducer.data
             // console.log('loadTaskInfo', loadTaskInfo)
             return (
-                <View style={{ flex: 1 }}>
-                    <View style={{ height: 200, backgroundColor: '#8b959b' }}>
-                        {/*{loadTaskInfo.lat && loadTaskInfo.lng && <MapView*/}
-                            {/*locationEnabled*/}
-                            {/*zoomLevel={14}*/}
-                            {/*coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}*/}
-                            {/*showsZoomControls={false}*/}
-                            {/*rotateEnabled={true}*/}
-                            {/*showsCompass={true}*/}
-                            {/*style={{ flex: 1 }}*/}
-                        {/*>*/}
-                            {/*<Marker*/}
-                                {/*image='flag'*/}
-                                {/*title={loadTaskInfo.short_name}*/}
-                                {/*coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? { latitude: loadTaskInfo.lat, longitude: loadTaskInfo.lng } : { latitude: 38.92, longitude: 121.60 }}*/}
-                            {/*/>*/}
-                        {/*</MapView>}*/}
-                        {(!loadTaskInfo.lat || !loadTaskInfo.lng) && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={[globalStyles.midText, { color: '#fff' }]}>未设置目的地经纬度</Text>
+                <View style={{flex: 1, backgroundColor: '#fff'}}>
+                    <View style={{height: 200, backgroundColor: '#8b959b'}}>
+                        {loadTaskInfo.lat && loadTaskInfo.lng && <MapView
+                            locationEnabled
+                            zoomLevel={14}
+                            coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? {
+                                latitude: loadTaskInfo.lat,
+                                longitude: loadTaskInfo.lng
+                            } : {latitude: 38.92, longitude: 121.60}}
+                            showsZoomControls={false}
+                            rotateEnabled={true}
+                            showsCompass={true}
+                            style={{flex: 1}}
+                        >
+                            <Marker
+                                image='flag'
+                                title={loadTaskInfo.short_name}
+                                coordinate={loadTaskInfo.lat && loadTaskInfo.lng ? {
+                                    latitude: loadTaskInfo.lat,
+                                    longitude: loadTaskInfo.lng
+                                } : {latitude: 38.92, longitude: 121.60}}
+                            />
+                        </MapView>}
+                        {(!loadTaskInfo.lat || !loadTaskInfo.lng) &&
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={[globalStyles.midText, {color: '#fff'}]}>未设置目的地经纬度</Text>
                         </View>}
-                        {(loadTaskInfo.lat && loadTaskInfo.lng) && <Button small style={{ backgroundColor: styleColor, top: 5, right: 5, position: 'absolute' }}
+                        {(loadTaskInfo.lat && loadTaskInfo.lng) && <Button small style={{
+                            backgroundColor: styleColor, top: 10,
+                            left: 5, width: 30, height: 30, position: 'absolute', justifyContent: 'center'
+                        }}
                                                                            onPress={() => {
-                                                                               this.setState({ modalContacts: true })
-
+                                                                               this.setState({modalContacts: true})
                                                                            }}>
-                            <Text style={[globalStyles.midText, { color: '#fff', fontWeight: 'bold' }]}>地图</Text>
+                            <MaterialIcons name='near-me' style={{color: '#fff'}} size={20}/>
+
                         </Button>}
                     </View>
                     <View style={{
                         flexDirection: 'row',
                         padding: 15,
-                        backgroundColor: '#eff3f5',
+                        backgroundColor: '#fff',
                         justifyContent: 'space-between',
                         borderColor: '#ccc',
                         borderTopWidth: 0.5,
                         alignItems: 'center'
                     }}>
-                        <View style={{ flex: 2 }}>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>{loadTaskInfo.short_name ? loadTaskInfo.short_name : ''}{loadTaskInfo.make_name ? `(${loadTaskInfo.make_name})` : ''}</Text>
-                            <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>{loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
+                        <View style={{flex: 2}}>
+                            <Text
+                                style={[globalStyles.largeText, {color: styleColor}]}>前往：
+                                {loadTaskInfo.short_name ? loadTaskInfo.short_name : ''} {loadTaskInfo.make_name ?
+                                    `(${loadTaskInfo.make_name})` : ''}</Text>
+                            <Text style={[globalStyles.smallText, {color: '#8b959b', paddingTop: 5}]}>
+                                <MaterialIcons name='place' size={15}/>
+                                {loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
                         </View>
-                        <View style={{ flex: 1 }}>
-                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
+                        <View style={{flex: 1, position: 'absolute', right: 80}}>
+                            <Button small style={{
+                                width: 30,
+                                height: 30,
+                                alignSelf: 'center',
+                                backgroundColor: styleColor,
+                                justifyContent: 'center'
+                            }} onPress={() => {
                                 Alert.alert(
                                     '需求备注',
                                     `${loadTaskInfo.demand_remark ? loadTaskInfo.demand_remark : '无'}`,
                                     [
-                                        { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                                        {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                                     ],
-                                    { cancelable: false }
+                                    {cancelable: false}
                                 )
                             }}>
-                                <Text style={[globalStyles.midText, { color: '#fff' }]}>备注</Text>
+                                <MaterialIcons name="assignment" style={{color: '#fff'}} size={20}/>
                             </Button>
+
                         </View>
-                        <View style={{ flex: 1 }}>
-                            <Button small style={{ alignSelf: 'center', backgroundColor: styleColor }} onPress={() => {
+                        <View style={{flex: 1, position: 'absolute', right: 30}}>
+                            <Button small style={{
+                                width: 30,
+                                height: 30,
+                                alignSelf: 'center',
+                                backgroundColor: styleColor,
+                                justifyContent: 'center'
+                            }} onPress={() => {
                                 if (contactList.length > 0) {
-                                    this.setState({ modalVisible: true })
+                                    this.setState({modalVisible: true})
                                 } else {
-                                    Toast.show({text:'该经销商暂无联系人'})
+                                    Toast.show({text: '该经销商暂无联系人'})
                                 }
                             }}>
-                                <Text style={[globalStyles.midText, { color: '#fff' }]}>联系人</Text>
+                                <MaterialIcons name='local-phone' style={{color: '#fff'}} size={20}/>
                             </Button>
                         </View>
                     </View>
-                    <View style={{
+                    {loadTaskInfo.cleanRelStatus && <View style={{
                         flexDirection: 'row',
                         padding: 15,
-                        backgroundColor: '#eff3f5',
+                        backgroundColor: '#f1f6f9',
                         justifyContent: 'space-between',
                         borderColor: '#ccc',
                         borderBottomWidth: 0.5,
                         borderTopWidth: 0.5
                     }}>
                         <View>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
+                            <Text
+                                style={[globalStyles.midText, {color: '#8b959b'}]}>洗车费：{loadTaskInfo.actual_price ? `${loadTaskInfo.actual_price}` : '0'}元</Text>
                         </View>
                         <View>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>实际送达：<Text style={{ color: styleColor }}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
-                        </View>
-                    </View>
-                    {loadTaskInfo.cleanRelStatus && <View style={{
-                        flexDirection: 'row',
-                        padding: 15,
-                        backgroundColor: '#eff3f5',
-                        justifyContent: 'space-between',
-                        borderColor: '#ccc',
-                        borderBottomWidth: 0.5
-                    }}>
-                        <View>
-                            <Text style={[globalStyles.midText, { color: '#8b959b' }]}>洗车费：{loadTaskInfo.actual_price ? `${loadTaskInfo.actual_price}` : '0'}元</Text>
-                        </View>
-                        <View>
-                            {loadTaskInfo.cleanRelStatus == 0 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未通过</Text>}
-                            {loadTaskInfo.cleanRelStatus == 1 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>未审核</Text>}
-                            {loadTaskInfo.cleanRelStatus == 2 && <Text style={[globalStyles.midText, { color: '#8b959b' }]}>已通过</Text>}
+                            {loadTaskInfo.cleanRelStatus == 0 &&
+                            <Text style={[globalStyles.midText, {color: '#8b959b'}]}>未通过</Text>}
+                            {loadTaskInfo.cleanRelStatus == 1 &&
+                            <Text style={[globalStyles.midText, {color: '#8b959b'}]}>未审核</Text>}
+                            {loadTaskInfo.cleanRelStatus == 2 &&
+                            <Text style={[globalStyles.midText, {color: '#8b959b'}]}>已通过</Text>}
                         </View>
                     </View>}
+                    <View style={{
+                        flexDirection: 'row',
+                        padding: 15,
+                        backgroundColor: '#f1f6f9',
+                        justifyContent: 'space-between',
+                        borderColor: '#ccc',
+                        borderBottomWidth: 0.5,
+                    }}>
+                        <View>
+                            <Text
+                                style={[globalStyles.midText, {color: '#8b959b'}]}>计划运送：{loadTaskInfo.plan_count ? `${loadTaskInfo.plan_count}` : '0'}</Text>
+                        </View>
+                        <View>
+                            <Text style={[globalStyles.midText, {color: '#8b959b'}]}>实际送达：<Text
+                                style={{color: styleColor}}>{loadTaskInfo.car_count ? `${loadTaskInfo.car_count}` : '0'}</Text></Text>
+                        </View>
+                    </View>
+
                     <FlatList
                         keyExtractor={(item, index) => index}
                         data={routeLoadTaskList}
-                        renderItem={({ item, index }) => this.renderListItem(item, index)}
-                        ListFooterComponent={this.renderFooter()} />
+                        renderItem={({item, index}) => this.renderListItem(item, index)}
+                        ListFooterComponent={this.renderFooter()}/>
                     <Modal
                         animationType={"fade"}
                         transparent={true}
                         visible={this.state.modalContacts}
-                        onRequestClose={() => this.setState({ modalContacts: false })}>
+                        onRequestClose={() => this.setState({modalContacts: false})}>
 
                         <TouchableOpacity
-                            onPress={() => this.setState({ modalContacts: false })}
+                            onPress={() => this.setState({modalContacts: false})}
                             style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
                                 alignItems: 'center',
@@ -310,13 +366,22 @@ class BranchInstructExecuting extends Component {
                                 borderWidth: 0.5,
                                 borderColor: '#ccc',
                             }}>
-                                <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
-                                    <Text style={[globalStyles.midText, { paddingVertical: 10, color: styleColor, textAlign: 'center' }]}>请选择地图</Text>
+                                <View style={{borderBottomWidth: 1, borderColor: styleColor}}>
+                                    <Text style={[globalStyles.midText, {
+                                        paddingVertical: 10,
+                                        color: styleColor,
+                                        textAlign: 'center'
+                                    }]}>请选择地图</Text>
                                 </View>
                                 <TouchableOpacity
-                                    style={{ paddingVertical: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}
+                                    style={{
+                                        paddingVertical: 15,
+                                        alignItems: 'center',
+                                        borderBottomWidth: 0.5,
+                                        borderColor: '#ccc'
+                                    }}
                                     onPress={() => {
-                                        this.setState({ modalContacts: false })
+                                        this.setState({modalContacts: false})
                                         Linking.canOpenURL(`amapuri://route/plan/?sname=我的位置&did=BGVIS2&dlat=${loadTaskInfo.lat}&dlon=${loadTaskInfo.lng}&dname=${loadTaskInfo.address}&dev=0&t=0`).then(supported => {
                                             if (supported) {
                                                 Linking.openURL(`amapuri://route/plan/?sname=我的位置&did=BGVIS2&dlat=${loadTaskInfo.lat}&dlon=${loadTaskInfo.lng}&dname=${loadTaskInfo.address}&dev=0&t=0`);
@@ -334,10 +399,10 @@ class BranchInstructExecuting extends Component {
                         animationType={"fade"}
                         transparent={true}
                         visible={this.state.modalVisible}
-                        onRequestClose={() => this.setState({ modalVisible: false })}
+                        onRequestClose={() => this.setState({modalVisible: false})}
                     >
                         <TouchableOpacity
-                            onPress={() => this.setState({ modalVisible: false })}
+                            onPress={() => this.setState({modalVisible: false})}
                             style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
                                 alignItems: 'center',
@@ -351,20 +416,45 @@ class BranchInstructExecuting extends Component {
                                 borderWidth: 0.5,
                                 borderColor: '#ccc',
                             }}>
-                                <View style={{ borderBottomWidth: 1, borderColor: styleColor }}>
-                                    <Text style={[globalStyles.midText, { paddingVertical: 10, color: styleColor, textAlign: 'center' }]}>联系人</Text>
+                                <View style={{borderBottomWidth: 1, borderColor: styleColor}}>
+                                    <Text style={[globalStyles.midText, {
+                                        paddingVertical: 10,
+                                        color: styleColor,
+                                        textAlign: 'center'
+                                    }]}>联系人</Text>
                                 </View>
                                 <FlatList
                                     keyExtractor={(item, index) => index}
                                     data={contactList}
-                                    renderItem={({ item, index }) => {
+                                    renderItem={({item, index}) => {
                                         return (
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, alignItems: 'center', borderBottomWidth: 0.5, borderColor: '#ccc' }}>
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                justifyContent: 'space-between',
+                                                paddingHorizontal: 15,
+                                                alignItems: 'center',
+                                                borderBottomWidth: 0.5,
+                                                borderColor: '#ccc'
+                                            }}>
                                                 {/* <Icon name='ios-person' style={{ flex: 1, fontSize: 20, color: '#ccc' }} /> */}
-                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 4 }]}>{item.contacts_name ? `${item.contacts_name}` : ''} {item.position ? `(${item.position})` : ''}</Text>
-                                                <Text style={[globalStyles.midText, { paddingVertical: 15, flex: 3, textAlign: 'center' }]}>{item.tel}</Text>
-                                                <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                                                    <TouchableOpacity style={{ width: 30, height: 30, backgroundColor: styleColor, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
+                                                <Text style={[globalStyles.midText, {
+                                                    paddingVertical: 15,
+                                                    flex: 4
+                                                }]}>{item.contacts_name ? `${item.contacts_name}` : ''} {item.position ? `(${item.position})` : ''}</Text>
+                                                <Text style={[globalStyles.midText, {
+                                                    paddingVertical: 15,
+                                                    flex: 3,
+                                                    textAlign: 'center'
+                                                }]}>{item.tel}</Text>
+                                                <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                                    <TouchableOpacity style={{
+                                                        width: 30,
+                                                        height: 30,
+                                                        backgroundColor: styleColor,
+                                                        borderRadius: 15,
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center'
+                                                    }}
                                                                       onPress={() => {
                                                                           if (item.tel) {
                                                                               const url = `tel:${item.tel}`
@@ -372,18 +462,18 @@ class BranchInstructExecuting extends Component {
                                                                                   if (!supported) {
                                                                                       console.log('Can\'t handle url: ' + url);
                                                                                   } else {
-                                                                                      this.setState({ modalVisible: false })
+                                                                                      this.setState({modalVisible: false})
                                                                                       return Linking.openURL(url);
                                                                                   }
                                                                               }).catch(err => console.log('An error occurred', err));
                                                                           }
                                                                       }}>
-                                                        <Icon name='ios-call' style={{ fontSize: 20, color: '#fff' }} />
+                                                        <Icon name='ios-call' style={{fontSize: 20, color: '#fff'}}/>
                                                     </TouchableOpacity>
                                                 </View>
                                             </View>
                                         )
-                                    }} />
+                                    }}/>
                             </View>
                         </TouchableOpacity>
                     </Modal>
@@ -428,5 +518,5 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
- export default connect(mapStateToProps, mapDispatchToProps)(BranchInstructExecuting)
+export default connect(mapStateToProps, mapDispatchToProps)(BranchInstructExecuting)
 //export default BranchInstructExecuting

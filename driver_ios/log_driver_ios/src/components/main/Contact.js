@@ -11,10 +11,15 @@ class Contact extends Component {
     render() {
 
         return (
-            <View>
-                <Text>  Contact
-                </Text>
+            <View >
+
+                <View style={{width:400, height:100,backgroundColor:"#76b92c"}}>
+                    <Text>  Contact
+                    </Text>
+                </View>
+                <View style={{width:400, height:100,backgroundColor:"#76b92c"}}/>
             </View>
+
         )
     }
 }

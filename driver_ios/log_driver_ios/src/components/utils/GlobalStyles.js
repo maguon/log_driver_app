@@ -8,10 +8,10 @@ const globalStyles = StyleSheet.create({
         backgroundColor: '#F0EFF5'
     },
     styleColor: {
-        color: '#73B52B'
+        color: '#76b92c'
     },
     styleBackgroundColor: {
-        backgroundColor: '#73B52B'
+        backgroundColor: '#76b92c'
     },
     textColor:{
         color: '#838485'
@@ -54,6 +54,6 @@ const globalStyles = StyleSheet.create({
 
 })
 
-export const styleColor='#73B52B'
+export const styleColor='#76b92c'
 
 export default globalStyles

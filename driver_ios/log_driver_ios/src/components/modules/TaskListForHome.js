@@ -12,7 +12,7 @@ import {Container, Spinner} from 'native-base'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import moment from 'moment'
 import {Actions} from 'react-native-router-flux'
-
+import * as actions from '../../actions/index'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
 
 const window = Dimensions.get('window')
@@ -51,7 +51,7 @@ const TaskListItem = props => {
                 <View style={styles.item}>
                     <Text
                         style={[globalStyles.smallText, {paddingLeft: 35}]}>指定时间：{item.task_plan_date ? moment(new Date(item.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
-                    <Text style={[globalStyles.smallText, {position: 'absolute', right: 30,}]}>指定装载：14</Text>
+                    <Text style={[globalStyles.smallText, {position: 'absolute', right: 30,}]}>指定装载：{item.plan_count ? item.plan_count : 0}</Text>
                 </View>
                 <View style={styles.line}></View>
 
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     setTaskInfo: (param) => {
-        //     dispatch(instructExecutingAction.setTaskInfo(param))
+            dispatch(actions.instructExecutingAction.setTaskInfo(param))
     }
 })
 

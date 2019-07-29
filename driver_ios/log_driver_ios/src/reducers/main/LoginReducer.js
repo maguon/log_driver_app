@@ -4,10 +4,9 @@ import * as actionTypes from '../../actionTypes/index'
 const initialState = {
     data: {
         user: {},
-        base_host: null,
     },
     url:{
-        base_host: null,
+        base_host: "http://api.myxxjs.com/api",
         file_host: null,
         record_host: null,
         host: null

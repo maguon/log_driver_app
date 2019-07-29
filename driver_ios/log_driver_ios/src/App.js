@@ -28,8 +28,12 @@ import Home from './components/main/Home'
 import InstructExecuting from './components/main/InstructExecuting'
 import DriverQRCode from './components/main/DriverQRCode'
 import Cars from './components/main/Cars'
+import SearchCar from './components/modules/SearchCar'
 import BranchInstructExecuting from './components/main/BranchInstructExecuting'
 import Contact from './components/main/Contact'
+import  Truck from './components/main/Truck'
+import AccidentListOperation from './components/utils/AccidentListOperation'
+import AccidentList from './components/main/AccidentList'
 import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
 
@@ -38,9 +42,12 @@ import Settings from './components/main/Settings'
 import tabIcon from './components/utils/TabIcon'
 import HomeLeftButton from './components/utils/HomeLeftButton'
 import InstructExecutingOp from './components/utils/InstructExecutingOp'
+import InstructExecutingOc from './components/utils/InstructExecutingOc'
 import NavBar from './components/utils/NavBar'
 //import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/utils/LeftButton'
+import NavSearchCarBar from './components/utils/NavSearchCarBar'
+import VinScanner from './components/utils/VinScanner'
 
 
 
@@ -78,11 +85,22 @@ const Root = () => {
 
 
 
-                            {/*<Stack key="loginGroup" >*/}
-                                {/*<Scene key="login" initial={true} component={Login} hideNavBar hideTabBar/>*/}
-                                {/*<Scene key="retrievePassword" title='找回密码'  component={RetrievePassword} hideTabBar*/}
-                                       {/*hideNavBar={false} navBar={NavBar} LeftButton={LeftButton} />*/}
-                            {/*</Stack>*/}
+                            <Stack key="loginGroup" >
+                                <Scene key="login"
+                                       initial={true}
+                                       component={Login}
+                                       hideNavBar
+                                       hideTabBar/>
+                                <Scene key="retrievePassword"
+                                       title='找回密码'
+                                       component={RetrievePassword}
+                                       hideTabBar
+                                       hideNavBar={false}
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                />
+                            </Stack>
 
 
 
@@ -122,6 +140,7 @@ const Root = () => {
                                     />
                                     <Scene key="driverQRCode"
                                            LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
                                            component={DriverQRCode}
                                            title='司机二维码'
                                            hideNavBar={false}
@@ -129,9 +148,9 @@ const Root = () => {
                                            navBar={NavBar}/>
                                     <Scene key="instructExecuting"
                                            LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOp}
                                            component={InstructExecuting}
                                            isRequirePopRefresh={true}
-                                           RightButton={InstructExecutingOp}
                                            title='调度指令'
                                            hideNavBar={false}
                                            hideTabBar={true}
@@ -139,6 +158,7 @@ const Root = () => {
                                     <Scene key="branchInstructExecuting"
                                            component={BranchInstructExecuting}
                                            LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
                                            title='调度指令'
                                            isRequirePopRefresh={true}
                                            hideNavBar={false}
@@ -147,21 +167,48 @@ const Root = () => {
                                     <Scene key="cars"
                                            title='装车信息'
                                            LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
                                            component={Cars}
                                            hideTabBar
                                            navBar={NavBar} />
+                                    <Scene key="searchCar"
+                                           hideTabBar
+                                           component={SearchCar}
+                                           navBar={NavSearchCarBar} />
+                                    {/*<Scene key="vinScanner"*/}
+                                           {/*component={VinScanner}*/}
+                                           {/*title='扫条码'*/}
+                                           {/*navBar={NavBar}*/}
+                                           {/*hideTabBar*/}
+                                           {/*LeftButton={LeftButton} />*/}
                                 </Scene>
 
 
                                 <Scene key="bus"
-                                       navBar={NavBar}
-                                       component={Bus}
-                                       title="货车管理"
                                        icon={tabIcon}
                                        online='ios-bus'
                                        outline='ios-bus'
                                        size={30}
                                 >
+                                <Scene key="truck"
+                                       initial={true}
+                                       component={Truck}
+                                       title="货车管理"
+                                       navBar={NavBar}
+                                />
+                                    {/*<Scene key="accidentList"*/}
+                                           {/*component={AccidentList}*/}
+                                           {/*title='事故列表'*/}
+                                           {/*navBar={NavBar}*/}
+                                           {/*hideTabBar*/}
+                                           {/*LeftButton={LeftButton}*/}
+                                           {/*RightButton={AccidentListOperation} />*/}
+
+
+
+
+
+
 
 
 

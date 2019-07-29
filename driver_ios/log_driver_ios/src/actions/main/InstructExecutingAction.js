@@ -1,12 +1,12 @@
 import httpRequest from '../../util/HttpRequest.js'
 import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
-import * as actions from '../../actions/index'
+import * as actions from '../index'
 import moment from 'moment'
 
 export const getDpRouteTask = () => async (dispatch, getState) => {
     const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
-    const { loginReducer: { data: { base_host} } } = getState()
+    const { loginReducer: { url: { base_host} } } = getState()
     try {
         const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: id })}`
         const res = await httpRequest.get(url)
@@ -23,8 +23,7 @@ export const getDpRouteTask = () => async (dispatch, getState) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host} } } = getState()
-        const { loginReducer: { data: { user: { uid } } } } = getState()
+        const { loginReducer: { data: { user: { uid } },url:{base_host} } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTask/${param.requiredParam.taskId}/taskStatus/${param.requiredParam.taskStatus}`
         const res = await httpRequest.put(url, {})
         if (res.success) {
@@ -78,7 +77,7 @@ export const setTaskInfo = (param) => (dispatch) => {
 export const getLoadTaskList = () => async (dispatch, getState) => {
     const { instructExecutingReducer: { data: { taskInfo: { id } } } } = getState()
     try {
-        const { communicationSettingReducer: { data: { base_host} } } = getState()
+        const { loginReducer: { url: { base_host} } } = getState()
         const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({ dpRouteTaskId: id })}`
         const res = await httpRequest.get(url)
         if (res.success) {

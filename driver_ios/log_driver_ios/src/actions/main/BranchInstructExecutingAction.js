@@ -3,20 +3,20 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 import { InteractionManager } from 'react-native'
 import {Toast} from 'native-base'
-import * as actions from '../../actions/index'
+import * as actions from '../index'
 import { Actions } from 'react-native-router-flux'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
-    // console.log('param', param)
-    const { communicationSettingReducer: { data: { base_host } } } = getState()
+     console.log('param', param)
+    const { loginReducer: { url: { base_host } } } = getState()
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
         `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
         `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
         `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId, statusArr: '1,2' })}`]
-    // console.log('urls', urls)
+     console.log('urls', urls)
     try {
         const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
-        // console.log('res', res)
+         console.log('res', res)
         // console.log('res[3].result[0]', res[3].result[0])
 
         if (res[0].success && res[1].success && res[2].success && res[3].success) {
@@ -38,7 +38,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
-        // console.log('err', err)
+         console.log('err', err)
         Toast.show({text:'promise.all请求错误！'})
         dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
     }
@@ -46,7 +46,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
 
 export const getCoordinate = param => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        const { loginReducer: { url: { base_host } } } = getState()
         const url = `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -75,7 +75,7 @@ export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
 }
 
 export const changeCarExceptionRel = (param) => async (dispatch, getState) => {
-    const { communicationSettingReducer: { data: { base_host } } } = getState()
+    const { loginReducer: { url: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     try {
         const res = await httpRequest.post(url, param.postParam)
@@ -99,7 +99,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        const { loginReducer: { url: { base_host } } } = getState()
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
@@ -144,7 +144,7 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        const { loginReducer: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

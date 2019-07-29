@@ -15,9 +15,12 @@ import {Actions }from 'react-native-router-flux'
 //验证版本
 export const validateVersion = param => async (dispatch, getState) => {
     const currentStep = 1
+    let server="myxxjs.com"
+    let mobile="13889661995"
+    let password="123456"
     try {
         //用户输入
-        let {server, mobile, password} = param
+        // let {server, mobile, password} = param
         server = `${server}`.replace(/\s*/g, "")
         mobile = `${mobile}`.replace(/\s*/g, "")
 
@@ -133,7 +136,11 @@ export const login = (param) => async (dispatch, getState) => {
          payload:{}
      })
         //用户输入
-        let{mobile,password,server} =param
+        // let{mobile,password,server} =param
+        let server="myxxjs.com"
+        let mobile="13889661995"
+        let password="123456"
+
         server=`${server}`.replace(/\s*/g,"")
         mobile=`${mobile}`.replace(/\s*/g,"")
         const base_host=`http://api.${server}/api`

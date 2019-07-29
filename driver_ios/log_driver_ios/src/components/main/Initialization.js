@@ -87,9 +87,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    // initPush: () => {
-    //     dispatch(action.initializationAction.initPush())
-    // },
+
     getCommunicationSetting: () => {
         dispatch(action.initializationAction.getComunicationSetting())
     }

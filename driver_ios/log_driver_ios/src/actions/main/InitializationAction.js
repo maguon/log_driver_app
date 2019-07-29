@@ -4,7 +4,6 @@ import localStorage from '../../util/LocalStorage'
 import httpRequest from '../../util/HttpRequest'
 
 import {Actions} from 'react-native-router-flux'
-import XGPush from 'react-native-xinge-push'
 import {base_host} from "../../config/Host";
 import  config from '../../config/Host'
 import {ObjectToUrl} from '../../util/ObjectToUrl'

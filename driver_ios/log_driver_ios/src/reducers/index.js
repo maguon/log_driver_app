@@ -12,6 +12,9 @@ import instructExecutingReducer from './main/InstructExecutingReducer'
 import taskForInstructExecutingReducer from './main/TaskForInstructExecutingReducer'
 import carsReducer from './main/CarsReducer'
 import branchInstructExecutingReducer from './main/BranchInstructExecutingReducer'
+import truckReducer from './main/TruckReducer'
+import accidentListReducer from './main/AccidentListReducer'
+import searchCarReducer from './modules/SearchCarReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -26,5 +29,8 @@ export default combineReducers({
     instructExecutingReducer,
     taskForInstructExecutingReducer,
     carsReducer,
-    branchInstructExecutingReducer
+    branchInstructExecutingReducer,
+    truckReducer,
+    accidentListReducer,
+    searchCarReducer
 })

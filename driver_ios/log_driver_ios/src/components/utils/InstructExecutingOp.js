@@ -4,7 +4,7 @@ import {
     Text
 } from 'react-native'
 import { Button, Spinner } from 'native-base'
-import globalStyles from '../utils/GlobalStyles'
+import globalStyles from './GlobalStyles'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/index'
 

@@ -46,6 +46,7 @@ const NavBar = props => {
         <View style={ { width: initWidth}}>
             <StatusBar hidden={false} />
             <Header
+                transparent
                 style={[styles.header, globalStyles.styleBackgroundColor]}>
                 {LeftButton && <Left style={{ flex: 1 }}>
                     <LeftButton parent={parent} />
@@ -54,9 +55,9 @@ const NavBar = props => {
                 <Title style={[globalStyles.xlText, { color: '#fff'}]}>{title}</Title>
                 </Body>}
 
-                <Right style={{ flex:1}}>
+                {RightButton && <Right style={{ flex:1}}>
                     {RightButton && <RightButton parent={parent} initParam={initParam} />}
-                </Right>
+                </Right>}
             </Header>
         </View>
     )
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     },
     header: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     body: {
         flex: 4,

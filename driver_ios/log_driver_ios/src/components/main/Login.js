@@ -65,6 +65,7 @@ class Login extends Component {
                                 iconName='md-globe'
                                 placeholderText='请输入服务器域名'
                                 component={TextBox} />
+
                             <Field
                                 name='mobile'
                                 iconName='md-person'
