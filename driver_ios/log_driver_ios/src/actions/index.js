@@ -13,7 +13,9 @@ import * as carsAction from './main/CarsAction'
 import * as branchInstructExecutingAction from './main/BranchInstructExecutingAction'
 import * as truckAction from './main/TruckAction'
 import * as accidentListAction from './main/AccidentListAction'
-import * as searchCarAction from './modules/SearchCarAction'
+import * as searchCarAction from './main/SearchCarAction'
+import * as carInfoAction from './main/CarInfoAction'
+
 
 export {
     initializationAction,
@@ -31,6 +33,7 @@ export {
     branchInstructExecutingAction,
     truckAction,
     accidentListAction,
-    searchCarAction
+    searchCarAction,
+    carInfoAction
 
 }

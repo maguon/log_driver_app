@@ -28,7 +28,7 @@ import Home from './components/main/Home'
 import InstructExecuting from './components/main/InstructExecuting'
 import DriverQRCode from './components/main/DriverQRCode'
 import Cars from './components/main/Cars'
-import SearchCar from './components/modules/SearchCar'
+import SearchCar from './components/main/SearchCar'
 import BranchInstructExecuting from './components/main/BranchInstructExecuting'
 import Contact from './components/main/Contact'
 import  Truck from './components/main/Truck'
@@ -36,6 +36,7 @@ import AccidentListOperation from './components/utils/AccidentListOperation'
 import AccidentList from './components/main/AccidentList'
 import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
+import CarInfo from './components/main/CarInfo'
 
 
 //通用
@@ -173,8 +174,15 @@ const Root = () => {
                                            navBar={NavBar} />
                                     <Scene key="searchCar"
                                            hideTabBar
-                                           component={SearchCar}
-                                           navBar={NavSearchCarBar} />
+                                           navBar={NavSearchCarBar}
+                                           component={SearchCar}/>
+                                    <Scene key="carInfo"
+                                           title='商品车信息'
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={CarInfo}
+                                           hideTabBar
+                                           navBar={NavBar} />
                                     {/*<Scene key="vinScanner"*/}
                                            {/*component={VinScanner}*/}
                                            {/*title='扫条码'*/}

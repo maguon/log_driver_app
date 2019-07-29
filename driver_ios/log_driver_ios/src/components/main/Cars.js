@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import globalStyles from '../utils/GlobalStyles'
 import ConfirmModal from '../modules/ConfirmModal'
 import * as actions from '../../actions/index'
+import AntDesign from "react-native-vector-icons/AntDesign"
 
 const window = Dimensions.get('window')
 
@@ -170,13 +171,13 @@ class Cars extends Component {
                 {item.removeCommandCar.isResultStatus != 1 &&
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'flex-end'}}>
                     <TouchableOpacity onPress={() => this.removeCar(item)}>
-                        <Icon name='ios-close-circle'
-                              style={{color: '#fe8a95', fontSize: 26}}/>
+                        <AntDesign name='closecircle'
+                              style={{color: '#fe8a95', fontSize: 22}}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => Actions.carInfo({initParam: {vin: item.data.vin, carId: item.data.car_id}})}>
-                        <Icon name='ios-arrow-dropright-circle'
-                              style={{color: globalStyles.styleColor, marginLeft: 10, fontSize: 26}}/>
+                        <AntDesign name='rightcircle'
+                              style={{color:"#76b92c", marginLeft: 10, fontSize: 22}}/>
                     </TouchableOpacity>
                 </View>}
             </View>
@@ -200,8 +201,8 @@ class Cars extends Component {
                 <TouchableOpacity
                     style={{flexDirection: 'row', flex: 1, justifyContent: 'flex-end'}}
                     onPress={() => Actions.carInfo({initParam: {vin: item.data.vin, carId: item.data.car_id}})}>
-                    <Icon name='ios-arrow-dropright-circle'
-                          style={{color: globalStyles.styleColor, marginLeft: 10, fontSize: 26}}/>
+                    <AntDesign name='rightcircle'
+                               style={{color:"#76b92c", marginLeft: 10, fontSize: 22}}/>
                 </TouchableOpacity>
             </View>
         }

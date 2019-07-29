@@ -12,7 +12,8 @@ import * as carsActionType from './main/CarsActionType'
 import * as branchInstructExecutingActionType from './main/BranchInstructExecutingActionType'
 import * as truckActionType from './main/TruckActionType'
 import * as accidentListActionType from './main/AccidentListActionType'
-import * as searchCarTypes from './modules/SearchCarTypes'
+import * as searchCarTypes from './main/SearchCarTypes'
+import * as carInfoActionType from './main/CarInfoActionType'
 
 export {
     initializationTypes,
@@ -29,5 +30,6 @@ export {
     branchInstructExecutingActionType,
     truckActionType,
     accidentListActionType,
-    searchCarTypes
+    searchCarTypes,
+    carInfoActionType
 }

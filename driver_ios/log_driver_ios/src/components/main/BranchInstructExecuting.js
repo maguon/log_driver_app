@@ -9,6 +9,7 @@ import {
     Modal,
     Linking,
     Alert,
+    Dimensions
 } from 'react-native'
 import {Icon, Button, Toast} from 'native-base'
 import {connect} from 'react-redux'
@@ -18,6 +19,7 @@ import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
+const window=Dimensions.get('window')
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -114,27 +116,42 @@ class BranchInstructExecuting extends Component {
     renderFooter() {
 
         // const { loadTaskInfo } = this.props.initParam
-        const {task_status} = this.props.initParam
-        console.log("task_status+++++++++++++++++++++++++++"+task_status)
+        const { task_status } = this.props.initParam
         if (task_status < 4) {
-            return <View/>
+            return <View />
         } else {
-            const {routeLoadTaskList, loadTaskInfo} = this.props.branchInstructExecutingReducer.data
+            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
             const total = routeLoadTaskList.reduce((sum, value) => {
                 return sum && value.car_load_status == 2 //&& value.exception_status != 1
             }, true)
             if (total && loadTaskInfo.load_task_status == 3) {
-                return
-                <View style={{padding: 10, alignSelf: 'flex-end'}}>
-                    <Button small rounded onPress={this.changeLoadTaskStatus} style={{backgroundColor:'#76b92c'}}>
-                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
+                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                    <Button style={{
+                        backgroundColor: styleColor,
+                        justifyContent: 'center',
+                        width: window.width * 0.9,
+                        padding: 10,
+                        marginBottom: 10,
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 50
+                    }}onPress={this.changeLoadTaskStatus}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
                     </Button>
                 </View>
             } else if (!total && loadTaskInfo.load_task_status == 3) {
-                return
-                <View style={{padding: 10, alignSelf: 'flex-end'}}>
-                    <Button small rounded disabled style={{backgroundColor: '#c4c4c4'}}>
-                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
+                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                    <Button style={{
+                        backgroundColor: '#c4c4c4',
+                        justifyContent: 'center',
+                        width: window.width * 0.9,
+                        padding: 10,
+                        marginBottom: 10,
+                        marginLeft: 10,
+                        marginRight: 10,
+                        marginTop: 50
+                    }}>
+                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
                     </Button>
                 </View>
             }
@@ -252,7 +269,7 @@ class BranchInstructExecuting extends Component {
                         borderTopWidth: 0.5,
                         alignItems: 'center'
                     }}>
-                        <View style={{flex: 2}}>
+                        <View style={{flex:3}}>
                             <Text
                                 style={[globalStyles.largeText, {color: styleColor}]}>前往：
                                 {loadTaskInfo.short_name ? loadTaskInfo.short_name : ''} {loadTaskInfo.make_name ?
@@ -261,7 +278,7 @@ class BranchInstructExecuting extends Component {
                                 <MaterialIcons name='place' size={15}/>
                                 {loadTaskInfo.address ? loadTaskInfo.address : ''}</Text>
                         </View>
-                        <View style={{flex: 1, position: 'absolute', right: 80}}>
+                        <View style={{flex: 0.5}}>
                             <Button small style={{
                                 width: 30,
                                 height: 30,
@@ -282,7 +299,7 @@ class BranchInstructExecuting extends Component {
                             </Button>
 
                         </View>
-                        <View style={{flex: 1, position: 'absolute', right: 30}}>
+                        <View style={{flex: 0.5}}>
                             <Button small style={{
                                 width: 30,
                                 height: 30,

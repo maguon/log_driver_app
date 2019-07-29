@@ -42,7 +42,7 @@ const NavSearchCarBar = props => {
         <View style={[styles.container]}>
             <StatusBar hidden={false} />
             <Header
-                androidStatusBarColor={styleColor}
+                transparent
                 style={globalStyles.styleBackgroundColor}>
                 <Left style={styles.left}>
                     <Button transparent onPress={Actions.pop}>

@@ -8,7 +8,7 @@ const pageSize = 10
 
 export const getCarList = req => async (dispatch, getState) => {
     try {
-        const { communicationSettingReducer: { data: { base_host} } } = getState()
+        const { loginReducer: { url: { base_host} } } = getState()
         const searchFormValues = getFormValues('searchCarForm')(getState())
         const url = `${base_host}/carList?${ObjectToUrl({
             vinCode: searchFormValues ? searchFormValues.vin : null,
@@ -17,7 +17,7 @@ export const getCarList = req => async (dispatch, getState) => {
             size: pageSize,
             ...req
         })}`
-        // console.log('url',url)
+         console.log('url',url)
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.searchCarTypes.search_carListForSelect_success, payload: { carList: res.result } })
