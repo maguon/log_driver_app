@@ -15,7 +15,7 @@ import {
     Stack,
     Lightbox,
 } from "react-native-router-flux";
-
+import Orientation from 'react-native-orientation'
 
 //初始页面
 import Initialization from './components/main/Initialization'
@@ -183,12 +183,13 @@ const Root = () => {
                                            component={CarInfo}
                                            hideTabBar
                                            navBar={NavBar} />
-                                    {/*<Scene key="vinScanner"*/}
-                                           {/*component={VinScanner}*/}
-                                           {/*title='扫条码'*/}
-                                           {/*navBar={NavBar}*/}
-                                           {/*hideTabBar*/}
-                                           {/*LeftButton={LeftButton} />*/}
+                                    <Scene key="vinScanner"
+                                           component={VinScanner}
+                                           title='扫条码'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
                                 </Scene>
 
 
@@ -259,6 +260,10 @@ const Root = () => {
 class App extends Component {
     constructor(props) {
         super(props)
+    }
+
+    componentDidMount() {
+        Orientation.lockToPortrait()
     }
 
     render() {

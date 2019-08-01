@@ -1,21 +1,23 @@
-import React,{Component} from 'react'
-import {Dimensions, Image,Linking, ImageBackground, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native'
+import React, {Component} from 'react'
+import {Dimensions, Image, Linking, ImageBackground, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {connect} from 'react-redux'
-import {Button,Icon,Item,Text,Input,Container,Root} from 'native-base'
-import { Actions } from 'react-native-router-flux'
-import { Field,reduxForm} from 'redux-form'
+import {Button, Icon, Item, Text, Input, Container, Root} from 'native-base'
+import {Actions} from 'react-native-router-flux'
+import {Field, reduxForm} from 'redux-form'
 import * as actions from '../../actions/index'
 import globalStyles from '../utils/GlobalStyles'
 import * as ios_app from '../../ios_app.json'
+import Orientation from "react-native-orientation";
+
 
 const window = Dimensions.get('window')
 
 const TextBox = props => {
-    const { iconName, placeholderText, input: { onChange, ...restProps }, secureTextEntry = false } = props
+    const {iconName, placeholderText, input: {onChange, ...restProps}, secureTextEntry = false} = props
     console.log('props', props)
     return (
         <Item rounded style={styles.item}>
-            <Icon active name={iconName} style={styles.itemIcon} />
+            <Icon active name={iconName} style={styles.itemIcon}/>
             <Input placeholder={placeholderText}
                    placeholderTextColor='rgba(255,255,255,0.4)'
                    selectionColor='rgba(255,255,255,0.4)'
@@ -32,56 +34,65 @@ class Login extends Component {
         super(props)
     }
 
+    componentDidMount() {
+        Orientation.lockToPortrait()
+    }
+
     render() {
-        const { handleSubmit, initializationReducer: { data: { version: { force_update, url } } } } = this.props
+        const {handleSubmit, initializationReducer: {data: {version: {force_update, url}}}} = this.props
         console.log('ios_app', ios_app)
         console.log('force_update', force_update)
         return (
             <Root>
                 <Container style={styles.container}>
-                    <StatusBar hidden={true} />
+                    <StatusBar hidden={true}/>
 
 
                     <ImageBackground
-                        source={require('../../images/login_back.png' )}
-                        style={styles.backgroundImage} >
-                        <View style={{ paddingTop: 80 }}>
+                        source={require('../../images/login_back.png')}
+                        style={styles.backgroundImage}>
+                        <View style={{position: 'absolute', top: window.height / 10}}>
                             <View style={styles.logoContainer}>
                                 <Image
-                                    source={require('../../images/logo.png' )}
-                                    style={styles.logo} />
+                                    source={require('../../images/logo.png')}
+                                    style={styles.logo}/>
                             </View>
                             <View>
                                 <Image
-                                    source={require('../../images/app_name.png' )}
-                                    style={styles.appName} />
+                                    source={require('../../images/app_name.png')}
+                                    style={styles.appName}/>
                             </View>
                         </View>
-                        <Text style={[globalStyles.smallText, { color: 'rgba(255,255,255,0.5)', position: 'absolute', top: 5, right: 5 }]}>{ios_app.version}</Text>
+                        <Text style={[globalStyles.smallText, {
+                            color: 'rgba(255,255,255,0.5)',
+                            position: 'absolute',
+                            top: 5,
+                            right: 15
+                        }]}>{ios_app.version}</Text>
 
                         {force_update != 1 && <View style={styles.formContainer}>
                             <Field
                                 name='server'
                                 iconName='md-globe'
                                 placeholderText='请输入服务器域名'
-                                component={TextBox} />
+                                component={TextBox}/>
 
                             <Field
                                 name='mobile'
                                 iconName='md-person'
                                 placeholderText='请输入用户名'
-                                component={TextBox} />
+                                component={TextBox}/>
                             <Field
                                 name='password'
                                 secureTextEntry={true}
                                 iconName='md-lock'
                                 placeholderText='请输入密码'
-                                component={TextBox} />
-                            <Button style={[styles.itemButton, { backgroundColor: '#00cade' }]}
+                                component={TextBox}/>
+                            <Button style={[styles.itemButton, {backgroundColor: '#00cade'}]}
                                     onPress={handleSubmit}>
                                 <Text style={[globalStyles.midText, styles.buttonTittle]}>登录</Text>
                             </Button>
-                            <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                            <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
                                 <TouchableOpacity style={styles.linkButton} onPress={() => Actions.retrievePassword()}>
                                     <Text style={[globalStyles.midText, styles.linkButtonTittle]}>忘记密码</Text>
                                 </TouchableOpacity>
@@ -89,7 +100,7 @@ class Login extends Component {
 
                         </View>}
                         {force_update == 1 && <View style={styles.formContainer}>
-                            <Button style={[globalStyles.styleBackgroundColor, { marginTop: 50 }]} onPress={() => {
+                            <Button style={[globalStyles.styleBackgroundColor, {marginTop: 50}]} onPress={() => {
                                 if (url) {
                                     Linking.canOpenURL(url)
                                         .then(supported => {
@@ -120,7 +131,7 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         width: window.width,
-        height: window.width / 9 * 16,
+        height: window.height,
         alignItems: 'center'
     },
     item: {
@@ -173,7 +184,9 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     formContainer: {
-        marginTop: 30
+        marginTop: 30,
+        position: 'absolute',
+        top: window.height / 3
     }
 })
 
@@ -195,7 +208,7 @@ export default connect(mapStateToProps)(
         enableReinitialize: true,
         onSubmit: (values, dispatch) => {
             dispatch(actions.loginAction.validateVersion(values))
-            console.log(JSON.stringify(values)+"------------------------")
+            console.log(JSON.stringify(values) + "------------------------")
         }
     })(Login))
 

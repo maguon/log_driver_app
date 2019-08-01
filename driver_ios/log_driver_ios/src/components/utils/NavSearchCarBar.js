@@ -107,10 +107,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     body: {
-        flex: 5
+        flex: 4
     },
     leftIcon: {
-        color: '#fff'
+        color: '#fff',
+        paddingRight:5
     },
     inputContainer: {
         flex: 1,

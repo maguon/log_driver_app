@@ -23,6 +23,10 @@ target 'log_driver_ios' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'react-native-amap3d', path: '../node_modules/react-native-amap3d/lib/ios'
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
+
 end
 
 post_install do |installer|

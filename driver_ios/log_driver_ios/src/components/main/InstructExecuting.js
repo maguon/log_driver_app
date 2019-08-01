@@ -90,7 +90,6 @@ class InstructExecuting extends Component {
 
     render() {
         const { taskInfo} = this.props.instructExecutingReducer.data
-        console.log("taskInfo----------------------------------"+JSON.stringify(taskInfo))
         return (
             <Container>
                 <TaskForInstructExecuting taskId={taskInfo.id} />
