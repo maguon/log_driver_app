@@ -78,7 +78,7 @@ const TaskListForHome = props => {
         if (taskList.length > 0) {
             return (
                 <FlatList
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     data={taskList}
                     removeClippedSubviews={true}
                     renderItem={itemProps => TaskListItem({setTaskInfo, ...itemProps})}/>

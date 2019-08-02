@@ -19,7 +19,7 @@ import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-const window=Dimensions.get('window')
+const window = Dimensions.get('window')
 
 class BranchInstructExecuting extends Component {
     constructor(props) {
@@ -90,6 +90,7 @@ class BranchInstructExecuting extends Component {
     }
 
     changeCarLoadStatus(param) {
+
         Alert.alert(
             '提示',
             `确认该车辆送达？`,
@@ -116,16 +117,17 @@ class BranchInstructExecuting extends Component {
     renderFooter() {
 
         // const { loadTaskInfo } = this.props.initParam
-        const { task_status } = this.props.initParam
+        const {task_status} = this.props.initParam
         if (task_status < 4) {
             return <View />
         } else {
-            const { routeLoadTaskList, loadTaskInfo } = this.props.branchInstructExecutingReducer.data
+            const {routeLoadTaskList, loadTaskInfo} = this.props.branchInstructExecutingReducer.data
             const total = routeLoadTaskList.reduce((sum, value) => {
-                return sum && value.car_load_status == 2 //&& value.exception_status != 1
+                return sum && value.car_load_status == 2
             }, true)
+            console.log("total==="+total)
             if (total && loadTaskInfo.load_task_status == 3) {
-                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                return <View style={{padding: 10, alignSelf: 'flex-end'}}>
                     <Button style={{
                         backgroundColor: styleColor,
                         justifyContent: 'center',
@@ -135,12 +137,12 @@ class BranchInstructExecuting extends Component {
                         marginLeft: 10,
                         marginRight: 10,
                         marginTop: 50
-                    }}onPress={this.changeLoadTaskStatus}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                    }} onPress={this.changeLoadTaskStatus}>
+                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
                     </Button>
                 </View>
             } else if (!total && loadTaskInfo.load_task_status == 3) {
-                return <View style={{ padding: 10, alignSelf: 'flex-end' }}>
+                return <View style={{padding: 10, alignSelf: 'flex-end'}}>
                     <Button style={{
                         backgroundColor: '#c4c4c4',
                         justifyContent: 'center',
@@ -151,7 +153,7 @@ class BranchInstructExecuting extends Component {
                         marginRight: 10,
                         marginTop: 50
                     }}>
-                        <Text style={[globalStyles.midText, { color: '#fff' }]}>完成</Text>
+                        <Text style={[globalStyles.midText, {color: '#fff'}]}>完成</Text>
                     </Button>
                 </View>
             }
@@ -160,8 +162,8 @@ class BranchInstructExecuting extends Component {
     }
 
     renderListItem(item, key) {
-        // console.log('item', item)
-        // console.log('this.props',this.props)
+        console.log('item', item)
+        console.log('this.props', this.props)
         const {taskListForHomeReducer: {data: {taskList}}} = this.props
 
         const {task_status} = this.props.initParam
@@ -189,6 +191,7 @@ class BranchInstructExecuting extends Component {
                     color: styleColor,
                     marginVertical: 10
                 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
                     this.changeCarLoadStatus(item.id)
                 }}>
@@ -269,7 +272,7 @@ class BranchInstructExecuting extends Component {
                         borderTopWidth: 0.5,
                         alignItems: 'center'
                     }}>
-                        <View style={{flex:3}}>
+                        <View style={{flex: 3}}>
                             <Text
                                 style={[globalStyles.largeText, {color: styleColor}]}>前往：
                                 {loadTaskInfo.short_name ? loadTaskInfo.short_name : ''} {loadTaskInfo.make_name ?
@@ -307,10 +310,19 @@ class BranchInstructExecuting extends Component {
                                 backgroundColor: styleColor,
                                 justifyContent: 'center'
                             }} onPress={() => {
+                                console.log("contactList====================" + contactList)
                                 if (contactList.length > 0) {
                                     this.setState({modalVisible: true})
                                 } else {
-                                    Toast.show({text: '该经销商暂无联系人'})
+                                    // Toast.show({text: '该经销商暂无联系人'})
+                                    Alert.alert(
+                                        '',
+                                        '该经销商暂无联系人',
+                                        [
+                                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                                        ],
+                                        {cancelable: false}
+                                    )
                                 }
                             }}>
                                 <MaterialIcons name='local-phone' style={{color: '#fff'}} size={20}/>
@@ -358,7 +370,7 @@ class BranchInstructExecuting extends Component {
                     </View>
 
                     <FlatList
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => `${index}`}
                         data={routeLoadTaskList}
                         renderItem={({item, index}) => this.renderListItem(item, index)}
                         ListFooterComponent={this.renderFooter()}/>

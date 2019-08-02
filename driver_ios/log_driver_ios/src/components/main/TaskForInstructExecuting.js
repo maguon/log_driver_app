@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
     Text,
     View,
-    Alert
+    Alert,
 } from 'react-native'
-import { Toast,Icon, Button } from 'native-base'
-import { connect } from 'react-redux'
+import {Toast, Icon, Button} from 'native-base'
+import {connect} from 'react-redux'
 import moment from 'moment'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import globalStyles, { styleColor } from '../utils/GlobalStyles'
+import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import * as actions from '../../actions/index'
 import ConfirmModal from '../modules/ConfirmModal'
 import StepIndicator from '../modules/StepIndicator'
-
-
 
 
 const getStepIndicatorCurrent = (index) => {
@@ -67,7 +65,6 @@ class TaskForInstructExecuting extends Component {
     }
 
     onPressOk() {
-        this.setState({ confirmModalVisible: false })
         const { taskInfo,
             routeTaskListForHomeReducer: { data: { routeTaskList } },
             taskListForHomeReducer: { data: { taskList } } } = this.props
@@ -82,84 +79,98 @@ class TaskForInstructExecuting extends Component {
                     taskId: taskInfo.id,
                     taskStatus: nextStepIndex
                 })
+                this.setState({ confirmModalVisible: false })
             } else {
                 Alert.alert(
                     '提示',
                     '有未完成路线，请完成所有其他已执行的路线，再执行其他路线！',
                     [
-                        { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                        { text: '确定', onPress: () =>{
+                                console.log('Cancel Pressed')
+                                this.setState({ confirmModalVisible: false })
+                            } },
                     ],
                     { cancelable: false }
                 )
             }
         } else if (nextStepIndex == 9) {
+
             const loadTaskListIsFinished = routeTaskList.every(item => {
                 if (item.transfer_flag == 1) {
                     if (item.route_end_id == taskInfo.transfer_city_id) {
-                        if (item.load_task_status != 3) {
-                            return true
-                        } else {
-                            return false
-                        }
+                        return item.load_task_status != 3
                     } else {
                         return true
                     }
                 } else {
                     if (item.route_end_id == taskInfo.route_end_id) {
-                        if (item.load_task_status != 3) {
-                            return true
-                        } else {
-                            return false
-                        }
+                        return  item.load_task_status != 3
                     } else {
                         return true
                     }
                 }
             })
+
             if (loadTaskListIsFinished) {
                 this.props.changeTaskStatus({
                     taskId: taskInfo.id,
                     taskStatus: nextStepIndex
                 })
+                this.setState({ confirmModalVisible: false })
             } else {
-                Toast.show({text:'有未卸车任务，请先车再完成路线！'})
+                console.log('hello')
+                Alert.alert(
+                    '提示',
+                    '有未卸车任务，请先卸车再完成路线！',
+                    [
+                        { text: '确定', onPress: () =>{
+                                console.log('Cancel Pressed')
+                                this.setState({ confirmModalVisible: false })
+                        } },
+                    ],
+                    { cancelable: false }
+                )
             }
         } else {
             this.props.changeTaskStatus({
                 taskId: taskInfo.id,
                 taskStatus: nextStepIndex
             })
+            this.setState({ confirmModalVisible: false })
         }
+
     }
 
+
     onPressCancel() {
-        this.setState({ confirmModalVisible: false })
+        this.setState({confirmModalVisible: false})
     }
+
     changeLoadTaskStatus() {
-        this.setState({ confirmModalVisible: true })
+        this.setState({confirmModalVisible: true})
     }
 
 
     render() {
-        const { taskInfo, routeTaskList } = this.props
+        const {taskInfo, routeTaskList} = this.props
         const nextStepName = getNextStepName(taskInfo.task_status)
         // console.log('this.props', this.props)
         return (
-            <View >
+            <View>
                 <StepIndicator
-                    stepList={[{ step: '1', title: '下达' }
-                        , { step: '2', title: '接受' }
-                        , { step: '3', title: '装车' }
-                        , { step: '4', title: '在途' }
-                        , { step: '5', title: '完成' }]}
-                    current={getStepIndicatorCurrent(taskInfo.task_status)} />
-                <View style={{ backgroundColor: '#f2f6f9', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc' }}>
-                    <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-                        <Text style={[globalStyles.smallText, { color: '#8b959b' }]}>
+                    stepList={[{step: '1', title: '下达'}
+                        , {step: '2', title: '接受'}
+                        , {step: '3', title: '装车'}
+                        , {step: '4', title: '在途'}
+                        , {step: '5', title: '完成'}]}
+                    current={getStepIndicatorCurrent(taskInfo.task_status)}/>
+                <View style={{backgroundColor: '#f2f6f9', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={[globalStyles.smallText, {color: '#8b959b'}]}>
                             指令编号：{taskInfo.id ? `${taskInfo.id}` : ''}
                         </Text>
-                        <Text style={[globalStyles.smallText, { color: '#8b959b'}]}>
-                            <Text style={{ color: styleColor }}>
+                        <Text style={[globalStyles.smallText, {color: '#8b959b'}]}>
+                            <Text style={{color: styleColor}}>
                                 {taskInfo.task_status == 1 && '未接受'}
                                 {taskInfo.task_status == 2 && '已接受'}
                                 {taskInfo.task_status == 3 && '已执行'}
@@ -170,66 +181,105 @@ class TaskForInstructExecuting extends Component {
                             </Text>
                         </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', backgroundColor: '#eff3f5', paddingTop: 10, alignItems: 'center' }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <MaterialCommunityIcons name='truck' size={20} color={styleColor} />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <View style={{
+                            flexDirection: 'row',
+                            backgroundColor: '#eff3f5',
+                            paddingTop: 10,
+                            alignItems: 'center'
+                        }}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <MaterialCommunityIcons name='truck' size={20} color={styleColor}/>
                             </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
-                                <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}>{taskInfo.city_route_start ? taskInfo.city_route_start : ''} </Text>
-                                <MaterialCommunityIcons name='transfer-right' size={20} style={{ paddingLeft: 5, color: '#8c989f' }} />
-                                <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold', paddingLeft: 5 }]}> {taskInfo.city_route_end ? taskInfo.city_route_end : ''}</Text>
+                            <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 10}}>
+                                <Text style={[globalStyles.midText, {
+                                    color: '#8b959b',
+                                    fontWeight: 'bold'
+                                }]}>{taskInfo.city_route_start ? taskInfo.city_route_start : ''} </Text>
+                                <MaterialCommunityIcons name='transfer-right' size={20}
+                                                        style={{paddingLeft: 5, color: '#8c989f'}}/>
+                                <Text style={[globalStyles.midText, {
+                                    color: '#8b959b',
+                                    fontWeight: 'bold',
+                                    paddingLeft: 5
+                                }]}> {taskInfo.city_route_end ? taskInfo.city_route_end : ''}</Text>
                             </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 40 }}>
-                                <Text style={[globalStyles.midText, { color: '#8b959b', fontWeight: 'bold' }]}><Text style={{ color: '#d69aa5' }}>{taskInfo.distance ? `${taskInfo.distance}` : '0'}</Text>公里</Text>
+                            <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 40}}>
+                                <Text style={[globalStyles.midText, {color: '#8b959b', fontWeight: 'bold'}]}><Text
+                                    style={{color: '#d69aa5'}}>{taskInfo.distance ? `${taskInfo.distance}` : '0'}</Text>公里</Text>
                             </View>
                         </View>
-                        <View style={{marginTop:10}}>
-                            {taskInfo.task_status == 1 &&<Button small rounded style={{ backgroundColor: styleColor, width:60, alignItems:'center', justifyContent:'center'}} onPress={this.changeLoadTaskStatus}>
-                                <Text style={[globalStyles.smallText, { color: '#fff'}]}>接受</Text>
+                        <View style={{marginTop: 10}}>
+                            {taskInfo.task_status == 1 && <Button small rounded style={{
+                                backgroundColor: styleColor,
+                                width: 60,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} onPress={this.changeLoadTaskStatus}>
+                                <Text style={[globalStyles.smallText, {color: '#fff'}]}>接受</Text>
                             </Button>}
-                            {taskInfo.task_status == 2 && <Button small rounded style={{ backgroundColor: styleColor , width:60, alignItems:'center', justifyContent:'center'}} onPress={this.changeLoadTaskStatus}>
-                                <Text style={[globalStyles.smallText, { color: '#fff' }]}>执行</Text>
+                            {taskInfo.task_status == 2 && <Button small rounded style={{
+                                backgroundColor: styleColor,
+                                width: 60,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} onPress={this.changeLoadTaskStatus}>
+                                <Text style={[globalStyles.smallText, {color: '#fff'}]}>执行</Text>
                             </Button>}
-                            {taskInfo.task_status == 3 && routeTaskList.length == 0 && < Button small rounded style={{ backgroundColor: styleColor , width:60, alignItems:'center', justifyContent:'center'}} onPress={this.changeLoadTaskStatus}>
-                                <Text style={[globalStyles.smallText, { color: '#fff'}]}>发车</Text>
+                            {taskInfo.task_status == 3 && routeTaskList.length == 0 && < Button small rounded style={{
+                                backgroundColor: styleColor,
+                                width: 60,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} onPress={this.changeLoadTaskStatus}>
+                                <Text style={[globalStyles.smallText, {color: '#fff'}]}>发车</Text>
                             </Button>}
-                            {taskInfo.task_status == 3 && routeTaskList.length > 0 && < Button small rounded disabled style={{width:60, alignItems:'center', justifyContent:'center' }}>
-                                <Text style={[globalStyles.smallText, { color: '#fff' }]}>待装车</Text>
+                            {taskInfo.task_status == 3 && routeTaskList.length > 0 && < Button small rounded disabled
+                                                                                               style={{
+                                                                                                   width: 60,
+                                                                                                   alignItems: 'center',
+                                                                                                   justifyContent: 'center'
+                                                                                               }}>
+                                <Text style={[globalStyles.smallText, {color: '#fff'}]}>待装车</Text>
                             </Button>}
-                            {taskInfo.task_status == 4 && <Button small rounded style={{ backgroundColor: styleColor, width:60, alignItems:'center', justifyContent:'center' }} onPress={this.changeLoadTaskStatus}>
-                                <Text style={[globalStyles.smallText, { color: '#fff' }]}>完成</Text>
+                            {taskInfo.task_status == 4 && <Button small rounded style={{
+                                backgroundColor: styleColor,
+                                width: 60,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }} onPress={this.changeLoadTaskStatus}>
+                                <Text style={[globalStyles.smallText, {color: '#fff'}]}>完成</Text>
                             </Button>}
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-clock' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>指令时间：{taskInfo.task_plan_date ? moment(new Date(taskInfo.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
+                    <View style={{flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between'}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Icon name='ios-clock' style={{fontSize: 15, color: '#8b959b'}}/>
+                            <Text style={[globalStyles.smallText, {
+                                paddingLeft: 5,
+                                color: '#8b959b'
+                            }]}>指令时间：{taskInfo.task_plan_date ? moment(new Date(taskInfo.task_plan_date)).format('YYYY-MM-DD') : ''}</Text>
                         </View>
-                        {/*{taskInfo.reverse_flag == 1&& <View style={{ flexDirection: 'row' }}>*/}
-                            {/*<Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>倒板</Text>*/}
-                        {/*</View>}*/}
 
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>指令调度：{taskInfo.route_op_name ? taskInfo.route_op_name : ''}</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Icon name='ios-person' style={{fontSize: 15, color: '#8b959b'}}/>
+                            <Text style={[globalStyles.smallText, {
+                                paddingLeft: 5,
+                                color: '#8b959b'
+                            }]}>指令调度：{taskInfo.route_op_name ? taskInfo.route_op_name : ''}</Text>
                         </View>
                     </View>
-                    {/*<View style={{ flexDirection: 'row', paddingBottom: 10, justifyContent: 'space-between' }}>*/}
-                        {/*<View style={{ flexDirection: 'row' }}>*/}
-                            {/*<Icon name='ios-person' style={{ fontSize: 15, color: '#8b959b' }} />*/}
-                            {/*<Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>指令调度：{taskInfo.route_op_name ? taskInfo.route_op_name : ''}</Text>*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={[globalStyles.smallText, { paddingLeft: 5, color: '#8b959b' }]}>计划运送：{`${routeTaskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}`}</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Icon name='ios-car' style={{fontSize: 15, color: '#8b959b'}}/>
+                            <Text style={[globalStyles.smallText, {
+                                paddingLeft: 5,
+                                color: '#8b959b'
+                            }]}>计划运送：{`${routeTaskList.reduce((sum, value) => sum + (value.plan_count ? value.plan_count : 0), 0)}`}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Icon name='ios-car' style={{ fontSize: 15, color: '#8b959b' }} />
-                            <Text style={[globalStyles.smallText, {paddingLeft: 5, color: '#8b959b' }]}>实际运输：
+                        <View style={{flexDirection: 'row'}}>
+                            <Icon name='ios-car' style={{fontSize: 15, color: '#8b959b'}}/>
+                            <Text style={[globalStyles.smallText, {paddingLeft: 5, color: '#8b959b'}]}>实际运输：
                                 {taskInfo.real_count ? taskInfo.real_count : 0}
                             </Text>
                         </View>
@@ -237,7 +287,7 @@ class TaskForInstructExecuting extends Component {
                 </View>
 
                 <ConfirmModal
-                   //确定模态框
+                    //确定模态框
                     title={`确认要${nextStepName}吗？`}
                     isVisible={this.state.confirmModalVisible}
                     onPressOk={this.onPressOk}

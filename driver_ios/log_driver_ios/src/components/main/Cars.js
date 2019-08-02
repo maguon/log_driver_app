@@ -143,6 +143,7 @@ class Cars extends Component {
 
     renderListItem(item) {
         const {taskInfo} = this.props.carsReducer.data
+        console.log("item========================"+JSON.stringify(item))
         if (taskInfo.load_task_status == 1) {
             return <View style={{
                 flexDirection: 'row',
@@ -212,7 +213,8 @@ class Cars extends Component {
     render() {
         const {carList, taskInfo} = this.props.carsReducer.data
         const {pushCarInCommand, getCommandCarList} = this.props.carsReducer
-
+        console.log("carList========================"+JSON.stringify(carList))
+        console.log("getCommandCarList========================"+JSON.stringify(getCommandCarList))
         if (getCommandCarList.isResultStatus == 1) {
             return (
                 <View style={{flex: 1}}>

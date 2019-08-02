@@ -7,7 +7,6 @@ import {Field, reduxForm} from 'redux-form'
 import * as actions from '../../actions/index'
 import globalStyles from '../utils/GlobalStyles'
 import * as ios_app from '../../ios_app.json'
-import Orientation from "react-native-orientation";
 
 
 const window = Dimensions.get('window')
@@ -34,9 +33,6 @@ class Login extends Component {
         super(props)
     }
 
-    componentDidMount() {
-        Orientation.lockToPortrait()
-    }
 
     render() {
         const {handleSubmit, initializationReducer: {data: {version: {force_update, url}}}} = this.props

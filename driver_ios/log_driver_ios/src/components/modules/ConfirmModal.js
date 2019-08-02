@@ -5,11 +5,12 @@ import { styleColor } from '../utils/GlobalStyles'
 const ConfirmModal = ({ onPressOk, onPressCancel, isVisible,title }) => {
     //确定模态框
     return (
+
         <Modal
             animationType='fade'
             transparent
             visible={isVisible}
-            onRequestClose={() => { }}
+             onRequestClose={() => { }}
         >
             <View style={styles.modalStyle}>
                 <View style={styles.subView}>
