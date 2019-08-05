@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {  View, Dimensions, StyleSheet, Image } from 'react-native'
-import { Spinner } from 'native-base'
+import { Text, View, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Button, Icon, Spinner } from 'native-base'
 import globalStyles, { styleColor } from './GlobalStyles'
 
 

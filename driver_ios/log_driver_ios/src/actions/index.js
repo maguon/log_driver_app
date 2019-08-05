@@ -15,7 +15,7 @@ import * as truckAction from './main/TruckAction'
 import * as accidentListAction from './main/AccidentListAction'
 import * as searchCarAction from './main/SearchCarAction'
 import * as carInfoAction from './main/CarInfoAction'
-
+import * as imageForAccidentAction from './main/ImageForAccidentAction'
 
 export {
     initializationAction,
@@ -34,6 +34,7 @@ export {
     truckAction,
     accidentListAction,
     searchCarAction,
-    carInfoAction
+    carInfoAction,
+    imageForAccidentAction
 
 }

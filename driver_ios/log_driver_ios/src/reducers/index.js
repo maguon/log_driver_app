@@ -16,6 +16,7 @@ import truckReducer from './main/TruckReducer'
 import accidentListReducer from './main/AccidentListReducer'
 import searchCarReducer from './main/SearchCarReducer'
 import carInfoReducer from './main/CarInfoReducer'
+import imageForAccidentReducer from './main/ImageForAccidentReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
     truckReducer,
     accidentListReducer,
     searchCarReducer,
-    carInfoReducer
+    carInfoReducer,
+    imageForAccidentReducer
 })

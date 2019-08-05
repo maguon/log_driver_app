@@ -205,13 +205,13 @@ const Root = () => {
                                        title="货车管理"
                                        navBar={NavBar}
                                 />
-                                    {/*<Scene key="accidentList"*/}
-                                           {/*component={AccidentList}*/}
-                                           {/*title='事故列表'*/}
-                                           {/*navBar={NavBar}*/}
-                                           {/*hideTabBar*/}
-                                           {/*LeftButton={LeftButton}*/}
-                                           {/*RightButton={AccidentListOperation} />*/}
+                                    <Scene key="accidentList"
+                                           component={AccidentList}
+                                           title='事故列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={AccidentListOperation} />
 
 
 
