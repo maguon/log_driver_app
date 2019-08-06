@@ -11,9 +11,9 @@ import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Button, Icon, } from 'native-base'
 import { reduxForm, Field } from 'redux-form'
-import DatePicker from './DatePicker'
+import DatePicker from '../utils/DatePicker'
 import * as actions from '../../actions/index'
-import globalStyles from './GlobalStyles'
+import globalStyles from '../utils/GlobalStyles'
 
 const { width } = Dimensions.get('window')
 

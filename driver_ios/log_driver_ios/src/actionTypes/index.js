@@ -16,6 +16,10 @@ import * as searchCarTypes from './main/SearchCarTypes'
 import * as carInfoActionType from './main/CarInfoActionType'
 import * as imageForAccidentType from './main/ImageForAccidentType'
 
+import * as truckDetailActionType from './main/TruckDetailActionType'
+import * as truckImageActionType from './main/TruckImageActionType'
+import * as truckInsuranceActionType from './main/TruckInsuranceActionType'
+import * as truckRepairListActionType from './main/TruckRepairListActionType'
 
 export {
     initializationTypes,
@@ -34,5 +38,11 @@ export {
     accidentListActionType,
     searchCarTypes,
     carInfoActionType,
-    imageForAccidentType
+    imageForAccidentType,
+
+
+    truckDetailActionType,
+    truckImageActionType,
+    truckInsuranceActionType,
+    truckRepairListActionType
 }

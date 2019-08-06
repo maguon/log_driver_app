@@ -17,6 +17,12 @@ import * as searchCarAction from './main/SearchCarAction'
 import * as carInfoAction from './main/CarInfoAction'
 import * as imageForAccidentAction from './main/ImageForAccidentAction'
 
+
+import * as truckDetailAction from './main/TruckDetailAction'
+import * as truckImageAction from './main/TruckImageAction'
+import * as truckInsuranceAction from './main/TruckInsuranceAction'
+import * as truckRepairListAction from './main/TruckRepairListAction'
+
 export {
     initializationAction,
     communicationSettingActions,
@@ -35,6 +41,12 @@ export {
     accidentListAction,
     searchCarAction,
     carInfoAction,
-    imageForAccidentAction
+    imageForAccidentAction,
+
+
+    truckDetailAction,
+    truckImageAction,
+    truckInsuranceAction,
+    truckRepairListAction
 
 }

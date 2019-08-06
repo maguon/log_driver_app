@@ -12,7 +12,7 @@ import {
 import ImageItem from '../utils/ImageItem'
 import globalStyles from '../utils/GlobalStyles'
 import { connect } from 'react-redux'
-import CameraButton from '../utils/CameraButton'
+import CameraButton from '../modules/CameraButton'
 import { Container } from 'native-base'
 import * as  actions from '../../actions/index'
 import { Actions } from 'react-native-router-flux'

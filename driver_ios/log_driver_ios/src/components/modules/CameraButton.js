@@ -10,7 +10,7 @@ import { Button, Icon } from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
-import globalStyles, { styleColor } from './GlobalStyles'
+import globalStyles, { styleColor } from '../utils/GlobalStyles'
 
 /***********************  临时解决方案，待改善：1，执行状态是否成功，成功数量。2，执行进度*/
 //     //底部弹出框选项

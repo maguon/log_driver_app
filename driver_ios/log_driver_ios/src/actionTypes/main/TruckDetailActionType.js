@@ -1,0 +1,5 @@
+export const GET_TruckInfo_SUCCESS = 'GET_TruckInfo_SUCCESS'
+export const GET_TruckInfo_Unbind = 'GET_TruckInfo_Unbind'
+export const GET_TruckInfo_WAITING = 'GET_TruckInfo_WAITING'
+export const GET_TruckInfo_FAILED = 'GET_TruckInfo_FAILED'
+export const GET_TruckInfo_ERROR = 'GET_TruckInfo_ERROR'
