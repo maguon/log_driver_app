@@ -38,6 +38,8 @@ import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
 import CarInfo from './components/main/CarInfo'
 import TruckInfo from './components/main/TruckInfo'
+import Trailer from './components/main/Trailer'
+import DriverInfo from './components/main/DriverInfo'
 
 
 //通用
@@ -216,8 +218,29 @@ const Root = () => {
                                        hideTabBar={true}
                                        navBar={PhotoViewNavBar}
                                        LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="trailerInfo"
+                                       LeftButton={LeftButton}
+                                       component={Trailer}
+                                       title='挂车资料'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="driverInfo"
+                                       LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}
-                                      />
+                                       component={DriverInfo}
+                                       title='个人资料'
+                                       hideTabBar
+                                       navBar={NavBar} />
+
+
+
+
+
+
+
+
 
                                 <Scene key="accidentList"
                                        component={AccidentList}

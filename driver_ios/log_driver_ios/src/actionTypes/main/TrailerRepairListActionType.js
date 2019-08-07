@@ -1,0 +1,4 @@
+export const GET_TrailerRepairRelList_SUCCESS = 'GET_TrailerRepairRelList_SUCCESS'
+export const GET_TrailerRepairRelList_WAITING = 'GET_TrailerRepairRelList_WAITING'
+export const GET_TrailerRepairRelList_FAILED = 'GET_TrailerRepairRelList_FAILED'
+export const GET_TrailerRepairRelList_ERROR = 'GET_TrailerRepairRelList_ERROR'

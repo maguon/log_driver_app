@@ -17,11 +17,16 @@ import * as searchCarAction from './main/SearchCarAction'
 import * as carInfoAction from './main/CarInfoAction'
 import * as imageForAccidentAction from './main/ImageForAccidentAction'
 
-
 import * as truckDetailAction from './main/TruckDetailAction'
 import * as truckImageAction from './main/TruckImageAction'
 import * as truckInsuranceAction from './main/TruckInsuranceAction'
 import * as truckRepairListAction from './main/TruckRepairListAction'
+
+import * as trailerInfoAction from './main/TrailerInfoAction'
+import * as trailerImageAction from './main/TrailerImageAction'
+import * as trailerInsuranceAction from './main/TrailerInsuranceAction'
+import * as trailerRepairListAction from './main/TrailerRepairListAction'
+import * as driverInfoAction from './main/DriverInfoAction'
 
 export {
     initializationAction,
@@ -47,6 +52,14 @@ export {
     truckDetailAction,
     truckImageAction,
     truckInsuranceAction,
-    truckRepairListAction
+    truckRepairListAction,
+
+    trailerInfoAction,
+    trailerImageAction,
+    trailerInsuranceAction,
+    trailerRepairListAction,
+
+    driverInfoAction,
+
 
 }

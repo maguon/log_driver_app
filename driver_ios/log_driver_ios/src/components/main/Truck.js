@@ -105,10 +105,10 @@ class Truck extends Component {
                         </View>
                         </Body>
                         <Right style={{borderBottomWidth: 0}}>
-                            {operate_type == 1 && <FontTag size={26} title='自' color='#12c3eb' fontColor='#fff'/>}
-                            {operate_type == 2 && <FontTag size={26} title='协' color='#73de8a' fontColor='#fff'/>}
-                            {operate_type == 3 && <FontTag size={26} title='供' color='#efbb7a' fontColor='#fff'/>}
-                            {operate_type == 4 && <FontTag size={26} title='包' color='#e08ddd' fontColor='#fff'/>}
+                            {operate_type == 1 && <FontTag size={26} title='自' color={styleColor} fontColor='#fff'/>}
+                            {operate_type == 2 && <FontTag size={26} title='协' color={styleColor} fontColor='#fff'/>}
+                            {operate_type == 3 && <FontTag size={26} title='供' color={styleColor} fontColor='#fff'/>}
+                            {operate_type == 4 && <FontTag size={26} title='包' color={styleColor} fontColor='#fff'/>}
                         </Right>
                     </ListItem>
                     <View>

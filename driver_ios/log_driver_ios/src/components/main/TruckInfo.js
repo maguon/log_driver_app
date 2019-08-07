@@ -39,7 +39,7 @@ class TruckInfo extends Component {
             truckInsuranceReducer: { getTruckInsurance } } = this.props
         return (
             <Container style={globalStyles.listBackgroundColor}>
-                <Tabs>
+                <Tabs tabBarUnderlineStyle={{backgroundColor: '#fff'}}>
                     <Tab
                         tabStyle={globalStyles.styleBackgroundColor}
                         activeTabStyle={globalStyles.styleBackgroundColor}

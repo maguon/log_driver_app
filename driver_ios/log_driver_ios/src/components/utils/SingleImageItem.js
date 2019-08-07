@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions, StyleSheet, Image } from 'react-native'
 import { Spinner } from 'native-base'
-import globalStyles, { styleColor } from '../utils/GlobalStyles'
+import globalStyles, { styleColor } from './GlobalStyles'
 
 const window = Dimensions.get('window')
 const containerWidth = (window.width - (2 + 1) * 10) / 2

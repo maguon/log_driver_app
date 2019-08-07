@@ -21,6 +21,12 @@ import * as truckImageActionType from './main/TruckImageActionType'
 import * as truckInsuranceActionType from './main/TruckInsuranceActionType'
 import * as truckRepairListActionType from './main/TruckRepairListActionType'
 
+import * as trailerInfoActionType from './main/TrailerInfoActionType'
+import * as trailerImageActionType from './main/TrailerImageActionType'
+import * as trailerInsuranceActionType from './main/TrailerInsuranceActionType'
+import * as trailerRepairListActionType from './main/TrailerRepairListActionType'
+import * as driverInfoActionType from './main/DriverInfoActionType'
+
 export {
     initializationTypes,
     loginTypes,
@@ -44,5 +50,13 @@ export {
     truckDetailActionType,
     truckImageActionType,
     truckInsuranceActionType,
-    truckRepairListActionType
+    truckRepairListActionType,
+
+    trailerInfoActionType,
+    trailerImageActionType,
+    trailerInsuranceActionType,
+    trailerRepairListActionType,
+
+    driverInfoActionType,
+
 }
