@@ -27,6 +27,11 @@ import * as trailerInsuranceActionType from './main/TrailerInsuranceActionType'
 import * as trailerRepairListActionType from './main/TrailerRepairListActionType'
 import * as driverInfoActionType from './main/DriverInfoActionType'
 
+import * as applyAccidentActionType from './main/ApplyAccidentActionType'
+import * as applyAccidentImageAcyionType from './main/ApplyAccidentImageAcyionType'
+import * as accidentTypeActionType from './main/AccidentTypeActionType'
+import * as cityRouteListActionType from './main/CityRouteListActionType'
+
 export {
     initializationTypes,
     loginTypes,
@@ -58,5 +63,9 @@ export {
     trailerRepairListActionType,
 
     driverInfoActionType,
+    applyAccidentActionType,
+    applyAccidentImageAcyionType,
+    accidentTypeActionType,
+    cityRouteListActionType
 
 }

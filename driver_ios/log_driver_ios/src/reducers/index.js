@@ -17,15 +17,24 @@ import accidentListReducer from './main/AccidentListReducer'
 import searchCarReducer from './main/SearchCarReducer'
 import carInfoReducer from './main/CarInfoReducer'
 import imageForAccidentReducer from './main/ImageForAccidentReducer'
+
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
 import truckRepairListReducer from './main/TruckRepairListReducer'
 import truckInsuranceReducer from './main/TruckInsuranceReducer'
+
 import trailerInfoReducer from './main/TrailerInfoReducer'
 import trailerImageReducer from './main/TrailerImageReducer'
 import trailerInsuranceReducer from './main/TrailerInsuranceReducer'
 import trailerRepairListReducer from './main/TrailerRepairListReducer'
+
 import driverInfoReducer from './main/DriverInfoReducer'
+
+import applyAccidentReducer from './main/ApplyAccidentReducer'
+import applyAccidentImageReducer from './main/ApplyAccidentImageReducer'
+import accidentTypeReducer from './main/AccidentTypeReducer'
+import cityRouteListReducer from './main/CityRouteListReducer'
+
 
 export default combineReducers({
     form: formReducer,
@@ -57,6 +66,10 @@ export default combineReducers({
     trailerImageReducer,
     trailerInsuranceReducer,
     trailerRepairListReducer,
-
     driverInfoReducer,
+
+    applyAccidentReducer,
+    applyAccidentImageReducer,
+    accidentTypeReducer,
+    cityRouteListReducer
 })

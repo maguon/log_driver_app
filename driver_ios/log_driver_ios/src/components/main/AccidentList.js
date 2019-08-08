@@ -9,25 +9,27 @@ import {
     TouchableOpacity,
     InteractionManager
 } from 'react-native'
-import { Container } from 'native-base'
-import { Icon, Spinner } from 'native-base'
-import { connect } from 'react-redux'
+import {Container} from 'native-base'
+import {Icon, Spinner} from 'native-base'
+import {connect} from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import globalStyles, { styleColor } from '../utils/GlobalStyles'
+import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import * as actions from '../../actions/index'
 import moment from 'moment'
-import { Actions } from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux'
 
-const { width } = Dimensions.get('window')
+const {width} = Dimensions.get('window')
 
 const renderItem = props => {
-    const { item: { id, address, accident_explain, accident_status, created_on, truck_num }, index
-        , getAccidentImageListWaiting, getAccidentImageList } = props
+    const {
+        item: {id, address, accident_explain, accident_status, created_on, truck_num}, index
+        , getAccidentImageListWaiting, getAccidentImageList
+    } = props
     return (
         <TouchableOpacity key={index} style={styles.itemContainer} onPress={() => {
             getAccidentImageListWaiting()
-            Actions.accidentInfo({ accidentId: id })
-            InteractionManager.runAfterInteractions(() => getAccidentImageList({ accidentId: id }))
+            Actions.accidentInfo({accidentId: id})
+            InteractionManager.runAfterInteractions(() => getAccidentImageList({accidentId: id}))
         }}>
             <View style={styles.itemHeader}>
                 <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>
@@ -37,23 +39,29 @@ const renderItem = props => {
             </View>
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
+                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} style={styles.itemBlockMaterialIcon}/>
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>{truck_num ? `${truck_num}` : ''}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-time' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
+                    <Icon name='ios-time' style={styles.itemBlockIcon} style={styles.itemBlockIcon}/>
+                    <Text
+                        style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>
             </View>
             <View style={[styles.item]}>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-pin' style={[styles.itemBlockIcon]} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText, { width: width - 60 }]}><Text>事故地点：</Text>{address ? `${address}` : ''}</Text>
+                    <Icon name='ios-pin' style={[styles.itemBlockIcon]}/>
+                    <Text
+                        style={[globalStyles.midText, styles.itemBlockText, {width: width - 60}]}><Text>事故地点：</Text>{address ? `${address}` : ''}
+                    </Text>
                 </View>
             </View>
             <View style={styles.item}>
-                <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'} style={styles.itemBlockMaterialIcon} />
-                <Text numberOfLines={1} style={[globalStyles.midText, styles.itemBlockText, { flex: 1 }]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}</Text>
+                <MaterialCommunityIcons name='alert-circle' size={14} color={'#fe7378'}
+                                        style={styles.itemBlockMaterialIcon}/>
+                <Text numberOfLines={1}
+                      style={[globalStyles.midText, styles.itemBlockText, {flex: 1}]}><Text>事故描述：</Text>{accident_explain ? `${accident_explain}` : ''}
+                </Text>
             </View>
         </TouchableOpacity>
     )
@@ -62,7 +70,7 @@ const renderItem = props => {
 const ListFooterComponent = () => {
     return (
         <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
+            <ActivityIndicator color={styleColor} styleAttr='Small'/>
             <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
         </View>
     )
@@ -77,20 +85,22 @@ const renderEmpty = () => {
 }
 
 const AccidentList = props => {
-    const { accidentListReducer: { data: { accidentList, isComplete }, getAccidentList },
-        accidentListReducer, getAccidentListMore, getAccidentImageList, getAccidentImageListWaiting } = props
+    const {
+        accidentListReducer: {data: {accidentList, isComplete}, getAccidentList},
+        accidentListReducer, getAccidentListMore, getAccidentImageList, getAccidentImageListWaiting
+    } = props
     if (getAccidentList.isResultStatus == 1) {
         return (
             <Container>
-                <Spinner color={styleColor} />
+                <Spinner color={styleColor}/>
             </Container>
         )
     }
     else {
         return (
-            <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
+            <Container style={{padding: 5, backgroundColor: '#edf1f4'}}>
                 <FlatList
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
                     onEndReachedThreshold={0.2}
@@ -99,9 +109,10 @@ const AccidentList = props => {
                             getAccidentListMore()
                         }
                     }}
-                    ListFooterComponent={accidentListReducer.getAccidentListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
+                    ListFooterComponent={accidentListReducer.getAccidentListMore.isResultStatus == 1 ? ListFooterComponent :
+                        <View/>}
                     data={accidentList}
-                    renderItem={(item) => renderItem({ ...item, getAccidentImageListWaiting, getAccidentImageList })}
+                    renderItem={(item) => renderItem({...item, getAccidentImageListWaiting, getAccidentImageList})}
                 />
             </Container>
         )
@@ -181,9 +192,7 @@ const styles = StyleSheet.create({
     itemBlockText: {
         paddingLeft: 5,
     },
-    itemBlockTitle: {
-
-    },
+    itemBlockTitle: {},
     footerContainer: {
         alignSelf: 'center',
         flexDirection: 'row',

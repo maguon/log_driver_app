@@ -32,7 +32,6 @@ import SearchCar from './components/main/SearchCar'
 import BranchInstructExecuting from './components/main/BranchInstructExecuting'
 import Contact from './components/main/Contact'
 import Truck from './components/main/Truck'
-import AccidentListOperation from './components/modules/AccidentListOperation'
 import AccidentList from './components/main/AccidentList'
 import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
@@ -40,7 +39,14 @@ import CarInfo from './components/main/CarInfo'
 import TruckInfo from './components/main/TruckInfo'
 import Trailer from './components/main/Trailer'
 import DriverInfo from './components/main/DriverInfo'
+import ApplyAccidentImage from './components/main/ApplyAccidentImage'
+import ApplyAccident from './components/main/ApplyAccident'
 
+//模块
+import AccidentListOperation from './components/modules/AccidentListOperation'
+import VinScanner from './components/modules/VinScanner'
+import PhotoViewNavBar from './components/modules/PhotoViewNavBar'
+import SinglePhotoView from './components/modules/SinglePhotoView'
 
 //通用
 import tabIcon from './components/utils/TabIcon'
@@ -51,9 +57,8 @@ import NavBar from './components/utils/NavBar'
 //import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/utils/LeftButton'
 import NavSearchCarBar from './components/utils/NavSearchCarBar'
-import VinScanner from './components/modules/VinScanner'
-import PhotoViewNavBar from './components/modules/PhotoViewNavBar'
-import SinglePhotoView from './components/modules/SinglePhotoView'
+import ApplyAccidentSubmit from './components/utils/ApplyAccidentSubmit'
+import ApplyAccidentImageSubmit from './components/utils/ApplyAccidentImageSubmit'
 
 
 const styles = StyleSheet.create({
@@ -240,8 +245,6 @@ const Root = () => {
 
 
 
-
-
                                 <Scene key="accidentList"
                                        component={AccidentList}
                                        title='事故列表'
@@ -249,8 +252,20 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={AccidentListOperation}/>
-
-
+                                <Scene key="applyAccident"
+                                       component={ApplyAccident}
+                                       title='事故申报'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={ApplyAccidentSubmit} />
+                                <Scene key="applyAccidentImage"
+                                       component={ApplyAccidentImage}
+                                       title='上传事故照片'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={ApplyAccidentImageSubmit} />
 
 
                             </Scene>

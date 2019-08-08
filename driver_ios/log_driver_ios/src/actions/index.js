@@ -28,6 +28,11 @@ import * as trailerInsuranceAction from './main/TrailerInsuranceAction'
 import * as trailerRepairListAction from './main/TrailerRepairListAction'
 import * as driverInfoAction from './main/DriverInfoAction'
 
+import * as applyAccidentAction from './main/ApplyAccidentAction'
+import * as applyAccidentImageAction from './main/ApplyAccidentImageAction'
+import * as accidentTypeAction from './main/AccidentTypeAction'
+import * as cityRouteListAction from './main/CityRouteListAction'
+
 export {
     initializationAction,
     communicationSettingActions,
@@ -60,6 +65,10 @@ export {
     trailerRepairListAction,
 
     driverInfoAction,
+    applyAccidentAction,
+    applyAccidentImageAction,
+    accidentTypeAction,
+    cityRouteListAction
 
 
 }
