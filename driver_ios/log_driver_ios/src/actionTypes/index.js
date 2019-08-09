@@ -32,6 +32,12 @@ import * as applyAccidentImageAcyionType from './main/ApplyAccidentImageAcyionTy
 import * as accidentTypeActionType from './main/AccidentTypeActionType'
 import * as cityRouteListActionType from './main/CityRouteListActionType'
 
+import * as workActionType from './main/WorkActionType'
+import * as mileageInfoForWorkActionType from './main/MileageInfoForWorkActionType'
+import * as instructActionType from './main/InstructActionType'
+import * as branchInstructActionTypes from './main/BranchInstructActionTypes'
+import * as cleanFeeListActionType from './main/CleanFeeListActionType'
+
 export {
     initializationTypes,
     loginTypes,
@@ -66,6 +72,12 @@ export {
     applyAccidentActionType,
     applyAccidentImageAcyionType,
     accidentTypeActionType,
-    cityRouteListActionType
+    cityRouteListActionType,
+
+    workActionType,
+    mileageInfoForWorkActionType,
+    instructActionType,
+    branchInstructActionTypes,
+    cleanFeeListActionType
 
 }

@@ -30,10 +30,9 @@ import DriverQRCode from './components/main/DriverQRCode'
 import Cars from './components/main/Cars'
 import SearchCar from './components/main/SearchCar'
 import BranchInstructExecuting from './components/main/BranchInstructExecuting'
-import Contact from './components/main/Contact'
+import Work from './components/main/Work'
 import Truck from './components/main/Truck'
 import AccidentList from './components/main/AccidentList'
-import Bus from './components/main/Bus'
 import Settings from './components/main/Settings'
 import CarInfo from './components/main/CarInfo'
 import TruckInfo from './components/main/TruckInfo'
@@ -41,6 +40,9 @@ import Trailer from './components/main/Trailer'
 import DriverInfo from './components/main/DriverInfo'
 import ApplyAccidentImage from './components/main/ApplyAccidentImage'
 import ApplyAccident from './components/main/ApplyAccident'
+import Instruct from './components/main/Instruct'
+import BranchInstruct from './components/main/BranchInstruct'
+import CleanFeeList from './components/main/CleanFeeList'
 
 //模块
 import AccidentListOperation from './components/modules/AccidentListOperation'
@@ -199,7 +201,7 @@ const Root = () => {
                             </Scene>
 
 
-                            <Scene key="bus"
+                            <Scene key="truckBlock"
                                    icon={tabIcon}
                                    online='ios-bus'
                                    outline='ios-bus'
@@ -271,27 +273,59 @@ const Root = () => {
                             </Scene>
 
 
-                            <Scene key="contact"
-                                   navBar={NavBar}
-                                   component={Contact}
-                                   title="工作管理"
+                            <Scene key="driverBlock"
                                    icon={tabIcon}
                                    online='ios-contact'
                                    outline='ios-contact'
                                    size={30}
-                            >
+                                    >
+                                <Scene key="work"
+                                       initial={true}
+                                       component={Work}
+                                       title='工作管理'
+                                       hideNavBar={false}
+                                       navBar={NavBar} />
+                                <Scene key="instruct"
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                       component={Instruct}
+                                       title='调度指令'
+                                       hideNavBar={false}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="branchInstruct"
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                       component={BranchInstruct}
+                                       title='调度指令'
+                                       hideNavBar={false}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="cleanFeeListAtDriverBlock"
+                                       component={CleanFeeList}
+                                       title='洗车费'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
                             </Scene>
 
 
-                            <Scene key="settings"
-                                   navBar={NavBar}
-                                   component={Settings}
-                                   title="设置"
+                            <Scene key="settingBlock"
                                    icon={tabIcon}
                                    online='ios-settings'
                                    outline='ios-settings'
                                    size={30}
                             >
+                                <Scene key="setting"
+                                       component={Settings}
+                                       initial={true}
+                                       title='设置'
+                                       hideNavBar={false}
+                                       navBar={NavBar} />
+
+
                             </Scene>
                         </Stack>
 

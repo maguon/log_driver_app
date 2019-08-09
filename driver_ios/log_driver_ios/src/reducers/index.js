@@ -35,6 +35,11 @@ import applyAccidentImageReducer from './main/ApplyAccidentImageReducer'
 import accidentTypeReducer from './main/AccidentTypeReducer'
 import cityRouteListReducer from './main/CityRouteListReducer'
 
+import workReducer from './main/WorkReducer'
+import mileageInfoForWorkReducer from './main/MileageInfoForWorkReducer'
+import instructReducer from './main/InstructReducer'
+import branchInstructReducer from './main/BranchInstructReducer'
+import cleanFeeListReducer from './main/CleanFeeListReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -71,5 +76,11 @@ export default combineReducers({
     applyAccidentReducer,
     applyAccidentImageReducer,
     accidentTypeReducer,
-    cityRouteListReducer
+    cityRouteListReducer,
+
+    workReducer,
+    mileageInfoForWorkReducer,
+    instructReducer,
+    branchInstructReducer,
+    cleanFeeListReducer
 })

@@ -33,6 +33,13 @@ import * as applyAccidentImageAction from './main/ApplyAccidentImageAction'
 import * as accidentTypeAction from './main/AccidentTypeAction'
 import * as cityRouteListAction from './main/CityRouteListAction'
 
+import * as mileageInfoForWorkAction from './main/MileageInfoForWorkAction'
+import * as workAction from './main/WorkAction'
+import * as instructAction from './main/InstructAction'
+import * as branchInstructAction from './main/BranchInstructAction'
+import * as cleanFeeListActions from './main/CleanFeeListActions'
+
+
 export {
     initializationAction,
     communicationSettingActions,
@@ -68,7 +75,13 @@ export {
     applyAccidentAction,
     applyAccidentImageAction,
     accidentTypeAction,
-    cityRouteListAction
+    cityRouteListAction,
+
+    mileageInfoForWorkAction,
+    workAction,
+    instructAction,
+    branchInstructAction,
+    cleanFeeListActions
 
 
 }
