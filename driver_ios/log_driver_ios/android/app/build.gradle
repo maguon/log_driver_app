@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-picker')
     implementation project(':react-native-amap3d')
     implementation project(':react-native-xinge-push')
     implementation project(':react-native-vector-icons')
