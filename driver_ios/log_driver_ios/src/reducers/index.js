@@ -41,6 +41,11 @@ import instructReducer from './main/InstructReducer'
 import branchInstructReducer from './main/BranchInstructReducer'
 import cleanFeeListReducer from './main/CleanFeeListReducer'
 
+import changeMobileNoReducer from './main/ChangeMobileNoReducer'
+import personalCenterReducer from './main/PersonalCenterReducer'
+import updatePasswordReducer from './main/UpdatePasswordReducer'
+import changeMobileVCodeReducer from './main/ChangeMobileVCodeReducer'
+
 export default combineReducers({
     form: formReducer,
     initializationReducer,
@@ -82,5 +87,10 @@ export default combineReducers({
     mileageInfoForWorkReducer,
     instructReducer,
     branchInstructReducer,
-    cleanFeeListReducer
+    cleanFeeListReducer,
+
+    changeMobileNoReducer,
+    personalCenterReducer,
+    updatePasswordReducer,
+    changeMobileVCodeReducer
 })

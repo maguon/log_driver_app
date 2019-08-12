@@ -2,7 +2,7 @@ import * as httpRequest from '../../util/HttpRequest'
 
 import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
-import { ToastAndroid } from 'react-native'
+import {Alert} from 'react-native'
 
 export const getAccidentImageList = (param) => async (dispatch, getState) => {
     const { accidentId } = param
@@ -64,26 +64,75 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                     .filter(item => item.success)
                     .map(item => item.imageId)
                 if (cameraReses.length === bindDamageSuccessReses.length) {
-                    ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    // ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+
+                    Alert.alert(
+                        '',
+                        '提交成功！',
+                        [
+                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                     dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_success, payload: { imageList: bindDamageSuccessReses } })
                 } else if (bindDamageSuccessReses.length > 0) {
-                    ToastAndroid.showWithGravity(`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    // ToastAndroid.showWithGravity(`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    Alert.alert(
+                        '',
+                        `部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`,
+                        [
+                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                     dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_partSuccess, payload: { imageList: bindDamageSuccessReses, failedMsg: '部分失败' } })
                 } else {
-                    ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    // ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                    Alert.alert(
+                        '',
+                        '提交全部失败！',
+                        [
+                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                     dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } })
                 }
             } else {
-                ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                // ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+                Alert.alert(
+                    '',
+                    '提交全部失败！',
+                    [
+                        {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    ],
+                    {cancelable: false}
+                )
                 dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } })
             }
         } else {
-            ToastAndroid.showWithGravity('拍照全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // ToastAndroid.showWithGravity('拍照全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            Alert.alert(
+                '',
+                '拍照全部失败！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '拍照全部失败' } })
         }
     }
     catch (err) {
-        ToastAndroid.showWithGravity(`提交全部失败！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        // ToastAndroid.showWithGravity(`提交全部失败！${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        Alert.alert(
+            '',
+            `提交全部失败！${err}`,
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
         dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_error, payload: { errorMsg: err } })
     }
 }
@@ -99,15 +148,39 @@ export const delImage = param => async (dispatch, getState) => {
         const url = `${record_host}/user/${uid}/record/${recordId}/truckDamageImage/${param}`
         const res = await httpRequest.del(url)
         if (res.success) {
-            ToastAndroid.showWithGravity('图片删除成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // ToastAndroid.showWithGravity('图片删除成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            Alert.alert(
+                '',
+                '图片删除成功！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_success, payload: { imageurl: param } })
         } else {
-            ToastAndroid.showWithGravity(`图片删除失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // ToastAndroid.showWithGravity(`图片删除失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            Alert.alert(
+                '',
+                `图片删除失败：${res.msg}`,
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_failed, payload: { failedMsg: res.msg } })
         }
 
     } catch (err) {
-        ToastAndroid.showWithGravity(`图片删除失败：${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        // ToastAndroid.showWithGravity(`图片删除失败：${err}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        Alert.alert(
+            '',
+            `图片删除失败：${err}`,
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
         dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_error, payload: { errorMsg: err } })
     }
 }

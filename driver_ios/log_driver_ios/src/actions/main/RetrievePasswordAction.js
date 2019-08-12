@@ -2,7 +2,7 @@ import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 import * as actions from '../index'
 import { change } from 'redux-form'
-import { Toast } from 'native-base'
+import {Alert} from "react-native";
 
 
 export  const retrieve=(param)=>async(dispatch,getState)=>{
@@ -22,9 +22,17 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
         //  console.log('res', res)
         if (res.success) {
 
-            Toast.show({
-                text:'修改成功'
-            })
+            // Toast.show({
+            //     text:'修改成功'
+            // })
+            Alert.alert(
+                '',
+                `修改成功！`,
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_success, payload: {} })
             //更新url
             await dispatch(actions.communicationSettingActions.saveCommunicationSetting({ url: server }))
@@ -32,16 +40,32 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
             await dispatch(change('loginForm', 'server', server))
 
         } else {
-            Toast.show({
-                text:`修改失败：${res.msg}`
-            })
+            // Toast.show({
+            //     text:`修改失败：${res.msg}`
+            // })
+            Alert.alert(
+                '',
+                `修改失败：${res.msg}`,
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_failed, payload: { failedMsg: `${res.msg}` } })
         }
     }catch (err) {
         // console.log('err', err)
-        Toast.show({
-            text:`修改失败：${err}`
-        })
+        // Toast.show({
+        //     text:`修改失败：${err}`
+        // })
+        Alert.alert(
+            '',
+            `修改失败：${err}`,
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
         dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_error, payload: { errorMsg: `${err}` } })
     }
 }

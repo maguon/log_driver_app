@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet} from 'react-native'
-import { Button,Toast} from 'native-base'
+import {Text, StyleSheet, Alert} from 'react-native'
+import { Button} from 'native-base'
 import globalStyles, { styleColor } from '../utils/GlobalStyles'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/index'
@@ -16,9 +16,17 @@ class RetrievePasswordVCode extends Component {
         return (
             <Button full disabled={retrievePasswordVCodeReducer.countDown.isResultStatus == 1} onPress={() => {
                 if (!this.props.server) {
-                    Toast.show({
-                        text:'服务器不能为空！',
-                    })
+                    // Toast.show({
+                    //     text:'服务器不能为空！',
+                    // })
+                    Alert.alert(
+                        '',
+                        '服务器不能为空！',
+                        [
+                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                     return
                 }
                 const warnMsg = validatePhoneNotField('您输入的手机号码不正确，请重新输入！')(this.props.mobileNo)
@@ -28,9 +36,17 @@ class RetrievePasswordVCode extends Component {
                         server: this.props.server
                     })
                 } else {
-                    Toast.show({
-                        text:warnMsg,
-                    })
+                    // Toast.show({
+                    //     text:warnMsg,
+                    // })
+                    Alert.alert(
+                        '',
+                        warnMsg,
+                        [
+                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                 }
 
             }} style={{ flex: 1, backgroundColor: retrievePasswordVCodeReducer.countDown.isResultStatus == 1 ? '#ccc' : styleColor }}>

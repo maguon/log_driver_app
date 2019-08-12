@@ -1,7 +1,7 @@
 import * as httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 import { objectExceptNull } from '../../util/util'
-import { ToastAndroid } from 'react-native'
+import {Alert} from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export const applyAccident = (param) => async (dispatch, getState) => {
@@ -31,14 +31,38 @@ export const applyAccident = (param) => async (dispatch, getState) => {
                     truckNum: param.accidentType.num
                 }
             })
-            ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // ToastAndroid.showWithGravity('提交成功！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            Alert.alert(
+                '',
+                '提交成功！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             Actions.applyAccidentImage()
         } else {
             dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_failed, payload: { failedMsg: res.msg } })
-            ToastAndroid.showWithGravity(`提交失败:${res.msg}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            // ToastAndroid.showWithGravity(`提交失败:${res.msg}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+            Alert.alert(
+                '',
+                `提交失败:${res.msg}!`,
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
         dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_error, payload: { errorMsg: err } })
-        ToastAndroid.showWithGravity(`提交失败:${err}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        // ToastAndroid.showWithGravity(`提交失败:${err}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
+        Alert.alert(
+            '',
+            `提交失败:${err}!`,
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }

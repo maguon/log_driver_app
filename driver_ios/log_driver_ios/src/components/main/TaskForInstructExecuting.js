@@ -4,7 +4,7 @@ import {
     View,
     Alert,
 } from 'react-native'
-import {Toast, Icon, Button} from 'native-base'
+import { Icon, Button} from 'native-base'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Toast, Container } from 'native-base'
+import {  Container } from 'native-base'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/index'
 import RouteTaskListForHome from '../modules/RouteTaskListForHome'
 import TaskForInstructExecuting from './TaskForInstructExecuting'
+import {Alert} from "react-native";
 
 
 class InstructExecuting extends Component {
@@ -68,7 +69,14 @@ class InstructExecuting extends Component {
                     }
                 })
             } else {
-                Toast.show({text:'有未卸车任务，请先车再完成路线！'})
+                Alert.alert(
+                    '',
+                    '有未卸车任务，请先车再完成路线！',
+                    [
+                        {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    ],
+                    {cancelable: false}
+                )
             }
         } else {
             this.props.changeLoadTaskStatus({

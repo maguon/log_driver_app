@@ -111,9 +111,9 @@ class Instruct extends Component {
             )
         } else {
             return (
-                <View style={{flex: 1}}>
+                <View style={{flex: 1,backgroundColor:'#fff'}}>
                     <View
-                        style={{backgroundColor: '#eff3f5', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc'}}>
+                        style={{backgroundColor: '#f2f5f7', padding: 10, borderBottomWidth: 0.5, borderColor: '#ccc'}}>
                         <View>
                             <Text style={{fontSize: 11, color: '#8b959b'}}>
                                 指令编号：{routeInfo.id ? `${routeInfo.id}` : ''}
@@ -152,7 +152,7 @@ class Instruct extends Component {
                         </View>
                         <View style={{flexDirection: 'row', paddingVertical: 10, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row'}}>
-                                <Icon name='ios-clock-outline' style={{fontSize: 15, color: '#8b959b'}}/>
+                                <Icon name='ios-clock' style={{fontSize: 15, color: '#8b959b'}}/>
                                 <Text style={{
                                     fontSize: 11,
                                     paddingLeft: 5,
@@ -197,7 +197,7 @@ class Instruct extends Component {
                         </View>
                     </View>
                     <FlatList
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => `${index}`}
                         data={taskList}
                         renderItem={({item, index}) => this.renderTaskItem(item, key)}/>
                 </View>

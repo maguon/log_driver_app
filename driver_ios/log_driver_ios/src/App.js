@@ -43,6 +43,9 @@ import ApplyAccident from './components/main/ApplyAccident'
 import Instruct from './components/main/Instruct'
 import BranchInstruct from './components/main/BranchInstruct'
 import CleanFeeList from './components/main/CleanFeeList'
+import UpdatePassword from './components/main/UpdatePassword'
+import ChangeMobileNo from './components/main/ChangeMobileNo'
+import PersonalCenter from './components/main/PersonalCenter'
 
 //模块
 import AccidentListOperation from './components/modules/AccidentListOperation'
@@ -323,6 +326,30 @@ const Root = () => {
                                        initial={true}
                                        title='设置'
                                        hideNavBar={false}
+                                       navBar={NavBar} />
+                                <Scene key="updatePassword"
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                       component={UpdatePassword}
+                                       title='修改密码'
+                                       hideNavBar={false}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="changeMobileNo"
+                                       component={ChangeMobileNo}
+                                       title='换绑手机'
+                                       hideNavBar={false}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="personalCenter"
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                       component={PersonalCenter}
+                                       title='个人中心'
+                                       hideNavBar={false}
+                                       hideTabBar={true}
                                        navBar={NavBar} />
 
 

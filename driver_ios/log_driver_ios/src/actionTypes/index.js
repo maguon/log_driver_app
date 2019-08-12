@@ -38,6 +38,12 @@ import * as instructActionType from './main/InstructActionType'
 import * as branchInstructActionTypes from './main/BranchInstructActionTypes'
 import * as cleanFeeListActionType from './main/CleanFeeListActionType'
 
+import * as changeMobileNoActionType from './main/ChangeMobileNoActionType'
+import * as personalCenterActionTypes from './main/PersonalCenterActionTypes'
+import * as updatePasswordActionType from './main/UpdatePasswordActionType'
+import * as changeMobileVCodeActionType from './main/ChangeMobileVCodeActionType'
+
+
 export {
     initializationTypes,
     loginTypes,
@@ -78,6 +84,11 @@ export {
     mileageInfoForWorkActionType,
     instructActionType,
     branchInstructActionTypes,
-    cleanFeeListActionType
+    cleanFeeListActionType,
+
+    changeMobileNoActionType,
+    personalCenterActionTypes,
+    updatePasswordActionType,
+    changeMobileVCodeActionType
 
 }

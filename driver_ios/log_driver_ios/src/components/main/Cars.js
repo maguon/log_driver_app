@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
-import {View, Text, ActivityIndicator, FlatList, TouchableOpacity, InteractionManager, Dimensions} from 'react-native'
-import {Button, Icon, Toast} from 'native-base'
+import {
+    View,
+    Text,
+    ActivityIndicator,
+    FlatList,
+    TouchableOpacity,
+    InteractionManager,
+    Dimensions,
+    Alert
+} from 'react-native'
+import {Button} from 'native-base'
 import {connect} from 'react-redux'
 import {Actions} from "react-native-router-flux";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -44,12 +53,28 @@ class Cars extends Component {
             return item.removeCommandCar.isResultStatus == 2
         })
         if (car) {
-            Toast.show({text: '移除成功！'})
+            // Toast.show({text: '移除成功！'})
+            Alert.alert(
+                '',
+                '移除成功！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             this.props.resetRemoveCommandCar(car.data.id)
         }
 
         if (finishCarry.isResultStatus == 2) {
-            Toast.show({text: '装车完毕！'})
+            // Toast.show({text: '装车完毕！'})
+            Alert.alert(
+                '',
+                '装车完毕！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             this.props.resetFinishCarry()
         }
     }

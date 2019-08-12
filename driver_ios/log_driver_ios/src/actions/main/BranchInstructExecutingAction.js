@@ -1,8 +1,7 @@
 import httpRequest from '../../util/HttpRequest.js'
 import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
-import { InteractionManager } from 'react-native'
-import {Toast} from 'native-base'
+import {Alert, InteractionManager} from 'react-native'
 import * as actions from '../index'
 import { Actions } from 'react-native-router-flux'
 
@@ -34,12 +33,28 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
                 }
             })
         } else {
-            Toast.show({text:'promise.all请求失败！'})
+            // Toast.show({text:'promise.all请求失败！'})
+            Alert.alert(
+                '',
+                'promise.all请求失败！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
             dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
          console.log('err', err)
-        Toast.show({text:'promise.all请求错误！'})
+        // Toast.show({text:'promise.all请求错误！'})
+        Alert.alert(
+            '',
+            'promise.all请求错误！',
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
         dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
     }
 }
@@ -62,11 +77,27 @@ export const getCoordinate = param => async (dispatch, getState) => {
                 }
             })
         } else {
-            Toast.show({text:'getCoordinate请求失败！'})
+            // Toast.show({text:'getCoordinate请求失败！'})
+            Alert.alert(
+                '',
+                'getCoordinate请求失败！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
         // console.log('err', err)
-        Toast.show({text:'getCoordinate请求错误！'})
+        // Toast.show({text:'getCoordinate请求错误！'})
+        Alert.alert(
+            '',
+            'getCoordinate请求错误！',
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }
 

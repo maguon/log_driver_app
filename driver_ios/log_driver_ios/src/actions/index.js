@@ -39,6 +39,10 @@ import * as instructAction from './main/InstructAction'
 import * as branchInstructAction from './main/BranchInstructAction'
 import * as cleanFeeListActions from './main/CleanFeeListActions'
 
+import * as changeMobileNoActions from './main/ChangeMobileNoActions'
+import * as personalCenterAction from './main/PersonalCenterAction'
+import * as updatePasswordAction from './main/UpdatePasswordAction'
+import * as changeMobileVCodeAction from './main/ChangeMobileVCodeAction'
 
 export {
     initializationAction,
@@ -81,7 +85,12 @@ export {
     workAction,
     instructAction,
     branchInstructAction,
-    cleanFeeListActions
+    cleanFeeListActions,
+
+    changeMobileNoActions,
+    personalCenterAction,
+    updatePasswordAction,
+    changeMobileVCodeAction
 
 
 }

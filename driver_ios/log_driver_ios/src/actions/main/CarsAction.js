@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 import * as actions from '../index'
 import { Actions } from 'react-native-router-flux'
-import {Toast} from 'native-base'
+import {Alert} from "react-native";
 
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
@@ -58,7 +58,15 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
             if (res.success) {
                 dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
             } else {
-                Toast.show({text:`${res.msg}`})
+                // Toast.show({text:`${res.msg}`})
+                Alert.alert(
+                    '',
+                    `${res.msg}`,
+                    [
+                        {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    ],
+                    {cancelable: false}
+                )
                 dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
             }
         }

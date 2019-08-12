@@ -11,13 +11,13 @@ import {
     Alert,
     Dimensions
 } from 'react-native'
-import {Icon, Button, Toast} from 'native-base'
+import {Icon, Button} from 'native-base'
 import {connect} from 'react-redux'
 import * as actions from '../../actions/index'
 import {MapView, Marker} from 'react-native-amap3d'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+
 
 const window = Dimensions.get('window')
 

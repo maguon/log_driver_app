@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes/index'
 import httpRequest from '../../util/HttpRequest'
 import {sleep} from '../../util/util'
-import {Toast} from 'native-base'
+import {Alert} from "react-native";
 
 
 export const countDown = () => async (dispatch, getState) => {
@@ -24,9 +24,17 @@ export const countDown = () => async (dispatch, getState) => {
             })
         }
     } catch (err) {
-        Toast.show({
-            text: '倒计时错误！'
-        })
+        // Toast.show({
+        //     text: '倒计时错误！'
+        // })
+        Alert.alert(
+            '',
+            '倒计时错误！',
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }
 
@@ -55,9 +63,17 @@ export const getVCode = param => async (dispatch) => {
         }
     } catch (err) {
         // console.log('err',err)
-        Toast.show({
-            text: '服务器错误，请核对后重新填写！'
-        })
+        // Toast.show({
+        //     text: '服务器错误，请核对后重新填写！'
+        // })
+        Alert.alert(
+            '',
+            '服务器错误，请核对后重新填写！',
+            [
+                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
         dispatch({
             type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_error,
             payload: {errorMsg: `${err}`}

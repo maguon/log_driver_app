@@ -3,8 +3,8 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 import { sleep } from '../../util/util'
-import { Toast } from 'native-base'
 import { getFormValues } from 'redux-form'
+import {Alert} from "react-native";
 
 const pageSize = 50
 
@@ -73,7 +73,15 @@ export const getAccidentListMore = () => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.accidentListActionType.get_accidentListMore_error, payload: { errorMsg: err } })
             }
         } else {
-            Toast.show({text:'已全部加载完毕！'})
+            // Toast.show({text:'已全部加载完毕！'})
+            Alert.alert(
+                '',
+                '已全部加载完毕！',
+                [
+                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     }
 }
