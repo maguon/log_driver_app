@@ -3,6 +3,7 @@ package com.log_driver_ios;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.keyee.datetime.RCTDateTimePickerPackage;
 import com.imagepicker.ImagePickerPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 import com.jeepeng.react.xgpush.PushPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTDateTimePickerPackage(),
             new ImagePickerPackage(),
             new AMap3DPackage(),
             new PushPackage(),

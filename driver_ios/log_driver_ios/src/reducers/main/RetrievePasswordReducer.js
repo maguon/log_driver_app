@@ -11,7 +11,7 @@ const initialState={
 }
 
 export default handleActions({
-    [actionTypes.retrievePasswordTypes.retrieve_success]:(state,action)=>{
+    [actionTypes.retrievePasswordType.retrieve_success]:(state, action)=>{
         return {
             ...state,
             retrieve:{
@@ -21,7 +21,7 @@ export default handleActions({
         }
 
     },
-    [actionTypes.retrievePasswordTypes.retrieve_failed]:(state,action)=>{
+    [actionTypes.retrievePasswordType.retrieve_failed]:(state, action)=>{
         const {payload:{failedMsg}}=action
         return {
             ...state,
@@ -33,7 +33,7 @@ export default handleActions({
         }
 
     },
-    [actionTypes.retrievePasswordTypes.retrieve_waiting]:(state,action)=>{
+    [actionTypes.retrievePasswordType.retrieve_waiting]:(state, action)=>{
         return{
             ...state,
             retrieve:{
@@ -43,7 +43,7 @@ export default handleActions({
         }
 
     },
-    [actionTypes.retrievePasswordTypes.retrieve_error]:(state,action)=>{
+    [actionTypes.retrievePasswordType.retrieve_error]:(state, action)=>{
         const {payload:{errorMsg}}=action
         return{
             ...state,

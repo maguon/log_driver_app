@@ -18,7 +18,7 @@ const initialState = {
 
 //isResultStatus(执行结果状态):[0(未执行),1(等待)，2(成功)，3(错误)，4(执行失败),5(服务器未处理错误)]
 export default handleActions({
-    [(actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_SUCCESS)]: (state, action) => {
+    [(actionTypes.branchInstructActionType.GET_RouteLoadTaskList_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -35,7 +35,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_FAILED)]: (state, action) => {
+    [(actionTypes.branchInstructActionType.GET_RouteLoadTaskList_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -46,7 +46,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.branchInstructActionType.GET_RouteLoadTaskList_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -57,7 +57,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_ERROR)]: (state, action) => {
+    [(actionTypes.branchInstructActionType.GET_RouteLoadTaskList_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -68,7 +68,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_WAITING)]: (state, action) => {
+    [(actionTypes.branchInstructActionType.GET_RouteLoadTaskList_WAITING)]: (state, action) => {
         return {
             ...initialState,
             getRouteLoadTaskList: {

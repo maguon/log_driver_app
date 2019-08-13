@@ -41,18 +41,18 @@ class Truck extends Component {
             loginReducer: {data: {user: {avatar_image, real_name, mobile}}, url: {file_host}},
             getAccidentList,
             getAccidentListWaiting,
-            // getAccidentResponsibilityList,
-            // getAccidentListResponsibilityWaiting,
+            getAccidentResponsibilityList,
+            getAccidentListResponsibilityWaiting,
             // getCleanRelList,
             // getCleanRelListWaiting,
             // getDemageResponsibilityList,
             // getDemageResponsibilityListWaiting,
             // getTaskLoanList,
             // getTaskLoanListWaiting,
-            // getOveruseDieselOilList,
-            // getOveruseDieselOilListWaiting,
-            // getPeccancyListWaiting,
-            // getPeccancyList,
+            getOveruseDieselOilList,
+            getOveruseDieselOilListWaiting,
+            getPeccancyListWaiting,
+            getPeccancyList,
             // getNotSettleListWaiting,
             // getNotSettleList,
             // getSalaryListWaiting,
@@ -283,12 +283,12 @@ const mapDispatchToProps = (dispatch) => ({
     getAccidentListWaiting: () => {
         dispatch(actions.accidentListAction.getAccidentListWaiting())
     },
-//     getAccidentResponsibilityList: () => {
-//         dispatch(actions.accidentResponsibilityListAction.getAccidentResponsibilityList())
-//     },
-//     getAccidentListResponsibilityWaiting: () => {
-//         dispatch(actions.accidentResponsibilityListAction.getAccidentListResponsibilityWaiting())
-//     },
+    getAccidentResponsibilityList: () => {
+        dispatch(actions.accidentResponsibilityListAction.getAccidentResponsibilityList())
+    },
+    getAccidentListResponsibilityWaiting: () => {
+        dispatch(actions.accidentResponsibilityListAction.getAccidentListResponsibilityWaiting())
+    },
 //     getCleanRelListWaiting: () => {
 //         dispatch(actions.cleanRelListAction.getCleanRelListWaiting())
 //     },
@@ -313,18 +313,18 @@ const mapDispatchToProps = (dispatch) => ({
 //     getTaskLoanListWaiting: () => {
 //         dispatch(actions.taskLoanListAction.getTaskLoanListWaiting())
 //     },
-//     getOveruseDieselOilList: () => {
-//         dispatch(actions.overuseDieselOilList.getOveruseDieselOilList())
-//     },
-//     getOveruseDieselOilListWaiting: () => {
-//         dispatch(actions.overuseDieselOilList.getOveruseDieselOilListWaiting())
-//     },
-//     getPeccancyList: () => {
-//         dispatch(actions.peccancyList.getPeccancyList())
-//     },
-//     getPeccancyListWaiting: () => {
-//         dispatch(actions.peccancyList.getPeccancyListWaiting())
-//     },
+    getOveruseDieselOilList: () => {
+        dispatch(actions.overuseDieselOilListAction.getOveruseDieselOilList())
+    },
+    getOveruseDieselOilListWaiting: () => {
+        dispatch(actions.overuseDieselOilListAction.getOveruseDieselOilListWaiting())
+    },
+    getPeccancyList: () => {
+        dispatch(actions.peccancyListAction.getPeccancyList())
+    },
+    getPeccancyListWaiting: () => {
+        dispatch(actions.peccancyListAction.getPeccancyListWaiting())
+    },
 //     getNotSettleListWaiting: () => {
 //         dispatch(actions.notSettleList.getNotSettleListWaiting())
 //     },

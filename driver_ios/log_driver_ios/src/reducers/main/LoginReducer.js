@@ -31,7 +31,7 @@ const initialState = {
 }
 
 export default handleActions({
-    [(actionTypes.loginTypes.get_communicationSetting_success)]: (state, action) => {
+    [(actionTypes.loginType.get_communicationSetting_success)]: (state, action) => {
     const { payload: { base_host, file_host, record_host, host } } = action
     return {
         ...state,
@@ -40,7 +40,7 @@ export default handleActions({
         }
     }
 },
-    [(actionTypes.loginTypes.save_communicationSetting_success)]: (state, action) => {
+    [(actionTypes.loginType.save_communicationSetting_success)]: (state, action) => {
     const { payload: { base_host, file_host, record_host, host } } = action
     return {
         ...state,
@@ -52,7 +52,7 @@ export default handleActions({
 
 
 
-    [actionTypes.loginTypes.login_success]: (state, action) => {
+    [actionTypes.loginType.login_success]: (state, action) => {
         const { payload: { step, user } } = action
         return {
             ...state,
@@ -69,7 +69,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.loginTypes.login_failed]: (state, action) => {
+    [actionTypes.loginType.login_failed]: (state, action) => {
         const { payload: { step, failedMsg } } = action
         return {
             ...state,
@@ -84,7 +84,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.loginTypes.login_error]: (state, action) => {
+    [actionTypes.loginType.login_error]: (state, action) => {
         const { payload: { step, errorMsg } } = action
         return {
             ...state,
@@ -101,7 +101,7 @@ export default handleActions({
     },
 
 
-    [actionTypes.loginTypes.set_userInfo]: (state, action) => {
+    [actionTypes.loginType.set_userInfo]: (state, action) => {
         const { payload: { user } } = action
         return {
             ...initialState,
@@ -111,7 +111,7 @@ export default handleActions({
         }
     },
 
-    [actionTypes.loginTypes.change_AvatarImage]: (state, action) => {
+    [actionTypes.loginType.change_AvatarImage]: (state, action) => {
         const { payload: { avatar_image } } = action
         return {
             ...state,
@@ -126,7 +126,7 @@ export default handleActions({
     },
 
 
-    [actionTypes.loginTypes.clean_login]: (state, action) => {
+    [actionTypes.loginType.clean_login]: (state, action) => {
         const { payload: { mobile } } = action
         return {
             ...initialState,

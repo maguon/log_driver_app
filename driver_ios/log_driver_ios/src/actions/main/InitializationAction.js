@@ -40,7 +40,7 @@ export const getComunicationSetting = () => async (dispatch) => {
          const { base_host, file_host, record_host, host } = localStorageRes
         if (base_host && file_host && record_host && host) {
             await dispatch({
-                type: actionTypes.loginTypes.get_communicationSetting_success, payload: {
+                type: actionTypes.loginType.get_communicationSetting_success, payload: {
                     base_host, file_host, record_host, host
                 }
             })
@@ -61,7 +61,7 @@ export const validateVersion=()=>async (dispatch,getState)=>{
     const currentStep=1
     try{
         const { loginReducer:{url:{base_host}}}=getState()
-        dispatch({type:actionTypes.initializationTypes.init_app_waiting,payload:{}})
+        dispatch({type:actionTypes.initializationType.init_app_waiting,payload:{}})
         const  url=`${base_host}/app?${ObjectToUrl({app:ios_app.type,type:ios_app.ios})}`
         console.log(base_host)
         const res=await httpRequest.get(url)

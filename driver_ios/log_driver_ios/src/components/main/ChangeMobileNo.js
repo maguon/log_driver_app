@@ -65,6 +65,6 @@ export default connect(mapStateToProps)(
     reduxForm({
         form: 'ChangeMobileNoForm',
         onSubmit: (values, dispatch) => {
-            dispatch(actions.changeMobileNoActions.changeMobileNo(values))
+            dispatch(actions.changeMobileNoAction.changeMobileNo(values))
         }
     })(ChangeMobileNo))

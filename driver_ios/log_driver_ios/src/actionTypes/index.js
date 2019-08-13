@@ -1,9 +1,9 @@
-import * as initializationTypes from './main/InitializationTypes'
-import * as homeTypes from './main/HomeTypes'
-import * as loginTypes from './main/LoginTypes'
-import * as taskListForHomeActionTypes from './modules/TaskListForHomeActionTypes'
+import * as initializationType from './main/InitializationType'
+import * as homeType from './main/HomeType'
+import * as loginType from './main/LoginType'
+import * as taskListForHomeActionType from './modules/TaskListForHomeActionType'
 import * as mileageInfoActionsType from './modules/MileageInfoActionsType'
-import * as retrievePasswordTypes from './main/RetrievePasswordTypes'
+import * as retrievePasswordType from './main/RetrievePasswordType'
 import * as retrievePasswordVCodeActionType from './main/RetrievePasswordVCodeActionType'
 import * as routeTaskListForHomeActionType from './modules/RouteTaskListForHomeActionType'
 import * as instructExecutingActionType from './main/InstructExecutingActionType'
@@ -12,7 +12,7 @@ import * as carsActionType from './main/CarsActionType'
 import * as branchInstructExecutingActionType from './main/BranchInstructExecutingActionType'
 import * as truckActionType from './main/TruckActionType'
 import * as accidentListActionType from './main/AccidentListActionType'
-import * as searchCarTypes from './main/SearchCarTypes'
+import * as searchCarType from './main/SearchCarType'
 import * as carInfoActionType from './main/CarInfoActionType'
 import * as imageForAccidentType from './main/ImageForAccidentType'
 
@@ -32,25 +32,29 @@ import * as applyAccidentImageAcyionType from './main/ApplyAccidentImageAcyionTy
 import * as accidentTypeActionType from './main/AccidentTypeActionType'
 import * as cityRouteListActionType from './main/CityRouteListActionType'
 
+import * as accidentResponsibilityListActionType from './main/AccidentResponsibilityListActionType'
+import * as peccancyListActionType from './main/PeccancyListActionType'
+import * as overuseDieselOilListActionType from './main/OveruseDieselOilListActionType'
+import * as overuseDieselOilInfoActionType from './main/OveruseDieselOilInfoActionType'
+
 import * as workActionType from './main/WorkActionType'
-import * as mileageInfoForWorkActionType from './main/MileageInfoForWorkActionType'
 import * as instructActionType from './main/InstructActionType'
-import * as branchInstructActionTypes from './main/BranchInstructActionTypes'
+import * as branchInstructActionType from './main/BranchInstructActionType'
 import * as cleanFeeListActionType from './main/CleanFeeListActionType'
 
 import * as changeMobileNoActionType from './main/ChangeMobileNoActionType'
-import * as personalCenterActionTypes from './main/PersonalCenterActionTypes'
+import * as personalCenterActionType from './main/PersonalCenterActionType'
 import * as updatePasswordActionType from './main/UpdatePasswordActionType'
 import * as changeMobileVCodeActionType from './main/ChangeMobileVCodeActionType'
 
 
 export {
-    initializationTypes,
-    loginTypes,
-    homeTypes,
-    taskListForHomeActionTypes,
+    initializationType,
+    loginType,
+    homeType,
+    taskListForHomeActionType,
     mileageInfoActionsType,
-    retrievePasswordTypes,
+    retrievePasswordType,
     retrievePasswordVCodeActionType,
     routeTaskListForHomeActionType,
     instructExecutingActionType,
@@ -59,7 +63,7 @@ export {
     branchInstructExecutingActionType,
     truckActionType,
     accidentListActionType,
-    searchCarTypes,
+    searchCarType,
     carInfoActionType,
     imageForAccidentType,
 
@@ -80,14 +84,18 @@ export {
     accidentTypeActionType,
     cityRouteListActionType,
 
+    accidentResponsibilityListActionType,
+    peccancyListActionType,
+    overuseDieselOilListActionType,
+    overuseDieselOilInfoActionType,
+
     workActionType,
-    mileageInfoForWorkActionType,
     instructActionType,
-    branchInstructActionTypes,
+    branchInstructActionType,
     cleanFeeListActionType,
 
     changeMobileNoActionType,
-    personalCenterActionTypes,
+    personalCenterActionType,
     updatePasswordActionType,
     changeMobileVCodeActionType
 

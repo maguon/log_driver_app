@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     Dimensions,
-    StyleSheet
+    StyleSheet, DatePickerIOS
 } from 'react-native'
 import {Icon, Container} from 'native-base'
 import moment from 'moment'
@@ -17,6 +17,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {connect} from 'react-redux'
 import * as actions from '../../actions/index'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
+import DateTimePicker from "react-native-modal-datetime-picker"
 
 const window = Dimensions.get('window')
 
@@ -24,24 +25,45 @@ class Work extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isDateTimePickerVisible: false,
+            endDateTimePickerVisible:false,
             dateIdStart: moment().format('YYYY-MM-01'),
             dateIdEnd: moment().format('YYYY-MM-DD')
         }
-        this.showPicker = this.showPicker.bind(this)
+        // this.showPicker = this.showPicker.bind(this)
         this.onSearch = this.onSearch.bind(this)
         this.renderTaskItem = this.renderTaskItem.bind(this)
+        this.showDateTimePicker=this.showDateTimePicker.bind(this)
+        this.EndDateTimePicker=this.EndDateTimePicker.bind(this)
     }
 
-    async showPicker(options, getDate) {
-        try {
-            const {action, year, month, day} = await DatePickerAndroid.open(options)
-            if (action !== DatePickerAndroid.dismissedAction) {
-                getDate(moment(new Date(year, month, day)).format('YYYY-MM-DD'))
-            }
-        } catch ({code, message}) {
-            console.warn(`Error in example : `, message)
-        }
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+    };
+    EndDateTimePicker = () => {
+        this.setState({ endDateTimePickerVisible: true })
+    };
+
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+    hideEndDateTimePicker = () => {
+        this.setState({endDateTimePickerVisible: false});
     }
+    handleDatePicked = date => {
+        console.log("A date has been picked: ", date);
+
+       this.state.dateIdStart=moment(date).format('YYYY-MM-DD')
+        console.log("this.state.dateIdStart ", this.state.dateIdStart);
+        this.hideDateTimePicker();
+    };
+
+    handleEndDatePicked = date => {
+        console.log("A date has been picked: ", date);
+        this.state.dateIdEnd=moment(date).format('YYYY-MM-DD')
+        this.hideEndDateTimePicker();
+    };
+
 
     onSearch() {
         const {user} = this.props.loginReducer.data
@@ -172,6 +194,12 @@ class Work extends Component {
     render() {
         const {data} = this.props.workReducer
         const {getWorkMileageInfo} = this.props.workReducer
+
+        let sum=0
+        if(data.mileageInfo.load_distance && data.mileageInfo.distanceCount){
+           sum=data.mileageInfo.load_distance / data.mileageInfo.distanceCount
+        }
+
         return (
             <Container style={{backgroundColor: '#fff'}}>
                 <View style={[styles.borderShadow,{flexDirection: 'column', backgroundColor: '#f2f5f7',borderWidth: 1,borderColor: '#dbdbdb'}]}>
@@ -182,10 +210,20 @@ class Work extends Component {
                         }}>
                             <TouchableOpacity
                                 style={{flex: 1}}
-                                onPress={() => this.showPicker({
-                                    date: new Date(),
-                                    mode: 'spinner'
-                                }, (param) => this.setState({dateIdStart: param}))}>
+                                onPress={this.showDateTimePicker}>
+                                <DateTimePicker
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this.handleDatePicked}
+                                    onCancel={this.hideDateTimePicker}
+                                    cancelTextIOS={"取消"}
+                                    confirmTextIOS={"确认"}
+                                    cancelTextStyle={{fontSize:20}}
+                                    confirmTextStyle={{fontSize:20}}
+                                    titleIOS={"日期选择"}
+                                    mode={"date"}
+                                    locale={"zh-Hans"}
+
+                                />
                                 <View style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
@@ -202,10 +240,19 @@ class Work extends Component {
                             </View>
                             <TouchableOpacity
                                 style={{flex: 1}}
-                                onPress={() => this.showPicker({
-                                    date: new Date(),
-                                    mode: 'spinner'
-                                }, (param) => this.setState({dateIdEnd: param}))}>
+                                onPress={this.EndDateTimePicker}>
+                                <DateTimePicker
+                                    isVisible={this.state.endDateTimePickerVisible}
+                                    onConfirm={this.handleEndDatePicked}
+                                    onCancel={this.hideEndDateTimePicker}
+                                    cancelTextIOS={"取消"}
+                                    confirmTextIOS={"确认"}
+                                    cancelTextStyle={{fontSize:20}}
+                                    confirmTextStyle={{fontSize:20}}
+                                    titleIOS={"日期选择"}
+                                    mode={"date"}
+                                    locale={"zh-Hans"}
+                                />
                                 <View style={{
                                     flexDirection: 'row',
                                     flex: 1,
@@ -243,9 +290,10 @@ class Work extends Component {
                                 borderRadius: 20,
                                 backgroundColor: '#e7e7e7'
                             }}>
+
                                 <View style={{
                                     height: 8,
-                                    width: window.width *0.9* (data.mileageInfo.load_distance ? `${data.mileageInfo.load_distance}` : '0' / data.mileageInfo.distanceCount ? `${data.mileageInfo.distanceCount}` : '0'),
+                                    width: window.width *0.9*sum,
                                     borderRadius: 20,
                                     backgroundColor: styleColor
                                 }}>

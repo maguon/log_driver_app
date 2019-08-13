@@ -13,7 +13,7 @@ const initialState = {
 }
 
 export default handleActions({
-    [(actionTypes.taskListForHomeActionTypes.get_taskListForHome_success)]: (state, action) => {
+    [(actionTypes.taskListForHomeActionType.get_taskListForHome_success)]: (state, action) => {
         const { payload: {taskList}} = action
         console.log('taskList111111111',taskList)
         return {
@@ -28,7 +28,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.taskListForHomeActionTypes.get_taskListForHome_waiting)]: (state, action) => {
+    [(actionTypes.taskListForHomeActionType.get_taskListForHome_waiting)]: (state, action) => {
         return {
             ...state,
             getTaskListHome: {
@@ -37,7 +37,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.taskListForHomeActionTypes.get_taskListForHome_failed)]: (state, action) => {
+    [(actionTypes.taskListForHomeActionType.get_taskListForHome_failed)]: (state, action) => {
         const {payload: {failedMsg}} = action
         return {
             ...state,
@@ -48,7 +48,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.taskListForHomeActionTypes.get_taskListForHome_error)]: (state, action) => {
+    [(actionTypes.taskListForHomeActionType.get_taskListForHome_error)]: (state, action) => {
         const {payload: {errorMsg}} = action
         return {
             ...state,

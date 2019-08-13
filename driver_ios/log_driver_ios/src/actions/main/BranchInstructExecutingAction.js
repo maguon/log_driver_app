@@ -150,7 +150,7 @@ export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
                 }
                 InteractionManager.runAfterInteractions(() => {
                     dispatch({
-                        type: actionTypes.taskListForHomeActionTypes.get_taskListForHome_success, payload: {
+                        type: actionTypes.taskListForHomeActionType.get_taskListForHome_success, payload: {
                             taskList: taskListRes.result
                         }
                     })

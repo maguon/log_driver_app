@@ -25,7 +25,7 @@ export const validateVersion = param => async (dispatch, getState) => {
         mobile = `${mobile}`.replace(/\s*/g, "")
 
 
-        dispatch({ type: actionTypes.initializationTypes.init_app_waiting, payload: {} })
+        dispatch({ type: actionTypes.initializationType.init_app_waiting, payload: {} })
         //创建url链接
         const base_host = `http://api.${server}/api`
         const url = `${base_host}/app?${ObjectToUrl({app: ios_app.type, type: ios_app.ios})}`
@@ -97,7 +97,7 @@ export const validateVersion = param => async (dispatch, getState) => {
                 dispatch(login(param))
             } else {
                 //更新版本数据
-                dispatch({ type: actionTypes.initializationTypes.valdate_version_low, payload: { versionInfo, step: currentStep } })
+                dispatch({ type: actionTypes.initializationType.valdate_version_low, payload: { versionInfo, step: currentStep } })
             }
 
         } else {
@@ -110,7 +110,7 @@ export const validateVersion = param => async (dispatch, getState) => {
             Actions.initialization()
         }
         //更新failed数据
-        dispatch({type:actionTypes.initializationTypes.valdate_version_failed,payload: {failedMsg:res.msg}})
+        dispatch({type:actionTypes.initializationType.valdate_version_failed,payload: {failedMsg:res.msg}})
         }
     } catch (err) {
         //弹出提示
@@ -118,7 +118,7 @@ export const validateVersion = param => async (dispatch, getState) => {
             text:`初始化错误：${err}`
         })
         //更新err数据
-      dispatch({type:actionTypes.initializationTypes.valdate_version_error,payload:{errorMsg:err}})
+      dispatch({type:actionTypes.initializationType.valdate_version_error,payload:{errorMsg:err}})
 
         //跳转页面
         Actions.initialization()
@@ -132,7 +132,7 @@ export const login = (param) => async (dispatch, getState) => {
     try{
         //等待
      dispatch({
-         type:actionTypes.loginTypes.login_waiting,
+         type:actionTypes.loginType.login_waiting,
          payload:{}
      })
         //用户输入
@@ -175,8 +175,8 @@ export const login = (param) => async (dispatch, getState) => {
                         data: user
                     })
                     //更新store数据
-                    await dispatch(actions.communicationSettingActions.saveCommunicationSetting({url:server}))
-                    await dispatch({type:actionTypes.loginTypes.login_success,payload:{user}})
+                    await dispatch(actions.communicationSettingAction.saveCommunicationSetting({url:server}))
+                    await dispatch({type:actionTypes.loginType.login_success,payload:{user}})
 
                     console.log('server',server)
                     Actions.appMain()
@@ -185,7 +185,7 @@ export const login = (param) => async (dispatch, getState) => {
                         text:'登陆失败：无法获取用户信息！'
                     })
 
-                    dispatch({type:actionTypes.loginTypes.login_failed,payload:{failedMsg: '无法获取用户信息！'}})
+                    dispatch({type:actionTypes.loginType.login_failed,payload:{failedMsg: '无法获取用户信息！'}})
                 }
 
             }else {
@@ -194,7 +194,7 @@ export const login = (param) => async (dispatch, getState) => {
                     text:'登录失败：身份错误！'
                 })
 
-                dispatch({type:actionTypes.loginTypes.login_failed,payload:{failedMsg: '身份错误！'}})
+                dispatch({type:actionTypes.loginType.login_failed,payload:{failedMsg: '身份错误！'}})
             }
         }else {
             console.log(JSON.stringify(res)+"00000000000000000")
@@ -203,7 +203,7 @@ export const login = (param) => async (dispatch, getState) => {
                     text:`登陆失败：${res.msg}`
                 })
 
-            dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: res.msg } })
+            dispatch({ type: actionTypes.loginType.login_failed, payload: { failedMsg: res.msg } })
         }
 
     }catch (err) {
@@ -213,12 +213,12 @@ export const login = (param) => async (dispatch, getState) => {
             Toast.show({
                 text:`登陆失败：网络链接失败！`
             })
-            dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
+            dispatch({ type: actionTypes.loginType.login_error, payload: { errorMsg: err } })
         } else {
             Toast.show({
                 text:`登陆失败：${err}`
             })
-            dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
+            dispatch({ type: actionTypes.loginType.login_error, payload: { errorMsg: err } })
         }
 
     }
@@ -237,5 +237,5 @@ export const cleanLogin = () => async (dispatch, getState) => {
             mobile: user.mobile
         }
     })
-    dispatch({type: actionTypes.loginTypes.clean_login, payload: {mobile: user.mobile}})
+    dispatch({type: actionTypes.loginType.clean_login, payload: {mobile: user.mobile}})
 }

@@ -35,8 +35,12 @@ import applyAccidentImageReducer from './main/ApplyAccidentImageReducer'
 import accidentTypeReducer from './main/AccidentTypeReducer'
 import cityRouteListReducer from './main/CityRouteListReducer'
 
+import accidentResponsibilityListReducer from './main/AccidentResponsibilityListReducer'
+import peccancyListReducer from './main/PeccancyListReducer'
+import overuseDieselOilListReducer from './main/OveruseDieselOilListReducer'
+import overuseDieselOilInfoReducer from './main/OveruseDieselOilInfoReducer'
+
 import workReducer from './main/WorkReducer'
-import mileageInfoForWorkReducer from './main/MileageInfoForWorkReducer'
 import instructReducer from './main/InstructReducer'
 import branchInstructReducer from './main/BranchInstructReducer'
 import cleanFeeListReducer from './main/CleanFeeListReducer'
@@ -83,8 +87,12 @@ export default combineReducers({
     accidentTypeReducer,
     cityRouteListReducer,
 
+    accidentResponsibilityListReducer,
+    peccancyListReducer,
+    overuseDieselOilListReducer,
+    overuseDieselOilInfoReducer,
+
     workReducer,
-    mileageInfoForWorkReducer,
     instructReducer,
     branchInstructReducer,
     cleanFeeListReducer,

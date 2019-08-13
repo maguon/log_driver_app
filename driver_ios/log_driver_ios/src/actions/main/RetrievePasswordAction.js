@@ -12,7 +12,7 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
         const Server = `${server}`.replace(/\s*/g, "")
         const base_host = `http://api.${Server}/api`
         // const { loginReducer: { data: { user: { uid } } } } = getState()
-        dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_waiting, payload: {} })
+        dispatch({ type: actionTypes.retrievePasswordType.retrieve_waiting, payload: {} })
         const url = `${base_host}/phone/${mobileNo}/password`
         //  console.log('url', url)
         const res = await httpRequest.put(url, {
@@ -33,9 +33,9 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_success, payload: {} })
+            dispatch({ type: actionTypes.retrievePasswordType.retrieve_success, payload: {} })
             //更新url
-            await dispatch(actions.communicationSettingActions.saveCommunicationSetting({ url: server }))
+            await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: server }))
             //替换登录server
             await dispatch(change('loginForm', 'server', server))
 
@@ -51,7 +51,7 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_failed, payload: { failedMsg: `${res.msg}` } })
+            dispatch({ type: actionTypes.retrievePasswordType.retrieve_failed, payload: { failedMsg: `${res.msg}` } })
         }
     }catch (err) {
         // console.log('err', err)
@@ -66,6 +66,6 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
             ],
             {cancelable: false}
         )
-        dispatch({ type: actionTypes.retrievePasswordTypes.retrieve_error, payload: { errorMsg: `${err}` } })
+        dispatch({ type: actionTypes.retrievePasswordType.retrieve_error, payload: { errorMsg: `${err}` } })
     }
 }

@@ -46,12 +46,25 @@ import CleanFeeList from './components/main/CleanFeeList'
 import UpdatePassword from './components/main/UpdatePassword'
 import ChangeMobileNo from './components/main/ChangeMobileNo'
 import PersonalCenter from './components/main/PersonalCenter'
+import AccidentResponsibilityList from './components/main/AccidentResponsibilityList'
+import AccidentResponsibilityInfo from './components/main/AccidentResponsibilityInfo'
+import PeccancyList from './components/main/PeccancyList'
+import PeccancyInfo from './components/main/PeccancyInfo'
+import OveruseDieselOilInfo from './components/main/OveruseDieselOilInfo'
+import OveruseDieselOilList from './components/main/OveruseDieselOilList'
+
 
 //模块
 import AccidentListOperation from './components/modules/AccidentListOperation'
 import VinScanner from './components/modules/VinScanner'
 import PhotoViewNavBar from './components/modules/PhotoViewNavBar'
 import SinglePhotoView from './components/modules/SinglePhotoView'
+import PeccancySearch from './components/modules/PeccancySearch'
+import PeccancyToolButton from './components/modules/PeccancyToolButton'
+import PeccancyLeftButton from './components/modules/PeccancyLeftButton'
+import OveruseDieselOilSearch from './components/modules/OveruseDieselOilSearch'
+import OveruseDieselOilToolButton from './components/modules/OveruseDieselOilToolButton'
+import OveruseDieselOilLeftButton from './components/modules/OveruseDieselOilLeftButton'
 
 //通用
 import tabIcon from './components/utils/TabIcon'
@@ -248,8 +261,6 @@ const Root = () => {
 
 
 
-
-
                                 <Scene key="accidentList"
                                        component={AccidentList}
                                        title='事故列表'
@@ -271,6 +282,87 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={ApplyAccidentImageSubmit} />
+
+
+
+                                <Scene key="accidentResponsibilityList"
+                                       component={AccidentResponsibilityList}
+                                       title='事故责任列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="accidentResponsibilityInfo"
+                                       component={AccidentResponsibilityInfo}
+                                       title='事故责任详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
+
+                                <Scene key="peccancyList"
+                                       component={PeccancyList}
+                                       RightButton={PeccancyToolButton}
+                                       title='违章扣款列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={PeccancyLeftButton} />
+                                <Scene key="peccancyInfo"
+                                       component={PeccancyInfo}
+                                       title='违章扣款详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="peccancySearch"
+                                       component={PeccancySearch}
+                                       title='违章扣款查询'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
+
+                                <Scene key="overuseDieselOilList"
+                                       component={OveruseDieselOilList}
+                                       title='超油扣款列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       RightButton={OveruseDieselOilToolButton}
+                                       LeftButton={OveruseDieselOilLeftButton} />
+                                <Scene key="overuseDieselOilInfo"
+                                       component={OveruseDieselOilInfo}
+                                       title='超油扣款详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="overuseDieselOilSearch"
+                                       component={OveruseDieselOilSearch}
+                                       title='超油扣款查询'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                             </Scene>

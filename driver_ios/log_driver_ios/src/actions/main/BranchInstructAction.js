@@ -15,7 +15,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
         // console.log('res',res)
         if (res[0].success && res[1].success) {
             dispatch({
-                type: actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_SUCCESS,
+                type: actionTypes.branchInstructActionType.GET_RouteLoadTaskList_SUCCESS,
                 payload: {
                     data: {
                         routeLoadTaskList: res[0].result,
@@ -29,14 +29,14 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
                 }
             })
         } else {
-            dispatch({ type: actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+            dispatch({ type: actionTypes.branchInstructActionType.GET_RouteLoadTaskList_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
         }
     } catch (err) {
         // console.log('err', err)
-        dispatch({ type: actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.branchInstructActionType.GET_RouteLoadTaskList_ERROR, payload: { data: err } })
     }
 }
 
 export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.branchInstructActionTypes.GET_RouteLoadTaskList_WAITING, payload: {} })
+    dispatch({ type: actionTypes.branchInstructActionType.GET_RouteLoadTaskList_WAITING, payload: {} })
 }

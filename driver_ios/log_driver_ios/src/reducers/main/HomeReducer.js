@@ -28,7 +28,7 @@ const initialState = {
 
 
 export default handleActions({
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         const { load_distance, no_load_distance } = data.mileageInfo
         let distanceCount = (load_distance ? load_distance : 0) + (no_load_distance ? no_load_distance : 0)
@@ -50,7 +50,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_FAILED)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -61,7 +61,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -72,7 +72,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_ERROR)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -83,7 +83,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_WAITING)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_WAITING)]: (state, action) => {
         return {
             ...state,
             getHomeMileageInfo: {
@@ -92,7 +92,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.GET_HomeMileageInfo_Unbind)]: (state, action) => {
+    [(actionTypes.homeType.GET_HomeMileageInfo_Unbind)]: (state, action) => {
         return {
             ...state,
             getHomeMileageInfo: {
@@ -103,7 +103,7 @@ export default handleActions({
     },
 
 
-    [(actionTypes.homeTypes.Change_HomeTaskStatus_SUCCESS)]: (state, action) => {
+    [(actionTypes.homeType.Change_HomeTaskStatus_SUCCESS)]: (state, action) => {
         const { payload: { data } } = action
         let newTaskList = [...state.data.taskList]
         newTaskList = newTaskList.map((item) => {
@@ -124,7 +124,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.Change_HomeTaskStatus_FAILED)]: (state, action) => {
+    [(actionTypes.homeType.Change_HomeTaskStatus_FAILED)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -135,7 +135,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.Change_HomeTaskStatus_SERVICEERROR)]: (state, action) => {
+    [(actionTypes.homeType.Change_HomeTaskStatus_SERVICEERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -146,7 +146,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.Change_HomeTaskStatus_ERROR)]: (state, action) => {
+    [(actionTypes.homeType.Change_HomeTaskStatus_ERROR)]: (state, action) => {
         const { payload: { data } } = action
         return {
             ...state,
@@ -157,7 +157,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.Change_HomeTaskStatus_WAITING)]: (state, action) => {
+    [(actionTypes.homeType.Change_HomeTaskStatus_WAITING)]: (state, action) => {
         return {
             ...state,
             changeTaskStatus: {
@@ -166,7 +166,7 @@ export default handleActions({
             }
         }
     },
-    [(actionTypes.homeTypes.RESET_Change_HomeTaskStatus)]: (state, action) => {
+    [(actionTypes.homeType.RESET_Change_HomeTaskStatus)]: (state, action) => {
         return {
             ...state,
             changeTaskStatus: {

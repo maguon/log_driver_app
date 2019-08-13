@@ -5,7 +5,7 @@ import {Alert} from "react-native";
 
 export const updatePersonalImage = (param) => async (dispatch, getState) => {
     try {
-        dispatch({type: actionTypes.personalCenterActionTypes.Update_PersonalImage_WAITING, payload: {}})
+        dispatch({type: actionTypes.personalCenterActionType.Update_PersonalImage_WAITING, payload: {}})
         const {loginReducer: {url: {file_host, base_host}}} = getState()
         const uploadUrl = `${file_host}/user/${param.uploadImage.requiredParam.userId}/image?${ObjectToUrl(param.uploadImage.optionalParam)}`
         const uploadUrlRes = await httpRequest.postFile(uploadUrl, param.uploadImage.postParam)
@@ -15,10 +15,10 @@ export const updatePersonalImage = (param) => async (dispatch, getState) => {
             const updateAvatarImageRes = await httpRequest.put(updateAvatarImageUrl, param.updateAvatarImage.putParam)
             if (updateAvatarImageRes.success) {
                 dispatch({
-                    type: actionTypes.loginTypes.change_AvatarImage,
+                    type: actionTypes.loginType.change_AvatarImage,
                     payload: {avatar_image: uploadUrlRes.imageId}
                 })
-                dispatch({type: actionTypes.personalCenterActionTypes.Update_PersonalImage_SUCCESS, payload: {}})
+                dispatch({type: actionTypes.personalCenterActionType.Update_PersonalImage_SUCCESS, payload: {}})
                 // Toast.show({
                 //     text: `修改成功！`
                 // })
@@ -33,7 +33,7 @@ export const updatePersonalImage = (param) => async (dispatch, getState) => {
                 )
             } else {
                 dispatch({
-                    type: actionTypes.personalCenterActionTypes.Update_PersonalImage_FAILED,
+                    type: actionTypes.personalCenterActionType.Update_PersonalImage_FAILED,
                     payload: {failedMsg: updateAvatarImageRes.msg}
                 })
                 // Toast.show({
@@ -51,7 +51,7 @@ export const updatePersonalImage = (param) => async (dispatch, getState) => {
             }
         } else {
             dispatch({
-                type: actionTypes.personalCenterActionTypes.Update_PersonalImage_FAILED,
+                type: actionTypes.personalCenterActionType.Update_PersonalImage_FAILED,
                 payload: {failedMsg: uploadUrlRes.msg}
             })
             // Toast.show({
@@ -68,7 +68,7 @@ export const updatePersonalImage = (param) => async (dispatch, getState) => {
             )
         }
     } catch (err) {
-        dispatch({type: actionTypes.personalCenterActionTypes.Update_PersonalImage_ERROR, payload: {errorMsg: err}})
+        dispatch({type: actionTypes.personalCenterActionType.Update_PersonalImage_ERROR, payload: {errorMsg: err}})
         // Toast.show({
         //     text: `修改失败！${err}`
         // })

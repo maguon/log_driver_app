@@ -322,10 +322,10 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(actions.branchInstructAction.setGetRouteLoadTaskListWaiting())
     },
     getCleanFeeList: req => {
-        dispatch(actions.cleanFeeListActions.getCleanFeeList(req))
+        dispatch(actions.cleanFeeListAction.getCleanFeeList(req))
     },
     getCleanFeeListWaiting: () => {
-        dispatch(actions.cleanFeeListActions.getCleanFeeListWaiting())
+        dispatch(actions.cleanFeeListAction.getCleanFeeListWaiting())
     }
 })
 

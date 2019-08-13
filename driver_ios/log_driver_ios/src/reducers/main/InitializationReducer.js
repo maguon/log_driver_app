@@ -51,7 +51,7 @@ const initialState = {
 }
 
 export default handleActions({
-    [actionTypes.initializationTypes.init_app_waiting]: (state, action) => {
+    [actionTypes.initializationType.init_app_waiting]: (state, action) => {
         return {
             ...state,
             initAPP: {
@@ -59,7 +59,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.initializationTypes.valdate_version_success]: (state, action) => {
+    [actionTypes.initializationType.valdate_version_success]: (state, action) => {
         return {
             ...state,
             validateVersion: {
@@ -70,7 +70,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.initializationTypes.valdate_version_failed]: (state, action) => {
+    [actionTypes.initializationType.valdate_version_failed]: (state, action) => {
         return {
             ...state,
             validateVersion:{
@@ -82,7 +82,7 @@ export default handleActions({
             }
         }
     },
-    [actionTypes.initializationTypes.valdate_version_error]: (state, action) => {
+    [actionTypes.initializationType.valdate_version_error]: (state, action) => {
         return {
             ...state,
             validateVersion:{
@@ -94,7 +94,7 @@ export default handleActions({
         }
         }
     },
-    [actionTypes.initializationTypes.valdate_version_low]: (state, action) => {
+    [actionTypes.initializationType.valdate_version_low]: (state, action) => {
         return {
             ...state,
             data: {

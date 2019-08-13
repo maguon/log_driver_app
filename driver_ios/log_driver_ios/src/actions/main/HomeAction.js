@@ -13,7 +13,7 @@ export const getMileageInfo = () => async (dispatch, getState) => {
         // console.log('getTruckRes', getTruckRes)
         if (getTruckRes.success) {
             if (getTruckRes.result.length == 0) {
-                dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_Unbind, payload: {} })
+                dispatch({ type: actionTypes.homeType.GET_HomeMileageInfo_Unbind, payload: {} })
             } else {
                 const urls = [`${base_host}/driveDistanceLoadStat?${ObjectToUrl({
                     taskStatus: 10,
@@ -40,7 +40,7 @@ export const getMileageInfo = () => async (dispatch, getState) => {
                 // console.log('mileageInfoReduce', mileageInfoReduce)
                 if (res[0].success && res[1].success && res[2].success) {
                     dispatch({
-                        type: actionTypes.homeTypes.GET_HomeMileageInfo_SUCCESS, payload: {
+                        type: actionTypes.homeType.GET_HomeMileageInfo_SUCCESS, payload: {
                             data: {
                                 mileageInfo: {
                                     load_distance: mileageInfoReduce.load_distance,
@@ -53,7 +53,7 @@ export const getMileageInfo = () => async (dispatch, getState) => {
                     })
                 } else {
                     dispatch({
-                        type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED,
+                        type: actionTypes.homeType.GET_HomeMileageInfo_FAILED,
                         payload: {
                             data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}${res[2].msg ? res[2].msg : ''}`
                         }
@@ -61,10 +61,10 @@ export const getMileageInfo = () => async (dispatch, getState) => {
                 }
             }
         } else {
-            dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_FAILED, payload: { data: getTruckRes.msg } })
+            dispatch({ type: actionTypes.homeType.GET_HomeMileageInfo_FAILED, payload: { data: getTruckRes.msg } })
         }
     } catch (err) {
         // console.log('err', err)
-        dispatch({ type: actionTypes.homeTypes.GET_HomeMileageInfo_ERROR, payload: { data: err } })
+        dispatch({ type: actionTypes.homeType.GET_HomeMileageInfo_ERROR, payload: { data: err } })
     }
 }

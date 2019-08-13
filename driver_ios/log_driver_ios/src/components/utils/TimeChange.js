@@ -17,7 +17,7 @@ export default class TimeChange extends Component {
         return (
             <Modal
                 animationType='fade'
-                transparent
+                transparent={true}
                 visible={true}
                 onRequestClose={() => { }}
             >

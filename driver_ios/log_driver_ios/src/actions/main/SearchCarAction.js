@@ -20,20 +20,20 @@ export const getCarList = req => async (dispatch, getState) => {
          console.log('url',url)
         const res = await httpRequest.get(url)
         if (res.success) {
-            dispatch({ type: actionTypes.searchCarTypes.search_carListForSelect_success, payload: { carList: res.result } })
+            dispatch({ type: actionTypes.searchCarType.search_carListForSelect_success, payload: { carList: res.result } })
         } else {
-            dispatch({ type: actionTypes.searchCarTypes.search_carListForSelect_failed, payload: { failedMsg: res.msg } })
+            dispatch({ type: actionTypes.searchCarType.search_carListForSelect_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        dispatch({ type: actionTypes.searchCarTypes.search_carListForSelect_error, payload: { errorMsg: err } })
+        dispatch({ type: actionTypes.searchCarType.search_carListForSelect_error, payload: { errorMsg: err } })
     }
 }
 
 export const getCarListWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.searchCarTypes.search_carListForSelect_waiting, payload: {} })
+    dispatch({ type: actionTypes.searchCarType.search_carListForSelect_waiting, payload: {} })
 }
 
 
 export const cleanCarList = () => (dispatch) => {
-    dispatch({ type: actionTypes.searchCarTypes.clean_search_carListForSelect, payload: {} })
+    dispatch({ type: actionTypes.searchCarType.clean_search_carListForSelect, payload: {} })
 }

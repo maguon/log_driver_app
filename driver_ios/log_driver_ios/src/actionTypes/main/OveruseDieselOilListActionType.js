@@ -1,0 +1,11 @@
+export const get_overuseDieselOilList_success = 'get_overuseDieselOilList_success'
+export const get_overuseDieselOilList_failed = 'get_overuseDieselOilList_failed'
+export const get_overuseDieselOilList_error = 'get_overuseDieselOilList_error'
+export const get_overuseDieselOilList_waiting = 'get_overuseDieselOilList_waiting'
+
+export const get_overuseDieselOilListMore_success = 'get_overuseDieselOilListMore_success'
+export const get_overuseDieselOilListMore_failed = 'get_overuseDieselOilListMore_failed'
+export const get_overuseDieselOilListMore_error = 'get_overuseDieselOilListMore_error'
+export const get_overuseDieselOilListMore_waiting = 'get_overuseDieselOilListMore_waiting'
+
+export const clean_overuseDieselOilList = 'clean_overuseDieselOilList'
