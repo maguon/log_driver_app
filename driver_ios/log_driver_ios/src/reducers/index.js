@@ -17,6 +17,7 @@ import accidentListReducer from './main/AccidentListReducer'
 import searchCarReducer from './main/SearchCarReducer'
 import carInfoReducer from './main/CarInfoReducer'
 import imageForAccidentReducer from './main/ImageForAccidentReducer'
+import accidentEditorReducer from './main/AccidentEditorReducer'
 
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
@@ -60,6 +61,11 @@ import demageOpResultReducer from './main/DemageOpResultReducer'
 import imageListForDemageReducer from './main/ImageListForDemageReducer'
 import demageListOperationReducer from './main/DemageListOperationReducer'
 import demageResponsibilityListOperationReducer from './main/DemageResponsibilityListOperationReducer'
+import ApplyDamageImageReducer from './main/ApplyDamageImageReducer'
+import ApplyDamageReducer from './main/ApplyDamageReducer'
+import selectDriverReducer from './main/SelectDriverReducer'
+import demageEditorReducer from './main/DemageEditorReducer'
+import addressReducer from './main/AddressReducer'
 
 import workReducer from './main/WorkReducer'
 import instructReducer from './main/InstructReducer'
@@ -90,6 +96,7 @@ export default combineReducers({
     searchCarReducer,
     carInfoReducer,
     imageForAccidentReducer,
+    accidentEditorReducer,
 
 
     truckDetailReducer,
@@ -133,6 +140,11 @@ export default combineReducers({
     imageListForDemageReducer,
     demageListOperationReducer,
     demageResponsibilityListOperationReducer,
+    ApplyDamageReducer,
+    ApplyDamageImageReducer,
+    selectDriverReducer,
+    demageEditorReducer,
+    addressReducer,
 
     workReducer,
     instructReducer,

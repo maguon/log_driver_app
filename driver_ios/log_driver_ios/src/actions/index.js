@@ -16,7 +16,7 @@ import * as accidentListAction from './main/AccidentListAction'
 import * as searchCarAction from './main/SearchCarAction'
 import * as carInfoAction from './main/CarInfoAction'
 import * as imageForAccidentAction from './main/ImageForAccidentAction'
-
+import * as accidentEditorAction from './main/AccidentEditorAction'
 
 import * as truckDetailAction from './main/TruckDetailAction'
 import * as truckImageAction from './main/TruckImageAction'
@@ -59,6 +59,11 @@ import * as demageOpResultAction from './main/DemageOpResultAction'
 import * as imageListForDemageAction from './main/ImageListForDemageAction'
 import * as demageListOperationAction from './main/DemageListOperationAction'
 import * as demageResponsibilityListOperationAction from './main/DemageResponsibilityListOperationAction'
+import * as applyDamageImageAction from './main/ApplyDamageImageAction'
+import * as applyDamageAction from './main/ApplyDamageAction'
+import * as selectDriverAction from './main/SelectDriverAction'
+import * as demageEditorAction from './main/DemageEditorAction'
+import * as addressAction from './main/AddressAction'
 
 import * as workAction from './main/WorkAction'
 import * as instructAction from './main/InstructAction'
@@ -89,6 +94,7 @@ export {
     searchCarAction,
     carInfoAction,
     imageForAccidentAction,
+    accidentEditorAction,
 
 
     truckDetailAction,
@@ -132,6 +138,11 @@ export {
     imageListForDemageAction,
     demageListOperationAction,
     demageResponsibilityListOperationAction,
+    applyDamageImageAction,
+    applyDamageAction,
+    selectDriverAction,
+    demageEditorAction,
+    addressAction,
 
     workAction,
     instructAction,

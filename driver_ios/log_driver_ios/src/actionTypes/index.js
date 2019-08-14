@@ -15,6 +15,7 @@ import * as accidentListActionType from './main/AccidentListActionType'
 import * as searchCarType from './main/SearchCarType'
 import * as carInfoActionType from './main/CarInfoActionType'
 import * as imageForAccidentType from './main/ImageForAccidentType'
+import * as accidentEditorType from './main/AccidentEditorType'
 
 import * as truckDetailActionType from './main/TruckDetailActionType'
 import * as truckImageActionType from './main/TruckImageActionType'
@@ -57,6 +58,11 @@ import * as demageOpResultType from './main/DemageOpResultType'
 import * as imageListForDemageType from './main/ImageListForDemageType'
 import * as demageListOperationType from './main/DemageListOperationType'
 import * as demageResponsibilityListOperationType from './main/DemageResponsibilityListOperationType'
+import * as applyDamageImageType from './main/ApplyDamageImageType'
+import * as applyDamageType from './main/ApplyDamageType'
+import * as selectDriverActionType from './main/SelectDriverActionType'
+import * as demageEditorType from './main/DemageEditorType'
+import * as addressType from './main/AddressType'
 
 import * as workActionType from './main/WorkActionType'
 import * as instructActionType from './main/InstructActionType'
@@ -87,6 +93,7 @@ export {
     searchCarType,
     carInfoActionType,
     imageForAccidentType,
+    accidentEditorType,
 
 
     truckDetailActionType,
@@ -130,6 +137,11 @@ export {
     imageListForDemageType,
     demageListOperationType,
     demageResponsibilityListOperationType,
+    applyDamageImageType,
+    applyDamageType,
+    selectDriverActionType,
+    demageEditorType,
+    addressType,
 
     workActionType,
     instructActionType,
