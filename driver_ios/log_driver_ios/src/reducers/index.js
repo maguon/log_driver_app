@@ -39,6 +39,14 @@ import accidentResponsibilityListReducer from './main/AccidentResponsibilityList
 import peccancyListReducer from './main/PeccancyListReducer'
 import overuseDieselOilListReducer from './main/OveruseDieselOilListReducer'
 import overuseDieselOilInfoReducer from './main/OveruseDieselOilInfoReducer'
+import notSettleListReducer from './main/NotSettleListReducer'
+import fuelFillingApplyReducer from './main/FuelFillingApplyReducer'
+import fuelFillingRecordReducer from './main/FuelFillingRecordReducer'
+import cleanRelListReducer from './main/CleanRelListReducer'
+import receiveForCleanRelReducer from './main/ReceiveForCleanRelReducer'
+import selectReceiveReducer from './main/SelectReceiveReducer'
+import selectCityReducer from './main/SelectCityReducer'
+import selectCarReducer from './main/SelectCarReducer'
 
 import workReducer from './main/WorkReducer'
 import instructReducer from './main/InstructReducer'
@@ -91,6 +99,14 @@ export default combineReducers({
     peccancyListReducer,
     overuseDieselOilListReducer,
     overuseDieselOilInfoReducer,
+    notSettleListReducer,
+    fuelFillingApplyReducer,
+    fuelFillingRecordReducer,
+    cleanRelListReducer,
+    receiveForCleanRelReducer,
+    selectReceiveReducer,
+    selectCityReducer,
+    selectCarReducer,
 
     workReducer,
     instructReducer,

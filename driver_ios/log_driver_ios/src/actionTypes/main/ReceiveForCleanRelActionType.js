@@ -1,0 +1,4 @@
+export const get_receiveForCleanRel_waiting = 'get_receiveForCleanRel_waiting'
+export const get_receiveForCleanRel_success = 'get_receiveForCleanRel_success'
+export const get_receiveForCleanRel_failed = 'get_receiveForCleanRel_failed'
+export const get_receiveForCleanRel_error = 'get_receiveForCleanRel_error'

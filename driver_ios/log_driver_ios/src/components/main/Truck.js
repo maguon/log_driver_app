@@ -43,8 +43,8 @@ class Truck extends Component {
             getAccidentListWaiting,
             getAccidentResponsibilityList,
             getAccidentListResponsibilityWaiting,
-            // getCleanRelList,
-            // getCleanRelListWaiting,
+            getCleanRelList,
+            getCleanRelListWaiting,
             // getDemageResponsibilityList,
             // getDemageResponsibilityListWaiting,
             // getTaskLoanList,
@@ -53,14 +53,14 @@ class Truck extends Component {
             getOveruseDieselOilListWaiting,
             getPeccancyListWaiting,
             getPeccancyList,
-            // getNotSettleListWaiting,
-            // getNotSettleList,
+            getNotSettleListWaiting,
+            getNotSettleList,
             // getSalaryListWaiting,
             // getSalaryList,
             // getRouteTaskFeeListWaiting,
             // getRouteTaskFeeList
         } = this.props
-        console.log("props========" + JSON.stringify(this.props))
+
         return (
             <Container>
                 <View style={{
@@ -289,12 +289,12 @@ const mapDispatchToProps = (dispatch) => ({
     getAccidentListResponsibilityWaiting: () => {
         dispatch(actions.accidentResponsibilityListAction.getAccidentListResponsibilityWaiting())
     },
-//     getCleanRelListWaiting: () => {
-//         dispatch(actions.cleanRelListAction.getCleanRelListWaiting())
-//     },
-//     getCleanRelList: () => {
-//         dispatch(actions.cleanRelListAction.getCleanRelList())
-//     },
+    getCleanRelListWaiting: () => {
+        dispatch(actions.cleanRelListAction.getCleanRelListWaiting())
+    },
+    getCleanRelList: () => {
+        dispatch(actions.cleanRelListAction.getCleanRelList())
+    },
 //     getDemageList: () => {
 //         dispatch(actions.demageListAction.getDemageList())
 //     },
@@ -325,12 +325,12 @@ const mapDispatchToProps = (dispatch) => ({
     getPeccancyListWaiting: () => {
         dispatch(actions.peccancyListAction.getPeccancyListWaiting())
     },
-//     getNotSettleListWaiting: () => {
-//         dispatch(actions.notSettleList.getNotSettleListWaiting())
-//     },
-//     getNotSettleList: () => {
-//         dispatch(actions.notSettleList.getNotSettleList())
-//     },
+    getNotSettleListWaiting: () => {
+        dispatch(actions.notSettleListAction.getNotSettleListWaiting())
+    },
+    getNotSettleList: () => {
+        dispatch(actions.notSettleListAction.getNotSettleList())
+    },
 //     getSalaryList: () => {
 //         dispatch(actions.salaryList.getSalaryList())
 //     },

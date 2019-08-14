@@ -44,8 +44,8 @@ const renderEmpty = () => {
 
 
 const CleanFeeList = props => {
-    const { cleanFeeListReducer, cleanFeeListReducer: { data: { cleanFeeList } ,getCleanFeeList:{isResultStatus}} } = props
-    console.log('cleanFeeListReducer', cleanFeeListReducer)
+    const {  cleanFeeListReducer: { data: { cleanFeeList } ,getCleanFeeList:{isResultStatus}} } = props
+    console.log('cleanFeeListReducer', cleanFeeList)
     if(isResultStatus==1){
         return (
             <Container>

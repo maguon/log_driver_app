@@ -52,6 +52,12 @@ import PeccancyList from './components/main/PeccancyList'
 import PeccancyInfo from './components/main/PeccancyInfo'
 import OveruseDieselOilInfo from './components/main/OveruseDieselOilInfo'
 import OveruseDieselOilList from './components/main/OveruseDieselOilList'
+import NotSettleList from './components/main/NotSettleList'
+import FuelFillingApply from './components/main/FuelFillingApply'
+import FuelFillingRecord from './components/main/FuelFillingRecord'
+import CleanRelList from './components/main/CleanRelList'
+
+
 
 
 //模块
@@ -65,6 +71,10 @@ import PeccancyLeftButton from './components/modules/PeccancyLeftButton'
 import OveruseDieselOilSearch from './components/modules/OveruseDieselOilSearch'
 import OveruseDieselOilToolButton from './components/modules/OveruseDieselOilToolButton'
 import OveruseDieselOilLeftButton from './components/modules/OveruseDieselOilLeftButton'
+import FuelFillingSearch from './components/modules/FuelFillingSearch'
+import FuelFillingRecordToolButton from './components/modules/FuelFillingRecordToolButton'
+import CleanRel from './components/modules/CleanRel'
+import ListCennect from './components/modules/ListCennect'
 
 //通用
 import tabIcon from './components/utils/TabIcon'
@@ -72,6 +82,7 @@ import HomeLeftButton from './components/utils/HomeLeftButton'
 import InstructExecutingOp from './components/utils/InstructExecutingOp'
 import InstructExecutingOc from './components/utils/InstructExecutingOc'
 import NavBar from './components/utils/NavBar'
+import NavSearchDynamicBar from './components/utils/NavSearchCarBar'
 //import HomeOperation from './components/utils/HomeOperation'
 import LeftButton from './components/utils/LeftButton'
 import NavSearchCarBar from './components/utils/NavSearchCarBar'
@@ -214,6 +225,14 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
+                                <Scene key="cleanFeeListAtHomeBlock"
+                                       component={CleanFeeList}
+                                       title='洗车费'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
                             </Scene>
 
 
@@ -347,9 +366,71 @@ const Root = () => {
                                        RightButton={InstructExecutingOc}/>
 
 
+                                <Scene key="notSettleList"
+                                       component={NotSettleList}
+                                       title='未返还交接单'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
 
 
+                                <Scene key="fuelFillingRecord"
+                                       LeftButton={LeftButton}
+                                       component={FuelFillingRecord}
+                                       title='加油记录'
+                                       RightButton={FuelFillingRecordToolButton}
+                                       hideTabBar
+                                       navBar={NavBar} />
+                                <Scene key="fuelFillingApply"
+                                       LeftButton={LeftButton}
+                                       component={FuelFillingApply}
+                                       title='加油申报'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="fuelFillingSearch"
+                                       LeftButton={LeftButton}
+                                       component={FuelFillingSearch}
+                                       title='加油查询'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
 
+
+                                <Scene key="cleanRelList"
+                                       component={CleanRelList}
+                                       title='我的洗车费'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="cleanFeeListAtTruckBlock"
+                                       component={CleanFeeList}
+                                       title='洗车费'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="cleanRel"
+                                       component={CleanRel}
+                                       title='洗车费详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
+                                <Scene key="listCennect"
+                                       component={ListCennect}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="listCennectDynamic"
+                                       component={ListCennect}
+                                       hideTabBar
+                                       navBar={NavSearchDynamicBar}
+                                       RightButton={InstructExecutingOc}/>
 
 
 
