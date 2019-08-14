@@ -46,6 +46,19 @@ import * as receiveForCleanRelActions from './main/ReceiveForCleanRelActions'
 import * as selectReceiveAction from './main/SelectReceiveAction'
 import * as selectCityAction from './main/SelectCityAction'
 import * as selectCarAction from './main/SelectCarAction'
+import * as routeTaskFeeAction from './main/RouteTaskFeeAction'
+import * as taskLoanListAction from './main/TaskLoanListAction'
+import * as taskLoanRelListAction from './main/TaskLoanRelListAction'
+import * as salaryAction from './main/SalaryAction'
+import * as salaryListAction from './main/SalaryListAction'
+import * as demageListAction from './main/DemageListAction'
+import * as demageResponsibilityListAction from './main/DemageResponsibilityListAction'
+import * as carInfoForDemageAction from './main/CarInfoForDemageAction'
+import * as recordForDemageAction from './main/RecordForDemageAction'
+import * as demageOpResultAction from './main/DemageOpResultAction'
+import * as imageListForDemageAction from './main/ImageListForDemageAction'
+import * as demageListOperationAction from './main/DemageListOperationAction'
+import * as demageResponsibilityListOperationAction from './main/DemageResponsibilityListOperationAction'
 
 import * as workAction from './main/WorkAction'
 import * as instructAction from './main/InstructAction'
@@ -106,7 +119,19 @@ export {
     selectReceiveAction,
     selectCityAction,
     selectCarAction,
-
+    routeTaskFeeAction,
+    taskLoanListAction,
+    taskLoanRelListAction,
+    salaryAction,
+    salaryListAction,
+    demageListAction,
+    demageResponsibilityListAction,
+    carInfoForDemageAction,
+    recordForDemageAction,
+    demageOpResultAction,
+    imageListForDemageAction,
+    demageListOperationAction,
+    demageResponsibilityListOperationAction,
 
     workAction,
     instructAction,

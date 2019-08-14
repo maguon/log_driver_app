@@ -47,6 +47,19 @@ import receiveForCleanRelReducer from './main/ReceiveForCleanRelReducer'
 import selectReceiveReducer from './main/SelectReceiveReducer'
 import selectCityReducer from './main/SelectCityReducer'
 import selectCarReducer from './main/SelectCarReducer'
+import routeTaskFeeReducer from './main/RouteTaskFeeReducer'
+import taskLoanListReducer from './main/TaskLoanListReducer'
+import taskLoanRelListReducer from './main/TaskLoanRelListReducer'
+import salaryReducer from './main/SalaryReducer'
+import salaryListReducer from './main/SalaryListReducer'
+import demageListReducer from './main/DemageListReducer'
+import demageResponsibilityListReducer from './main/DemageResponsibilityListReducer'
+import carInfoForDemageReducer from './main/CarInfoForDemageReducer'
+import recordForDemageReducer from './main/RecordForDemageReducer'
+import demageOpResultReducer from './main/DemageOpResultReducer'
+import imageListForDemageReducer from './main/ImageListForDemageReducer'
+import demageListOperationReducer from './main/DemageListOperationReducer'
+import demageResponsibilityListOperationReducer from './main/DemageResponsibilityListOperationReducer'
 
 import workReducer from './main/WorkReducer'
 import instructReducer from './main/InstructReducer'
@@ -107,6 +120,19 @@ export default combineReducers({
     selectReceiveReducer,
     selectCityReducer,
     selectCarReducer,
+    routeTaskFeeReducer,
+    taskLoanListReducer,
+    taskLoanRelListReducer,
+    salaryReducer,
+    salaryListReducer,
+    demageListReducer,
+    demageResponsibilityListReducer,
+    carInfoForDemageReducer,
+    recordForDemageReducer,
+    demageOpResultReducer,
+    imageListForDemageReducer,
+    demageListOperationReducer,
+    demageResponsibilityListOperationReducer,
 
     workReducer,
     instructReducer,

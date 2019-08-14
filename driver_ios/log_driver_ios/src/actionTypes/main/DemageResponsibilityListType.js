@@ -1,0 +1,9 @@
+export const get_DemageResponsibilityList_success= 'get_DemageResponsibilityList_success'
+export const get_DemageResponsibilityList_waiting = 'get_DemageResponsibilityList_waiting'
+export const get_DemageResponsibilityList_failed = 'get_DemageResponsibilityList_failed'
+export const get_DemageResponsibilityList_error = 'get_DemageResponsibilityList_error'
+
+export const get_DemageResponsibilityListMore_success= 'get_DemageResponsibilityListMore_success'
+export const get_DemageResponsibilityListMore_waiting = 'get_DemageResponsibilityListMore_waiting'
+export const get_DemageResponsibilityListMore_failed = 'get_DemageResponsibilityListMore_failed'
+export const get_DemageResponsibilityListMore_error = 'get_DemageResponsibilityListMore_error'

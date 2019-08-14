@@ -45,20 +45,20 @@ class Truck extends Component {
             getAccidentListResponsibilityWaiting,
             getCleanRelList,
             getCleanRelListWaiting,
-            // getDemageResponsibilityList,
-            // getDemageResponsibilityListWaiting,
-            // getTaskLoanList,
-            // getTaskLoanListWaiting,
+            getDemageResponsibilityList,
+            getDemageResponsibilityListWaiting,
+            getTaskLoanList,
+            getTaskLoanListWaiting,
             getOveruseDieselOilList,
             getOveruseDieselOilListWaiting,
             getPeccancyListWaiting,
             getPeccancyList,
             getNotSettleListWaiting,
             getNotSettleList,
-            // getSalaryListWaiting,
-            // getSalaryList,
-            // getRouteTaskFeeListWaiting,
-            // getRouteTaskFeeList
+            getSalaryListWaiting,
+            getSalaryList,
+            getRouteTaskFeeListWaiting,
+            getRouteTaskFeeList
         } = this.props
 
         return (
@@ -278,7 +278,6 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getAccidentList: () => {
         dispatch(actions.accidentListAction.getAccidentList())
-        dispatch(actions.accidentListAction.getAccidentList())
     },
     getAccidentListWaiting: () => {
         dispatch(actions.accidentListAction.getAccidentListWaiting())
@@ -295,24 +294,24 @@ const mapDispatchToProps = (dispatch) => ({
     getCleanRelList: () => {
         dispatch(actions.cleanRelListAction.getCleanRelList())
     },
-//     getDemageList: () => {
-//         dispatch(actions.demageListAction.getDemageList())
-//     },
-//     getDemageListWaiting: () => {
-//         dispatch(actions.demageListAction.getDemageListWaiting())
-//     },
-//     getDemageResponsibilityList: () => {
-//         dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityList())
-//     },
-//     getDemageResponsibilityListWaiting: () => {
-//         dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListWaiting())
-//     },
-//     getTaskLoanList: () => {
-//         dispatch(actions.taskLoanListAction.getTaskLoanList())
-//     },
-//     getTaskLoanListWaiting: () => {
-//         dispatch(actions.taskLoanListAction.getTaskLoanListWaiting())
-//     },
+    // getDemageList: () => {
+    //     dispatch(actions.demageListAction.getDemageList())
+    // },
+    // getDemageListWaiting: () => {
+    //     dispatch(actions.demageListAction.getDemageListWaiting())
+    // },
+    // getDemageResponsibilityList: () => {
+    //     dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityList())
+    // },
+    // getDemageResponsibilityListWaiting: () => {
+    //     dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListWaiting())
+    // },
+    getTaskLoanList: () => {
+        dispatch(actions.taskLoanListAction.getTaskLoanList())
+    },
+    getTaskLoanListWaiting: () => {
+        dispatch(actions.taskLoanListAction.getTaskLoanListWaiting())
+    },
     getOveruseDieselOilList: () => {
         dispatch(actions.overuseDieselOilListAction.getOveruseDieselOilList())
     },
@@ -331,18 +330,18 @@ const mapDispatchToProps = (dispatch) => ({
     getNotSettleList: () => {
         dispatch(actions.notSettleListAction.getNotSettleList())
     },
-//     getSalaryList: () => {
-//         dispatch(actions.salaryList.getSalaryList())
-//     },
-//     getSalaryListWaiting: () => {
-//         dispatch(actions.salaryList.getSalaryListWaiting())
-//     },
-//     getRouteTaskFeeList: () => {
-//         dispatch(actions.routeTaskFee.getRouteTaskFeeList())
-//     },
-//     getRouteTaskFeeListWaiting: () => {
-//         dispatch(actions.routeTaskFee.getRouteTaskFeeListWaiting())
-//     }
+    getSalaryList: () => {
+        dispatch(actions.salaryListAction.getSalaryList())
+    },
+    getSalaryListWaiting: () => {
+        dispatch(actions.salaryListAction.getSalaryListWaiting())
+    },
+    getRouteTaskFeeList: () => {
+        dispatch(actions.routeTaskFeeAction.getRouteTaskFeeList())
+    },
+    getRouteTaskFeeListWaiting: () => {
+        dispatch(actions.routeTaskFeeAction.getRouteTaskFeeListWaiting())
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Truck)

@@ -44,6 +44,19 @@ import * as receiveForCleanRelActionType from './main/ReceiveForCleanRelActionTy
 import * as selectReceiveActionType from './main/SelectReceiveActionType'
 import * as selectCityActionType from './main/SelectCityActionType'
 import * as selectCarActionType from './main/SelectCarActionType'
+import * as routeTaskFeeActionType from './main/RouteTaskFeeActionType'
+import * as taskLoanListActionType from './main/TaskLoanListActionType'
+import * as taskLoanRelListActionType from './main/TaskLoanRelListActionType'
+import * as salaryActionType from './main/SalaryActionType'
+import * as salaryListActionType from './main/SalaryListActionType'
+import * as demageListType from './main/DemageListType'
+import * as demageResponsibilityListType from './main/DemageResponsibilityListType'
+import * as carInfoForDemageType from './main/CarInfoForDemageType'
+import * as recordForDemageType from './main/RecordForDemageType'
+import * as demageOpResultType from './main/DemageOpResultType'
+import * as imageListForDemageType from './main/ImageListForDemageType'
+import * as demageListOperationType from './main/DemageListOperationType'
+import * as demageResponsibilityListOperationType from './main/DemageResponsibilityListOperationType'
 
 import * as workActionType from './main/WorkActionType'
 import * as instructActionType from './main/InstructActionType'
@@ -104,6 +117,19 @@ export {
     selectReceiveActionType,
     selectCityActionType,
     selectCarActionType,
+    routeTaskFeeActionType,
+    taskLoanListActionType,
+    taskLoanRelListActionType,
+    salaryActionType,
+    salaryListActionType,
+    demageListType,
+    demageResponsibilityListType,
+    carInfoForDemageType,
+    recordForDemageType,
+    demageOpResultType,
+    imageListForDemageType,
+    demageListOperationType,
+    demageResponsibilityListOperationType,
 
     workActionType,
     instructActionType,

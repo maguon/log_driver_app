@@ -56,9 +56,14 @@ import NotSettleList from './components/main/NotSettleList'
 import FuelFillingApply from './components/main/FuelFillingApply'
 import FuelFillingRecord from './components/main/FuelFillingRecord'
 import CleanRelList from './components/main/CleanRelList'
-
-
-
+import RouteTaskFee from './components/main/RouteTaskFee'
+import TaskLoanList from './components/main/TaskLoanList'
+import TaskLoan from './components/main/TaskLoan'
+import Salary from './components/main/Salary'
+import SalaryList from './components/main/SalaryList'
+import DemageList from './components/main/DemageList'
+import DemageResponsibilityInfo from './components/main/DemageResponsibilityInfo'
+import DemageResponsibilityList from './components/main/DemageResponsibilityList'
 
 //模块
 import AccidentListOperation from './components/modules/AccidentListOperation'
@@ -75,6 +80,9 @@ import FuelFillingSearch from './components/modules/FuelFillingSearch'
 import FuelFillingRecordToolButton from './components/modules/FuelFillingRecordToolButton'
 import CleanRel from './components/modules/CleanRel'
 import ListCennect from './components/modules/ListCennect'
+import SearchTaskLoan from './components/modules/SearchTaskLoan'
+import DemageListOperation from './components/modules/DemageListOperation'
+import DemageResponsibilityListOperation from './components/modules/DemageResponsibilityListOperation'
 
 //通用
 import tabIcon from './components/utils/TabIcon'
@@ -88,7 +96,8 @@ import LeftButton from './components/utils/LeftButton'
 import NavSearchCarBar from './components/utils/NavSearchCarBar'
 import ApplyAccidentSubmit from './components/utils/ApplyAccidentSubmit'
 import ApplyAccidentImageSubmit from './components/utils/ApplyAccidentImageSubmit'
-
+import TaskLoanListOP from './components/utils/TaskLoanListOP'
+import SearchTaskLoanOP from './components/utils/SearchTaskLoanOP'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -236,6 +245,12 @@ const Root = () => {
                             </Scene>
 
 
+
+
+
+
+
+
                             <Scene key="truckBlock"
                                    icon={tabIcon}
                                    online='ios-bus'
@@ -301,6 +316,38 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={ApplyAccidentImageSubmit} />
+
+
+
+
+
+                                <Scene key="demageList"
+                                       component={DemageList}
+                                       title='质损列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={DemageListOperation} />
+
+                                <Scene key="demageResponsibilityList"
+                                       component={DemageResponsibilityList}
+                                       title='质损列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={DemageResponsibilityListOperation} />
+                                <Scene key="demageResponsibilityInfo"
+                                       component={DemageResponsibilityInfo}
+                                       title='质损详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+
+
+
+
+
 
 
 
@@ -435,7 +482,51 @@ const Root = () => {
 
 
 
+                                <Scene key="taskLoanList"
+                                       component={TaskLoanList}
+                                       RightButton={TaskLoanListOP}
+                                       title='出车款'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton} />
+                                <Scene key="routeTaskFee"
+                                       component={RouteTaskFee}
+                                       title='出车款'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="taskLoan"
+                                       component={TaskLoan}
+                                       title='出车款详情'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="searchTaskLoan"
+                                       component={SearchTaskLoan}
+                                       title='查询出车款'
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={SearchTaskLoanOP}
+                                       LeftButton={LeftButton} />
 
+
+
+                                <Scene key="salaryList"
+                                       component={SalaryList}
+                                       title='工资列表'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="salary"
+                                       component={Salary}
+                                       title='工资详情'
+                                       navBar={NavBar}
+                                       hideTabBar
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
 
 
 
