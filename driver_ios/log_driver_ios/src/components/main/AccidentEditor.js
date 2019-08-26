@@ -9,7 +9,7 @@ import { Container, Content, Button } from 'native-base'
 import globalStyles from '../utils/GlobalStyles'
 import { reduxForm, Field } from 'redux-form'
 import DisposableList from '../modules/DisposableList'
-import Select from '../utils/Select'
+import Select from '../modules/Select'
 import RichTextBox from '../utils/RichTextBox'
 import DatePicker from '../utils/DatePicker'
 import { required } from '../../util/Validator'
@@ -32,11 +32,11 @@ const AccidentEditor = props => {
             <Content showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <View style={styles.headerItem}>
-                        <Text style={[globalStyles.midText, globalStyles.styleColor, {}]}>事故编号:{id ? `${id}` : ''}</Text>
-                        <Text style={globalStyles.smallText}>{updated_on ? `${moment(updated_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
+                        <Text style={[globalStyles.midText, globalStyles.styleColor, {marginLeft:10}]}>事故编号:{id ? `${id}` : ''}</Text>
                     </View>
                     <View style={styles.headerStatusItem}>
-                        <Text style={[globalStyles.midText]}>{accident_status == 1 && '待处理'}{accident_status == 2 && '处理中'}</Text>
+                        <Text style={[globalStyles.smallText,{marginLeft: 10}]}>申报时间：{updated_on ? `${moment(updated_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
+                        <Text style={[globalStyles.midText, {marginRight: 10,color:'#76b92c'}]}>{accident_status == 1 && '待处理'}{accident_status == 2 && '处理中'}</Text>
                     </View>
                 </View>
                 <Field name='dpRouteTask'
@@ -53,6 +53,7 @@ const AccidentEditor = props => {
                             List: DisposableList,
                             title: '调度任务',
                             onSelect: (param) => {
+                                console.log('param'+param)
                                 Actions.pop()
                                 onSelect(param)
                             }
@@ -191,10 +192,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
 
 const styles = StyleSheet.create({
     header: {
-        paddingVertical: 5,
-        borderBottomWidth: 0.3,
         borderColor: '#777',
-        paddingHorizontal: 15
+        height: 60,
+        backgroundColor: '#f2f5f7',
+        justifyContent: 'center'
     },
     headerItem: {
         flexDirection: 'row',
@@ -203,7 +204,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     headerStatusItem: {
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         paddingVertical: 5
     },
     body: {

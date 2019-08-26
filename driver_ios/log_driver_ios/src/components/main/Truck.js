@@ -10,17 +10,13 @@ import {
 import {Actions} from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {ListItem, Left, Thumbnail, Body, Right, Content, Container, Icon} from 'native-base'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import {connect} from 'react-redux'
 import FontTag from '../utils/FontTag'
-// import * as accidentListAction from '../../../complatedViews/accidentList/AccidentListAction'
-// import * as cleanRelListAction from '../../../complatedViews/cleanRelList/CleanRelListAction'
-// import * as demageListAction from '../../../notUsed/demageList/DemageListAction'
-// import * as accidentResponsibilityListAction from '../../../complatedViews/accidentResponsibilityList/AccidentResponsibilityListAction'
-// import * as demageResponsibilityListAction from '../../../complatedViews/demageResponsibilityList/DemageResponsibilityListAction'
-// import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
 import * as actions from '../../actions/index'
+
 
 
 const window = Dimensions.get('window')
@@ -96,12 +92,17 @@ class Truck extends Component {
                                 source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>
                         </Left>
                         <Body style={{borderBottomWidth: 0}}>
-                        <View>
-                            <Text style={globalStyles.midText}>{real_name ? `${real_name}` : ''}</Text>
+                        <View style={{flexDirection: 'row',alignItems:'center' }}>
+                            <Text style={[globalStyles.largeText,{marginRight:10}]}>{real_name ? `${real_name}` : ''}</Text>
+                            <MaterialCommunityIcons name="account" size={20} color={'#0dbad2'}/>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text
-                                style={globalStyles.midText}>{company_name ? `${company_name}` : ''} {mobile ? `${mobile}` : ''}</Text>
+                        <View style={{flexDirection: 'row' ,paddingTop:5,alignItems:'center' }}>
+                            <FontAwesome name="building-o" size={12} color={'#838485'} />
+                            <Text style={[globalStyles.midText,{marginLeft:10}]}>{company_name ? `${company_name}` : ''} </Text>
+                        </View>
+                        <View style={{flexDirection: 'row', paddingTop:5,alignItems:'center'}}>
+                            <FontAwesome name="mobile-phone" size={18} color={'#838485'}/>
+                            <Text style={[globalStyles.midText,{marginLeft:10}]}> {mobile ? `${mobile}` : ''}</Text>
                         </View>
                         </Body>
                         <Right style={{borderBottomWidth: 0}}>
@@ -294,18 +295,18 @@ const mapDispatchToProps = (dispatch) => ({
     getCleanRelList: () => {
         dispatch(actions.cleanRelListAction.getCleanRelList())
     },
-    // getDemageList: () => {
-    //     dispatch(actions.demageListAction.getDemageList())
-    // },
-    // getDemageListWaiting: () => {
-    //     dispatch(actions.demageListAction.getDemageListWaiting())
-    // },
-    // getDemageResponsibilityList: () => {
-    //     dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityList())
-    // },
-    // getDemageResponsibilityListWaiting: () => {
-    //     dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListWaiting())
-    // },
+    getDemageList: () => {
+        dispatch(actions.demageListAction.getDemageList())
+    },
+    getDemageListWaiting: () => {
+        dispatch(actions.demageListAction.getDemageListWaiting())
+    },
+    getDemageResponsibilityList: () => {
+        dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityList())
+    },
+    getDemageResponsibilityListWaiting: () => {
+        dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListWaiting())
+    },
     getTaskLoanList: () => {
         dispatch(actions.taskLoanListAction.getTaskLoanList())
     },

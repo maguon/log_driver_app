@@ -28,14 +28,22 @@ const DemageOpResult = props => {
     return (
         <Content showsVerticalScrollIndicator={false}>
             {damageStatus == 3 && <View style={styles.body}>
-                <Text style={[styles.text, globalStyles.midText]}><Text
-                    style={styles.title}>质损类型：</Text>{damage_type ? `${damageTypeList.find(item => item.id == damage_type).value}` : ''}
-                </Text>
-                <Text style={[styles.text, globalStyles.midText]}><Text
-                    style={styles.title}>责任人：</Text>{under_user_name ? `${under_user_name}` : ''}</Text>
-                <Text style={[styles.text, globalStyles.midText]}><Text
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={[styles.text, styles.title, globalStyles.midText]}>质损类型：</Text>
+                    <Text style={{
+                        color: '#76b92c',
+                        fontSize: 35
+                    }}>{damage_type ? `${damageTypeList.find(item => item.id == damage_type).value}` : ''}</Text>
+                </View>
+
+                <View style={[styles.text, styles.strikingItem]}>
+                <Text style={[ globalStyles.midText]}>
+                    <Text style={styles.title}>责任人：</Text>{under_user_name ? `${under_user_name}` : ''}</Text>
+                <Text style={[globalStyles.midText]}><Text
                     style={styles.title}>质损环节：</Text>{damage_link_type ? `${damageLinkTypeList.find(item => item.id == damage_link_type).value}` : ''}
                 </Text>
+                </View>
+
                 <View style={[styles.text, styles.strikingItem]}>
                     <Text style={[styles.title, globalStyles.midText]}>责任人承担费用：</Text>
                     <Text style={globalStyles.largeText}>¥ <Text
@@ -62,7 +70,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(DemageOpResult)
 
 const styles = StyleSheet.create({
     text: {
-        padding: 5
+        padding: 10
     },
     title: {
         fontWeight: 'bold'

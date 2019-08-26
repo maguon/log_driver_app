@@ -17,6 +17,14 @@ import * as searchCarAction from './main/SearchCarAction'
 import * as carInfoAction from './main/CarInfoAction'
 import * as imageForAccidentAction from './main/ImageForAccidentAction'
 import * as accidentEditorAction from './main/AccidentEditorAction'
+import * as addCarImageAction from './main/AddCarImageAction'
+import * as addCarAction from './main/AddCarAction'
+import * as baseAddrListAction from './main/BaseAddrListAction'
+import * as makeAction from './main/MakeAction'
+import * as cityAction from './main/CityAction'
+import * as entrustAction from './main/EntrustAction'
+import * as receiveAction from './main/ReceiveAction'
+
 
 import * as truckDetailAction from './main/TruckDetailAction'
 import * as truckImageAction from './main/TruckImageAction'
@@ -95,6 +103,13 @@ export {
     carInfoAction,
     imageForAccidentAction,
     accidentEditorAction,
+    addCarImageAction,
+    addCarAction,
+    baseAddrListAction,
+    makeAction,
+    cityAction,
+    entrustAction,
+    receiveAction,
 
 
     truckDetailAction,

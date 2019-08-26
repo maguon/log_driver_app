@@ -8,34 +8,44 @@ import {
     Modal
 } from 'react-native'
 import { Icon} from 'native-base'
-
 import globalStyles from './GlobalStyles'
-import TimeChange from './TimeChange'
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 const {width} = Dimensions.get('window')
 const margin = 15
 
 
-const showPicker = async (options, onChange) => {
-    console.log("options========"+JSON.stringify(options))
-    console.log("onChange========"+onChange)
-    // try {
-    //     const { action, year, month, day } = await DatePickerAndroid.open(options)
-    //     if (action !== DatePickerAndroid.dismissedAction) {
-    //         onChange(`${year}-${month + 1}-${day}`)
-    //     }
-    // } catch ({ code, message }) {
-    //     console.warn(`Error in example : `, message)
-    // }
+const showPicker = (props) => {
+    console.log('props========'+JSON.stringify(props))
+    props.meta.active =true
 
-        return (
-            <TimeChange
-                options={options}
-                onChange={onChange}
-            />
-        )
+    return(
+
+        <DateTimePicker
+            isVisible={props.meta.active}
+            onConfirm={handleDatePicked}
+            onCancel={hideDateTimePicker}
+            cancelTextIOS={"取消"}
+            confirmTextIOS={"确认"}
+            cancelTextStyle={{fontSize: 20}}
+            confirmTextStyle={{fontSize: 20}}
+            titleIOS={"日期选择"}
+            mode={"date"}
+            locale={"zh-Hans"}
+        />
+    )
 
 }
+const hideDateTimePicker = () => {
+    props.meta.active=false
+};
+
+const handleDatePicked = date=> {
+    props.input.value = moment(date).format('YYYY-MM-DD')
+    this.hideDateTimePicker();
+
+};
 
 const DatePicker = props => {
     let {
@@ -46,11 +56,13 @@ const DatePicker = props => {
         textStyle = {},
         itemStyle = {},
         last = false,
-        meta: {error, touched}
+        meta: {active,error, touched}
     } = props
+    console.log('props========'+JSON.stringify(props))
     return (
         <TouchableOpacity style={last ? styles.lastBody : styles.body}
-                          onPress={() =>showPicker({ date: new Date(), mode: 'spinner' }, onChange)}>
+                          onPress={() =>showPicker(props)}>
+
             <View style={[styles.item, itemStyle]}>
                 <Text style={[globalStyles.midText, textStyle, {}]}>{isRequired &&
                 <Text style={styles.errText}>*</Text>}{label}{value}</Text>

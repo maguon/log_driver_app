@@ -5,6 +5,7 @@ import { styleColor } from '../utils/GlobalStyles'
 
 const DisposableList = props => {
     const { listReducer: { data: { list }, Action }, filter, onSelect } = props
+    console.log("props"+JSON.stringify(props))
     if (Action.isResultStatus == 1) {
         return (
             <Container>
@@ -17,6 +18,7 @@ const DisposableList = props => {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={filter ? list.filter(item => item.value.indexOf(filter) > -1) : list}
+
                     renderItem={({ item, index }) => <ListItem key={index} onPress={() => onSelect(item)}>
                         <Text>{item.value}</Text>
                     </ListItem>} />

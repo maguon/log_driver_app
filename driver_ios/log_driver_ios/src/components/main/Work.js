@@ -2,13 +2,12 @@ import React, {Component} from 'react'
 import {
     Text,
     View,
-    DatePickerAndroid,
     InteractionManager,
     FlatList,
     ActivityIndicator,
     TouchableOpacity,
     Dimensions,
-    StyleSheet, DatePickerIOS
+    StyleSheet,
 } from 'react-native'
 import {Icon, Container} from 'native-base'
 import moment from 'moment'
@@ -72,9 +71,6 @@ class Work extends Component {
             mileageInfoParam: {
                 OptionalParam: {
                     taskStatus: 9,
-                    // loadDistance: 5,
-                    // noLoadDistance: 5,
-                    // driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
                 }
@@ -82,7 +78,6 @@ class Work extends Component {
             taskListParam: {
                 OptionalParam: {
                     taskStatus: 10,
-                    //driveId: this.props.userReducer.user.driverId,
                     dateIdStart: this.state.dateIdStart,
                     dateIdEnd: this.state.dateIdEnd
                 }

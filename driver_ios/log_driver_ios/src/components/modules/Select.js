@@ -7,18 +7,20 @@ import {
     InteractionManager,
     Dimensions
 } from 'react-native'
-import { Item, Input, ListItem, Icon } from 'native-base'
-import { Actions } from 'react-native-router-flux'
+import {Item, Input, ListItem, Icon} from 'native-base'
+import {Actions} from 'react-native-router-flux'
 import globalStyles from '../utils/GlobalStyles'
 
-const { width } = Dimensions.get('window')
+const {width} = Dimensions.get('window')
 const margin = 15
 
-const _onPress = ({ showList, getList, onChange, getListWaiting, isPop }) => {
+const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
     getListWaiting()
     showList({
         onSelect: (param) => {
-            if (isPop) { Actions.pop() }
+            if (isPop) {
+                Actions.pop()
+            }
             InteractionManager.runAfterInteractions(() => {
                 onChange(param)
             })
@@ -28,7 +30,8 @@ const _onPress = ({ showList, getList, onChange, getListWaiting, isPop }) => {
 }
 
 const Select = props => {
-    let { input: { onChange, value, ...restProps },
+    let {
+        input: {onChange, value, ...restProps},
         label = '',
         last = false,
         secureTextEntry = false,
@@ -39,12 +42,15 @@ const Select = props => {
         isPop = true,
         showList,
         getListWaiting,
-        meta: { error, touched } } = props
+        meta: {error, touched}
+    } = props
     return (
-        <TouchableOpacity style={last ? styles.lastBody : styles.body} onPress={() => _onPress({ showList, getList, onChange, getListWaiting, isPop })}>
+        <TouchableOpacity style={last ? styles.lastBody : styles.body}
+                          onPress={() => _onPress({showList, getList, onChange, getListWaiting, isPop})}>
             <View style={[styles.item, itemStyle]}>
-                <Text style={[globalStyles.midText, textStyle, {}]} >{isRequired && <Text style={styles.errText}>*</Text>}{label}{value.value}</Text>
-                <Icon name='ios-arrow-forward' color='#777' fontSize={15} style={{ fontSize: 18, color: '#777' }} />
+                <Text style={[globalStyles.midText, textStyle, {}]}>{isRequired &&
+                <Text style={styles.errText}>*</Text>}{label}{value.value}</Text>
+                <Icon name='ios-arrow-forward' color='#777' fontSize={15} style={{fontSize: 18, color: '#777'}}/>
             </View>
             {touched && (error && <View style={styles.errView}>
                 <Text style={[globalStyles.smallText, styles.errText]}>{`*${error}`}</Text>

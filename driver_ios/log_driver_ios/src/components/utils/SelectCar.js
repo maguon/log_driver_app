@@ -6,32 +6,29 @@ import {
     TouchableOpacity,
     Dimensions
 } from 'react-native'
-import { Icon } from 'native-base'
-import globalStyles, { styleColor } from './GlobalStyles'
+import {Icon} from 'native-base'
+import globalStyles from './GlobalStyles'
 
-const { width } = Dimensions.get('window')
+const {width} = Dimensions.get('window')
 const margin = 15
 
-const TextValue = props => <Text style={globalStyles.midText}>{props.value.value}</Text>
-
-const Select = props => {
-    let { input: { onChange, value, ...restProps },
+const SelectCar = props => {
+    let {
+        input: {onChange, value, ...restProps},
         label = '',
         last = false,
         isRequired = false,
         textStyle = {},
-        ValueComponent = TextValue,
         onPress,
-        meta: { error, touched } } = props
-    // console.log('value', value)
+        meta: {error, touched}
+    } = props
     return (
-        <TouchableOpacity style={styles.body} onPress={() => onPress({ onChange })}>
+        <TouchableOpacity style={styles.body} onPress={() => onPress({onChange})}>
             <View style={styles.item}>
-                <Text style={[globalStyles.midText]} >{isRequired && <Text style={styles.errText}>*</Text>}<Text style={textStyle}>{label}</Text></Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <ValueComponent value={value} />
-                    <Icon name='ios-arrow-forward' color='#777' fontSize={15} style={{ fontSize: 18, color: '#bbb', paddingLeft: 15 }} />
-                </View>
+                <Text style={[globalStyles.midText]}>{isRequired && <Text style={styles.errText}>*</Text>}<Text
+                    style={textStyle}>{label}</Text>{value.value}</Text>
+                <Icon name='ios-arrow-forward-outline' color='#777' fontSize={15}
+                      style={{fontSize: 18, color: '#777'}}/>
             </View>
             {touched && (error && <View style={styles.errView}>
                 <Text style={[globalStyles.smallText, styles.errText]}>{`*${error}`}</Text>
@@ -66,4 +63,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default Select
+export default SelectCar

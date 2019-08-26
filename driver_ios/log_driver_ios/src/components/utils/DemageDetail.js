@@ -15,14 +15,15 @@ const DemageDetail = props => {
             <View style={styles.header}>
                 <View style={styles.headerItem}>
                     <Text style={[globalStyles.midText, globalStyles.styleColor, {}]}>质损编号:{id ? `${id}` : ''}</Text>
-                    <Text style={globalStyles.smallText}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
-                </View>
-                <View style={styles.headerStatusItem}>
                     <Text style={[globalStyles.midText]}>
                         {damage_status == 1 && '未处理'}
                         {damage_status == 2 && '处理中'}
                         {damage_status == 3 && '已处理'}
                     </Text>
+                </View>
+                <View style={styles.headerStatusItem}>
+                    <Text style={globalStyles.smallText}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
+
                 </View>
             </View>
             <View style={styles.body}>

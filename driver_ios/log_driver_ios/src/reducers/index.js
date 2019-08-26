@@ -18,6 +18,14 @@ import searchCarReducer from './main/SearchCarReducer'
 import carInfoReducer from './main/CarInfoReducer'
 import imageForAccidentReducer from './main/ImageForAccidentReducer'
 import accidentEditorReducer from './main/AccidentEditorReducer'
+import addCarImageReducer from './main/AddCarImageReducer'
+import addCarReducer from './main/AddCarReducer'
+import baseAddrListReducer from './main/BaseAddrListReducer'
+import makeReducer from './main/MakeReducer'
+import cityReducer from './main/CityReducer'
+import entrustReducer from './main/EntrustReducer'
+import receiveReducer from './main/ReceiveReducer'
+import datePickerReducer from './main/DatePickerReducer'
 
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
@@ -97,7 +105,14 @@ export default combineReducers({
     carInfoReducer,
     imageForAccidentReducer,
     accidentEditorReducer,
-
+    addCarImageReducer,
+    addCarReducer,
+    baseAddrListReducer,
+    makeReducer,
+    cityReducer,
+    entrustReducer,
+    receiveReducer,
+    datePickerReducer,
 
     truckDetailReducer,
     truckImageReducer,

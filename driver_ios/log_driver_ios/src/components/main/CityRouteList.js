@@ -23,7 +23,7 @@ const CityRouteList = props => {
         return (
             <Container>
                 <FlatList
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     data={cityRouteList}
                     renderItem={({ item, index }) => {
                         return (

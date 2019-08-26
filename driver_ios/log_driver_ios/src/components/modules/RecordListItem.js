@@ -3,7 +3,6 @@ import {
     Text,
     View
 } from 'react-native'
-import { Button } from 'native-base'
 import moment from 'moment'
 
 export default class DriveInfo extends Component {

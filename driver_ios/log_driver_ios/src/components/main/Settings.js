@@ -9,6 +9,7 @@ import { Button, Container, Content, Icon, Left, Body, Right, List, ListItem, Th
 import ConfirmModal from '../modules/ConfirmModal'
 import * as actions from '../../actions/index'
 import globalStyles, { styleColor } from '../utils/GlobalStyles'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import * as ios_app from '../../ios_app.json'
 import FoundationIcon from 'react-native-vector-icons/dist/Foundation'
@@ -52,8 +53,13 @@ class Setting extends Component {
                             <View style={styles.avatarContainer}>
                                 <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
                                 <View style={styles.userContainer}>
-                                    <Text style={globalStyles.midText}>{real_name ? `${real_name}` : ''}</Text>
-                                    <Text style={globalStyles.midText}>{mobile ? `${mobile}` : ''}</Text>
+                                    <View>
+                                    <Text style={globalStyles.largeText}>{real_name ? `${real_name}` : ''}</Text>
+                                    </View>
+                                    <View style={{flexDirection: 'row', paddingTop:5,alignItems:'center'}}>
+                                        <FontAwesome name="mobile-phone" size={18} color={'#838485'}/>
+                                    <Text style={[globalStyles.midText,{marginLeft:10}]}>{mobile ? `${mobile}` : ''}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </ListItem>
@@ -145,8 +151,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         loginReducer: state.loginReducer,
-        InitializationReducer: state.initializationReducer,
-        communicationSettingReducer: state.communicationSettingReducer
+        InitializationReducer: state.initializationReducer
     }
 }
 

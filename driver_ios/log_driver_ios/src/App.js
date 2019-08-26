@@ -71,6 +71,14 @@ import DemageInfo from './components/main/DemageInfo'
 import AccidentInfo from './components/main/AccidentInfo'
 import Address from './components/main/Address'
 import CityRouteList from './components/main/CityRouteList'
+import AddCarImage from './components/main/AddCarImage'
+import AddCar from './components/main/AddCar'
+import Make from './components/main/Make'
+import City from './components/main/City'
+import BaseAddrList from './components/main/BaseAddrList'
+import Entrust from './components/main/Entrust'
+import Receive from './components/main/Receive'
+
 
 
 //模块
@@ -92,6 +100,9 @@ import SearchTaskLoan from './components/modules/SearchTaskLoan'
 import DemageListOperation from './components/modules/DemageListOperation'
 import DemageResponsibilityListOperation from './components/modules/DemageResponsibilityListOperation'
 import ImageViewConnect from './components/modules/ImageViewConnect'
+import PhotoViewForCreateCar from './components/modules/PhotoViewForCreateCar'
+import PhotoViewForCarInfo from './components/modules/PhotoViewForCarInfo'
+import CreateCarOP from './components/modules/CreateCarOP'
 
 
 //通用
@@ -109,6 +120,8 @@ import TaskLoanListOP from './components/utils/TaskLoanListOP'
 import SearchTaskLoanOP from './components/utils/SearchTaskLoanOP'
 import ApplyDemageImageSubmit from './components/utils/ApplyDemageImageSubmit'
 import ApplyDemageSubmit from './components/utils/ApplyDemageSubmit'
+import UploadImageForCreateCarOP from './components/utils/UploadImageForCreateCarOP'
+
 //import HomeOperation from './components/utils/HomeOperation'
 
 const styles = StyleSheet.create({
@@ -253,72 +266,70 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
-
-
-
-                                {/*<Scene key="photoViewForCreateCar"*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={PhotoViewForCreateCar}*/}
-                                       {/*navBar={PhotoViewNavBar}*/}
-                                       {/*title='照片'*/}
-                                       {/*hideTabBar />*/}
-                                {/*<Scene key="addCarImage"*/}
-                                       {/*title='添加照片'*/}
-                                       {/*RightButton={UploadImageForCreateCarOP}*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={AddCarImage}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="addCar"*/}
-                                       {/*title='增加商品车'*/}
-                                       {/*RightButton={CreateCarOP}*/}
-                                       {/*component={AddCar}*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="make"*/}
-                                       {/*title='选择品牌'*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={Make}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="city"*/}
-                                       {/*title='选择城市'*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={City}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="baseAddrList"*/}
-                                       {/*title='选择发运地'*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={BaseAddrList}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="entrust"*/}
-                                       {/*title='选择委托方'*/}
-                                       {/*component={Entrust}*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="receive"*/}
-                                       {/*title='选择经销商'*/}
-                                       {/*component={Receive}*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar} />*/}
-                                {/*<Scene key="photoViewforCarInfo"*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={PhotoViewForCarInfo}*/}
-                                       {/*navBar={PhotoViewNavBar}*/}
-                                       {/*title='照片'*/}
-                                       {/*hideTabBar />*/}
-
+                                <Scene key="photoViewForCreateCar"
+                                       LeftButton={LeftButton}
+                                       component={PhotoViewForCreateCar}
+                                       navBar={PhotoViewNavBar}
+                                       title='照片'
+                                       hideTabBar
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="photoViewforCarInfo"
+                                       LeftButton={LeftButton}
+                                       component={PhotoViewForCarInfo}
+                                       navBar={PhotoViewNavBar}
+                                       title='照片'
+                                       hideTabBar
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="addCarImage"
+                                       title='添加照片'
+                                       RightButton={UploadImageForCreateCarOP}
+                                       LeftButton={LeftButton}
+                                       component={AddCarImage}
+                                       hideTabBar
+                                       navBar={NavBar} />
+                                <Scene key="addCar"
+                                       title='增加商品车'
+                                       RightButton={CreateCarOP}
+                                       component={AddCar}
+                                       LeftButton={LeftButton}
+                                       hideTabBar
+                                       navBar={NavBar} />
+                                <Scene key="make"
+                                       title='选择品牌'
+                                       LeftButton={LeftButton}
+                                       component={Make}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="city"
+                                       title='选择城市'
+                                       LeftButton={LeftButton}
+                                       component={City}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="baseAddrList"
+                                       title='选择发运地'
+                                       LeftButton={LeftButton}
+                                       component={BaseAddrList}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="entrust"
+                                       title='选择委托方'
+                                       component={Entrust}
+                                       LeftButton={LeftButton}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
+                                <Scene key="receive"
+                                       title='选择经销商'
+                                       component={Receive}
+                                       LeftButton={LeftButton}
+                                       hideTabBar
+                                       navBar={NavBar}
+                                       RightButton={InstructExecutingOc}/>
                             </Scene>
-
-
-
-
 
 
 
@@ -363,7 +374,6 @@ const Root = () => {
                                        hideTabBar
                                        navBar={NavBar} />
 
-
                                 <Scene key="accidentList"
                                        component={AccidentList}
                                        title='事故列表'
@@ -371,6 +381,13 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={AccidentListOperation}/>
+                                <Scene key="accidentInfo"
+                                       hideTabBar
+                                       component={AccidentInfo}
+                                       title='事故详情'
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}/>
                                 <Scene key="applyAccident"
                                        component={ApplyAccident}
                                        title='事故申报'
@@ -386,8 +403,6 @@ const Root = () => {
                                        LeftButton={LeftButton}
                                        RightButton={ApplyAccidentImageSubmit} />
 
-
-
                                 <Scene key="demageList"
                                        component={DemageList}
                                        title='质损列表'
@@ -395,10 +410,9 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={DemageListOperation} />
-
                                 <Scene key="demageResponsibilityList"
                                        component={DemageResponsibilityList}
-                                       title='质损列表'
+                                       title='商品车责任'
                                        navBar={NavBar}
                                        hideTabBar
                                        LeftButton={LeftButton}
@@ -411,11 +425,9 @@ const Root = () => {
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
 
-
-
                                 <Scene key="accidentResponsibilityList"
                                        component={AccidentResponsibilityList}
-                                       title='事故责任列表'
+                                       title='货车责任'
                                        navBar={NavBar}
                                        hideTabBar
                                        LeftButton={LeftButton}
@@ -427,7 +439,6 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
 
                                 <Scene key="peccancyList"
                                        component={PeccancyList}
@@ -450,7 +461,6 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
 
                                 <Scene key="overuseDieselOilList"
                                        component={OveruseDieselOilList}
@@ -482,13 +492,11 @@ const Root = () => {
                                        navBar={NavBar}
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
-
                                 <Scene key="fuelFillingRecord"
                                        LeftButton={LeftButton}
                                        component={FuelFillingRecord}
                                        title='加油记录'
-                                       RightButton={FuelFillingRecordToolButton}
+                                       RightButton={InstructExecutingOc}
                                        hideTabBar
                                        navBar={NavBar} />
                                 <Scene key="fuelFillingApply"
@@ -541,9 +549,6 @@ const Root = () => {
                                        navBar={NavSearchDynamicBar}
                                        RightButton={InstructExecutingOc}/>
 
-
-
-
                                 <Scene key="taskLoanList"
                                        component={TaskLoanList}
                                        RightButton={TaskLoanListOP}
@@ -573,8 +578,6 @@ const Root = () => {
                                        RightButton={SearchTaskLoanOP}
                                        LeftButton={LeftButton} />
 
-
-
                                 <Scene key="salaryList"
                                        component={SalaryList}
                                        title='工资列表'
@@ -589,7 +592,6 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
 
                                 <Scene key="taskLoanRelList"
                                        component={TaskLoanRelList}
@@ -613,20 +615,11 @@ const Root = () => {
                                        LeftButton={LeftButton}
                                        RightButton={ApplyDemageImageSubmit} />
 
-
                                 <Scene key="demageInfo"
                                        component={DemageInfo}
                                        title='质损详情'
                                        navBar={NavBar}
                                        hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="accidentInfo"
-                                       hideTabBar
-                                       component={AccidentInfo}
-                                       title='事故详情'
-                                       navBar={NavBar}
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
 
@@ -642,7 +635,6 @@ const Root = () => {
                                        component={ImageViewConnect}
                                        hideTabBar
                                        hideNavBar />
-
                                 <Scene key="cityRouteList"
                                        LeftButton={LeftButton}
                                        component={CityRouteList}
@@ -650,9 +642,7 @@ const Root = () => {
                                        hideTabBar
                                        navBar={NavBar}
                                        RightButton={InstructExecutingOc}/>
-
                             </Scene>
-
 
 
 
@@ -692,10 +682,7 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-
                             </Scene>
-
-
 
 
 
@@ -735,8 +722,6 @@ const Root = () => {
                                        hideNavBar={false}
                                        hideTabBar={true}
                                        navBar={NavBar} />
-
-
                             </Scene>
                         </Stack>
 

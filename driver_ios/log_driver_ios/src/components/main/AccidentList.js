@@ -43,7 +43,7 @@ const renderItem = props => {
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>{truck_num ? `${truck_num}` : ''}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-time' style={styles.itemBlockIcon} style={styles.itemBlockIcon}/>
+                    <Icon name='ios-time' style={styles.itemBlockIcon}/>
                     <Text
                         style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>
@@ -127,8 +127,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getAccidentListMore: () => {
-        dispatch(actions.accidentListAction.getAccidentListMore())
+    getAccidentListMore: (param) => {
+        dispatch(actions.accidentListAction.getAccidentListMore(param))
     },
     getAccidentImageList: (param) => {
         dispatch(actions.imageForAccidentAction.getAccidentImageList(param))

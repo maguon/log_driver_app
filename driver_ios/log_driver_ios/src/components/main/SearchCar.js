@@ -63,7 +63,7 @@ class SearchCar extends Component {
             return (
                 <Container>
                     <FlatList
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => `${index}`}
                         showsVerticalScrollIndicator={false}
                         data={list}
                         style={{marginTop:80}}

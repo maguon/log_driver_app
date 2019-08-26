@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         applyDamageImageReducer: state.applyDamageImageReducer,
-        communicationSettingReducer: state.communicationSettingReducer
+        loginReducer: state.loginReducer
     }
 }
 

@@ -8,13 +8,14 @@ import {Alert} from "react-native";
 
 const pageSize = 50
 
-export const getAccidentList = () => async (dispatch, getState) => {
+export const getAccidentList = (param) => async (dispatch, getState) => {
     try {
         const state = getState()
         const { loginReducer: { data: { user: { uid } } ,url:{base_host}} } = state
 
-        let search = getFormValues('accidentSearchForm')(state)
-        search = search ? search : {}
+        // let search = getFormValues('accidentSearchForm')(state)
+       let search =param
+        console.log('search', search)
         const url = `${base_host}/truckAccident?${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize, ...search })}`
         console.log('url', url)
         const res = await httpRequest.get(url)

@@ -4,6 +4,7 @@ import {
     Text,
     View,
     FlatList,
+    Dimensions,
     TouchableOpacity,
     ActivityIndicator,
     InteractionManager
@@ -14,6 +15,8 @@ import globalStyles, { styleColor } from '../utils/GlobalStyles'
 import { Actions } from 'react-native-router-flux'
 import * as actions from '../../actions/index'
 import moment from 'moment'
+
+const window=Dimensions.get('window')
 
 const renderListItem = props => {
     const { item: { id, vin, damage_explain, make_name, created_on, car_id },
@@ -42,9 +45,9 @@ const renderListItem = props => {
             })
         }}>
             <View style={styles.listItemTopContainer}>
-                <Text style={globalStyles.smallText}>编号：{id ? `${id}` : ''}</Text>
+                <Text style={[globalStyles.smallText,{color:'#76b92c'}]}>编号：{id ? `${id}` : ''}</Text>
                 <View style={styles.itemGroup}>
-                    <Icon name='ios-clock-outline' style={styles.clockIcon} />
+                    {/*<Icon name='ios-clock' style={styles.clockIcon} />*/}
                     <Text style={[globalStyles.smallText, styles.text]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm')}` : ''}</Text>
                 </View>
             </View>
@@ -145,15 +148,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginTop: 10,
         borderWidth: 0.3,
-        borderColor: '#777',
+        borderColor: '#fff',
         backgroundColor: '#fff'
     },
     listItemTopContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
-        borderBottomWidth: 0.3,
-        borderColor: '#777',
+        borderBottomWidth:2,
+        marginLeft:4,
+        marginRight:4,
+        borderColor: '#edf1f4',
         alignItems: 'center'
     },
     listItemBodyContainer: {
@@ -176,7 +181,7 @@ const styles = StyleSheet.create({
     },
     clockIcon: {
         fontSize: 15,
-        color: '#00cade'
+        color: '#bbb',
     },
     carIcon: {
         fontSize: 20,

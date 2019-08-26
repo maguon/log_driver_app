@@ -298,7 +298,7 @@ class Cars extends Component {
                     </View>
                     <View style={{flex: 1}}>
                         <FlatList
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => `${index}`}
                             data={carList}
                             renderItem={({item, index}) => this.renderListItem(item, index)}
                             ListFooterComponent={this.renderListFooter}/>

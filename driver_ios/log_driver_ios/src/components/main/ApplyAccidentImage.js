@@ -74,7 +74,7 @@ const ApplyAccidentImage = props => {
         uploadAccidentImageWaiting,
         uploadAccidentImage,
         applyAccidentImageReducer: { data: { accidentImageList }, uploadAccidentImage: { isResultStatus } } } = props
-    const { communicationSettingReducer: { data: { file_host} } } = props
+    const { loginReducer: { url: { file_host} } } = props
     return (
         <Container >
             <FlatList
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         applyAccidentImageReducer: state.applyAccidentImageReducer,
-        communicationSettingReducer: state.communicationSettingReducer
+        loginReducer: state.loginReducer
     }
 }
 

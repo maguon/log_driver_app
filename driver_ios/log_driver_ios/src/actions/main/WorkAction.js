@@ -10,7 +10,8 @@ export const getMileageInfo = (param) => async (dispatch, getState) => {
         if (getDriverRes.success) {
             param.mileageInfoParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
             param.taskListParam.OptionalParam.driveId = getDriverRes.result[0].drive_id
-            const urls = [`${base_host}/driveDistanceLoadStat?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`, `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
+            const urls = [`${base_host}/driveDistanceLoadStat?${ObjectToUrl(param.mileageInfoParam.OptionalParam)}`,
+                `${base_host}/dpRouteTask?${ObjectToUrl(param.taskListParam.OptionalParam)}`]
             // console.log('urls', urls)
             const res = await Promise.all(urls.map((url) => httpRequest.get(url)))
             // console.log('res', res)

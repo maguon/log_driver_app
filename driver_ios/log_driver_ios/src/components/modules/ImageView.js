@@ -154,7 +154,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
-        communicationSettingReducer: state.communicationSettingReducer
+        loginReducer: state.loginReducer
     }
 }
 

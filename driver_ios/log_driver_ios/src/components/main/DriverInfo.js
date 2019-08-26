@@ -113,12 +113,12 @@ class DriverInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row', paddingHorizontal: 40}}>
                                 <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
-                                    <FontAwesomeIcon name='building-o' size={11}/>
+                                    <FontAwesomeIcon name='building-o' size={12} color={'#838485'}/>
                                     <Text
                                         style={[globalStyles.midText, {paddingLeft: 5}]}>{driverInfo.company_name ? driverInfo.company_name : ''}</Text>
                                 </View>
                                 <View style={{flex: 3, flexDirection: 'row', alignItems: 'center'}}>
-                                    <FontAwesomeIcon name='mobile-phone' size={16}/>
+                                    <FontAwesomeIcon name='mobile-phone' size={16} color={'#838485'}/>
                                     <Text
                                         style={[globalStyles.midText, {paddingLeft: 5}]}>{driverInfo.mobile ? driverInfo.mobile : ''}</Text>
                                 </View>

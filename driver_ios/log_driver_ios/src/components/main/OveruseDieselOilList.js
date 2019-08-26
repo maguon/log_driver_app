@@ -67,7 +67,7 @@ const OveruseDieselOilList = props => {
             <Container style={{ backgroundColor: '#f5f5f5' }}>
                 <FlatList
                     contentContainerStyle={{ padding: 7.5 }}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     data={overuseDieselOilList}
                     renderItem={({ item }) => renderItem({ item, getDpRouteTaskWaiting, getDpRouteTask })}
                     onEndReachedThreshold={0.2}

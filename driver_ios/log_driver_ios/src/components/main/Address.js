@@ -9,7 +9,7 @@ import globalStyles from '../utils/GlobalStyles'
 import {connect} from 'react-redux'
 import * as actions from '../../actions/index'
 
-class SelectAddress extends Component {
+class Address extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,7 +24,7 @@ class SelectAddress extends Component {
 
     render() {
         const {
-            onSelect, getAddress, selectAddressReducer: {
+            onSelect, getAddress, addressReducer: {
                 data: {
                     addressInfo
                 }
@@ -112,4 +112,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectAddress)
+export default connect(mapStateToProps, mapDispatchToProps)(Address)

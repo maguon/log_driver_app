@@ -3,6 +3,7 @@ import { Text } from 'react-native'
 import { Card, CardItem, Body } from 'native-base'
 import moment from 'moment'
 import globalStyles from '../utils/GlobalStyles'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const RepairRecordListItem = props => {
     const { repairItem } = props
@@ -15,6 +16,7 @@ const RepairRecordListItem = props => {
 
 const Repaired = props => {
     const { item } = props
+    console.log("props=========="+ JSON.stringify(props))
     return (
         <Card>
             <CardItem header bordered>
@@ -34,6 +36,9 @@ const Repaired = props => {
             </CardItem>
             <CardItem footer bordered style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={[globalStyles.smallText]}>维修人：<Text style={{ color: '#f27d80' }}>{item.repair_user}</Text></Text>
+                <Text style={[globalStyles.smallText,{marginRight:5}]}>金额：
+                    <FontAwesome name="rmb" size={10} color={'#838485'}/>
+                    <Text style={{ fontSize:20,color: '#f89495' }}>{item.repair_money}</Text></Text>
             </CardItem>
         </Card>
     )

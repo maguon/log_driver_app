@@ -64,7 +64,7 @@ const AccidentResponsibilityList = props => {
         return (
             <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
                 <FlatList
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
                     data={accidentResponsibilityList}

@@ -55,7 +55,7 @@ const Salary = props => {
                         tabStyle={globalStyles.styleBackgroundColor}
                         activeTabStyle={globalStyles.styleBackgroundColor}
                         activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                        textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                        textStyle={[globalStyles.midText, { color: '#ddd' }]}
                         heading="信息">
                         <Content>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
@@ -101,13 +101,13 @@ const Salary = props => {
                         tabStyle={globalStyles.styleBackgroundColor}
                         activeTabStyle={globalStyles.styleBackgroundColor}
                         activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                        textStyle={[globalStyles.midText, { color: '#adc5d5' }]}
+                        textStyle={[globalStyles.midText, { color: '#ddd' }]}
                         heading="任务">
                         <FlatList
                             contentContainerStyle={{ margin: 5 }}
                             data={salaryTaskList}
                             ListEmptyComponent={salaryReducer.getSalaryTaskList.isResultStatus != 1 && salaryTaskList.length == 0 && renderListEmpty}
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => `${index}`}
                             renderItem={renderItem} />
                     </Tab>
                 </Tabs>

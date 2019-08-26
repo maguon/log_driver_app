@@ -66,7 +66,7 @@ class CarInfo extends Component {
     }
 
     renderImage(item, i, setCarImageIndex) {
-        const { communicationSettingReducer: { data: { file_host} } } = this.props
+        const { loginReducer: { url: { file_host} } } = this.props
         return (
             <TouchableOpacity
                 style={{ margin: 5 }}
@@ -98,7 +98,7 @@ class CarInfo extends Component {
             return (
                 <View style={{ flex: 1 }}>
                     <FlatList
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) =>`${index}`}
                         numColumns={2}
                         data={imageList}
                         renderItem={({ item, index }) => this.renderImage(item, index, setCarImageIndex)}
@@ -115,8 +115,7 @@ class CarInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         carInfoReducer: state.carInfoReducer,
-        loginReducer: state.loginReducer,
-        communicationSettingReducer: state.communicationSettingReducer
+        loginReducer: state.loginReducer
     }
 }
 

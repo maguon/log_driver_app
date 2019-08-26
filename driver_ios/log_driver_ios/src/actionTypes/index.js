@@ -16,6 +16,13 @@ import * as searchCarType from './main/SearchCarType'
 import * as carInfoActionType from './main/CarInfoActionType'
 import * as imageForAccidentType from './main/ImageForAccidentType'
 import * as accidentEditorType from './main/AccidentEditorType'
+import * as addCarImageType from './main/AddCarImageType'
+import * as addCarType from './main/AddCarType'
+import * as baseAddrListType from './main/BaseAddrListType'
+import * as makeType from './main/MakeType'
+import * as cityType from './main/CityType'
+import * as entrustType from './main/EntrustType'
+import * as receiveType from './main/ReceiveType'
 
 import * as truckDetailActionType from './main/TruckDetailActionType'
 import * as truckImageActionType from './main/TruckImageActionType'
@@ -94,7 +101,13 @@ export {
     carInfoActionType,
     imageForAccidentType,
     accidentEditorType,
-
+    addCarImageType,
+    addCarType,
+    baseAddrListType,
+    makeType,
+    cityType,
+    entrustType,
+    receiveType,
 
     truckDetailActionType,
     truckImageActionType,

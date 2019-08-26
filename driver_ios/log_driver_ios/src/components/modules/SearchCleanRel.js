@@ -7,7 +7,7 @@ import {
 import {connect} from 'react-redux'
 import {Actions} from 'react-native-router-flux'
 import {reduxForm, Field} from 'redux-form'
-import Select from '../utils/Select'
+import Select from '../modules/Select'
 import DisposableList from '../modules/DisposableList'
 import * as actions from '../../actions/index'
 

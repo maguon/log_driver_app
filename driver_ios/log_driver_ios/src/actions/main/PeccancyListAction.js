@@ -53,9 +53,8 @@ export const cleanPeccancyList = () => (dispatch) => {
 
 export const getPeccancyListMore = () => async (dispatch, getState) => {
     const state = getState()
-    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const {
-        loginReducer: { data: { user: { drive_id } } },
+        loginReducer: { data: { user: { drive_id } },url:{base_host} },
         peccancyListReducer: { data: { peccancyList, isComplete, search } },
         peccancyListReducer } = state
 

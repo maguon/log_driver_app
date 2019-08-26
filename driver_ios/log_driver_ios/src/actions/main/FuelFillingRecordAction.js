@@ -9,11 +9,11 @@ const pageSize = 50
 
 export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
     try {
-        // console.log('param', param)
+        console.log('param', param)
         const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}}, fuelFillingRecordReducer: { data: { total } } } = getState()
         const optionalParam = {
-            oilDateStart: param ? param.oilDateStart : total.oilDateStart,
-            oilDateEnd: param ? param.oilDateEnd : total.oilDateEnd
+            oilDateStart: param ? param.dateIdStart : total.oilDateStart,
+            oilDateEnd: param ? param.dateIdEnd : total.oilDateEnd
         }
         const urls = [`${base_host}/driveExceedOilRel?${ObjectToUrl({
             ...optionalParam,

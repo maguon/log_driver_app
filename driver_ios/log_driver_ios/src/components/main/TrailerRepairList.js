@@ -11,7 +11,7 @@ const TrailerRepairList = props => {
         <Container style={{ backgroundColor: '#edf1f4' }}>
             <FlatList
                 style={{ padding: 10 }}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => `${index}`}
                 data={trailerRepairList}
                 renderItem={({ item, index }) => <RepairRecordListItem key={index} repairItem={item} />}
                 ListFooterComponent={<View style={{ height: 20, backgroundColor: '#edf1f4' }} />}

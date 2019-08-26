@@ -15,7 +15,7 @@ import * as actions from '../../actions/index'
 import  DatePicker from '../utils/DatePicker'
 import  TimePicker from '../utils/TimePicker'
 import  TextBox from '../utils/TextBox'
-import  Select from '../utils/Select'
+import  SelectFuel from '../utils/SelectFuel'
 import  CheckBox from '../utils/CheckBox'
 import AMapLocation from 'react-native-amap-location'
 
@@ -89,7 +89,7 @@ class FuelFillingApply extends Component {
                     <Field
                         name='dpRouteTask'
                         label='指令编号'
-                        component={Select}
+                        component={SelectFuel}
                         onPress={({ onChange }) => {
                             getCityRouteListWaiting()
                             Actions.cityRouteList({
