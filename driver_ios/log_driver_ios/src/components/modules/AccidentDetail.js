@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import {Icon} from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
 import moment from 'moment'
 
@@ -48,7 +49,7 @@ const AccidentDetail = props => {
                         <Text style={[globalStyles.midText,{marginLeft:5}]}> {address ? `${address}` : ''}</Text>
                 </View>
                 <View style={styles.bodyItem}>
-                        <Icon name='ios-time' style={styles.itemBlockIcon} />
+                        <EvilIcons name='clock' style={styles.itemBlockIcon} />
                         <Text style={[globalStyles.midText,{marginLeft:5}]}> {created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>
                 <View style={styles.bodyItem}>

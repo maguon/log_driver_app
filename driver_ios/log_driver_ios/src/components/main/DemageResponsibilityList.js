@@ -209,8 +209,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getDemageResponsibilityListMore: () => {
-        dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListMore())
+    getDemageResponsibilityListMore: (param) => {
+        dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityListMore(param))
     },
     getCarInfo: (param) => {
         dispatch(actions.carInfoForDemageAction.getCarInfo(param))

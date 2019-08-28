@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import {Container} from 'native-base'
 import {Icon, Spinner} from 'native-base'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import {connect} from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import globalStyles, {styleColor} from '../utils/GlobalStyles'
@@ -43,7 +44,7 @@ const renderItem = props => {
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>{truck_num ? `${truck_num}` : ''}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Icon name='ios-time' style={styles.itemBlockIcon}/>
+                    <EvilIcons name='clock' style={styles.itemBlockIcon}/>
                     <Text
                         style={[globalStyles.midText, styles.itemBlockText]}>{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
                 </View>

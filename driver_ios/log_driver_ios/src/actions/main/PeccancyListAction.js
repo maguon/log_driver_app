@@ -10,17 +10,19 @@ export const getPeccancyList = (param) => async (dispatch, getState) => {
     try {
         const { loginReducer: { url: { base_host } } } = getState()
         // console.log('getState()', getState())
-        // console.log('param', param)
+         console.log('param', param)
         let searchParam = {}
         if (param) {
             searchParam = {
-                startDateStart: param.startDate ? param.startDate : null,
-                endDateEnd: param.endDate ? param.endDate : null,
+                startDateStart: param.dateIdStart ? param.dateIdStart : null,
+                startDateEnd: param.dateIdEnd ? param.dateIdEnd : null,
             }
         }
         // console.log('searchParam', searchParam)
 
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
+        console.log('drive_id', drive_id)
+        console.log('searchParam', searchParam)
         const url = `${base_host}/drivePeccancy?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -33,6 +35,7 @@ export const getPeccancyList = (param) => async (dispatch, getState) => {
                     search: param ? param : null
                 }
             })
+
         } else {
             dispatch({ type: actionTypes.peccancyListActionType.get_peccancyList_failed, payload: { failedMsg: err } })
         }
@@ -51,7 +54,7 @@ export const cleanPeccancyList = () => (dispatch) => {
     dispatch({ type: actionTypes.peccancyListActionType.clean_peccancyList, payload: {} })
 }
 
-export const getPeccancyListMore = () => async (dispatch, getState) => {
+export const getPeccancyListMore = (param) => async (dispatch, getState) => {
     const state = getState()
     const {
         loginReducer: { data: { user: { drive_id } },url:{base_host} },
@@ -61,11 +64,12 @@ export const getPeccancyListMore = () => async (dispatch, getState) => {
     let searchParam = {}
     if (search) {
         searchParam = {
-            startDateStart: search.startDate ? search.startDate : null,
-            endDateEnd: search.endDate ? search.endDate : null,
+            startDateStart: search.dateIdStart ? search.dateIdStart : null,
+            startDateEnd: search.dateIdEnd ? search.dateIdEnd : null,
             statStatus: search.statStatus ? search.statStatus.id : null
         }
     }
+    console.log('search'+search)
     if (peccancyListReducer.getPeccancyListMore.isResultStatus == 1) {
         await sleep(1000)
         dispatch(getPeccancyListMore)

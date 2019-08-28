@@ -87,13 +87,10 @@ import VinScanner from './components/modules/VinScanner'
 import PhotoViewNavBar from './components/modules/PhotoViewNavBar'
 import SinglePhotoView from './components/modules/SinglePhotoView'
 import PeccancySearch from './components/modules/PeccancySearch'
-import PeccancyToolButton from './components/modules/PeccancyToolButton'
 import PeccancyLeftButton from './components/modules/PeccancyLeftButton'
 import OveruseDieselOilSearch from './components/modules/OveruseDieselOilSearch'
-import OveruseDieselOilToolButton from './components/modules/OveruseDieselOilToolButton'
 import OveruseDieselOilLeftButton from './components/modules/OveruseDieselOilLeftButton'
 import FuelFillingSearch from './components/modules/FuelFillingSearch'
-import FuelFillingRecordToolButton from './components/modules/FuelFillingRecordToolButton'
 import CleanRel from './components/modules/CleanRel'
 import ListCennect from './components/modules/ListCennect'
 import SearchTaskLoan from './components/modules/SearchTaskLoan'
@@ -111,7 +108,7 @@ import HomeLeftButton from './components/utils/HomeLeftButton'
 import InstructExecutingOp from './components/utils/InstructExecutingOp'
 import InstructExecutingOc from './components/utils/InstructExecutingOc'
 import NavBar from './components/utils/NavBar'
-import NavSearchDynamicBar from './components/utils/NavSearchCarBar'
+import NavSearchDynamicBar from './components/utils/NavSearchDynamicBar'
 import LeftButton from './components/utils/LeftButton'
 import NavSearchCarBar from './components/utils/NavSearchCarBar'
 import ApplyAccidentSubmit from './components/utils/ApplyAccidentSubmit'
@@ -442,7 +439,7 @@ const Root = () => {
 
                                 <Scene key="peccancyList"
                                        component={PeccancyList}
-                                       RightButton={PeccancyToolButton}
+                                       RightButton={InstructExecutingOc}
                                        title='违章扣款列表'
                                        navBar={NavBar}
                                        hideTabBar
@@ -454,20 +451,20 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-                                <Scene key="peccancySearch"
-                                       component={PeccancySearch}
-                                       title='违章扣款查询'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
+                                {/*<Scene key="peccancySearch"*/}
+                                       {/*component={PeccancySearch}*/}
+                                       {/*title='违章扣款查询'*/}
+                                       {/*navBar={NavBar}*/}
+                                       {/*hideTabBar*/}
+                                       {/*LeftButton={LeftButton}*/}
+                                       {/*RightButton={InstructExecutingOc}/>*/}
 
                                 <Scene key="overuseDieselOilList"
                                        component={OveruseDieselOilList}
                                        title='超油扣款列表'
                                        navBar={NavBar}
                                        hideTabBar
-                                       RightButton={OveruseDieselOilToolButton}
+                                       RightButton={InstructExecutingOc}
                                        LeftButton={OveruseDieselOilLeftButton} />
                                 <Scene key="overuseDieselOilInfo"
                                        component={OveruseDieselOilInfo}
@@ -476,13 +473,13 @@ const Root = () => {
                                        hideTabBar
                                        LeftButton={LeftButton}
                                        RightButton={InstructExecutingOc}/>
-                                <Scene key="overuseDieselOilSearch"
-                                       component={OveruseDieselOilSearch}
-                                       title='超油扣款查询'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
+                                {/*<Scene key="overuseDieselOilSearch"*/}
+                                       {/*component={OveruseDieselOilSearch}*/}
+                                       {/*title='超油扣款查询'*/}
+                                       {/*navBar={NavBar}*/}
+                                       {/*hideTabBar*/}
+                                       {/*LeftButton={LeftButton}*/}
+                                       {/*RightButton={InstructExecutingOc}/>*/}
 
 
                                 <Scene key="notSettleList"
@@ -506,13 +503,13 @@ const Root = () => {
                                        hideTabBar
                                        navBar={NavBar}
                                        RightButton={InstructExecutingOc}/>
-                                <Scene key="fuelFillingSearch"
-                                       LeftButton={LeftButton}
-                                       component={FuelFillingSearch}
-                                       title='加油查询'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
+                                {/*<Scene key="fuelFillingSearch"*/}
+                                       {/*LeftButton={LeftButton}*/}
+                                       {/*component={FuelFillingSearch}*/}
+                                       {/*title='加油查询'*/}
+                                       {/*hideTabBar*/}
+                                       {/*navBar={NavBar}*/}
+                                       {/*RightButton={InstructExecutingOc}/>*/}
 
 
                                 <Scene key="cleanRelList"

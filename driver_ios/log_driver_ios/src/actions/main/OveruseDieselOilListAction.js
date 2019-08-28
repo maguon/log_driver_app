@@ -14,8 +14,8 @@ export const getOveruseDieselOilList = (param) => async (dispatch, getState) => 
         let searchParam = {}
         if (param) {
             searchParam = {
-                oilDateStart: param.startDate ? param.startDate : null,
-                oilDateEnd: param.endDate ? param.endDate : null,
+                oilDateStart: param.dateIdStart ? param.dateIdStart : null,
+                oilDateEnd: param.dateIdEnd ? param.dateIdEnd : null,
                 oilStatus: param.statStatus ? param.statStatus.id : null
             }
         }
@@ -62,9 +62,9 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
     let searchParam = {}
     if (search) {
         searchParam = {
-            oilDateStart: param.startDate ? param.startDate : null,
-            oilDateEnd: param.endDate ? param.endDate : null,
-            settleStatus: param.statStatus ? param.statStatus.id : null
+            oilDateStart: search.dateIdStart ? search.dateIdStart : null,
+            oilDateEnd: search.dateIdEnd ? search.dateIdEnd : null,
+            settleStatus: search.statStatus ? search.statStatus.id : null
         }
     }
     if (overuseDieselOilListReducer.getOveruseDieselOilListMore.isResultStatus == 1) {

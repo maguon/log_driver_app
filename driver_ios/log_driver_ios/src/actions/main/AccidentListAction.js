@@ -42,7 +42,7 @@ export const getAccidentListWaiting = () => (dispatch) => {
     dispatch({ type: actionTypes.accidentListActionType.get_accidentList_waiting, payload: {} })
 }
 
-export const getAccidentListMore = () => async (dispatch, getState) => {
+export const getAccidentListMore = (param) => async (dispatch, getState) => {
     const state = getState()
     const { loginReducer: { url: { base_host } } } = getState()
 
@@ -50,8 +50,9 @@ export const getAccidentListMore = () => async (dispatch, getState) => {
         loginReducer: { data: { user: { uid } } },
         accidentListReducer: { data: { accidentList, isComplete } },
         accidentListReducer } = state
-    let search = getFormValues('accidentSearchForm')(state)
-    search = search ? search : {}
+    // let search = getFormValues('accidentSearchForm')(state)
+    //  search = search ? search : {}
+    let search=param
     if (accidentListReducer.getAccidentListMore.isResultStatus == 1) {
         await sleep(1000)
         getAccidentListMore()(dispatch, getState)

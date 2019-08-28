@@ -22,6 +22,7 @@ const initialState = {
 export default handleActions({
     [(actionTypes.peccancyListActionType.get_peccancyList_success)]: (state, action) => {
         const { payload: { peccancyList, isComplete, search } } = action
+
         return {
             ...state,
             data: {
