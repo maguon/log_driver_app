@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Content, Button } from 'native-base'
 import { Text, InteractionManager } from 'react-native'
 import { reduxForm, Field } from 'redux-form'
-import { CheckBox, DatePicker, TextBox } from '../complatedComponents/share/form/between'
+import { DateMonthPicker } from '../complatedComponents/share/form/between'
 import * as actions from '../../actions'
 import globalStyles from '../GlobalStyles'
 import { Actions } from 'react-native-router-flux'
@@ -24,10 +24,10 @@ const OveruseDieselOilSearch = props => {
                     component={CheckBox} /> */}
                 <Field name='startDate'
                     label='核油时间（始）'
-                    component={DatePicker} />
+                    component={DateMonthPicker} />
                 <Field name='endDate'
                     label='核油时间（终）'
-                    component={DatePicker} />
+                    component={DateMonthPicker} />
                 <Button full style={[globalStyles.styleBackgroundColor, { margin: 15 }]} onPress={handleSubmit}>
                     <Text style={[globalStyles.midText, { color: '#fff' }]}>确定</Text>
                 </Button>

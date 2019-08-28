@@ -15,13 +15,12 @@ export const getOveruseDieselOilList = (param) => async (dispatch, getState) => 
         let searchParam = {}
         if (param) {
             searchParam = {
-                oilDateStart: param.startDate ? param.startDate : null,
-                oilDateEnd: param.endDate ? param.endDate : null,
-                oilStatus: param.statStatus ? param.statStatus.id : null
+                yMonthStart: param.startDate ? param.startDate.replace("-","") : null,
+                yMonthEnd: param.endDate ? param.endDate.replace("-","") : null
             }
         }
         // console.log('searchParam', searchParam)
-        const url = `${base_host}/driveExceedOil?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
+        const url = `${base_host}/driveExceedOilDateList?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
@@ -63,9 +62,8 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
     let searchParam = {}
     if (search) {
         searchParam = {
-            oilDateStart: param.startDate ? param.startDate : null,
-            oilDateEnd: param.endDate ? param.endDate : null,
-            settleStatus: param.statStatus ? param.statStatus.id : null
+            yMonthStart: param.startDate ? param.startDate.replace("-","") : null,
+            yMonthEnd: param.endDate ? param.endDate.replace("-","") : null
         }
     }
     if (overuseDieselOilListReducer.getOveruseDieselOilListMore.isResultStatus == 1) {
@@ -75,7 +73,7 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: actionTypes.overuseDieselOilList.get_overuseDieselOilListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/driveExceedOil?${ObjectToUrl({
+                const url = `${base_host}/driveExceedOilDateList?${ObjectToUrl({
                     driveId: drive_id,
                     start: overuseDieselOilList.length,
                     size: pageSize,

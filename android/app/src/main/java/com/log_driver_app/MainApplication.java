@@ -1,6 +1,7 @@
 package com.log_driver_app;
 
 import com.facebook.react.ReactApplication;
+import com.beefe.picker.PickerViewPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.eguma.barcodescanner.BarcodeScannerPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
@@ -31,7 +32,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNDeviceInfo(), new BarcodeScannerPackage(),
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new PickerViewPackage(), new RNDeviceInfo(), new BarcodeScannerPackage(),
           new RNSpinkitPackage(), new ImagePickerPackage(), new ImageResizerPackage(), new AMap3DPackage(),
           new VectorIconsPackage(), new PhotoViewPackage(), new PickerPackage(), new OrientationPackage(),
           new XinGePackage(), new AMapLocationReactPackage());
