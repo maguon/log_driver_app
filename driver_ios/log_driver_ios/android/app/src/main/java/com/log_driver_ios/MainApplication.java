@@ -3,6 +3,13 @@ package com.log_driver_ios;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.reactnative.photoview.PhotoViewPackage;
+import com.github.yamill.orientation.OrientationPackage;
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.beefe.picker.PickerViewPackage;
 import com.keyee.datetime.RCTDateTimePickerPackage;
 import com.imagepicker.ImagePickerPackage;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
@@ -29,6 +36,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
+            new PhotoViewPackage(),
+            new OrientationPackage(),
+            new ImageResizerPackage(),
+            new PickerPackage(),
+            new RNCameraPackage(),
+            new PickerViewPackage(),
             new RCTDateTimePickerPackage(),
             new ImagePickerPackage(),
             new AMap3DPackage(),

@@ -138,6 +138,13 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-device-info')
+    implementation project(':react-native-photo-view')
+    implementation project(':react-native-orientation')
+    implementation project(':react-native-image-resizer')
+    implementation project(':react-native-image-crop-picker')
+    implementation project(':react-native-camera')
+    implementation project(':react-native-picker')
     implementation project(':react-native-datetime')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-amap3d')

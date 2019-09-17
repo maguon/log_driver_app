@@ -1,87 +1,267 @@
 import * as actionTypes from '../../actionTypes/index'
+import * as actions from '../../actions/index'
 import localStorageKey from '../../util/LocalStorageKey'
 import localStorage from '../../util/LocalStorage'
 import httpRequest from '../../util/HttpRequest'
-
-import {Actions} from 'react-native-router-flux'
-import {base_host} from "../../config/Host";
-import  config from '../../config/Host'
-import {ObjectToUrl} from '../../util/ObjectToUrl'
+import { ObjectToUrl } from '../../util/ObjectToUrl'
+import requestHeaders from '../../util/RequestHeaders'
 import * as ios_app from '../../ios_app.json'
+import { sleep, randomString } from '../../util/util'
+import { Actions } from 'react-native-router-flux'
+import {  NativeModules } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
+
+
+
+export const start = () => async (dispatch, getState) => {
+    dispatch({type:actionTypes.initializationType.init_app_waiting})
+    dispatch(loadUniqueID({
+        version: {
+            currentVersion: '',
+            newestVersion: '',
+            force_update: 0,//0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
+            url: '',
+            remark: ''
+        },
+        deviceInfo: {
+            uniqueID: ''
+        }
+    }))
+}
 
 /**
- * initApp:APP初始化
- * param：对应执行步骤执行时所需要的参数
- * currentStep：执行到第N步（从1开始）
- * tryCount:当遇到网络错误的时候尝试的次数（从1开始）
- *
- * 初始化流程：
- * 第一步：验证版本是否是最新版本
- * 第二步：取得本地localstorage的数据
- * 第三步：换network request 所需要的token
+ * 第一步：获取uniqueID，
+ *          如果localStorage中有，从localStorage中取，
+ *          如果没有DeviceInfo.getUniqueID()获取
  */
-
-
-
-export const getComunicationSetting = () => async (dispatch) => {
+export const loadUniqueID = param => async (dispatch, getState) => {
+    console.log('loadUniqueIDParam', param)
+    let uniqueID
     try {
-        // localStorage.save({
-        //     key: localStorageKey.SERVERADDRESS,
-        //     data: {
-        //         // http://stg.myxxjs.com:9001/api
-        //         base_host: `http://stg.myxxjs.com:9001/api`,
-        //         file_host: `http://files.stg.myxxjs.com:9001/api`,
-        //         record_host: `http://records.stg.myxxjs.com:9001/api`,
-        //         host: "myxxjs"
-        //     }
-        // })
-          const localStorageRes = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
-         console.log('localStorageRes'+localStorageRes)
-         const { base_host, file_host, record_host, host } = localStorageRes
-        if (base_host && file_host && record_host && host) {
-            await dispatch({
-                type: actionTypes.loginType.get_communicationSetting_success, payload: {
-                    base_host, file_host, record_host, host
-                }
-            })
-            dispatch(validateVersion())
+        uniqueID = await localStorage.load({ key: localStorageKey.UNIQUEID })
+    } catch (err) {
+        uniqueID = DeviceInfo.getUniqueID()
+    }
+    dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
+}
+
+/**
+ * 第二步：获取host，
+ *          如果localStorage中有，从localStorage中取，
+ *          如果没有跳转到login页面
+ */
+export const getCommunicationSetting = param => async (dispatch) => {
+    const currentStep = 1
+    try {
+        const serverAddress = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
+        const { host } = serverAddress
+        if (host) {
+            await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: host }))
+            dispatch((validateVersion(param)))
         } else {
-             console.log('Actions.mainRoot')
+            dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, param, msg: '获取host失败' } })
             Actions.mainRoot()
         }
-
     } catch (err) {
-         console.log('err', err)
+        dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, param, msg: '获取host失败' } })
+        Actions.mainRoot()
     }
-
 }
 
-//第一步：获取最新version信息
-export const validateVersion=()=>async (dispatch,getState)=>{
-    const currentStep=1
-    try{
-        const { loginReducer:{url:{base_host}}}=getState()
-        dispatch({type:actionTypes.initializationType.init_app_waiting,payload:{}})
-        const  url=`${base_host}/app?${ObjectToUrl({app:ios_app.type,type:ios_app.ios})}`
-        console.log(base_host)
-        const res=await httpRequest.get(url)
-
-        if(res.success){
-          console.log(res)
-        }else {
-
-
+/**
+ * 第三步：获取最新version信息并对比，
+ *          如果获取失败，停止初始化流程，等待用户手动点击获取
+ *          如果获取成功，对比是否需要强制更新 force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
+ */
+export const validateVersion = param => async (dispatch, getState) => {
+    // console.log('validateVersionParam', param)
+    const currentStep = 2
+    try {
+        const { loginReducer: { url: { base_host } } } = getState()
+        const url = `${base_host}/app?${ObjectToUrl({ app: ios_app.type, type: ios_app.ios })}`
+        // console.log('url', url)
+        const res = await httpRequest.get(url)
+        // console.log('res', res)
+        if (res.success) {
+            const versionInfo = {
+                currentVersion: ios_app.version,
+                newestVersion: '',
+                url: '',
+                remark: '',
+                force_update: 0
+            }
+            let versionList = res.result
+                .filter(item => {
+                    return item.version > ios_app.version
+                })
+            if (versionList.length > 0) {
+                if (versionList.some(item => item.force_update == 1)) {
+                    versionInfo.force_update = 1
+                } else {
+                    versionInfo.force_update = 2
+                }
+                versionList = versionList.sort((a, b) => {
+                    if (a.version < b.version) {
+                        return 1
+                    }
+                    if (a.version > b.version) {
+                        return -1
+                    }
+                    return 0
+                })
+                versionInfo.newestVersion = versionList[0].version
+                versionInfo.url = versionList[0].url
+                versionInfo.remark = versionList[0].remark
+            } else {
+                versionInfo.force_update = 0
+                versionInfo.newestVersion = versionInfo.currentVersion
+            }
+            // versionInfo.force_update=1
+            // console.log('versionInfo', versionInfo)
+            if (versionInfo.force_update != 1) {
+                dispatch(loadLocalStorage({ ...param, version: versionInfo }))
+            }else{
+                dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param:{...param, version: versionInfo} } })
+            }
+        } else {
+            // console.log('failed获取版本错误')
+            dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '获取版本错误', param } })
         }
-
-
-
-    }catch (err) {
-        console.log("===========================")
+    } catch (err) {
+        // console.log('error获取版本错误', err)
+        dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, msg: '获取版本错误', param } })
     }
 }
 
 
+
+
+/**
+ * 第四步：获取最新user数据，
+ *          如果获取失败，跳转到登录页面
+ *          如果获取成功，继续流程
+ */
+export const loadLocalStorage = param => async (dispatch) => {
+    // console.log('loadLocalStorageParam', param)
+    const currentStep = 3
+    try {
+        const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
+        if (localStorageRes.token && localStorageRes.uid) {
+            dispatch(validateToken({ param, user: localStorageRes }))
+        }
+        else {
+            if (localStorageRes.mobile) {
+                dispatch({ type: actionTypes.loginType.set_userInfo, payload: { user: { mobile: localStorageRes.mobile } } })
+            } else {
+                dispatch({ type: actionTypes.loginType.set_userInfo, payload: { user: {} } })
+            }
+            dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '登陆未执行', param } })
+            Actions.mainRoot()
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, msg: '登陆未执行', param } })
+        Actions.mainRoot()
+    }
+}
+
+
+/**
+ * 第五步：先获取用户信息，然后更新token，
+ *          如果获取用户信息失败，跳转到登录
+ *          如果获取用户信息成功，继续更新token
+ *          如果更新token失败，跳转到登录
+ *          如果更新token成功，继续流程
+ */
+export const validateToken = ({ param, user }) => async (dispatch, getState) => {
+    // console.log('validateTokenParam', param)
+    const currentStep = 4
+    try {
+        const { loginReducer: { url: { base_host } } } = getState()
+        const { uid, token } = user
+        const url = `${base_host}/user/${uid}/token/${token}`
+        // console.log('url', url)
+        const res = await httpRequest.get(url)
+        // console.log('res', res)
+
+        if (res.success) {
+            const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: uid })}`
+            const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
+            if (getUserInfoRes.success) {
+                const { uid, mobile, real_name, type, gender, avatar_image, status, drive_id } = getUserInfoRes.result[0]
+                const user = {
+                    uid, mobile, real_name, type, gender, avatar_image, status, drive_id,
+                    token: res.result.accessToken,
+                }
+                //判断请求是否成功，如果成功，更新token
+                localStorage.save({ key: localStorageKey.USER, data: user })
+                requestHeaders.set('auth-token', res.result.accessToken)
+                requestHeaders.set('user-type', type)
+                requestHeaders.set('user-name', mobile)
+                await dispatch({ type: actionTypes.loginType.set_userInfo, payload: { user } })
+                dispatch(loadDeviceToken(param))
+            } else {
+                dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '无法换token', param } })
+                Actions.mainRoot()
+            }
+        }
+        else {
+            dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '无法换token', param } })
+            Actions.mainRoot()
+        }
+    } catch (err) {
+        dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, msg: '登陆未执行', param } })
+        Actions.mainRoot()
+    }
+}
+
+/**
+ * 第六步：从localStorage获取deviceToken
+ *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
+ *          如果获取deviceToken成功，完成初始化流程
+ */
+export const loadDeviceToken = param => async (dispatch) => {
+    // console.log('loadDeviceTokenParam', param)
+    try {
+        const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
+        // console.log('deviceToken',deviceToken)
+        dispatch(saveDeviceToken({deviceToken,...param}))
+        dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
+        Actions.mainRoot()
+        return
+    } catch (err) { }
+    dispatch(initPush(param))
+}
+
+
+/**
+ * 第七步：从NativeModules.XinGeModule.register()获取deviceToken
+ *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
+ *          如果获取deviceToken成功，完成初始化流程
+ */
 export const initPush = param => async (dispatch) => {
+    // console.log('initPushParam', param)
+    let deviceToken
+    try {
+        deviceToken = await NativeModules.XinGeModule.register()
+        // console.log('deviceToken',deviceToken)
+        dispatch(saveDeviceToken({deviceToken,...param}))
+        localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
+        Actions.mainRoot()
+    } catch (err) { }
+    dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
+}
 
-
+/**
+ * 分支：保存deviceToken
+ */
+export const saveDeviceToken = param => async (dispatch, getState) => {
+    // console.log('saveDeviceTokenparam',param)
+    try {
+        const {loginReducer: { data: { user:{uid} },url:{base_host} } } = getState()
+        const {deviceToken,deviceInfo:{uniqueID}} =param
+        const url = `${base_host}/user/${uid}/device/${uniqueID}/appType/${ios_app.type}/userDeviceToken`
+        // console.log('url',url)
+        const res=await httpRequest.put(url,{deviceToken})
+        // console.log('res',res)
+    } catch (err) {}
 }

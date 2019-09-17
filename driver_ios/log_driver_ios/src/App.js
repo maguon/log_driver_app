@@ -118,6 +118,11 @@ import SearchTaskLoanOP from './components/utils/SearchTaskLoanOP'
 import ApplyDemageImageSubmit from './components/utils/ApplyDemageImageSubmit'
 import ApplyDemageSubmit from './components/utils/ApplyDemageSubmit'
 import UploadImageForCreateCarOP from './components/utils/UploadImageForCreateCarOP'
+import OveruseDieselOilToolButton from './components/utils/OveruseDieselOilToolButton'
+import localStorage from "./util/LocalStorage";
+import localStorageKey from "./util/LocalStorageKey";
+import {validateToken} from "./actions/main/InitializationAction";
+import * as actions from "./actions";
 
 //import HomeOperation from './components/utils/HomeOperation'
 
@@ -132,8 +137,16 @@ const styles = StyleSheet.create({
 })
 
 
-const onEnter = () => {
-    return false
+const onEnter = (props) => {
+  console.log(JSON.stringify(props))
+
+    const localStorageRes = localStorage.load({ key: localStorageKey.USER })
+    if (localStorageRes.token && localStorageRes.uid) {
+        return true
+    }else {
+        return false
+    }
+
 }
 
 const Root = () => {
@@ -146,7 +159,7 @@ const Root = () => {
                            hideNavBar
                     >
 
-                        {/*<Scene initial={true} key="initialization" component={Initialization}/>*/}
+                        <Scene initial={true} key="initialization" component={Initialization} onEnter={onEnter} success="loginGroup" failure="appMain"/>
                         {/*<Scene key="determineLogin" component={DetermineLogin} onEnter={onEnter} success="loginGroup" failure="appMain"/>*/}
 
                         {/*<Stack key="version"> </Stack>*/}
