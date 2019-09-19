@@ -222,7 +222,7 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
 export const loadDeviceToken = param => async (dispatch) => {
     // console.log('loadDeviceTokenParam', param)
     try {
-        const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
+       const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
         // console.log('deviceToken',deviceToken)
         dispatch(saveDeviceToken({deviceToken,...param}))
         dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })

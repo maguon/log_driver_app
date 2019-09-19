@@ -189,10 +189,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        // initialValues: {
-        //     mobile: state.loginReducer.data.user.mobile,
-        //     server: state.loginReducer.data.host
-        // },
+        initialValues: {
+            mobile: state.loginReducer.data.user.mobile,
+            server: state.loginReducer.data.host
+        },
         initializationReducer: state.initializationReducer
     }
 }
@@ -202,9 +202,16 @@ export default connect(mapStateToProps)(
         form: 'loginForm',
         destroyOnUnmount: false,
         enableReinitialize: true,
-        onSubmit: (values, dispatch) => {
-            dispatch(actions.loginAction.validateVersion(values))
-            console.log(JSON.stringify(values) + "------------------------")
+        onSubmit: (values, dispatch, props) => {
+            // console.log('onSubmitprops', props)
+            const { initializationReducer: { initAPP: {  currentStep } } } = props
+            if (currentStep < 3) {
+                // console.log('validateVersionForLogin')
+                dispatch(actions.loginAction.validateVersionForLogin(values))
+            } else {
+                // console.log('login')
+                dispatch(actions.loginAction.login(values))
+            }
         }
     })(Login))
 

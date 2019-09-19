@@ -137,20 +137,24 @@ const styles = StyleSheet.create({
 })
 
 
-const onEnter = (props) => {
-  console.log(JSON.stringify(props))
-
-    const localStorageRes = localStorage.load({ key: localStorageKey.USER })
+const onEnter = (props)=> {
+    const localStorageRes =localStorage.load({ key: localStorageKey.USER })
+    console.log(localStorageRes)
     if (localStorageRes.token && localStorageRes.uid) {
+        console.log("0000000")
         return true
     }else {
+        console.log("111111")
         return false
     }
 
 }
 
+
+
 const Root = () => {
     return (
+
         <Router>
             <Modal hideNavBar>
                 <Lightbox>
@@ -159,11 +163,11 @@ const Root = () => {
                            hideNavBar
                     >
 
-                        <Scene initial={true} key="initialization" component={Initialization} onEnter={onEnter} success="loginGroup" failure="appMain"/>
-                        {/*<Scene key="determineLogin" component={DetermineLogin} onEnter={onEnter} success="loginGroup" failure="appMain"/>*/}
-
-                        {/*<Stack key="version"> </Stack>*/}
-                        {/*<Stack key="guide"> </Stack>*/}
+                        <Scene initial={true} key="initialization"
+                               component={Initialization}
+                               onEnter={onEnter}
+                               success="loginGroup"
+                               failure="appMain"/>
 
 
                         <Stack key="loginGroup">
@@ -749,6 +753,7 @@ class App extends Component {
 
     componentDidMount() {
         Orientation.lockToPortrait()
+
     }
 
     render() {
