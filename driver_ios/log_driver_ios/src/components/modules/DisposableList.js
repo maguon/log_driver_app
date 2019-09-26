@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import { Text, FlatList } from 'react-native'
-import { ListItem, Container, Spinner } from 'native-base'
-import { styleColor } from '../utils/GlobalStyles'
+import React, {Component} from 'react'
+import {Text, FlatList} from 'react-native'
+import {ListItem, Container, Spinner} from 'native-base'
+import {styleColor} from '../utils/GlobalStyles'
 
 const DisposableList = props => {
-    const { listReducer: { data: { list }, Action }, filter, onSelect } = props
-    console.log("props"+JSON.stringify(props))
+    const {listReducer: {data: {list}, Action}, filter, onSelect} = props
+    // console.log('props', JSON.stringify(props))
+    console.log('props', props)
     if (Action.isResultStatus == 1) {
         return (
             <Container>
-                <Spinner color={styleColor} />
+                <Spinner color={styleColor}/>
             </Container>
         )
     } else {
@@ -18,10 +19,9 @@ const DisposableList = props => {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={filter ? list.filter(item => item.value.indexOf(filter) > -1) : list}
-
-                    renderItem={({ item, index }) => <ListItem key={index} onPress={() => onSelect(item)}>
+                    renderItem={({item, index}) => <ListItem key={index} onPress={() => onSelect(item)}>
                         <Text>{item.value}</Text>
-                    </ListItem>} />
+                    </ListItem>}/>
             </Container>
         )
     }

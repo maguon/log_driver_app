@@ -39,9 +39,12 @@ export const loadUniqueID = param => async (dispatch, getState) => {
     let uniqueID
     try {
         uniqueID = await localStorage.load({ key: localStorageKey.UNIQUEID })
+        dispatch(getUniqueID(uniqueID))
     } catch (err) {
         uniqueID = DeviceInfo.getUniqueID()
+        localStorage.save({ key: localStorageKey.UNIQUEID, data: uniqueID })
     }
+    console.log("uniqueID"+uniqueID)
     dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
 }
 
@@ -51,14 +54,17 @@ export const loadUniqueID = param => async (dispatch, getState) => {
  *          如果没有跳转到login页面
  */
 export const getCommunicationSetting = param => async (dispatch) => {
+    console.log("param"+JSON.stringify(param))
     const currentStep = 1
     try {
         const serverAddress = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
         const { host } = serverAddress
+        console.log("serverAddress"+JSON.stringify(host))
         if (host) {
             await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: host }))
             dispatch((validateVersion(param)))
         } else {
+            console.log("serverAddress")
             dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, param, msg: '获取host失败' } })
             Actions.mainRoot()
         }
@@ -74,14 +80,17 @@ export const getCommunicationSetting = param => async (dispatch) => {
  *          如果获取成功，对比是否需要强制更新 force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
  */
 export const validateVersion = param => async (dispatch, getState) => {
-    // console.log('validateVersionParam', param)
+    console.log('validateVersionParam', param)
     const currentStep = 2
     try {
         const { loginReducer: { url: { base_host } } } = getState()
         const url = `${base_host}/app?${ObjectToUrl({ app: ios_app.type, type: ios_app.ios })}`
-        // console.log('url', url)
+        console.log('url', url)
+
         const res = await httpRequest.get(url)
-        // console.log('res', res)
+
+        console.log('res', res)
+
         if (res.success) {
             const versionInfo = {
                 currentVersion: ios_app.version,

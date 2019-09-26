@@ -30,6 +30,8 @@ class Address extends Component {
                 }
             }
         } = this.props
+
+        console.log("addressInfo",addressInfo)
         return (
             <View style={{flex: 1}}>
                 <MapView
@@ -38,7 +40,7 @@ class Address extends Component {
                     zoomLevel={14}
                     rotateEnabled={true}
                     showsCompass={true}
-                    onLongPress={({nativeEvent}) => {
+                    onLongPress={({ nativeEvent }) => {
                         this.setState({
                             onlatitude: nativeEvent.latitude,
                             onlongitude: nativeEvent.longitude,
@@ -54,12 +56,13 @@ class Address extends Component {
                             })
                         }
                     }}
-                    coordinate={{latitude: this.state.latitude, longitude: this.state.longitude}}
-                    onLocation={({nativeEvent}) => {
+                    coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
+                    onLocation={({ nativeEvent }) => {
                         this.setState({
                             latitude: nativeEvent.latitude,
                             longitude: nativeEvent.longitude,
                         })
+                        console.log("nativeEvent",nativeEvent)
                         if (!this.state.active) {
                             getAddress({
                                 location: `${nativeEvent.longitude},${nativeEvent.latitude}`,
@@ -71,10 +74,10 @@ class Address extends Component {
                         }
                     }}
                     showsZoomControls={false}
-                    style={{flex: 1}}>
+                    style={{ flex: 1 }}>
                     <Marker
                         infoWindowDisabled={true}
-                        coordinate={{latitude: this.state.onlatitude, longitude: this.state.onlongitude}}
+                        coordinate={{ latitude: this.state.onlatitude, longitude: this.state.onlongitude }}
                     />
                 </MapView>
                 <View style={{flexDirection: 'row'}}>

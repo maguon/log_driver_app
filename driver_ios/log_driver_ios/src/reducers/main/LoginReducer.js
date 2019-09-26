@@ -6,9 +6,9 @@ const initialState = {
         user: {},
     },
     url:{
-        base_host: "http://api.myxxjs.com/api",
-        file_host: "http://stg.myxxjs.com:9002/api",
-        record_host: "http://stg.myxxjs.com:9004/api",
+        base_host: null,
+        file_host:null,
+        record_host: null,
         host: null
     },
     loginFlow: {

@@ -139,614 +139,27 @@ const styles = StyleSheet.create({
 
 const onEnter = (props)=> {
     const localStorageRes =localStorage.load({ key: localStorageKey.USER })
+
     console.log(localStorageRes)
+    console.log(props)
+
     if (localStorageRes.token && localStorageRes.uid) {
         console.log("0000000")
         return true
     }else {
         console.log("111111")
-        return false
+        return true
     }
 
 }
-
-
-
-const Root = () => {
-    return (
-
-        <Router>
-            <Modal hideNavBar>
-                <Lightbox>
-                    <Scene key="root"
-                        //是否显示标题栏
-                           hideNavBar
-                    >
-
-                        <Scene initial={true} key="initialization"
-                               component={Initialization}
-                               onEnter={onEnter}
-                               success="loginGroup"
-                               failure="appMain"/>
-
-
-                        <Stack key="loginGroup">
-                            <Scene key="login"
-                                   initial={true}
-                                   component={Login}
-                                   hideNavBar
-                                   hideTabBar/>
-                            <Scene key="retrievePassword"
-                                   title='找回密码'
-                                   component={RetrievePassword}
-                                   hideTabBar
-                                   hideNavBar={false}
-                                   navBar={NavBar}
-                                   LeftButton={LeftButton}
-                                   RightButton={InstructExecutingOc}
-                            />
-                        </Stack>
-
-
-                        <Stack key="appMain"
-                            //tabBarPosition设置tab是在top还是bottom
-                               tabBarPosition="bottom"
-                            //是否显示标题
-                            //wrap={false}
-                            //是否打开下部导航栏
-                               tabs={true}
-                            //是否显示标签栏文字
-                               showLabel={false}
-                            //下部导航栏样式
-                               tabBarStyle={styles.tabBarStyle}
-                            //选项卡栏选择项目样式
-                               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-                            //tab选中的颜色
-                            //  activeBackgroundColor="white"
-                            //tab没选中的颜色
-                            // inactiveBackgroundColor="red"
-                        >
-
-                            <Scene key="homeBlock"
-                                   initial={true}
-                                   icon={tabIcon}
-                                   online='ios-home'
-                                   outline='ios-home'
-                                   size={30}
-                            >
-                                <Scene key="home"
-                                       initial={true}
-                                       hideNavBar={false}
-                                       navBar={NavBar}
-                                       component={Home}
-                                       LeftButton={HomeLeftButton}
-                                       RightButton={InstructExecutingOp}
-                                />
-                                <Scene key="driverQRCode"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={DriverQRCode}
-                                       title='司机二维码'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar}/>
-                                <Scene key="instructExecuting"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOp}
-                                       component={InstructExecuting}
-                                       isRequirePopRefresh={true}
-                                       title='调度指令'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar}/>
-                                <Scene key="branchInstructExecuting"
-                                       component={BranchInstructExecuting}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       title='调度指令'
-                                       isRequirePopRefresh={true}
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar}/>
-                                <Scene key="cars"
-                                       title='装车信息'
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={Cars}
-                                       hideTabBar
-                                       navBar={NavBar}/>
-                                <Scene key="searchCar"
-                                       hideTabBar
-                                       navBar={NavSearchCarBar}
-                                       component={SearchCar}/>
-                                <Scene key="carInfo"
-                                       title='商品车信息'
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={CarInfo}
-                                       hideTabBar
-                                       navBar={NavBar}/>
-                                <Scene key="vinScanner"
-                                       component={VinScanner}
-                                       title='扫条码'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="cleanFeeListAtHomeBlock"
-                                       component={CleanFeeList}
-                                       title='洗车费'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="photoViewForCreateCar"
-                                       LeftButton={LeftButton}
-                                       component={PhotoViewForCreateCar}
-                                       navBar={PhotoViewNavBar}
-                                       title='照片'
-                                       hideTabBar
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="photoViewforCarInfo"
-                                       LeftButton={LeftButton}
-                                       component={PhotoViewForCarInfo}
-                                       navBar={PhotoViewNavBar}
-                                       title='照片'
-                                       hideTabBar
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="addCarImage"
-                                       title='添加照片'
-                                       RightButton={UploadImageForCreateCarOP}
-                                       LeftButton={LeftButton}
-                                       component={AddCarImage}
-                                       hideTabBar
-                                       navBar={NavBar} />
-                                <Scene key="addCar"
-                                       title='增加商品车'
-                                       RightButton={CreateCarOP}
-                                       component={AddCar}
-                                       LeftButton={LeftButton}
-                                       hideTabBar
-                                       navBar={NavBar} />
-                                <Scene key="make"
-                                       title='选择品牌'
-                                       LeftButton={LeftButton}
-                                       component={Make}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="city"
-                                       title='选择城市'
-                                       LeftButton={LeftButton}
-                                       component={City}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="baseAddrList"
-                                       title='选择发运地'
-                                       LeftButton={LeftButton}
-                                       component={BaseAddrList}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="entrust"
-                                       title='选择委托方'
-                                       component={Entrust}
-                                       LeftButton={LeftButton}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="receive"
-                                       title='选择经销商'
-                                       component={Receive}
-                                       LeftButton={LeftButton}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                            </Scene>
-
-
-
-
-                            <Scene key="truckBlock"
-                                   icon={tabIcon}
-                                   online='ios-bus'
-                                   outline='ios-bus'
-                                   size={30}
-                            >
-                                <Scene key="truck"
-                                       initial={true}
-                                       component={Truck}
-                                       title="货车管理"
-                                       navBar={NavBar}
-                                />
-                                <Scene key="truckInfo"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={TruckInfo}
-                                       title='车头资料'
-                                       hideTabBar
-                                       navBar={NavBar}/>
-                                <Scene key="singlePhotoView"
-                                       component={SinglePhotoView}
-                                       hideTabBar={true}
-                                       navBar={PhotoViewNavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="trailerInfo"
-                                       LeftButton={LeftButton}
-                                       component={Trailer}
-                                       title='挂车资料'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="driverInfo"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={DriverInfo}
-                                       title='个人资料'
-                                       hideTabBar
-                                       navBar={NavBar} />
-
-                                <Scene key="accidentList"
-                                       component={AccidentList}
-                                       title='事故列表'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={AccidentListOperation}/>
-                                <Scene key="accidentInfo"
-                                       hideTabBar
-                                       component={AccidentInfo}
-                                       title='事故详情'
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="applyAccident"
-                                       component={ApplyAccident}
-                                       title='事故申报'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={ApplyAccidentSubmit} />
-                                <Scene key="applyAccidentImage"
-                                       component={ApplyAccidentImage}
-                                       title='上传事故照片'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={ApplyAccidentImageSubmit} />
-
-                                <Scene key="demageList"
-                                       component={DemageList}
-                                       title='质损列表'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={DemageListOperation} />
-                                <Scene key="demageResponsibilityList"
-                                       component={DemageResponsibilityList}
-                                       title='商品车责任'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={DemageResponsibilityListOperation} />
-                                <Scene key="demageResponsibilityInfo"
-                                       component={DemageResponsibilityInfo}
-                                       title='质损详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="accidentResponsibilityList"
-                                       component={AccidentResponsibilityList}
-                                       title='货车责任'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="accidentResponsibilityInfo"
-                                       component={AccidentResponsibilityInfo}
-                                       title='事故责任详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="peccancyList"
-                                       component={PeccancyList}
-                                       RightButton={InstructExecutingOc}
-                                       title='违章扣款列表'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={PeccancyLeftButton} />
-                                <Scene key="peccancyInfo"
-                                       component={PeccancyInfo}
-                                       title='违章扣款详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                {/*<Scene key="peccancySearch"*/}
-                                       {/*component={PeccancySearch}*/}
-                                       {/*title='违章扣款查询'*/}
-                                       {/*navBar={NavBar}*/}
-                                       {/*hideTabBar*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*RightButton={InstructExecutingOc}/>*/}
-
-                                <Scene key="overuseDieselOilList"
-                                       component={OveruseDieselOilList}
-                                       title='超油扣款列表'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       RightButton={InstructExecutingOc}
-                                       LeftButton={OveruseDieselOilLeftButton} />
-                                <Scene key="overuseDieselOilInfo"
-                                       component={OveruseDieselOilInfo}
-                                       title='超油扣款详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                {/*<Scene key="overuseDieselOilSearch"*/}
-                                       {/*component={OveruseDieselOilSearch}*/}
-                                       {/*title='超油扣款查询'*/}
-                                       {/*navBar={NavBar}*/}
-                                       {/*hideTabBar*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*RightButton={InstructExecutingOc}/>*/}
-
-
-                                <Scene key="notSettleList"
-                                       component={NotSettleList}
-                                       title='未返还交接单'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="fuelFillingRecord"
-                                       LeftButton={LeftButton}
-                                       component={FuelFillingRecord}
-                                       title='加油记录'
-                                       RightButton={InstructExecutingOc}
-                                       hideTabBar
-                                       navBar={NavBar} />
-                                <Scene key="fuelFillingApply"
-                                       LeftButton={LeftButton}
-                                       component={FuelFillingApply}
-                                       title='加油申报'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                                {/*<Scene key="fuelFillingSearch"*/}
-                                       {/*LeftButton={LeftButton}*/}
-                                       {/*component={FuelFillingSearch}*/}
-                                       {/*title='加油查询'*/}
-                                       {/*hideTabBar*/}
-                                       {/*navBar={NavBar}*/}
-                                       {/*RightButton={InstructExecutingOc}/>*/}
-
-
-                                <Scene key="cleanRelList"
-                                       component={CleanRelList}
-                                       title='我的洗车费'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="cleanFeeListAtTruckBlock"
-                                       component={CleanFeeList}
-                                       title='洗车费'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="cleanRel"
-                                       component={CleanRel}
-                                       title='洗车费详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="listCennect"
-                                       component={ListCennect}
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="listCennectDynamic"
-                                       component={ListCennect}
-                                       hideTabBar
-                                       navBar={NavSearchDynamicBar}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="taskLoanList"
-                                       component={TaskLoanList}
-                                       RightButton={TaskLoanListOP}
-                                       title='出车款'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton} />
-                                <Scene key="routeTaskFee"
-                                       component={RouteTaskFee}
-                                       title='出车款'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="taskLoan"
-                                       component={TaskLoan}
-                                       title='出车款详情'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="searchTaskLoan"
-                                       component={SearchTaskLoan}
-                                       title='查询出车款'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={SearchTaskLoanOP}
-                                       LeftButton={LeftButton} />
-
-                                <Scene key="salaryList"
-                                       component={SalaryList}
-                                       title='工资列表'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="salary"
-                                       component={Salary}
-                                       title='工资详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="taskLoanRelList"
-                                       component={TaskLoanRelList}
-                                       title='关联调度任务'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="applyDemage"
-                                       component={ApplyDemage}
-                                       title='质损申报'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={ApplyDemageSubmit} />
-                                <Scene key="applyDemageImage"
-                                       component={ApplyDemageImage}
-                                       title='上传质损照片'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       LeftButton={LeftButton}
-                                       RightButton={ApplyDemageImageSubmit} />
-
-                                <Scene key="demageInfo"
-                                       component={DemageInfo}
-                                       title='质损详情'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-
-                                <Scene key="selectAddress"
-                                       component={Address}
-                                       title='选择位置'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                                <Scene key="imageViewConnect"
-                                       clone={true}
-                                       component={ImageViewConnect}
-                                       hideTabBar
-                                       hideNavBar />
-                                <Scene key="cityRouteList"
-                                       LeftButton={LeftButton}
-                                       component={CityRouteList}
-                                       title='指令编号'
-                                       hideTabBar
-                                       navBar={NavBar}
-                                       RightButton={InstructExecutingOc}/>
-                            </Scene>
-
-
-
-
-                            <Scene key="driverBlock"
-                                   icon={tabIcon}
-                                   online='ios-contact'
-                                   outline='ios-contact'
-                                   size={30}
-                                    >
-                                <Scene key="work"
-                                       initial={true}
-                                       component={Work}
-                                       title='工作管理'
-                                       hideNavBar={false}
-                                       navBar={NavBar} />
-                                <Scene key="instruct"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={Instruct}
-                                       title='调度指令'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar} />
-                                <Scene key="branchInstruct"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={BranchInstruct}
-                                       title='调度指令'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar} />
-                                <Scene key="cleanFeeListAtDriverBlock"
-                                       component={CleanFeeList}
-                                       title='洗车费'
-                                       navBar={NavBar}
-                                       hideTabBar
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}/>
-                            </Scene>
-
-
-
-                            <Scene key="settingBlock"
-                                   icon={tabIcon}
-                                   online='ios-settings'
-                                   outline='ios-settings'
-                                   size={30}
-                            >
-                                <Scene key="setting"
-                                       component={Settings}
-                                       initial={true}
-                                       title='设置'
-                                       hideNavBar={false}
-                                       navBar={NavBar} />
-                                <Scene key="updatePassword"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={UpdatePassword}
-                                       title='修改密码'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar} />
-                                <Scene key="changeMobileNo"
-                                       component={ChangeMobileNo}
-                                       title='换绑手机'
-                                       hideNavBar={false}
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       hideTabBar={true}
-                                       navBar={NavBar} />
-                                <Scene key="personalCenter"
-                                       LeftButton={LeftButton}
-                                       RightButton={InstructExecutingOc}
-                                       component={PersonalCenter}
-                                       title='个人中心'
-                                       hideNavBar={false}
-                                       hideTabBar={true}
-                                       navBar={NavBar} />
-                            </Scene>
-                        </Stack>
-
-                    </Scene>
-                </Lightbox>
-            </Modal>
-        </Router>
-    )
+const mapStateToProps = (state) => {
+    return {
+        loginReducer: state.loginReducer
+    }
 }
 
-class App extends Component {
+
+export default class App extends Component {
     constructor(props) {
         super(props)
     }
@@ -758,9 +171,618 @@ class App extends Component {
 
     render() {
         return (
-            <Root/>
+            <Router>
+                <Modal hideNavBar>
+                    <Lightbox>
+                        <Scene key="root"
+                            //是否显示标题栏
+                               hideNavBar
+                        >
+
+                            <Scene initial={true} key="initialization"
+                                   component={Initialization}
+                                   onEnter={onEnter}
+                                   success="loginGroup"
+                                   failure="appMain"
+                                />
+
+                            {/*<Scene*/}
+                                {/*key="mainRoot"*/}
+                                {/*component={connect(mapStateToProps)(Switch)}*/}
+                                {/*tabs={true}*/}
+                                {/*type={ActionConst.RESET}*/}
+                                {/*selector={(props) => {*/}
+                                    {/*const { user } = props.loginReducer.data*/}
+                                    {/*if (user.mobile*/}
+                                        {/*&& user.token*/}
+                                        {/*&& user.uid*/}
+                                        {/*&& user.status*/}
+                                        {/*&& user.type) {*/}
+                                        {/*return 'main'*/}
+                                    {/*} else {*/}
+                                        {/*return 'loginBlock'*/}
+                                    {/*}*/}
+                                {/*}}*/}
+                            {/*>*/}
+
+
+                            <Stack key="loginGroup">
+                                <Scene key="login"
+                                       initial={true}
+                                       component={Login}
+                                       hideNavBar
+                                       hideTabBar/>
+                                <Scene key="retrievePassword"
+                                       title='找回密码'
+                                       component={RetrievePassword}
+                                       hideTabBar
+                                       hideNavBar={false}
+                                       navBar={NavBar}
+                                       LeftButton={LeftButton}
+                                       RightButton={InstructExecutingOc}
+                                />
+                            </Stack>
+
+
+                            <Stack key="appMain"
+                                //tabBarPosition设置tab是在top还是bottom
+                                   tabBarPosition="bottom"
+                                //是否显示标题
+                                //wrap={false}
+                                //是否打开下部导航栏
+                                   tabs={true}
+                                //是否显示标签栏文字
+                                   showLabel={false}
+                                //下部导航栏样式
+                                   tabBarStyle={styles.tabBarStyle}
+                                //选项卡栏选择项目样式
+                                   tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+                                //tab选中的颜色
+                                //  activeBackgroundColor="white"
+                                //tab没选中的颜色
+                                // inactiveBackgroundColor="red"
+                            >
+
+                                <Scene key="homeBlock"
+                                       initial={true}
+                                       icon={tabIcon}
+                                       online='ios-home'
+                                       outline='ios-home'
+                                       size={30}
+                                >
+                                    <Scene key="home"
+                                           initial={true}
+                                           hideNavBar={false}
+                                           navBar={NavBar}
+                                           component={Home}
+                                           LeftButton={HomeLeftButton}
+                                           RightButton={InstructExecutingOp}
+                                    />
+                                    <Scene key="driverQRCode"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={DriverQRCode}
+                                           title='司机二维码'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar}/>
+                                    <Scene key="instructExecuting"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOp}
+                                           component={InstructExecuting}
+                                           isRequirePopRefresh={true}
+                                           title='调度指令'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar}/>
+                                    <Scene key="branchInstructExecuting"
+                                           component={BranchInstructExecuting}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           title='调度指令'
+                                           isRequirePopRefresh={true}
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar}/>
+                                    <Scene key="cars"
+                                           title='装车信息'
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={Cars}
+                                           hideTabBar
+                                           navBar={NavBar}/>
+                                    <Scene key="searchCar"
+                                           hideTabBar
+                                           navBar={NavSearchCarBar}
+                                           component={SearchCar}/>
+                                    <Scene key="carInfo"
+                                           title='商品车信息'
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={CarInfo}
+                                           hideTabBar
+                                           navBar={NavBar}/>
+                                    <Scene key="vinScanner"
+                                           component={VinScanner}
+                                           title='扫条码'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="cleanFeeListAtHomeBlock"
+                                           component={CleanFeeList}
+                                           title='洗车费'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="photoViewForCreateCar"
+                                           LeftButton={LeftButton}
+                                           component={PhotoViewForCreateCar}
+                                           navBar={PhotoViewNavBar}
+                                           title='照片'
+                                           hideTabBar
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="photoViewforCarInfo"
+                                           LeftButton={LeftButton}
+                                           component={PhotoViewForCarInfo}
+                                           navBar={PhotoViewNavBar}
+                                           title='照片'
+                                           hideTabBar
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="addCarImage"
+                                           title='添加照片'
+                                           RightButton={UploadImageForCreateCarOP}
+                                           LeftButton={LeftButton}
+                                           component={AddCarImage}
+                                           hideTabBar
+                                           navBar={NavBar} />
+                                    <Scene key="addCar"
+                                           title='增加商品车'
+                                           RightButton={CreateCarOP}
+                                           component={AddCar}
+                                           LeftButton={LeftButton}
+                                           hideTabBar
+                                           navBar={NavBar} />
+                                    <Scene key="make"
+                                           title='选择品牌'
+                                           LeftButton={LeftButton}
+                                           component={Make}
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="city"
+                                           title='选择城市'
+                                           LeftButton={LeftButton}
+                                           component={City}
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="baseAddrList"
+                                           title='选择发运地'
+                                           LeftButton={LeftButton}
+                                           component={BaseAddrList}
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="entrust"
+                                           title='选择委托方'
+                                           component={Entrust}
+                                           LeftButton={LeftButton}
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="receive"
+                                           title='选择经销商'
+                                           component={Receive}
+                                           LeftButton={LeftButton}
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                </Scene>
+
+
+
+
+                                <Scene key="truckBlock"
+                                       icon={tabIcon}
+                                       online='ios-bus'
+                                       outline='ios-bus'
+                                       size={30}
+                                >
+                                    <Scene key="truck"
+                                           initial={true}
+                                           component={Truck}
+                                           title="货车管理"
+                                           navBar={NavBar}
+                                    />
+                                    <Scene key="truckInfo"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={TruckInfo}
+                                           title='车头资料'
+                                           hideTabBar
+                                           navBar={NavBar}/>
+                                    <Scene key="singlePhotoView"
+                                           component={SinglePhotoView}
+                                           hideTabBar={true}
+                                           navBar={PhotoViewNavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="trailerInfo"
+                                           LeftButton={LeftButton}
+                                           component={Trailer}
+                                           title='挂车资料'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="driverInfo"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={DriverInfo}
+                                           title='个人资料'
+                                           hideTabBar
+                                           navBar={NavBar} />
+
+                                    <Scene key="accidentList"
+                                           component={AccidentList}
+                                           title='事故列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={AccidentListOperation}/>
+                                    <Scene key="accidentInfo"
+                                           hideTabBar
+                                           component={AccidentInfo}
+                                           title='事故详情'
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="applyAccident"
+                                           component={ApplyAccident}
+                                           title='事故申报'
+                                           parent="truckBlock"
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={ApplyAccidentSubmit} />
+                                    <Scene key="applyAccidentImage"
+                                           component={ApplyAccidentImage}
+                                           title='上传事故照片'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={ApplyAccidentImageSubmit} />
+
+                                    <Scene key="demageList"
+                                           component={DemageList}
+                                           title='质损列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={DemageListOperation} />
+                                    <Scene key="demageResponsibilityList"
+                                           component={DemageResponsibilityList}
+                                           title='商品车责任'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={DemageResponsibilityListOperation} />
+                                    <Scene key="demageResponsibilityInfo"
+                                           component={DemageResponsibilityInfo}
+                                           title='质损详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="accidentResponsibilityList"
+                                           component={AccidentResponsibilityList}
+                                           title='货车责任'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="accidentResponsibilityInfo"
+                                           component={AccidentResponsibilityInfo}
+                                           title='事故责任详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="peccancyList"
+                                           component={PeccancyList}
+                                           RightButton={InstructExecutingOc}
+                                           title='违章扣款列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={PeccancyLeftButton} />
+                                    <Scene key="peccancyInfo"
+                                           component={PeccancyInfo}
+                                           title='违章扣款详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    {/*<Scene key="peccancySearch"*/}
+                                    {/*component={PeccancySearch}*/}
+                                    {/*title='违章扣款查询'*/}
+                                    {/*navBar={NavBar}*/}
+                                    {/*hideTabBar*/}
+                                    {/*LeftButton={LeftButton}*/}
+                                    {/*RightButton={InstructExecutingOc}/>*/}
+
+                                    <Scene key="overuseDieselOilList"
+                                           component={OveruseDieselOilList}
+                                           title='超油扣款列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           RightButton={InstructExecutingOc}
+                                           LeftButton={OveruseDieselOilLeftButton} />
+                                    <Scene key="overuseDieselOilInfo"
+                                           component={OveruseDieselOilInfo}
+                                           title='超油扣款详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    {/*<Scene key="overuseDieselOilSearch"*/}
+                                    {/*component={OveruseDieselOilSearch}*/}
+                                    {/*title='超油扣款查询'*/}
+                                    {/*navBar={NavBar}*/}
+                                    {/*hideTabBar*/}
+                                    {/*LeftButton={LeftButton}*/}
+                                    {/*RightButton={InstructExecutingOc}/>*/}
+
+
+                                    <Scene key="notSettleList"
+                                           component={NotSettleList}
+                                           title='未返还交接单'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="fuelFillingRecord"
+                                           LeftButton={LeftButton}
+                                           component={FuelFillingRecord}
+                                           title='加油记录'
+                                           RightButton={InstructExecutingOc}
+                                           hideTabBar
+                                           navBar={NavBar} />
+                                    <Scene key="fuelFillingApply"
+                                           LeftButton={LeftButton}
+                                           component={FuelFillingApply}
+                                           title='加油申报'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                    {/*<Scene key="fuelFillingSearch"*/}
+                                    {/*LeftButton={LeftButton}*/}
+                                    {/*component={FuelFillingSearch}*/}
+                                    {/*title='加油查询'*/}
+                                    {/*hideTabBar*/}
+                                    {/*navBar={NavBar}*/}
+                                    {/*RightButton={InstructExecutingOc}/>*/}
+
+
+                                    <Scene key="cleanRelList"
+                                           component={CleanRelList}
+                                           title='我的洗车费'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="cleanFeeListAtTruckBlock"
+                                           component={CleanFeeList}
+                                           title='洗车费'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="cleanRel"
+                                           component={CleanRel}
+                                           title='洗车费详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="listCennect"
+                                           component={ListCennect}
+                                           hideTabBar
+                                           parent="truckBlock"
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="listCennectDynamic"
+                                           component={ListCennect}
+                                           hideTabBar
+                                           navBar={NavSearchDynamicBar}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="taskLoanList"
+                                           component={TaskLoanList}
+                                           RightButton={TaskLoanListOP}
+                                           title='出车款'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton} />
+                                    <Scene key="routeTaskFee"
+                                           component={RouteTaskFee}
+                                           title='出车款'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="taskLoan"
+                                           component={TaskLoan}
+                                           title='出车款详情'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="searchTaskLoan"
+                                           component={SearchTaskLoan}
+                                           title='查询出车款'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={SearchTaskLoanOP}
+                                           LeftButton={LeftButton} />
+
+                                    <Scene key="salaryList"
+                                           component={SalaryList}
+                                           title='工资列表'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="salary"
+                                           component={Salary}
+                                           title='工资详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="taskLoanRelList"
+                                           component={TaskLoanRelList}
+                                           title='关联调度任务'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="applyDemage"
+                                           component={ApplyDemage}
+                                           title='质损申报'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={ApplyDemageSubmit} />
+                                    <Scene key="applyDemageImage"
+                                           component={ApplyDemageImage}
+                                           title='上传质损照片'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={ApplyDemageImageSubmit} />
+
+                                    <Scene key="demageInfo"
+                                           component={DemageInfo}
+                                           title='质损详情'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+                                    <Scene key="selectAddress"
+                                           component={Address}
+                                           title='选择位置'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                    <Scene key="imageViewConnect"
+                                           clone={true}
+                                           component={ImageViewConnect}
+                                           hideTabBar
+                                           hideNavBar />
+                                    <Scene key="cityRouteList"
+                                           LeftButton={LeftButton}
+                                           component={CityRouteList}
+                                           title='指令编号'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           RightButton={InstructExecutingOc}/>
+                                </Scene>
+
+
+
+
+                                <Scene key="driverBlock"
+                                       icon={tabIcon}
+                                       online='ios-contact'
+                                       outline='ios-contact'
+                                       size={30}
+                                >
+                                    <Scene key="work"
+                                           initial={true}
+                                           component={Work}
+                                           title='工作管理'
+                                           hideNavBar={false}
+                                           navBar={NavBar} />
+                                    <Scene key="instruct"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={Instruct}
+                                           title='调度指令'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="branchInstruct"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={BranchInstruct}
+                                           title='调度指令'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="cleanFeeListAtDriverBlock"
+                                           component={CleanFeeList}
+                                           title='洗车费'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+                                </Scene>
+
+
+
+                                <Scene key="settingBlock"
+                                       icon={tabIcon}
+                                       online='ios-settings'
+                                       outline='ios-settings'
+                                       size={30}
+                                >
+                                    <Scene key="setting"
+                                           component={Settings}
+                                           initial={true}
+                                           title='设置'
+                                           hideNavBar={false}
+                                           navBar={NavBar} />
+                                    <Scene key="updatePassword"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={UpdatePassword}
+                                           title='修改密码'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="changeMobileNo"
+                                           component={ChangeMobileNo}
+                                           title='换绑手机'
+                                           hideNavBar={false}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="personalCenter"
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
+                                           component={PersonalCenter}
+                                           title='个人中心'
+                                           hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                </Scene>
+                            </Stack>
+                            </Scene>
+                        {/*</Scene>*/}
+                    </Lightbox>
+                </Modal>
+            </Router>
         )
     }
 }
 
-export default App
+

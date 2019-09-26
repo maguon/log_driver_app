@@ -100,13 +100,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     validateVersion: param => {
+        console.log("111")
         dispatch({type:actionTypes.initializationType.init_app_waiting})
         dispatch(actions.initializationAction.validateVersion(param))
     },
     loadUniqueID: () => {
+        console.log("222")
         dispatch(actions.initializationAction.loadUniqueID())
     },
     start: () => {
+        console.log("333")
         dispatch(actions.initializationAction.start())
 
     }

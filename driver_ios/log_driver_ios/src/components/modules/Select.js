@@ -18,6 +18,7 @@ const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
     getListWaiting()
     showList({
         onSelect: (param) => {
+            console.log("param"+JSON.stringify(param))
             if (isPop) {
                 Actions.pop()
             }
@@ -26,6 +27,8 @@ const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
             })
         }
     })
+    console.log("param"+JSON.stringify(showList))
+    console.log("param"+JSON.stringify(getList))
     InteractionManager.runAfterInteractions(getList)
 }
 
@@ -44,6 +47,7 @@ const Select = props => {
         getListWaiting,
         meta: {error, touched}
     } = props
+    // console.log("props"+JSON.stringify(showList))
     return (
         <TouchableOpacity style={last ? styles.lastBody : styles.body}
                           onPress={() => _onPress({showList, getList, onChange, getListWaiting, isPop})}>
