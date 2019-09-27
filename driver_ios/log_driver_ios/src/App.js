@@ -1,15 +1,10 @@
 //第三方
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from "react-native";
-import {connect} from 'react-redux'
+import {StyleSheet} from "react-native";
 import {
     Scene,
     Router,
     MessageBar,
-    Actions,
-    Reducer,
-    ActionConst,
-    Tabs,
     Modal,
     Switch,
     Stack,
@@ -21,7 +16,6 @@ import Orientation from 'react-native-orientation'
 import Initialization from './components/main/Initialization'
 import Login from './components/main/Login'
 import RetrievePassword from './components/main/RetrievePassword'
-import DetermineLogin from './components/main/DetermineLogin'
 
 //导航相关页面
 import Home from './components/main/Home'
@@ -86,11 +80,8 @@ import AccidentListOperation from './components/modules/AccidentListOperation'
 import VinScanner from './components/modules/VinScanner'
 import PhotoViewNavBar from './components/modules/PhotoViewNavBar'
 import SinglePhotoView from './components/modules/SinglePhotoView'
-import PeccancySearch from './components/modules/PeccancySearch'
 import PeccancyLeftButton from './components/modules/PeccancyLeftButton'
-import OveruseDieselOilSearch from './components/modules/OveruseDieselOilSearch'
 import OveruseDieselOilLeftButton from './components/modules/OveruseDieselOilLeftButton'
-import FuelFillingSearch from './components/modules/FuelFillingSearch'
 import CleanRel from './components/modules/CleanRel'
 import ListCennect from './components/modules/ListCennect'
 import SearchTaskLoan from './components/modules/SearchTaskLoan'
@@ -118,13 +109,7 @@ import SearchTaskLoanOP from './components/utils/SearchTaskLoanOP'
 import ApplyDemageImageSubmit from './components/utils/ApplyDemageImageSubmit'
 import ApplyDemageSubmit from './components/utils/ApplyDemageSubmit'
 import UploadImageForCreateCarOP from './components/utils/UploadImageForCreateCarOP'
-import OveruseDieselOilToolButton from './components/utils/OveruseDieselOilToolButton'
-import localStorage from "./util/LocalStorage";
-import localStorageKey from "./util/LocalStorageKey";
-import {validateToken} from "./actions/main/InitializationAction";
-import * as actions from "./actions";
 
-//import HomeOperation from './components/utils/HomeOperation'
 
 const styles = StyleSheet.create({
     tabBarStyle: {
@@ -136,22 +121,6 @@ const styles = StyleSheet.create({
     navigationBarStyle: {}
 })
 
-
-const onEnter = (props)=> {
-    const localStorageRes =localStorage.load({ key: localStorageKey.USER })
-
-    console.log(localStorageRes)
-    console.log(props)
-
-    if (localStorageRes.token && localStorageRes.uid) {
-        console.log("0000000")
-        return true
-    }else {
-        console.log("111111")
-        return true
-    }
-
-}
 
 
 
@@ -177,30 +146,7 @@ export default class App extends Component {
 
                             <Scene initial={true} key="initialization"
                                    component={Initialization}
-                                   // onEnter={onEnter}
-                                   // success="loginGroup"
-                                   // failure="appMain"
                                 />
-
-                            {/*<Scene*/}
-                                {/*key="mainRoot"*/}
-                                {/*component={connect(mapStateToProps)(Switch)}*/}
-                                {/*tabs={true}*/}
-                                {/*type={ActionConst.RESET}*/}
-                                {/*selector={(props) => {*/}
-                                    {/*const { user } = props.loginReducer.data*/}
-                                    {/*if (user.mobile*/}
-                                        {/*&& user.token*/}
-                                        {/*&& user.uid*/}
-                                        {/*&& user.status*/}
-                                        {/*&& user.type) {*/}
-                                        {/*return 'main'*/}
-                                    {/*} else {*/}
-                                        {/*return 'loginBlock'*/}
-                                    {/*}*/}
-                                {/*}}*/}
-                            {/*>*/}
-
 
                             <Stack key="loginGroup">
                                 <Scene key="login"
@@ -773,7 +719,6 @@ export default class App extends Component {
                                 </Scene>
                             </Stack>
                             </Scene>
-                        {/*</Scene>*/}
                     </Lightbox>
                 </Modal>
             </Router>

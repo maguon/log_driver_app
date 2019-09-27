@@ -19,6 +19,7 @@ export const cleanLogin = () => async (dispatch, getState) => {
         }
     })
     dispatch({ type: actionTypes.loginType.clean_login, payload: { mobile: user.mobile } })
+    Actions.loginGroup()
 }
 
 export const login = param => async (dispatch, getState) => {
@@ -69,7 +70,7 @@ export const login = param => async (dispatch, getState) => {
                     await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: server }))
                     await dispatch({ type: actionTypes.loginType.login_success, payload: { user } })
                     dispatch(actions.initializationAction.loadDeviceToken(data))
-                    Actions.appMain()
+                    // Actions.appMain()
                 } else {
                     Toast.show({text:`登陆失败：无法获取用户信息！`})
                     dispatch({ type: actionTypes.loginType.login_failed, payload: { failedMsg: '无法获取用户信息！' } })
