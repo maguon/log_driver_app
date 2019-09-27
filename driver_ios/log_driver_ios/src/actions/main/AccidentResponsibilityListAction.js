@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getAccidentResponsibilityList = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid } },url:{base_host} } } = getState()
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{data:{base_host} } } = getState()
 
         const url = `${base_host}/truckAccidentCheck?${ObjectToUrl({ underUserId: uid})}`
         const res = await httpRequest.get(url)

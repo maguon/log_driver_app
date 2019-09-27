@@ -453,7 +453,7 @@ class BranchInstructExecuting extends Component {
                                     }]}>联系人</Text>
                                 </View>
                                 <FlatList
-                                    keyExtractor={(item, index) => index}
+                                    keyExtractor={(item, index) =>`${index}`}
                                     data={contactList}
                                     renderItem={({item, index}) => {
                                         return (

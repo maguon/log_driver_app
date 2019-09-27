@@ -4,7 +4,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getCleanFeeList = req => async (dispatch, getState) => {
     try {
-        const {loginReducer: { data: { user: { drive_id } } ,url: { base_host }} } = getState()
+        const {loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data: { base_host }} } = getState()
         const url = `${base_host}/dpRouteLoadTaskCleanRel?dpRouteTaskId=${req.dpRouteTaskId}&dpRouteLoadTaskId=${req.dpRouteLoadTaskId}&driveId=${drive_id}`
         console.log('url', url)
         const res = await httpRequest.get(url)

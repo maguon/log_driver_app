@@ -4,7 +4,7 @@ import * as actionTypes from '../../actionTypes/index'
 export const getSalaryTaskList = req => async (dispatch, getState) => {
     try {
         // console.log('req', req)
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/driveSalaryTaskRel?driveSalaryId=${req.salaryId}`
         // console.log('url', url)
         const res = await httpRequest.get(url)

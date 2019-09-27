@@ -2,7 +2,6 @@ import * as httpRequest from '../../util/HttpRequest'
 
 import * as actionTypes from '../../actionTypes/index'
 import {ObjectToUrl} from '../../util/ObjectToUrl'
-import {ToastAndroid} from 'react-native'
 import {Toast} from 'native-base'
 import {sleep} from '../../util/util'
 import {getFormValues} from 'redux-form'
@@ -11,7 +10,7 @@ const pageSize = 50
 
 export const getDemageResponsibilityList = (param) => async (dispatch, getState) => {
     const state = getState()
-    const {loginReducer: {data: {user: {uid}}, url: {base_host}}} = state
+    const {loginReducer: {data: {user: {uid}}},communicationSettingReducer:{data: {base_host}}} = state
     let search = getFormValues('demageResponsibilitySearchForm')(state)
     search = search ? search : {car: {}}
     console.log("search" + JSON.stringify(search))
@@ -61,7 +60,7 @@ export const getDemageResponsibilityListWaiting = () => (dispatch,) => {
 export const getDemageResponsibilityListMore = (param) => async (dispatch, getState) => {
     const state = getState()
     const {
-        loginReducer: {data: {user: {uid}}, url: {base_host}},
+        loginReducer: {data: {user: {uid}}},communicationSettingReducer:{data: {base_host}},
         demageResponsibilityListReducer: {data: {demageResponsibilityList, isComplete}},
         demageResponsibilityListReducer
     } = state
@@ -116,7 +115,7 @@ export const getDemageResponsibilityListMore = (param) => async (dispatch, getSt
                 })
             }
         } else {
-            Toast.show({text: '已全部加载完毕！'})
+            // Toast.show({text: '已全部加载完毕！'})
         }
     }
 }

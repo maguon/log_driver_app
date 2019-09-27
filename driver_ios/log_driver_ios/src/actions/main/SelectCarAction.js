@@ -9,7 +9,7 @@ const pageSize = 10
 export const getCarList = () => async (dispatch, getState) => {
     try {
         const searchFormValues = getFormValues('searchCarForm')(getState())
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
 
         const url = `${base_host}/carList?${ObjectToUrl({
             vinCode: searchFormValues ? searchFormValues.vin : null,

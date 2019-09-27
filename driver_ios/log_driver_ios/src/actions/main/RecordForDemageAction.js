@@ -4,7 +4,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getCarInfoRecord = (param) => async (dispatch, getState) => {
     const { car_id } = param
-    const { loginReducer: { data: { user: { uid } },url:{record_host} } } = getState()
+    const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{data:{record_host} } } = getState()
     try {
         const url = `${record_host}/user/${uid}/car/${car_id}/record`
         console.log('url',url)

@@ -10,7 +10,7 @@ const pageSize = 50
 export const getFuelFillingRecord = (param) => async (dispatch, getState) => {
     try {
         console.log('param', param)
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}}, fuelFillingRecordReducer: { data: { total } } } = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}}, fuelFillingRecordReducer: { data: { total } } } = getState()
         const optionalParam = {
             oilDateStart: param ? param.dateIdStart : total.oilDateStart,
             oilDateEnd: param ? param.dateIdEnd : total.oilDateEnd
@@ -55,7 +55,7 @@ export const getFuelFillingRecordWaiting = () => (dispatch) => {
 
 export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const { fuelFillingRecordReducer: { data: { fuelFillingRecordList, isComplete, total: { oilDateStart, oilDateEnd } } },
         fuelFillingRecordReducer,
         loginReducer: { data: { user: { drive_id } } } } = state

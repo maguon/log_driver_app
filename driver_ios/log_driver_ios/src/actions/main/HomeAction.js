@@ -5,7 +5,7 @@ import moment from 'moment'
 
 export const getMileageInfo = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id } },url:{base_host} } } = getState()
+        const { loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
         // console.log('drive_id', drive_id)
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         // console.log('getTruckUrl', getTruckUrl)

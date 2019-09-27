@@ -9,7 +9,7 @@ const pageSize = 50
 export const getOveruseDieselOilList = (param) => async (dispatch, getState) => {
     try {
         // console.log('getState()', getState())
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host} } } = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host} } } = getState()
         let searchParam = {}
         if (param) {
             searchParam = {
@@ -51,7 +51,7 @@ export const cleanOveruseDieselOilList = () => (dispatch) => {
 export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
     const state = getState()
     const {
-        loginReducer: { data: { user: { drive_id } } ,url:{base_host}},
+        loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}},
         overuseDieselOilListReducer: { data: { overuseDieselOilList, isComplete, search } },
         overuseDieselOilListReducer } = state
     // let search = getFormValues('searchCleanRelForm')(state)

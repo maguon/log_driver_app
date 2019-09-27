@@ -74,7 +74,9 @@ const RouteTaskFee = props => {
                     } else {
                         if (routeTaskFeeReducer.getRouteTaskFeeList.isResultStatus != 1) {
                             // console.log('已全部加载完毕！')
-                            Toast.show({text:'已全部加载完毕！'})
+                            // Toast.show({
+                            //     text:"已全部加载完毕!"
+                            // })
                         }
                     }
                 }}

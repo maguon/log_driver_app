@@ -79,7 +79,7 @@ const ImageEditorForAccident = props => {
         uploadAccidentImage,
         accidentInfo: { id,truck_num },
         imageForAccidentReducer: { data: { imageList }, uploadAccidentImage: { isResultStatus } } } = props
-        const { loginReducer: { url: { file_host } } } = props
+        const { communicationSettingReducer: { data: { file_host } } } = props
 
     return (
         <Container >
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
 
 
 const imageMapStateToProps = (state) => {
-    const { loginReducer: { url: { file_host } } } = state
+    const { communicationSettingReducer: { data: { file_host } } } = state
     return {
         imageViewReducer: {
             imageList: state.imageForAccidentReducer.data.imageList.map(item => `${file_host}/image/${item.url}`)
@@ -184,7 +184,8 @@ const imageMapDispatchToProps = (dispatch, ownProps) => ({
 const mapStateToProps = (state) => {
     return {
         imageForAccidentReducer: state.imageForAccidentReducer,
-        loginReducer:state.loginReducer
+        loginReducer:state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

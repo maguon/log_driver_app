@@ -74,7 +74,7 @@ class ImageView extends Component {
     }
 
     onPressOk() {
-        const { loginReducer: { url: { file_host } } } = this.props
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         const { imageViewReducer: { imageList } } = this.props
         this.setState({ confirmModalVisible: false })
         const str = `${file_host}/image/`
@@ -154,7 +154,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

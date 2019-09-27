@@ -6,7 +6,7 @@ export const getTrailerInfo = (next) => async (dispatch, getState) => {
     try {
         const {loginReducer: {data: {user: {drive_id}}}} = getState()
         console.log('next', next)
-        const {loginReducer: {url: {base_host}}} = getState()
+        const {communicationSettingReducer: {data: {base_host}}} = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({driveId: drive_id})}`
         console.log('getTruckUrl', getTruckUrl)
         const getTruckRes = await httpRequest.get(getTruckUrl)

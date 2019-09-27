@@ -11,7 +11,7 @@ const pageSize = 50
 export const getAccidentList = (param) => async (dispatch, getState) => {
     try {
         const state = getState()
-        const { loginReducer: { data: { user: { uid } } ,url:{base_host}} } = state
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{ data:{base_host}} } = state
 
         // let search = getFormValues('accidentSearchForm')(state)
        let search =param
@@ -44,7 +44,7 @@ export const getAccidentListWaiting = () => (dispatch) => {
 
 export const getAccidentListMore = (param) => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
 
     const {
         loginReducer: { data: { user: { uid } } },

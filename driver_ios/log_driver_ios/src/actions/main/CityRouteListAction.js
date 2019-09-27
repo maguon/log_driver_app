@@ -10,7 +10,7 @@ export const getCityRouteList = param => async (dispatch, getState) => {
             taskStatusArr = param.taskStatusArr
         }
 
-        const { loginReducer: { data: { user: { drive_id } } ,url: { base_host}}} = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data: { base_host}}} = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         // console.log('getTruckUrl', getTruckUrl)
         const getTruckRes = await httpRequest.get(getTruckUrl)

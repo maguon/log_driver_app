@@ -5,7 +5,7 @@ import {Alert} from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export const applyAccident = (param) => async (dispatch, getState) => {
-    const { loginReducer: { data: { user: { uid, drive_id } },url:{base_host} } } = getState()
+    const { loginReducer: { data: { user: { uid, drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_waiting, payload: {} })
         console.log('param', param)

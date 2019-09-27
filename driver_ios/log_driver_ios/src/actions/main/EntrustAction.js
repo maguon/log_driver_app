@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getEntrustList = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/entrust?${ObjectToUrl(param.OptionalParam)}`
     try {
         let res = await httpRequest.get(url)

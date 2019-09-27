@@ -76,7 +76,7 @@ const ImageEditorForDemage = props => {
         uploadDamageImage,
         imageListForDemageReducer: { data: { demageImageList }, uploadDamageImage: { isResultStatus } },
         initParam: { id, vin } } = props
-    const { loginReducer: { url: { file_host } } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container >
             <FlatList
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
 })
 
 const imageMapStateToProps = (state) => {
-    const { loginReducer: { url: { file_host } } } = state
+    const { communicationSettingReducer: { data: { file_host } } } = state
     return {
         imageViewReducer: {
             imageList: state.imageListForDemageReducer.data.demageImageList.map(item => `${file_host}/image/${item.url}`)
@@ -180,7 +180,8 @@ const imageMapDispatchToProps = (dispatch, ownProps) => ({
 const mapStateToProps = (state) => {
     return {
         imageListForDemageReducer: state.imageListForDemageReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

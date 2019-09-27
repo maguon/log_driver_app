@@ -1,4 +1,5 @@
 import * as initializationType from './main/InitializationType'
+import * as communicationSettingActionType from './main/CommunicationSettingActionType'
 import * as homeType from './main/HomeType'
 import * as loginType from './main/LoginType'
 import * as taskListForHomeActionType from './modules/TaskListForHomeActionType'
@@ -84,6 +85,7 @@ import * as changeMobileVCodeActionType from './main/ChangeMobileVCodeActionType
 
 export {
     initializationType,
+    communicationSettingActionType,
     loginType,
     homeType,
     taskListForHomeActionType,

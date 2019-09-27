@@ -7,7 +7,7 @@ const pageSize = 10
 
 export const getSalaryList = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}}} = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}}} = getState()
         const url = `${base_host}/driveSalaryBase?${ObjectToUrl({
             driveId: drive_id,
             start: 0,
@@ -37,7 +37,7 @@ export const getSalaryListWaiting = () => (dispatch) => {
 }
 
 export const getSalaryListMore = () => async (dispatch, getState) => {
-    const {loginReducer: { data: { user: { drive_id } },url:{base_host} }, salaryListReducer,
+    const {loginReducer: { data: { user: { drive_id } }}, communicationSettingReducer:{data:{base_host} }, salaryListReducer,
         salaryListReducer: { data: { salaryList, isCompleted } } } = getState()
     if (salaryListReducer.getSalaryListMore.isResultStatus == 1) {
         await sleep(1000)

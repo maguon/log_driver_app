@@ -10,7 +10,7 @@ export const uploadAccidentImageWaiting = () => (dispatch) => {
 
 export const uploadAccidentImage = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { record_host, file_host} } } = getState()
+        const { communicationSettingReducer: { data: { record_host, file_host} } } = getState()
         const { cameraReses } = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {

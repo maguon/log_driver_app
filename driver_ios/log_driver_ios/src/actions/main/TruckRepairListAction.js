@@ -4,7 +4,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getTruckRepairList = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckDetailReducer: { data: { truckInfo } } } = getState()
         const url = `${base_host}/truckRepairRel?${ObjectToUrl({ truckId: truckInfo.id })}`
         console.log('url', url)

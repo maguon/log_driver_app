@@ -49,7 +49,7 @@ const renderItem = props => {
 
 const TruckImage = props => {
     const { truckImageReducer: { data: { truckImageList } }, truckDetailReducer: { data: { truckInfo: { driving_image, license_image } } }, parent } = props
-    const { loginReducer: { url: { file_host } } } = props
+    const { communicationSettingReducer: { data: { file_host } } } = props
     return (
         <Container>
             <FlatList
@@ -68,7 +68,8 @@ const mapStateToProps = (state) => {
     return {
         truckImageReducer: state.truckImageReducer,
         truckDetailReducer: state.truckDetailReducer,
-        loginReducer:state.loginReducer
+        loginReducer:state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

@@ -191,7 +191,7 @@ const mapStateToProps = (state) => {
     return {
         initialValues: {
             mobile: state.loginReducer.data.user.mobile,
-            server: state.loginReducer.data.host
+            server: state.communicationSettingReducer.data.host
         },
         initializationReducer: state.initializationReducer
     }

@@ -18,11 +18,11 @@ export const saveCommunicationSetting = param => (dispatch) => {
     })
     console.log('url',url)
     dispatch({
-        type: actionTypes.loginType.save_communicationSetting_success, payload: {
+        type: actionTypes.communicationSettingActionType.save_communicationSetting_success, payload: {
             base_host: `http://api.${url}/api`,
             file_host: `http://files.${url}/api`,
             record_host: `http://records.${url}/api`,
             host: url
         }})
-     Toast.show({text:'保存成功！'})
+     // Toast.show({text:'保存成功！'})
 }

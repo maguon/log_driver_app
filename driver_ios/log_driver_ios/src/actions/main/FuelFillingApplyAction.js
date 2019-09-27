@@ -9,7 +9,7 @@ import {Toast} from 'native-base'
 
 export const createFuelFillingApply = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id, uid } } ,url:{ base_host}} } = getState()
+        const { loginReducer: { data: { user: { drive_id, uid } }},communicationSettingReducer:{data:{ base_host}} } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         // console.log('getTruckUrl', getTruckUrl)
 

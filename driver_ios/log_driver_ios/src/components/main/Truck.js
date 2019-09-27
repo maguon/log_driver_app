@@ -34,7 +34,8 @@ class Truck extends Component {
 
         const {
             truckReducer: {data: {driverInfo: {company_name, operate_type}}},
-            loginReducer: {data: {user: {avatar_image, real_name, mobile}}, url: {file_host}},
+            loginReducer: {data: {user: {avatar_image, real_name, mobile}}},
+            communicationSettingReducer:{data:{file_host}},
             getAccidentList,
             getAccidentListWaiting,
             getAccidentResponsibilityList,
@@ -270,6 +271,7 @@ const mapStateToProps = (state) => {
     return {
         truckReducer: state.truckReducer,
         loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

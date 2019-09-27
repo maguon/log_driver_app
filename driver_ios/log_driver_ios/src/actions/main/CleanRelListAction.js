@@ -9,7 +9,7 @@ const pageSize = 50
 
 export const getCleanRelList = (receiveId) => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { data: { user: { drive_id } },url:{ base_host } } } = state
+    const { loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{ base_host } } } = state
 
     try {
         const url = `${base_host}/dpRouteLoadTaskCleanRel?${ObjectToUrl({
@@ -43,7 +43,7 @@ export const getCleanRelListWaiting = () => (dispatch) => {
 export const getCleanRelListMore = () => async (dispatch, getState) => {
     const state = getState()
     const {
-        loginReducer: { data: { user: { drive_id } },url: { base_host } },
+        loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data: { base_host } },
         cleanRelListReducer: { data: { cleanRelList, isComplete } },
         cleanRelListReducer } = state
 

@@ -343,7 +343,8 @@ class Work extends Component {
 const mapStateToProps = (state) => {
     return {
         workReducer: state.workReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

@@ -6,7 +6,7 @@ import {Toast} from 'native-base'
 export const getDamageImageList = (param) => async (dispatch, getState) => {
     const {id} = param
     try {
-        const {loginReducer: {url: {record_host}}} = getState()
+        const {communicationSettingReducer: {data: {record_host}}} = getState()
         const url = `${record_host}/damageRecord?${ObjectToUrl({damageId: id})}`
         const res = await httpRequest.get(url)
         if (res.success) {
@@ -37,7 +37,7 @@ export const uploadDamageImageWaiting = () => (dispatch) => {
 
 export const uploadDamageImage = param => async (dispatch, getState) => {
     try {
-        const {loginReducer: {url: {record_host, file_host}}} = getState()
+        const {communicationSettingReducer: {data: {record_host, file_host}}} = getState()
         const {cameraReses, damageId, vin} = param
         const cameraSuccessReses = cameraReses.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
@@ -64,33 +64,33 @@ export const uploadDamageImage = param => async (dispatch, getState) => {
                     .filter(item => item.success)
                     .map(item => item.imageId)
                 if (cameraReses.length === bindDamageSuccessReses.length) {
-                    Toast.show({text: '提交成功！'})
+                    // Toast.show({text: '提交成功！'})
                     dispatch({
                         type: actionTypes.imageListForDemageType.upload_ImageAtDemage_success,
                         payload: {demageImageList: bindDamageSuccessReses}
                     })
                 } else if (bindDamageSuccessReses.length > 0) {
-                    Toast.show({text:`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`})
+                    // Toast.show({text:`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`})
                     dispatch({
                         type: actionTypes.imageListForDemageType.upload_ImageAtDemage_partSuccess,
                         payload: {demageImageList: bindDamageSuccessReses, failedMsg: '部分失败'}
                     })
                 } else {
-                    Toast.show({text:'提交全部失败！'})
+                    // Toast.show({text:'提交全部失败！'})
                     dispatch({
                         type: actionTypes.imageListForDemageType.upload_ImageAtDemage_failed,
                         payload: {failedMsg: '全部失败'}
                     })
                 }
             } else {
-                Toast.show({text:'提交全部失败！'})
+                // Toast.show({text:'提交全部失败！'})
                 dispatch({
                     type: actionTypes.imageListForDemageType.upload_ImageAtDemage_failed,
                     payload: {failedMsg: '全部失败'}
                 })
             }
         } else {
-            Toast.show({text:'拍照全部失败！'})
+            // Toast.show({text:'拍照全部失败！'})
             dispatch({
                 type: actionTypes.imageListForDemageType.upload_ImageAtDemage_failed,
                 payload: {failedMsg: '拍照全部失败'}
@@ -98,7 +98,7 @@ export const uploadDamageImage = param => async (dispatch, getState) => {
         }
     }
     catch (err) {
-        Toast.show({text:`提交全部失败！${err}`})
+        // Toast.show({text:`提交全部失败！${err}`})
         dispatch({type: actionTypes.imageListForDemageType.upload_ImageAtDemage_error, payload: {errorMsg: err}})
     }
 }
@@ -108,16 +108,16 @@ export const delImage = param => async (dispatch, getState) => {
         userReducer: {data: {user: {userId}}},
         imageListForDemageReducer: {data: {recordId}}
     } = getState()
-    const {loginReducer: {url: {record_host}}} = getState()
+    const {communicationSettingReducer: {data: {record_host}}} = getState()
     dispatch({type: actionTypes.imageListForDemageType.del_ImageAtDemage_waiting, payload: {}})
     try {
         const url = `${record_host}/user/${userId}/record/${recordId}/damageImage/${param}`
         const res = await httpRequest.del(url)
         if (res.success) {
-            Toast.show({text:'图片删除成功！'})
+            // Toast.show({text:'图片删除成功！'})
             dispatch({type: actionTypes.imageListForDemageType.del_ImageAtDemage_success, payload: {imageurl: param}})
         } else {
-            Toast.show({text:`图片删除失败：${res.msg}`})
+            // Toast.show({text:`图片删除失败：${res.msg}`})
             dispatch({
                 type: actionTypes.imageListForDemageType.del_ImageAtDemage_failed,
                 payload: {failedMsg: res.msg}
@@ -125,7 +125,7 @@ export const delImage = param => async (dispatch, getState) => {
         }
 
     } catch (err) {
-        Toast.show({text:`图片删除失败：${err}`})
+        // Toast.show({text:`图片删除失败：${err}`})
         dispatch({type: actionTypes.imageListForDemageType.del_ImageAtDemage_error, payload: {errorMsg: err}})
     }
 }

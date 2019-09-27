@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import {reducer as formReducer} from 'redux-form';
 import initializationReducer from './main/InitializationReducer'
+import communicationSettingReducer from './main/CommunicationSettingReducer'
 import loginReducer from './main/LoginReducer'
 import homeReducer from './main/HomeReducer'
 import taskListForHomeReducer from './modules/TaskListForHomeReducer'
@@ -88,6 +89,7 @@ import changeMobileVCodeReducer from './main/ChangeMobileVCodeReducer'
 export default combineReducers({
     form: formReducer,
     initializationReducer,
+    communicationSettingReducer,
     loginReducer,
     homeReducer,
     mileageInfoReducer,

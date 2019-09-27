@@ -5,7 +5,7 @@ import {Toast} from 'native-base'
 
 export const uploadCarImage = (params) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { record_host,base_host, file_host} } } = getState()
+        const { communicationSettingReducer: { data: { record_host,base_host, file_host} } } = getState()
         const cameraSuccessReses = params.filter(item => item.success)
         if (cameraSuccessReses.length > 0) {
             const { userReducer: { data: { user: { userId } } },
@@ -34,30 +34,30 @@ export const uploadCarImage = (params) => async (dispatch, getState) => {
                         .filter(item => item.success)
                         .map(item => item.imageId)
                     if (params.length === bindDamageSuccessReses.length) {
-                        Toast.show({text:'提交成功！'})
+                        // Toast.show({text:'提交成功！'})
                         dispatch({ type: actionTypes.addCarImageType.upload_CarImage_success, payload: { imageList: bindDamageSuccessReses } })
                     } else if (bindDamageSuccessReses.length > 0) {
-                        Toast.show({text:`部分提交成功：${bindDamageSuccessReses.length}/${params.length}`})
+                        // Toast.show({text:`部分提交成功：${bindDamageSuccessReses.length}/${params.length}`})
                         dispatch({ type: actionTypes.addCarImageType.upload_CarImage_partSuccess, payload: { imageList: bindDamageSuccessReses, failedMsg: '部分失败' } })
                     } else {
-                        Toast.show({text:'提交全部失败！'})
+                        // Toast.show({text:'提交全部失败！'})
                         dispatch({ type: actionTypes.addCarImageType.upload_CarImage_failed, payload: { failedMsg: '全部失败' } })
                     }
                 } else {
-                    Toast.show({text:'提交全部失败！'})
+                    // Toast.show({text:'提交全部失败！'})
                     dispatch({ type: actionTypes.addCarImageType.upload_CarImage_failed, payload: { failedMsg: '全部失败' } })
                 }
             } else {
-                Toast.show({text:'提交全部失败！'})
+                // Toast.show({text:'提交全部失败！'})
                 dispatch({ type: actionTypes.addCarImageType.upload_CarImage_failed, payload: { failedMsg: '全部失败' } })
             }
         } else {
-            Toast.show({text:'拍照全部失败！'})
+            // Toast.show({text:'拍照全部失败！'})
             dispatch({ type: actionTypes.addCarImageType.upload_CarImage_failed, payload: { failedMsg: '拍照全部失败' } })
         }
     }
     catch (err) {
-        Toast.show({text:`提交全部失败！${err}`})
+        // Toast.show({text:`提交全部失败！${err}`})
         dispatch({ type: actionTypes.addCarImageType.upload_CarImage_error, payload: { errorMsg: err } })
     }
 }

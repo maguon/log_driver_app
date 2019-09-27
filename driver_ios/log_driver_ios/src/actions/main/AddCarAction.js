@@ -17,7 +17,7 @@ export const submit = param => (dispatch, getState) => {
 
 export const modifyCar = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host} } } = getState()
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         dispatch({ type: actionTypes.addCarType.modify_car_waiting, payload: {} })
         const { addCarReducer: { data: { carId } },
             loginReducer: { data: { user: { uid } } } } = getState()
@@ -52,7 +52,7 @@ export const modifyCar = param => async (dispatch, getState) => {
 
 export const createCar = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid } } ,url: { base_host} } } = getState()
+        const { loginReducer: { data: { user: { uid } } },communicationSettingReducer:{data: { base_host} } } = getState()
         const { values, onSelect } = param
         dispatch({ type: actionTypes.addCarType.ADD_Car_WAITING, payload: {} })
         const url = `${base_host}/user/${uid}/car`

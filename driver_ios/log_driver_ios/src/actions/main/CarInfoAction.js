@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getCarInfo = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { record_host, base_host } } } = getState()
+    const { base_host: { data: { record_host, base_host } } } = getState()
     const urls = [`${base_host}/car?${ObjectToUrl(param.OptionalParam)}`,
         `${record_host}/user/${param.requiredParam.userId}/car/${param.requiredParam.carId}/record`]
     try {

@@ -5,7 +5,7 @@ import { Toast } from 'native-base'
 
 
 export const updateAccident = (param,accidentId) => async (dispatch, getState) => {
-     const { loginReducer: { data: { user: { uid } ,url:{base_host}} }, truckReducer: { data: { driverInfo: { id } } } } = getState()
+     const { loginReducer: { data: { user: { uid }},communicationSettingReducer:{ data:{base_host}} }, truckReducer: { data: { driverInfo: { id } } } } = getState()
     try {
         dispatch({ type: actionTypes.accidentEditorType.update_Accident_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/truckAccident/${accidentId}`
@@ -21,13 +21,13 @@ export const updateAccident = (param,accidentId) => async (dispatch, getState) =
         }))
         if (res.success) {
             dispatch({ type: actionTypes.accidentEditorType.update_Accident_success, payload: { } })
-            Toast.show({text:'修改成功！'})
+            // Toast.show({text:'修改成功！'})
         } else {
             dispatch({ type: actionTypes.accidentEditorType.update_Accident_failed, payload: { failedMsg: res.msg } })
-            Toast.show({text:`修改失败:${res.msg}!`})
+            // Toast.show({text:`修改失败:${res.msg}!`})
         }
     } catch (err) {
         dispatch({ type: actionTypes.accidentEditorType.update_Accident_error, payload: { errorMsg: err } })
-        Toast.show({text:`修改失败:${err}!`})
+        // Toast.show({text:`修改失败:${err}!`})
     }
 }

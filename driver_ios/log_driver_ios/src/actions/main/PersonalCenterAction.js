@@ -6,7 +6,7 @@ import {Alert} from "react-native";
 export const updatePersonalImage = (param) => async (dispatch, getState) => {
     try {
         dispatch({type: actionTypes.personalCenterActionType.Update_PersonalImage_WAITING, payload: {}})
-        const {loginReducer: {url: {file_host, base_host}}} = getState()
+        const {communicationSettingReducer: {data: {file_host, base_host}}} = getState()
         const uploadUrl = `${file_host}/user/${param.uploadImage.requiredParam.userId}/image?${ObjectToUrl(param.uploadImage.optionalParam)}`
         const uploadUrlRes = await httpRequest.postFile(uploadUrl, param.uploadImage.postParam)
         if (uploadUrlRes.success) {

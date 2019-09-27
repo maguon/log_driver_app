@@ -7,7 +7,7 @@ import {Alert} from "react-native";
 export const updatePassword = () => async (dispatch, getState) => {
     const state = getState()
     const { confirmPassword, newPassword, oldPassword } = getFormValues('updatePasswordForm')(state)
-    const { loginReducer: { data: { user: { uid } } ,url:{base_host}} } = state
+    const { loginReducer: { data: { user: { uid } } ,communicationSettingReducer:{data:{base_host}}} } = state
     if (newPassword == confirmPassword) {
         try {
             const url = `${base_host}/user/${uid}/password`

@@ -4,9 +4,9 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getRouteTaskListForHome = () => async (dispatch, getState) => {
 
-     const {loginReducer: { data: { user: { drive_id } } ,url: { base_host }} } = getState()
+     const {loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data: { base_host }} } = getState()
     try {
-        const url = `http://api.myxxjs.com/api/dpRouteLoadTask?${ObjectToUrl({
+        const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl({
             taskStatusArr: '1,2,3,4,9',
               driveId: drive_id
         })}`

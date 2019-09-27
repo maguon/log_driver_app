@@ -152,11 +152,7 @@ const onEnter = (props)=> {
     }
 
 }
-const mapStateToProps = (state) => {
-    return {
-        loginReducer: state.loginReducer
-    }
-}
+
 
 
 export default class App extends Component {
@@ -181,9 +177,9 @@ export default class App extends Component {
 
                             <Scene initial={true} key="initialization"
                                    component={Initialization}
-                                   onEnter={onEnter}
-                                   success="loginGroup"
-                                   failure="appMain"
+                                   // onEnter={onEnter}
+                                   // success="loginGroup"
+                                   // failure="appMain"
                                 />
 
                             {/*<Scene*/}

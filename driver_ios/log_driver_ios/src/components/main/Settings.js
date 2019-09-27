@@ -42,7 +42,7 @@ class Setting extends Component {
 
     render() {
         const { version } = this.props.InitializationReducer.data
-        const { loginReducer: { data: { user: { avatar_image, real_name, mobile } },url: { file_host } } } = this.props
+        const { loginReducer: { data: { user: { avatar_image, real_name, mobile } }},communicationSettingReducer:{data: { file_host } } } = this.props
         console.log('this.props',this.props)
         return (
             <Container>
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer,
         InitializationReducer: state.initializationReducer
     }
 }

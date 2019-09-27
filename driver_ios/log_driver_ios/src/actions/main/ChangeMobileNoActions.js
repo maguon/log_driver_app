@@ -8,7 +8,7 @@ export const changeMobileNo = param => async (dispatch, getState) => {
     try {
         // console.log('param', param)
         const { mobileNo, vCode } = param
-        const { loginReducer: { data: { user: { uid } },url: { base_host } } } = getState()
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{data: { base_host } } } = getState()
         dispatch({ type: actionTypes.changeMobileNoActionType.change_mobileNo_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/mobile`
         // console.log('url', url)

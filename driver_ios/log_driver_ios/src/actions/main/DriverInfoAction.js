@@ -4,7 +4,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getDriverInfo = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}} } = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}} } = getState()
         param.getDriverInfo = {
             OptionalParam: {
                 driveId: drive_id
@@ -30,7 +30,7 @@ export const setGetDriverInfoWaiting = () => (dispatch) => {
 
 export const getDriverRecord = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id, uid } } ,url:{record_host }} } = getState()
+        const { loginReducer: { data: { user: { drive_id, uid } }},communicationSettingReducer:{data:{record_host }} } = getState()
         const url = `${record_host}/user/${uid}/tuser/${drive_id}/record`
         console.log('url', url)
         const res = await httpRequest.get(url)
@@ -51,7 +51,7 @@ export const setGetDriverRecordWaiting = () => (dispatch) => {
 
 export const getDriverImage = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id } },url:{base_host} } } = getState()
+        const { loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
         param.getDriverImage = {
             OptionalParam: {
                 driveId: drive_id

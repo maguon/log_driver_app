@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 export const getCarInfo = (param) => async (dispatch, getState) => {
     const { car_id } = param
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/carList?${ObjectToUrl({ carId: car_id })}`
         const res = await httpRequest.get(url)
         if (res.success) {

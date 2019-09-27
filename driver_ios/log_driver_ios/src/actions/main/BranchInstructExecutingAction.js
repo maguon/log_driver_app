@@ -7,7 +7,7 @@ import { Actions } from 'react-native-router-flux'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
      console.log('param', param)
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
         `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,
         `${base_host}/receive/${param.OptionalParam.receiveId}/contacts`,
@@ -61,7 +61,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
 
 export const getCoordinate = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -106,7 +106,7 @@ export const setGetRouteLoadTaskListWaiting = () => (dispatch) => {
 }
 
 export const changeCarExceptionRel = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/user/${param.requiredParam.userId}/carExceptionRel`
     try {
         const res = await httpRequest.post(url, param.postParam)
@@ -130,8 +130,7 @@ export const resetChangeCarExceptionRel = () => (dispatch) => {
 
 export const changeLoadTaskStatus = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
-        const { loginReducer: { data: { user: { drive_id } } } } = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, param.putParam)
         if (res.success) {
@@ -175,7 +174,7 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { branchInstructExecuting: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

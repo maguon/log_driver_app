@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ToastAndroid, ActivityIndicator, InteractionManager } from 'react-native'
-import { Container, Spinner } from 'native-base'
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, InteractionManager } from 'react-native'
+import { Container, Spinner ,Toast} from 'native-base'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import globalStyles, { styleColor } from '../utils/GlobalStyles'
@@ -74,12 +74,12 @@ const SalaryList = props => {
                         if (salaryListReducer.getSalaryList.isResultStatus == 2 && !isCompleted) {
                             getSalaryListMore()
                         } else {
-                            ToastAndroid.show('已全部加载完毕！', 10)
+                            // Toast.show({text:'已全部加载完毕！'})
                         }
                     }}
                     ListEmptyComponent={salaryListReducer.getSalaryList.isResultStatus != 1 && salaryList.length == 0 && renderListEmpty}
                     ListFooterComponent={salaryListReducer.getSalaryList.isResultStatus == 1 ? renderListFooter : <View style={{ height: 15 }} />}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => `${index}`}
                     renderItem={({ item }) => renderItem({ item, getSalaryTaskListWaiting, getSalaryTaskList })} />
             </Container>
         )

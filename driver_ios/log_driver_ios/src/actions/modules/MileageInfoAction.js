@@ -2,13 +2,15 @@ import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 import {ObjectToUrl} from '../../util/ObjectToUrl'
 import moment from 'moment'
+import communicationSettingReducer from "../../reducers/main/CommunicationSettingReducer";
 
 
 //获得本月工资 里程 运车数据
 export const getMileageInfo=()=>async (dispatch,getState)=>{
     try {
-    const {loginReducer:{url:{base_host}},loginReducer:{data:{user:{drive_id}}}}=getState()
+    const {loginReducer:{data:{user:{drive_id}}},communicationSettingReducer:{data:{base_host}}}=getState()
         console.log('base_host',base_host)
+
         //访问2个url
         const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl({
             taskStatus: 9,

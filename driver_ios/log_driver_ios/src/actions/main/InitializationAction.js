@@ -40,9 +40,11 @@ export const loadUniqueID = param => async (dispatch, getState) => {
     try {
         uniqueID = await localStorage.load({ key: localStorageKey.UNIQUEID })
         dispatch(getUniqueID(uniqueID))
+        console.log(uniqueID)
     } catch (err) {
         uniqueID = DeviceInfo.getUniqueID()
         localStorage.save({ key: localStorageKey.UNIQUEID, data: uniqueID })
+        console.log(uniqueID)
     }
     console.log("uniqueID"+uniqueID)
     dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
@@ -59,18 +61,16 @@ export const getCommunicationSetting = param => async (dispatch) => {
     try {
         const serverAddress = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
         const { host } = serverAddress
-        console.log("serverAddress"+JSON.stringify(host))
         if (host) {
-            await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: host }))
+            dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: host }))
             dispatch((validateVersion(param)))
         } else {
-            console.log("serverAddress")
             dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, param, msg: '获取host失败' } })
-            Actions.mainRoot()
+            Actions.loginGroup()
         }
     } catch (err) {
         dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, param, msg: '获取host失败' } })
-        Actions.mainRoot()
+        Actions.loginGroup()
     }
 }
 
@@ -83,7 +83,7 @@ export const validateVersion = param => async (dispatch, getState) => {
     console.log('validateVersionParam', param)
     const currentStep = 2
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/app?${ObjectToUrl({ app: ios_app.type, type: ios_app.ios })}`
         console.log('url', url)
 
@@ -126,7 +126,7 @@ export const validateVersion = param => async (dispatch, getState) => {
                 versionInfo.newestVersion = versionInfo.currentVersion
             }
             // versionInfo.force_update=1
-            // console.log('versionInfo', versionInfo)
+            console.log('versionInfo', versionInfo)
             if (versionInfo.force_update != 1) {
                 dispatch(loadLocalStorage({ ...param, version: versionInfo }))
             }else{
@@ -151,7 +151,7 @@ export const validateVersion = param => async (dispatch, getState) => {
  *          如果获取成功，继续流程
  */
 export const loadLocalStorage = param => async (dispatch) => {
-    // console.log('loadLocalStorageParam', param)
+    console.log('loadLocalStorageParam', param)
     const currentStep = 3
     try {
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
@@ -165,11 +165,11 @@ export const loadLocalStorage = param => async (dispatch) => {
                 dispatch({ type: actionTypes.loginType.set_userInfo, payload: { user: {} } })
             }
             dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '登陆未执行', param } })
-            Actions.mainRoot()
+            Actions.loginGroup()
         }
     } catch (err) {
         dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, msg: '登陆未执行', param } })
-        Actions.mainRoot()
+        Actions.loginGroup()
     }
 }
 
@@ -182,10 +182,10 @@ export const loadLocalStorage = param => async (dispatch) => {
  *          如果更新token成功，继续流程
  */
 export const validateToken = ({ param, user }) => async (dispatch, getState) => {
-    // console.log('validateTokenParam', param)
+    console.log('validateTokenParam', param)
     const currentStep = 4
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { uid, token } = user
         const url = `${base_host}/user/${uid}/token/${token}`
         // console.log('url', url)
@@ -210,16 +210,16 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
                 dispatch(loadDeviceToken(param))
             } else {
                 dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '无法换token', param } })
-                Actions.mainRoot()
+                Actions.loginGroup()
             }
         }
         else {
             dispatch({ type: actionTypes.initializationType.init_app_failed, payload: { currentStep, msg: '无法换token', param } })
-            Actions.mainRoot()
+            Actions.loginGroup()
         }
     } catch (err) {
         dispatch({ type: actionTypes.initializationType.init_app_error, payload: { currentStep, msg: '登陆未执行', param } })
-        Actions.mainRoot()
+        Actions.loginGroup()
     }
 }
 
@@ -229,48 +229,54 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
  *          如果获取deviceToken成功，完成初始化流程
  */
 export const loadDeviceToken = param => async (dispatch) => {
-    // console.log('loadDeviceTokenParam', param)
+    console.log('loadDeviceTokenParam', param)
+
     try {
-       const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
-        // console.log('deviceToken',deviceToken)
-        dispatch(saveDeviceToken({deviceToken,...param}))
         dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
-        Actions.mainRoot()
+        Actions.appMain()
+        // const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
+        //    dispatch(saveDeviceToken({deviceToken,...param}))
         return
-    } catch (err) { }
-    dispatch(initPush(param))
+    } catch (err) {
+
+    }
+    // dispatch(initPush(param))
+
 }
 
-
-/**
- * 第七步：从NativeModules.XinGeModule.register()获取deviceToken
- *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
- *          如果获取deviceToken成功，完成初始化流程
- */
-export const initPush = param => async (dispatch) => {
-    // console.log('initPushParam', param)
-    let deviceToken
-    try {
-        deviceToken = await NativeModules.XinGeModule.register()
-        // console.log('deviceToken',deviceToken)
-        dispatch(saveDeviceToken({deviceToken,...param}))
-        localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
-        Actions.mainRoot()
-    } catch (err) { }
-    dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
-}
-
-/**
- * 分支：保存deviceToken
- */
-export const saveDeviceToken = param => async (dispatch, getState) => {
-    // console.log('saveDeviceTokenparam',param)
-    try {
-        const {loginReducer: { data: { user:{uid} },url:{base_host} } } = getState()
-        const {deviceToken,deviceInfo:{uniqueID}} =param
-        const url = `${base_host}/user/${uid}/device/${uniqueID}/appType/${ios_app.type}/userDeviceToken`
-        // console.log('url',url)
-        const res=await httpRequest.put(url,{deviceToken})
-        // console.log('res',res)
-    } catch (err) {}
-}
+//
+// /**
+//  * 第七步：从NativeModules.XinGeModule.register()获取deviceToken
+//  *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
+//  *          如果获取deviceToken成功，完成初始化流程
+//  */
+// export const initPush = param => async (dispatch) => {
+//     console.log('initPushParam', param)
+//     let deviceToken
+//     try {
+//         deviceToken = await NativeModules.XinGeModule.register()
+//         console.log('deviceToken',deviceToken)
+//         dispatch(saveDeviceToken({deviceToken,...param}))
+//         localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
+//         Actions.loginGroup()
+//     } catch (err) {
+//
+//         console.log("2222")
+//     }
+//     dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
+// }
+//
+// /**
+//  * 分支：保存deviceToken
+//  */
+// export const saveDeviceToken = param => async (dispatch, getState) => {
+//     console.log('saveDeviceTokenparam',param)
+//     try {
+//         const {communicationSettingReducer: { data: { base_host } } = getState()
+//         const {deviceToken,deviceInfo:{uniqueID}} =param
+//         const url = `${base_host}/user/${uid}/device/${uniqueID}/appType/${ios_app.type}/userDeviceToken`
+//         // console.log('url',url)
+//         const res=await httpRequest.put(url,{deviceToken})
+//         // console.log('res',res)
+//     } catch (err) {}
+// }

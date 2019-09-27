@@ -4,7 +4,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getAccidentType = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckReducer: { data: { driverInfo: { truck_id, truck_num } } } } = getState()
         const url = `${base_host}/truckFirst?truckId=${truck_id}`
         console.log('url', url)

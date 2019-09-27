@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         formValues: getFormValues('ChangeMobileNoForm')(state),
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

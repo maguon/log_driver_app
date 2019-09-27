@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getTruckImage = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid } },url:{record_host } }, truckDetailReducer: { data: { truckInfo: { truck_num } } } } = getState()
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{data:{record_host } }, truckDetailReducer: { data: { truckInfo: { truck_num } } } } = getState()
         const url = `${record_host}/user/${uid}/truck/${truck_num}/record`
         console.log('url', url)
         const res = await httpRequest.get(url)

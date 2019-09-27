@@ -24,13 +24,13 @@ export const cleanLogin = () => async (dispatch, getState) => {
 export const login = param => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.loginType.login_waiting, payload: {} })
-        // let { mobile, password, server } = param
-        // console.log('param', param)
-        // server = `${server}`.replace(/\s*/g, "")
-        // mobile = `${mobile}`.replace(/\s*/g, "")
-        let mobile="13889661995"
-        let server="myxxjs.com"
-        let password="123456"
+        let { mobile, password, server } = param
+        console.log('param', param)
+        server = `${server}`.replace(/\s*/g, "")
+        mobile = `${mobile}`.replace(/\s*/g, "")
+        // let mobile="13889661995"
+        // let server="myxxjs.com"
+        // let password="123456"
         const base_host = `http://api.${server}/api`
         console.log('param', param)
         const { initializationReducer: { data: {
@@ -102,12 +102,12 @@ export const validateVersionForLogin = param => async (dispatch, getState) => {
     const currentStep = 2
     try {
         const { initializationReducer: { data } } = getState()
-        // let { mobile, password, server } = param
-        // server = `${server}`.replace(/\s*/g, "")
-        // mobile = `${mobile}`.replace(/\s*/g, "")
-        let mobile="13889661995"
-        let server="myxxjs.com"
-        let password="123456"
+        let { mobile, password, server } = param
+        server = `${server}`.replace(/\s*/g, "")
+        mobile = `${mobile}`.replace(/\s*/g, "")
+        // let mobile="13889661995"
+        // let server="myxxjs.com"
+        // let password="123456"
         console.log('param', param)
         const base_host = `http://api.${server}/api`
         const url = `${base_host}/app?${ObjectToUrl({ app: ios_app.type, type: ios_app.ios })}`

@@ -33,7 +33,7 @@ const renderListEmpty = () => {
 
 const ImageListForDemageInfo = props => {
     const { imageListForDemageReducer: { data: { demageImageList } }, parent } = props
-    const { loginReducer: { url: { file_host} } } = props
+    const { communicationSettingReducer: { data: { file_host} } } = props
     return (
         <FlatList
             style={styles.flatList}
@@ -47,7 +47,8 @@ const ImageListForDemageInfo = props => {
 const mapStateToProps = (state) => {
     return {
         imageListForDemageReducer: state.imageListForDemageReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 
