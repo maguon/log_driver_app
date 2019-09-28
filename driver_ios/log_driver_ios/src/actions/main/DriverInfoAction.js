@@ -11,9 +11,9 @@ export const getDriverInfo = (param) => async (dispatch, getState) => {
             }
         }
         const url = `${base_host}/drive?${ObjectToUrl(param.getDriverInfo.OptionalParam)}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.driverInfoActionType.GET_DriverInfo_SUCCESS, payload: { data: res.result[0] } })
         } else {
@@ -32,9 +32,9 @@ export const getDriverRecord = () => async (dispatch, getState) => {
     try {
         const { loginReducer: { data: { user: { drive_id, uid } }},communicationSettingReducer:{data:{record_host }} } = getState()
         const url = `${record_host}/user/${uid}/tuser/${drive_id}/record`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.driverInfoActionType.GET_DriverRecord_SUCCESS, payload: { data: res.result[0].comments } })
         } else {
@@ -58,9 +58,9 @@ export const getDriverImage = (param) => async (dispatch, getState) => {
             }
         }
         const url = `${base_host}/drive?${ObjectToUrl(param.getDriverImage.OptionalParam)}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.driverInfoActionType.GET_DriverImage_SUCCESS, payload: { data: { driverInfo: res.result[0] } } })
         } else {

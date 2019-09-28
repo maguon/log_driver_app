@@ -43,7 +43,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } }},communicationSettingReducer:{data: { file_host } } } = this.props
-        console.log('this.props',this.props)
+        // console.log('this.props',this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -95,7 +95,7 @@ class Setting extends Component {
                             </Body>
                             <Right >
                                 {version.force_update != 0 && <TouchableOpacity onPress={() => {
-                                    console.log('url', version.url)
+                                    // console.log('url', version.url)
                                     if (version.url) {
                                         Linking.canOpenURL(version.url)
                                             .then(supported => {

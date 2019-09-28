@@ -31,7 +31,7 @@ class Address extends Component {
             }
         } = this.props
 
-        console.log("addressInfo",addressInfo)
+        // console.log("addressInfo",addressInfo)
         return (
             <View style={{flex: 1}}>
                 <MapView
@@ -62,7 +62,7 @@ class Address extends Component {
                             latitude: nativeEvent.latitude,
                             longitude: nativeEvent.longitude,
                         })
-                        console.log("nativeEvent",nativeEvent)
+                        // console.log("nativeEvent",nativeEvent)
                         if (!this.state.active) {
                             getAddress({
                                 location: `${nativeEvent.longitude},${nativeEvent.latitude}`,

@@ -15,7 +15,6 @@ const initialState = {
 export default handleActions({
     [(actionTypes.taskListForHomeActionType.get_taskListForHome_success)]: (state, action) => {
         const { payload: {taskList}} = action
-        console.log('taskList111111111',taskList)
         return {
             ...state,
             data: {

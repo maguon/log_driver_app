@@ -20,7 +20,7 @@ const window = Dimensions.get('window')
 const RouteTaskListItem = props => {
     const {item, taskInfo} = props
     // 未装车
-    console.log('props', props)
+    // console.log('props', props)
     if (item.load_task_status == 1) {
         return (
             <View style={{borderBottomWidth: 0.5, borderColor: '#ccc', padding: 10}}>
@@ -105,7 +105,7 @@ const RouteTaskListItem = props => {
                     <View style={{flex: 1, alignItems: 'flex-end'}}>
                         <Button small rounded style={{width: 40,height: 25, backgroundColor: 'red', alignSelf: 'flex-end'}}
                                 onPress={() => {
-                                    console.log('item', item)
+                                    // console.log('item', item)
                                     Actions.branchInstructExecuting({
                                         initParam: {
                                             loadTaskInfo: item,
@@ -203,7 +203,7 @@ const RouteTaskListEmpty = () => {
 //判断数据源 对应显示
 const RouteTaskListForHome = props => {
     const {routeTaskListForHomeReducer: {data: {routeTaskList}, getRouteTaskListHome}, taskInfo} = props
-    console.log('routeTaskList', routeTaskList)
+    // console.log('routeTaskList', routeTaskList)
     if (getRouteTaskListHome.isResultStatus != 1) {
         if (routeTaskList.length > 0) {
             return (

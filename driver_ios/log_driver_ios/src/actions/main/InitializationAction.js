@@ -35,18 +35,15 @@ export const start = () => async (dispatch, getState) => {
  *          如果没有DeviceInfo.getUniqueID()获取
  */
 export const loadUniqueID = param => async (dispatch, getState) => {
-    console.log('loadUniqueIDParam', param)
+    // console.log('loadUniqueIDParam', param)
     let uniqueID
     try {
         uniqueID = await localStorage.load({ key: localStorageKey.UNIQUEID })
         dispatch(getUniqueID(uniqueID))
-        console.log(uniqueID)
     } catch (err) {
         uniqueID = DeviceInfo.getUniqueID()
         localStorage.save({ key: localStorageKey.UNIQUEID, data: uniqueID })
-        console.log(uniqueID)
     }
-    console.log("uniqueID"+uniqueID)
     dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
 }
 
@@ -56,7 +53,7 @@ export const loadUniqueID = param => async (dispatch, getState) => {
  *          如果没有跳转到login页面
  */
 export const getCommunicationSetting = param => async (dispatch) => {
-    console.log("param"+JSON.stringify(param))
+    // console.log("param"+JSON.stringify(param))
     const currentStep = 1
     try {
         const serverAddress = await localStorage.load({ key: localStorageKey.SERVERADDRESS })
@@ -80,16 +77,16 @@ export const getCommunicationSetting = param => async (dispatch) => {
  *          如果获取成功，对比是否需要强制更新 force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
  */
 export const validateVersion = param => async (dispatch, getState) => {
-    console.log('validateVersionParam', param)
+    // console.log('validateVersionParam', param)
     const currentStep = 2
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/app?${ObjectToUrl({ app: ios_app.type, type: ios_app.ios })}`
-        console.log('url', url)
+        // console.log('url', url)
 
         const res = await httpRequest.get(url)
 
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             const versionInfo = {
@@ -151,7 +148,7 @@ export const validateVersion = param => async (dispatch, getState) => {
  *          如果获取成功，继续流程
  */
 export const loadLocalStorage = param => async (dispatch) => {
-    console.log('loadLocalStorageParam', param)
+    // console.log('loadLocalStorageParam', param)
     const currentStep = 3
     try {
         const localStorageRes = await localStorage.load({ key: localStorageKey.USER })
@@ -182,7 +179,7 @@ export const loadLocalStorage = param => async (dispatch) => {
  *          如果更新token成功，继续流程
  */
 export const validateToken = ({ param, user }) => async (dispatch, getState) => {
-    console.log('validateTokenParam', param)
+    // console.log('validateTokenParam', param)
     const currentStep = 4
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
@@ -229,7 +226,7 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
  *          如果获取deviceToken成功，完成初始化流程
  */
 export const loadDeviceToken = param => async (dispatch) => {
-    console.log('loadDeviceTokenParam', param)
+    // console.log('loadDeviceTokenParam', param)
 
     try {
         dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })

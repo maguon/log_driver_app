@@ -18,7 +18,7 @@ const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
     getListWaiting()
     showList({
         onSelect: (param) => {
-            console.log("param"+JSON.stringify(param))
+            // console.log("param"+JSON.stringify(param))
             if (isPop) {
                 Actions.pop()
             }
@@ -27,8 +27,6 @@ const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
             })
         }
     })
-    console.log("param"+JSON.stringify(showList))
-    console.log("param"+JSON.stringify(getList))
     InteractionManager.runAfterInteractions(getList)
 }
 

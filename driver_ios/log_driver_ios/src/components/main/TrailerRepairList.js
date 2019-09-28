@@ -6,7 +6,7 @@ import RepairRecordListItem from '../modules/RepairRecordListItem'
 
 const TrailerRepairList = props => {
     const { trailerRepairListReducer: { data: { trailerRepairList } } } = props
-    console.log('trailerRepairList', trailerRepairList)
+    // console.log('trailerRepairList', trailerRepairList)
     return (
         <Container style={{ backgroundColor: '#edf1f4' }}>
             <FlatList

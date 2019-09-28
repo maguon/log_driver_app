@@ -17,7 +17,7 @@ export const getCarList = req => async (dispatch, getState) => {
             size: pageSize,
             ...req
         })}`
-         console.log('url',url)
+         // console.log('url',url)
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({ type: actionTypes.searchCarType.search_carListForSelect_success, payload: { carList: res.result } })

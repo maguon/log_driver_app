@@ -32,7 +32,7 @@ class City extends Component {
     }
 
     _onPress(param) {
-        console.log('param==========='+param)
+        // console.log('param==========='+param)
         if (!this.props.isMultistep) {
             this.props.onSelect(param)
             Actions.pop()

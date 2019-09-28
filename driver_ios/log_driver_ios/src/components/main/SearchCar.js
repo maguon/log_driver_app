@@ -46,7 +46,7 @@ class SearchCar extends Component {
             hasAll,
             searchCarReducer: {data: {carList}, getCarList}
         } = this.props
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         if (getCarList.isResultStatus == 1) {
             return (
                 <Container>

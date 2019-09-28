@@ -13,7 +13,7 @@ const window = Dimensions.get('window')
 
 const TextBox = props => {
     const {iconName, placeholderText, input: {onChange, ...restProps}, secureTextEntry = false} = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <Item rounded style={styles.item}>
             <Icon active name={iconName} style={styles.itemIcon}/>
@@ -36,8 +36,8 @@ class Login extends Component {
 
     render() {
         const {handleSubmit, initializationReducer: {data: {version: {force_update, url}}}} = this.props
-        console.log('ios_app', ios_app)
-        console.log('force_update', force_update)
+        // console.log('ios_app', ios_app)
+        // console.log('force_update', force_update)
         return (
             <Root>
                 <Container style={styles.container}>

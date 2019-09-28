@@ -49,7 +49,7 @@ const renderItem = props => {
 
 const TrailerImage = props => {
     const { trailerImageReducer: { data: { trailerImageList } }, trailerInfoReducer: { data: { trailerInfo: { driving_image, license_image } } }, parent } = props
-    console.log('props', props)
+    // console.log('props', props)
     const { communicationSettingReducer: { data: { file_host } } } =props
     return (
         <Container>

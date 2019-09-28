@@ -6,7 +6,7 @@ import InsuranceListItem from '../modules/InsuranceListItem'
 
 const TrailerInsurance = props => {
     const { trailerInsuranceReducer: { data: { trailerInsuranceList } } } = props
-    console.log('trailerInsuranceList',trailerInsuranceList)
+    // console.log('trailerInsuranceList',trailerInsuranceList)
     return (
         <Container style={{ backgroundColor: '#edf1f4' }}>
             <FlatList

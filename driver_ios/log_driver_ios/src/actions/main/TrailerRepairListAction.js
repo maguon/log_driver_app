@@ -7,16 +7,16 @@ export const getTrailerRepairList = () => async (dispatch, getState) => {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { trailerInfoReducer: { data: { trailerInfo } } } = getState()
         const url = `${base_host}/truckRepairRel?${ObjectToUrl({ truckId: trailerInfo.id })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.trailerRepairListActionType.GET_TrailerRepairRelList_SUCCESS, payload: { data: res.result } })
         } else {
             dispatch({ type: actionTypes.trailerRepairListActionType.GET_TrailerRepairRelList_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.trailerRepairListActionType.GET_TrailerRepairRelList_ERROR, payload: { data: err } })
     }
 }

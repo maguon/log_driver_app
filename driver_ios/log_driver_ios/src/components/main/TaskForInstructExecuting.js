@@ -86,7 +86,6 @@ class TaskForInstructExecuting extends Component {
                     '有未完成路线，请完成所有其他已执行的路线，再执行其他路线！',
                     [
                         { text: '确定', onPress: () =>{
-                                console.log('Cancel Pressed')
                                 this.setState({ confirmModalVisible: false })
                             } },
                     ],
@@ -118,13 +117,11 @@ class TaskForInstructExecuting extends Component {
                 })
                 this.setState({ confirmModalVisible: false })
             } else {
-                console.log('hello')
                 Alert.alert(
                     '提示',
                     '有未卸车任务，请先卸车再完成路线！',
                     [
                         { text: '确定', onPress: () =>{
-                                console.log('Cancel Pressed')
                                 this.setState({ confirmModalVisible: false })
                         } },
                     ],

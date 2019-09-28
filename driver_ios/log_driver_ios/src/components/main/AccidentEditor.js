@@ -53,7 +53,7 @@ const AccidentEditor = props => {
                             List: DisposableList,
                             title: '调度任务',
                             onSelect: (param) => {
-                                console.log('param'+param)
+                                // console.log('param'+param)
                                 Actions.pop()
                                 onSelect(param)
                             }

@@ -8,9 +8,9 @@ export const applyAccident = (param) => async (dispatch, getState) => {
     const { loginReducer: { data: { user: { uid, drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_waiting, payload: {} })
-        console.log('param', param)
+        // console.log('param', param)
         const url = `${base_host}/user/${uid}/truckAccident`
-        console.log('url', url)
+        // console.log('url', url)
 
         const res = await httpRequest.post(url, objectExceptNull({
             truckId: param.accidentType.id,
@@ -22,7 +22,7 @@ export const applyAccident = (param) => async (dispatch, getState) => {
             lat: param.address.lat,
             accidentExplain: param.accidentExplain
         }))
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             dispatch({

@@ -6,7 +6,7 @@ import {styleColor} from '../utils/GlobalStyles'
 const DisposableList = props => {
     const {listReducer: {data: {list}, Action}, filter, onSelect} = props
     // console.log('props', JSON.stringify(props))
-    console.log('props', props)
+    // console.log('props', props)
     if (Action.isResultStatus == 1) {
         return (
             <Container>

@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux'
 
 
 export const submit = param => (dispatch, getState) => {
-    console.log('param', param)
+    // console.log('param', param)
     const { addCarReducer: { data: { status } } } = getState()
     if (status == 0) {
         dispatch(createCar(param))
@@ -56,7 +56,7 @@ export const createCar = param => async (dispatch, getState) => {
         const { values, onSelect } = param
         dispatch({ type: actionTypes.addCarType.ADD_Car_WAITING, payload: {} })
         const url = `${base_host}/user/${uid}/car`
-        console.log('url', url)
+        // console.log('url', url)
         console.log('postParam',objectExceptNull({
             vin: values.vin,
             makeId: values.make.id,
@@ -81,7 +81,7 @@ export const createCar = param => async (dispatch, getState) => {
             receiveId: values.receive.id,
             engineNum: values.engineNum
         }))
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             Toast.show({text:'提交成功！'})
@@ -95,7 +95,7 @@ export const createCar = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.addCarType.ADD_Car_FAILED, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         Toast.show({text:`提交成功：${err}！`})
         dispatch({ type: actionTypes.addCarType.ADD_Car_ERROR, payload: { errorMsg: err } })
     }

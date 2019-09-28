@@ -125,7 +125,6 @@ class BranchInstructExecuting extends Component {
             const total = routeLoadTaskList.reduce((sum, value) => {
                 return sum && value.car_load_status == 2
             }, true)
-            console.log("total==="+total)
             if (total && loadTaskInfo.load_task_status == 3) {
                 return <View style={{padding: 10, alignSelf: 'flex-end'}}>
                     <Button style={{
@@ -162,8 +161,8 @@ class BranchInstructExecuting extends Component {
     }
 
     renderListItem(item, key) {
-        console.log('item', item)
-        console.log('this.props', this.props)
+        // console.log('item', item)
+        // console.log('this.props', this.props)
         const {taskListForHomeReducer: {data: {taskList}}} = this.props
 
         const {task_status} = this.props.initParam
@@ -310,7 +309,7 @@ class BranchInstructExecuting extends Component {
                                 backgroundColor: styleColor,
                                 justifyContent: 'center'
                             }} onPress={() => {
-                                console.log("contactList====================" + contactList)
+
                                 if (contactList.length > 0) {
                                     this.setState({modalVisible: true})
                                 } else {

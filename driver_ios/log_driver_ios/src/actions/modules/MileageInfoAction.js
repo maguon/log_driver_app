@@ -9,7 +9,7 @@ import communicationSettingReducer from "../../reducers/main/CommunicationSettin
 export const getMileageInfo=()=>async (dispatch,getState)=>{
     try {
     const {loginReducer:{data:{user:{drive_id}}},communicationSettingReducer:{data:{base_host}}}=getState()
-        console.log('base_host',base_host)
+        // console.log('base_host',base_host)
 
         //访问2个url
         const urls = [`${base_host}/driveDistanceCount?${ObjectToUrl({
@@ -23,9 +23,9 @@ export const getMileageInfo=()=>async (dispatch,getState)=>{
             taskPlanDateEnd: moment().format('YYYY-MM-DD'),
             driveId: drive_id
         })}`]
-         console.log('urls',urls)
+         // console.log('urls',urls)
         const res = await Promise.all(urls.map(url => httpRequest.get(url)))
-         console.log('res',res)
+         // console.log('res',res)
         //访问成功后更新数据
         if (res[0].success && res[1].success) {
             dispatch({

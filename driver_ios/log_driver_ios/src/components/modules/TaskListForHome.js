@@ -73,7 +73,7 @@ const TaskListEmpty = () => {
 //判断数据源 对应显示
 const TaskListForHome = props => {
     const {taskListForHomeReducer: {data: {taskList}, getTaskListHome}, setTaskInfo} = props
-    console.log('taskList', taskList)
+    // console.log('taskList', taskList)
     if (getTaskListHome.isResultStatus != 1) {
         if (taskList.length > 0) {
             return (
