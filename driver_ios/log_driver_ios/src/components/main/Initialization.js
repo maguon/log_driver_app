@@ -14,19 +14,55 @@ import {
 } from 'react-native'
 import { Button } from 'native-base'
 
-const window = Dimensions.get('window')
-const ImageWidth = window.width
-const ImageHeight = window.height
+const window01 = Dimensions.get('window')
+const ImageWidth = window01.width
+const ImageHeight = window01.height
 
 class Initialization extends Component {
     constructor(props) {
         super(props)
         this.linkDownload = this.linkDownload.bind(this)
     }
-
     componentDidMount() {
         this.props.start()
     }
+    //
+    // componentDidMount() {
+    //     this.props.start()
+    //     // Add listener for push notifications
+    //     PushNotificationIOS.addEventListener('notification', this._onNotification);
+    //     // Add listener for local notifications
+    //     PushNotificationIOS.addEventListener('localNotification', this._onLocalNotification);
+    //     // Add listener for deviceToken registered
+    //     PushNotificationIOS.addEventListener('register', this._register);
+    // }
+    //
+    //
+    // //界面即将消失时 注销监听事件
+    // componentWillUnmount() {
+    //     // Remove listener for notifications
+    //     PushNotificationIOS.removeEventListener('notification', this._onNotification);
+    //     PushNotificationIOS.removeEventListener('localNotification', this._onLocalNotification);
+    //     PushNotificationIOS.removeEventListener('register', this._register);
+    // }
+    //
+    //
+    //
+    // //receive remote notification
+    // _onNotification(notification) {
+    //
+    // }
+    // //receive local notification
+    // _onLocalNotification(notification){
+    //
+    // }
+    // //获取device token
+    // _register(deviceToken) {
+    //     //使用window保存下devicetoken
+    //     window.iOSDeviceToken = deviceToken;
+    //     console.log("deviceToken",deviceToken)
+    // }
+
 
     linkDownload(url) {
         if(url){
@@ -85,7 +121,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginBottom: 30,
-        width: window.width / 4 * 3,
+        width: window01.width / 4 * 3,
         backgroundColor: 'rgba(255,255,255,0.8)',
         borderRadius: 25,
         alignSelf: 'center'

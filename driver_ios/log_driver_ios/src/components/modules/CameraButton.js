@@ -147,8 +147,8 @@ export default class CameraButton extends Component {
                 })
         )
     }
-
-    async openPicker() {//在相册选择照片并压缩
+    //在相册选择照片并压缩
+    async openPicker() {
         try {
             const images = await ImageCropPicker.openPicker({ multiple: true })
             await this.props._cameraStart()
