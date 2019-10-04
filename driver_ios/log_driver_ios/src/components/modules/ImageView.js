@@ -39,7 +39,7 @@ class ImageView extends Component {
                 position: 'absolute',
                 justifyContent: 'center',
                 alignItems: 'center',
-                bottom: StatusBar.currentHeight + 24,
+                bottom: StatusBar.currentHeight,
                 left: 0,
                 right: 0
             }}>
@@ -106,7 +106,7 @@ class ImageView extends Component {
                 >
                     {this.renderPhoteView(imageList)}
                 </Swiper>
-                <View style={{ position: 'absolute', top: 0, backgroundColor: 'rgba(255,255,255,0.1)', height: 40, width: width, flexDirection: 'row' }}>
+                <View style={{ position: 'absolute', top: 25, backgroundColor: 'rgba(255,255,255,0.1)', height: 40, width: width, flexDirection: 'row' }}>
                     <Button iconLeft transparent style={{ position: 'absolute', left: 0, }}
                         onPress={Actions.pop}>
                         <Icon style={{ color: '#888888' }} name='arrow-back' />
