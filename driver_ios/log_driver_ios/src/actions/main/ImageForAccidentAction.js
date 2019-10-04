@@ -70,33 +70,33 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                         '',
                         '提交成功！',
                         [
-                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {text: '确定', onPress: () => dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_success, payload: { imageList: bindDamageSuccessReses } }), style: 'cancel'},
                         ],
                         {cancelable: false}
                     )
-                    dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_success, payload: { imageList: bindDamageSuccessReses } })
+
                 } else if (bindDamageSuccessReses.length > 0) {
                     // ToastAndroid.showWithGravity(`部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
                     Alert.alert(
                         '',
                         `部分提交成功：${bindDamageSuccessReses.length}/${cameraReses.length}`,
                         [
-                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {text: '确定', onPress: () => dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_partSuccess, payload: { imageList: bindDamageSuccessReses, failedMsg: '部分失败' } }), style: 'cancel'},
                         ],
                         {cancelable: false}
                     )
-                    dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_partSuccess, payload: { imageList: bindDamageSuccessReses, failedMsg: '部分失败' } })
+
                 } else {
                     // ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
                     Alert.alert(
                         '',
                         '提交全部失败！',
                         [
-                            {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {text: '确定', onPress: () =>   dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } }), style: 'cancel'},
                         ],
                         {cancelable: false}
                     )
-                    dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } })
+
                 }
             } else {
                 // ToastAndroid.showWithGravity('提交全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
@@ -104,11 +104,11 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                     '',
                     '提交全部失败！',
                     [
-                        {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                        {text: '确定', onPress: () => dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } }), style: 'cancel'},
                     ],
                     {cancelable: false}
                 )
-                dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '全部失败' } })
+
             }
         } else {
             // ToastAndroid.showWithGravity('拍照全部失败！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
@@ -116,11 +116,11 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
                 '',
                 '拍照全部失败！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '拍照全部失败' } }), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_failed, payload: { failedMsg: '拍照全部失败' } })
+
         }
     }
     catch (err) {
@@ -129,11 +129,11 @@ export const uploadAccidentImage = param => async (dispatch, getState) => {
             '',
             `提交全部失败！${err}`,
             [
-                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () =>  dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_error, payload: { errorMsg: err } }), style: 'cancel'},
             ],
             {cancelable: false}
         )
-        dispatch({ type: actionTypes.imageForAccidentType.upload_ImageAtAccidentInfo_error, payload: { errorMsg: err } })
+
     }
 }
 
@@ -152,22 +152,22 @@ export const delImage = param => async (dispatch, getState) => {
                 '',
                 '图片删除成功！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () => dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_success, payload: { imageurl: param } }), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_success, payload: { imageurl: param } })
+
         } else {
             // ToastAndroid.showWithGravity(`图片删除失败：${res.msg}`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             Alert.alert(
                 '',
                 `图片删除失败：${res.msg}`,
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_failed, payload: { failedMsg: res.msg } }), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_failed, payload: { failedMsg: res.msg } })
+
         }
 
     } catch (err) {
@@ -176,10 +176,10 @@ export const delImage = param => async (dispatch, getState) => {
             '',
             `图片删除失败：${err}`,
             [
-                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () => dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_error, payload: { errorMsg: err } }), style: 'cancel'},
             ],
             {cancelable: false}
         )
-        dispatch({ type: actionTypes.imageForAccidentType.del_ImageAtAccidentInfo_error, payload: { errorMsg: err } })
+
     }
 }

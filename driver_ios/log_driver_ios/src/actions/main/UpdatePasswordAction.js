@@ -16,7 +16,8 @@ export const updatePassword = () => async (dispatch, getState) => {
                 newPassword
             })
             if (res.success) {
-
+                dispatch({ type: actionTypes.updatePasswordActionType.change_Password_success, payload: {} })
+                dispatch(actions.loginAction.cleanLogin())
                 Alert.alert(
                     '',
                     '修改成功，请重新登录！',
@@ -26,9 +27,9 @@ export const updatePassword = () => async (dispatch, getState) => {
                     {cancelable: false}
                 )
 
-                dispatch({ type: actionTypes.updatePasswordActionType.change_Password_success, payload: {} })
-                dispatch(actions.loginAction.cleanLogin())
+
             } else {
+                dispatch({ type: actionTypes.updatePasswordActionType.change_Password_failed, payload: { failedMsg: res.msg } })
                 // Toast.show({text:`修改失败！${res.msg}`})
                 Alert.alert(
                     '',
@@ -38,10 +39,11 @@ export const updatePassword = () => async (dispatch, getState) => {
                     ],
                     {cancelable: false}
                 )
-                dispatch({ type: actionTypes.updatePasswordActionType.change_Password_failed, payload: { failedMsg: res.msg } })
+
             }
         } catch (err) {
             // Toast.show({text:`修改失败！${err}`})
+            dispatch({ type: actionTypes.updatePasswordActionType.change_Password_error, payload: { errorMsg: err } })
             Alert.alert(
                 '',
                 `修改失败！${err}`,
@@ -50,7 +52,7 @@ export const updatePassword = () => async (dispatch, getState) => {
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.updatePasswordActionType.change_Password_error, payload: { errorMsg: err } })
+
         }
     } else {
         // Toast.show({text:`两次输入的新密码不同!`})

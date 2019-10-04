@@ -36,31 +36,31 @@ export const applyAccident = (param) => async (dispatch, getState) => {
                 '',
                 '提交成功！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  Actions.applyAccidentImage(), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            Actions.applyAccidentImage()
+
         } else {
-            dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_failed, payload: { failedMsg: res.msg } })
+
             // ToastAndroid.showWithGravity(`提交失败:${res.msg}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             Alert.alert(
                 '',
                 `提交失败:${res.msg}!`,
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () => dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_failed, payload: { failedMsg: res.msg } }), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
         }
     } catch (err) {
-        dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_error, payload: { errorMsg: err } })
+
         // ToastAndroid.showWithGravity(`提交失败:${err}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         Alert.alert(
             '',
             `提交失败:${err}!`,
             [
-                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () =>dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_error, payload: { errorMsg: err } }), style: 'cancel'},
             ],
             {cancelable: false}
         )

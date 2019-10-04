@@ -4,7 +4,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 import { sleep } from '../../util/util'
 import { getFormValues } from 'redux-form'
-import {Alert} from "react-native";
+import {Toast} from "native-base";
 
 const pageSize = 50
 
@@ -75,15 +75,8 @@ export const getAccidentListMore = (param) => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.accidentListActionType.get_accidentListMore_error, payload: { errorMsg: err } })
             }
         } else {
-            // Toast.show({text:'已全部加载完毕！'})
-            Alert.alert(
-                '',
-                '已全部加载完毕！',
-                [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                ],
-                {cancelable: false}
-            )
+             Toast.show({text:'已全部加载完毕！'})
+
         }
     }
 }

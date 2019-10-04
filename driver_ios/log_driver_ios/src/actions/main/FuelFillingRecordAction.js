@@ -88,6 +88,7 @@ export const getFuelFillingRecordMore = () => async (dispatch, getState) => {
                     })
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
                         Toast.show({text:'数据已全部加载完毕！'})
+
                     }
                 } else {
                     dispatch({ type: actionTypes.fuelFillingRecordActionType.GET_FuelFillingRecord_More_FAILED, payload: { failedMsg: res.msg } })

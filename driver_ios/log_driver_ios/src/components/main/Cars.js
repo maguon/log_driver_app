@@ -58,11 +58,11 @@ class Cars extends Component {
                 '',
                 '移除成功！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>   this.props.resetRemoveCommandCar(car.data.id), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            this.props.resetRemoveCommandCar(car.data.id)
+
         }
 
         if (finishCarry.isResultStatus == 2) {
@@ -71,11 +71,11 @@ class Cars extends Component {
                 '',
                 '装车完毕！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  this.props.resetFinishCarry(), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            this.props.resetFinishCarry()
+
         }
     }
 

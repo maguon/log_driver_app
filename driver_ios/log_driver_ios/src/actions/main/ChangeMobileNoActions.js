@@ -19,6 +19,8 @@ export const changeMobileNo = param => async (dispatch, getState) => {
         // console.log('res', res)
         if (res.success) {
             // Toast.show({text:'换绑成功！'})
+            dispatch({ type: actionTypes.changeMobileNoActionType.change_mobileNo_success, payload: {} })
+            dispatch(actions.loginAction.cleanLogin({ phone: '' }))
             Alert.alert(
                 '',
                 '换绑成功！',
@@ -27,8 +29,7 @@ export const changeMobileNo = param => async (dispatch, getState) => {
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.changeMobileNoActionType.change_mobileNo_success, payload: {} })
-            dispatch(actions.loginAction.cleanLogin({ phone: '' }))
+
         } else {
             dispatch({ type: actionTypes.changeMobileNoActionType.change_mobileNo_failed, payload: { failedMsg: `${res.msg}` } })
         }

@@ -59,6 +59,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
             } else {
                 // Toast.show({text:`${res.msg}`})
+                dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
                 Alert.alert(
                     '',
                     `${res.msg}`,
@@ -67,7 +68,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
                     ],
                     {cancelable: false}
                 )
-                dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
+
             }
         }
     } catch (err) {

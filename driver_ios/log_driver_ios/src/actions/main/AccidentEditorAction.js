@@ -2,6 +2,7 @@ import * as httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 import { objectExceptNull } from '../../util/util'
 import { Toast } from 'native-base'
+import {Alert} from "react-native";
 
 
 export const updateAccident = (param,accidentId) => async (dispatch, getState) => {
@@ -21,13 +22,37 @@ export const updateAccident = (param,accidentId) => async (dispatch, getState) =
         }))
         if (res.success) {
             dispatch({ type: actionTypes.accidentEditorType.update_Accident_success, payload: { } })
-            // Toast.show({text:'修改成功！'})
+            //Toast.show({text:'修改成功！'})
+            Alert.alert(
+                '',
+                `修改成功！`,
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         } else {
             dispatch({ type: actionTypes.accidentEditorType.update_Accident_failed, payload: { failedMsg: res.msg } })
-            // Toast.show({text:`修改失败:${res.msg}!`})
+             //Toast.show({text:`修改失败:${res.msg}!`})
+            Alert.alert(
+                '',
+                `修改失败:${res.msg}!`,
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
         dispatch({ type: actionTypes.accidentEditorType.update_Accident_error, payload: { errorMsg: err } })
-        // Toast.show({text:`修改失败:${err}!`})
+         //Toast.show({text:`修改失败:${err}!`})
+        Alert.alert(
+            '',
+            `修改失败:${err}!`,
+            [
+                {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }

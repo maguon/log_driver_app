@@ -66,6 +66,10 @@ export const getVCode = param => async (dispatch) => {
         // Toast.show({
         //     text: '服务器错误，请核对后重新填写！'
         // })
+        dispatch({
+            type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_error,
+            payload: {errorMsg: `${err}`}
+        })
         Alert.alert(
             '',
             '服务器错误，请核对后重新填写！',
@@ -74,9 +78,6 @@ export const getVCode = param => async (dispatch) => {
             ],
             {cancelable: false}
         )
-        dispatch({
-            type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_error,
-            payload: {errorMsg: `${err}`}
-        })
+
     }
 }

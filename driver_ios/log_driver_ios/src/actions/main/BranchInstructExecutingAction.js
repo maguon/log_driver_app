@@ -33,6 +33,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
                 }
             })
         } else {
+            dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
             // Toast.show({text:'promise.all请求失败！'})
             Alert.alert(
                 '',
@@ -42,10 +43,11 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_FAILED, payload: { data: `${res[0].msg ? res[0].msg : ''}${res[1].msg ? res[1].msg : ''}` } })
+
         }
     } catch (err) {
          console.log('err', err)
+        dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
         // Toast.show({text:'promise.all请求错误！'})
         Alert.alert(
             '',
@@ -55,7 +57,7 @@ export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
             ],
             {cancelable: false}
         )
-        dispatch({ type: actionTypes.branchInstructExecutingActionType.GET_RouteLoadTaskListExecuting_ERROR, payload: { data: err } })
+
     }
 }
 
