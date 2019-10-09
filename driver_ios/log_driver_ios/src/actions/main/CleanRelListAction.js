@@ -62,7 +62,7 @@ export const getCleanRelListMore = () => async (dispatch, getState) => {
                     size: pageSize,
                     receiveId: search.id
                 })}`
-                console.log("url============"+url)
+                // console.log("url============"+url)
                 const res = await httpRequest.get(url)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {

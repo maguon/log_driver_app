@@ -16,7 +16,7 @@ const RepairRecordListItem = props => {
 
 const Repaired = props => {
     const { item } = props
-    console.log("props=========="+ JSON.stringify(props))
+    // console.log("props=========="+ JSON.stringify(props))
     return (
         <Card>
             <CardItem header bordered>

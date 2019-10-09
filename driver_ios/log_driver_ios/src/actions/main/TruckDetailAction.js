@@ -6,16 +6,16 @@ export const getTruckInfo = (next) => async (dispatch, getState) => {
     try {
         const { loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data: { base_host }} } = getState()
         const url = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             if (res.result.length == 0) {
                 dispatch({ type: actionTypes.truckDetailActionType.GET_TruckInfo_Unbind, payload: {} })
             } else {
                 dispatch({ type: actionTypes.truckDetailActionType.GET_TruckInfo_SUCCESS, payload: { data: res.result[0] } })
                 if (Array.isArray(next)) {
-                    console.log('next', next)
+                    // console.log('next', next)
                     next.forEach(item => { dispatch(item()) })
                 }
             }
@@ -23,7 +23,7 @@ export const getTruckInfo = (next) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.truckDetailActionType.GET_TruckInfo_FAILED, payload: { data: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.truckDetailActionType.GET_TruckInfo_ERROR, payload: { data: err } })
     }
 }

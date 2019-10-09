@@ -11,7 +11,7 @@ import * as actions from '../../actions/index'
 
 const FuelFillingSearch = props => {
     const { handleSubmit } = props
-    console.log('props',props)
+    // console.log('props',props)
     return (
         <Container>
             <Content>
@@ -32,7 +32,7 @@ const FuelFillingSearch = props => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('ownProps',ownProps)
+    // console.log('ownProps',ownProps)
     const { initParam: {
         oilDateStart, oilDateEnd } } = ownProps
     return {

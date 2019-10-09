@@ -13,9 +13,9 @@ export const getSalaryList = () => async (dispatch, getState) => {
             start: 0,
             size: pageSize
         })}`
-        console.log('url',url)
+        // console.log('url',url)
         const res = await httpRequest.get(url)
-        console.log('res',res)
+        // console.log('res',res)
         if (res.success) {
             dispatch({
                 type: actionTypes.salaryListActionType.get_salaryLst_success, payload: {
@@ -27,7 +27,7 @@ export const getSalaryList = () => async (dispatch, getState) => {
             dispatch({ type: actionTypes.salaryListActionType.get_salaryLst_failed, payload: { failedMsg: `${res.msg}` } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.salaryListActionType.get_salaryLst_error, payload: { errorMsg: `${err}` } })
     }
 }
@@ -51,9 +51,9 @@ export const getSalaryListMore = () => async (dispatch, getState) => {
                     start: salaryList.length,
                     size: pageSize
                 })}`
-                console.log('url',url)
+                // console.log('url',url)
                 const res = await httpRequest.get(url)
-                console.log('res',res)
+                // console.log('res',res)
 
                 if (res.success) {
                     dispatch({
@@ -66,7 +66,7 @@ export const getSalaryListMore = () => async (dispatch, getState) => {
                     dispatch({ type: actionTypes.salaryListActionType.get_salaryLstMore_failed, payload: { failedMsg: `${res.msg}` } })
                 }
             } catch (err) {
-                console.log('err', err)
+                // console.log('err', err)
                 dispatch({ type: actionTypes.salaryListActionType.get_salaryLstMore_error, payload: { errorMsg: `${err}` } })
             }
         }

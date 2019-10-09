@@ -25,8 +25,8 @@ const SelectFuel = props => {
         onPress,
         meta: {error, touched}
     } = props
-    console.log('value', value)
-    console.log('props' + JSON.stringify(props))
+    // console.log('value', value)
+    // console.log('props' + JSON.stringify(props))
     return (
         <TouchableOpacity style={styles.body} onPress={() => onPress({onChange})}>
             <View style={styles.item}>

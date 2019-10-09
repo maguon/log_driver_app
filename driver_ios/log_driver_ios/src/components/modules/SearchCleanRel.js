@@ -29,7 +29,7 @@ const onSelectReceive = ({param, getReceiveListWaiting, getReceiveList, onSelect
         }
     })
     InteractionManager.runAfterInteractions(() => getReceiveList(param))
-    console.log(param)
+    // console.log(param)
 }
 
 const SearchCleanRel = props => {
