@@ -98,8 +98,8 @@ class BranchInstructExecuting extends Component {
                 {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {
                     text: '确定', onPress: () => {
-                        const {user} = this.props.loginReducer.data
-                        this.props.changeCarLoadStatus({
+                        const { user } = this.props.loginReducer.data
+                        this.props.toChangeCarLoadStatus({
                             requiredParam: {
                                 userId: user.uid,
                                 dpRouteTaskDetailId: param,
@@ -186,10 +186,8 @@ class BranchInstructExecuting extends Component {
                 }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, {
-                    color: styleColor,
-                    marginVertical: 10
-                }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, {color: styleColor, marginVertical: 10}]}>
+                    {item.car_load_status == 2 && '已送达'}</Text>}
 
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
                     this.changeCarLoadStatus(item.id)
@@ -526,7 +524,7 @@ const mapDispatchToProps = (dispatch) => ({
     setGetRouteLoadTaskListWaiting: () => {
         dispatch(actions.branchInstructExecutingAction.setGetRouteLoadTaskListWaiting())
     },
-    changeCarLoadStatus: (param) => {
+    toChangeCarLoadStatus: (param) => {
         dispatch(actions.branchInstructExecutingAction.changeCarLoadStatus(param))
     },
     setChangeCarLoadStatusWaiting: () => {

@@ -157,39 +157,15 @@ class BranchInstructExecuting extends Component {
                 <Text style={[globalStyles.smallText, { color: '#8b959b', marginVertical: task_status < 4 ? 10 : 0 }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{ flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center' }}>
-                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 2 && task_status > 3 &&
+                <Text style={[globalStyles.smallText, { color: styleColor, marginVertical: 10 }]}>
+                    {item.car_load_status == 2 && '已送达'}</Text>}
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
                     this.changeCarLoadStatus(item.id)
-                    // const dpTask = taskList.find(tItem => tItem.task_status == 3 || tItem.task_status == 4)
-                    // //    console.log(dpTask)
-                    // if (dpTask) {
-                    //     if (dpTask.route_end_id == item.route_end_id) {
-                    //         this.changeCarLoadStatus(item.id)
-                    //     } else {
-                    //         Alert.alert(
-                    //             '警告',
-                    //             `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
-                    //             [
-                    //                 { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                    //             ],
-                    //             { cancelable: false }
-                    //         )
-                    //     }
-                    // } else {
-                    //     Alert.alert(
-                    //         '警告',
-                    //         `卸车失败，请确定车辆目的地与当前路线目的地一致！`,
-                    //         [
-                    //             { text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                    //         ],
-                    //         { cancelable: false }
-                    //     )
-                    // }
                 }}>
                     <Icon name='ios-checkmark-circle' style={{ color: styleColor, fontSize: 25, marginVertical: 5 }} />
                 </TouchableOpacity>}
-                {/* {!!item.exception_status && <Text style={{ color: '#d69aa5', fontSize: 11, paddingLeft: 8 }}>{item.exception_status == 1 && '异常'}</Text>}
-                {!item.exception_status && <Icon name='ios-alert' style={{ color: '#d69aa5', paddingLeft: 8, fontSize: 25 }} />} */}
+
             </View>
         </View>
     }
@@ -218,7 +194,7 @@ class BranchInstructExecuting extends Component {
             )
         } else {
 
-            
+
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: 200, backgroundColor: '#8b959b' }}>
@@ -327,7 +303,7 @@ class BranchInstructExecuting extends Component {
                             onPress={() => {
                                 getCleanFeeListWaiting()
                                 routerDirection.cleanFeeList(parent)()
-                                InteractionManager.runAfterInteractions(() => 
+                                InteractionManager.runAfterInteractions(() =>
                                 getCleanFeeList({ dpRouteTaskId: taskInfo.id, dpRouteLoadTaskId: loadTaskInfo.id }))
                             }} >
                             <Text style={[globalStyles.midText, { color: '#fff' }]}>查看洗车费</Text>

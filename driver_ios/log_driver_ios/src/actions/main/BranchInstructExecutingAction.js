@@ -176,7 +176,7 @@ export const resetChangeLoadTaskStatus = () => (dispatch) => {
 
 export const changeCarLoadStatus = (param) => async (dispatch, getState) => {
     try {
-        const { branchInstructExecuting: { data: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const getDriverUrl = `${base_host}/user/${param.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

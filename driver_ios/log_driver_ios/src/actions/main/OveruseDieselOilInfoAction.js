@@ -4,7 +4,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getDpRouteTask = (param) => async (dispatch,getState) => {
     try {
-        const { branchInstructExecuting: { data: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteTask?${ObjectToUrl({ dpRouteTaskId: param.dpRouteTaskId })}`
         const res = await httpRequest.get(url)
         if (res.success) {
