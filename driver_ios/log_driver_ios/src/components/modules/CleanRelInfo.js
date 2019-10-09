@@ -43,7 +43,7 @@ const CleanRelInfo = props => {
             </View>
             <View style={[styles.listItemBorderBottom, styles.listItemPadding, styles.listItemBody]}>
                 <Text style={[globalStyles.midText, styles.listItemPadding]}>洗车费</Text>
-                <Text style={[globalStyles.midText, styles.listItemPadding]}>{cleanRelInfo.total_price ? `${cleanRelInfo.total_price}` : '0'}元</Text>
+                <Text style={[globalStyles.midText, styles.listItemPadding]}>{cleanRelInfo.actual_price ? `${cleanRelInfo.actual_price}` : '0'}元</Text>
             </View>
             <View style={[styles.listItemBorderBottom, styles.listItemPadding, styles.listItemBody]}>
                 <Text style={[globalStyles.midText, styles.listItemPadding]}>拖车费</Text>

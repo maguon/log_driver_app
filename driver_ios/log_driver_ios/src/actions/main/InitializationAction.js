@@ -232,7 +232,8 @@ export const loadDeviceToken = param => async (dispatch) => {
 
     try {
         dispatch({ type: actionTypes.initializationType.init_app_complete, payload: { param } })
-        Actions.appMain()
+        // Actions.appMain()
+        Actions.replace("appMain")
         // const deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
         //    dispatch(saveDeviceToken({deviceToken,...param}))
         return

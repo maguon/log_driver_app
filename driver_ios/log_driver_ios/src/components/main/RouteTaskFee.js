@@ -8,7 +8,7 @@ import * as actions from '../../actions/index'
 
 const renderListItem = props => {
     console.log('props', props)
-    const { item: { created_on, car_oil_fee, truck_num, day_count, single_price, total_price, car_day_count, car_single_price, status } } = props
+    const { item: { created_on, car_oil_fee, truck_num, day_count, single_price, actual_price, car_day_count, car_single_price, status } } = props
     const _single_price = single_price ? single_price : 0
     const _day_count = day_count ? day_count : 0
     const _car_day_count = car_day_count ? car_day_count : 0
