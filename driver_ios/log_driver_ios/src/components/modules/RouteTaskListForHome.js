@@ -56,11 +56,15 @@ const RouteTaskListItem = props => {
                         未达到装车条件
                     </Text>}
                     {item.task_status >= 3 && <View style={{flex: 1, alignItems: 'flex-end'}}>
-                        <Button small rounded style={{width: 40,height: 25, backgroundColor: styleColor, alignSelf: 'flex-end'}}
+                        <Button small rounded style={{width: 50,height: 25, backgroundColor: styleColor, alignSelf: 'flex-end',
+                            flexDirection:"row",
+                            justifyContent:"center",
+                            alignItems:"center",
+                        }}
                                 onPress={() => {
                                     Actions.cars({initParam: {commandInfo: item}})
                                 }}>
-                            <Text style={[globalStyles.smallText, {color: '#fff', padding: 8, height: 25}]}>装车</Text>
+                            <Text style={[globalStyles.smallText, {color: '#fff'}]}>装车</Text>
                         </Button>
                     </View>}
                 </View>
@@ -103,7 +107,10 @@ const RouteTaskListItem = props => {
                     <Text style={[globalStyles.smallText, {color: '#8b959b', textAlign: 'left', flex: 1}]}>实际运送：<Text
                         style={{color: styleColor}}>{item.car_count ? item.car_count : '0'}</Text></Text>
                     <View style={{flex: 1, alignItems: 'flex-end'}}>
-                        <Button small rounded style={{width: 40,height: 25, backgroundColor: 'red', alignSelf: 'flex-end'}}
+                        <Button small rounded style={{width: 50,height: 25, backgroundColor: 'red', alignSelf: 'flex-end',
+                            flexDirection:"row",
+                            justifyContent:"center",
+                            alignItems:"center",}}
                                 onPress={() => {
                                     // console.log('item', item)
                                     Actions.branchInstructExecuting({
@@ -114,7 +121,7 @@ const RouteTaskListItem = props => {
                                         }
                                     })
                                 }}>
-                            <Text style={[globalStyles.smallText, {color: '#fff', padding: 8, height: 25}]}>卸车</Text>
+                            <Text style={[globalStyles.smallText, {color: '#fff'}]}>卸车</Text>
                         </Button>
                     </View>
                 </View>

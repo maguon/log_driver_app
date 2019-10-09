@@ -18,8 +18,10 @@ export const cleanLogin = () => async (dispatch, getState) => {
             mobile: user.mobile
         }
     })
+
     dispatch({ type: actionTypes.loginType.clean_login, payload: { mobile: user.mobile } })
-    Actions.loginGroup()
+    Actions.replace("loginGroup")
+
 }
 
 export const login = param => async (dispatch, getState) => {

@@ -197,12 +197,12 @@ class Cars extends Component {
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'flex-end'}}>
                     <TouchableOpacity onPress={() => this.removeCar(item)}>
                         <AntDesign name='closecircle'
-                              style={{color: '#fe8a95', fontSize: 22}}/>
+                              style={{color: '#fe8a95', fontSize: 25}}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => Actions.carInfo({initParam: {vin: item.data.vin, carId: item.data.car_id}})}>
                         <AntDesign name='rightcircle'
-                              style={{color:"#76b92c", marginLeft: 10, fontSize: 22}}/>
+                              style={{color:"#76b92c", marginLeft: 10, fontSize: 25}}/>
                     </TouchableOpacity>
                 </View>}
             </View>
