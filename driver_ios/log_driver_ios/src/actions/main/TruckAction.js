@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getDriverInfo = () => async (dispatch, getState) => {
-    const { loginReducer: { data: { user: { drive_id } } ,url: { base_host} } } = getState()
+    const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data: { base_host} } } = getState()
     dispatch({ type: actionTypes.truckActionType.GET_DriverInfoAtTruck_WAITING, payload: {} })
     try {
         const getDriverUrl = `${base_host}/drive?${ObjectToUrl({ driveId: drive_id })}`

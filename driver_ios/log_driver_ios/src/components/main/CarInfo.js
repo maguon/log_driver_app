@@ -66,7 +66,7 @@ class CarInfo extends Component {
     }
 
     renderImage(item, i, setCarImageIndex) {
-        const { loginReducer: { url: { file_host} } } = this.props
+        const { communicationSettingReducer: { data: { file_host} } } = this.props
         return (
             <TouchableOpacity
                 style={{ margin: 5 }}
@@ -115,7 +115,8 @@ class CarInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         carInfoReducer: state.carInfoReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

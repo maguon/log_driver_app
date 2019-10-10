@@ -4,11 +4,11 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getBaseAddrList = (param) => async (dispatch,getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/baseAddr?${ObjectToUrl({ cityId: param.cityId })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.baseAddrListType.get_baseAddrList_success, payload: { baseAddrList: res.result } })
         } else {

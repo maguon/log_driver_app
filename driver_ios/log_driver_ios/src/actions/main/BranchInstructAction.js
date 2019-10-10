@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getRouteLoadTaskList = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     // console.log('param',param)
     const urls = [`${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`,
     `${base_host}/receive?${ObjectToUrl(param.OptionalParam)}`,

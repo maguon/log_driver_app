@@ -8,7 +8,7 @@ import {Alert} from "react-native";
 export const finishCarry = (param) => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.carsActionType.Finish_Carry_WAITING, payload: {} })
-        const { loginReducer: { data: { user: { uid } } , url: { base_host }} } = getState()
+        const { loginReducer: { data: { user: { uid } } },communicationSettingReducer:{data: { base_host }} } = getState()
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/loadTaskStatus/${param.requiredParam.loadTaskStatus}`
         const res = await httpRequest.put(url, {})
         if (res.success) {
@@ -34,7 +34,7 @@ export const resetFinishCarry = () => (dispatch) => {
 }
 
 export const getCommandCarList = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail`
     try {
         const res = await httpRequest.get(url)
@@ -50,7 +50,7 @@ export const getCommandCarList = (param) => async (dispatch, getState) => {
 
 export const pushCarInCommand = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } }, carsReducer: { pushCarInCommand: { isResultStatus } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } }, carsReducer: { pushCarInCommand: { isResultStatus } } } = getState()
         if (isResultStatus != 1) {
             dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_WAITING, payload: {} })
             const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteLoadTask/${param.requiredParam.dpRouteLoadTaskId}/dpRouteLoadTaskDetail?${ObjectToUrl(param.OptionalParam)}`
@@ -59,6 +59,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_SUCCESS, payload: { data: { ...param.car, id: res.id } } })
             } else {
                 // Toast.show({text:`${res.msg}`})
+                dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
                 Alert.alert(
                     '',
                     `${res.msg}`,
@@ -67,7 +68,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
                     ],
                     {cancelable: false}
                 )
-                dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
+
             }
         }
     } catch (err) {
@@ -86,7 +87,7 @@ export const pushCarInCommandWaiting = () => (dispatch) => {
 
 export const removeCommandCar = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         dispatch({ type: actionTypes.carsActionType.REMOVE_CommandCar_WAITING, payload: { data: { id: param.requiredParam.dpRouteTaskDetailId } } })
         const url = `${base_host}/user/${param.requiredParam.userId}/dpRouteTaskDetail/${param.requiredParam.dpRouteTaskDetailId}?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.del(url)

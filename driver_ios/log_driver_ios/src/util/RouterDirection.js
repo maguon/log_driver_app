@@ -11,3 +11,8 @@ export const cleanFeeList = parent => {
     if (parent === 'truckBlock') return Actions.cleanFeeListAtTruckBlock
     if (parent === 'driverBlock') return Actions.cleanFeeListAtDriverBlock
 }
+
+
+export const listCennect =parent=>{
+    if (parent === 'truckBlock') return Actions.listCennectAtTruckBlock
+}

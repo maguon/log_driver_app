@@ -4,12 +4,12 @@ import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl, objectExceptNull } from '../../util/ObjectToUrl'
 import * as actions from '../../actions/index'
 import { Actions } from 'react-native-router-flux'
-import { InteractionManager} from 'react-native'
+import {Alert, InteractionManager} from 'react-native'
 import {Toast} from 'native-base'
 
 export const createFuelFillingApply = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id, uid } } ,url:{ base_host}} } = getState()
+        const { loginReducer: { data: { user: { drive_id, uid } }},communicationSettingReducer:{data:{ base_host}} } = getState()
         const getTruckUrl = `${base_host}/truckFirst?${ObjectToUrl({ driveId: drive_id })}`
         // console.log('getTruckUrl', getTruckUrl)
 
@@ -36,23 +36,54 @@ export const createFuelFillingApply = (param) => async (dispatch, getState) => {
                 }))
                 // console.log('res', res)
                 if (res.success) {
-                    Toast.show({text:'加油申请提交成功！'})
+                     //Toast.show({text:'加油申请提交成功！'})
                     dispatch({ type: actionTypes.fuelFillingApplyActionType.CREATE_FuelFilling_SUCCESS, payload: { data: {} } })
-                    Actions.pop()
                     InteractionManager.runAfterInteractions(() => dispatch(actions.fuelFillingRecordAction.getFuelFillingRecord()))
+                    Alert.alert(
+                        '',
+                        '修改成功！',
+                        [
+                            {text: '确定', onPress: () =>  Actions.pop(), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                 } else {
-                    Toast.show({text:`加油申请提交失败：${res.msg}！`})
+                    //Toast.show({text:`加油申请提交失败：${res.msg}！`})
                     dispatch({ type: actionTypes.fuelFillingApplyActionType.CREATE_FuelFilling_FAILED, payload: { data: res.msg } })
+                    Alert.alert(
+                        '',
+                        `加油申请提交失败：${res.msg}！`,
+                        [
+                            {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                        ],
+                        {cancelable: false}
+                    )
                 }
             }
         } else {
-            Toast.show({text:`加油申请提交失败：${getTruckRes.msg}！`})
+            //Toast.show({text:`加油申请提交失败：${getTruckRes.msg}！`})
             dispatch({ type: actionTypes.fuelFillingApplyActionType.CREATE_FuelFilling_FAILED, payload: { data: getTruckRes.msg } })
+            Alert.alert(
+                '',
+                `加油申请提交失败：${getTruckRes.msg}！`,
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
 
-        Toast.show({text:`加油申请提交失败：${err}！`})
+        //Toast.show({text:`加油申请提交失败：${err}！`})
         // console.log('err', err)
         dispatch({ type: actionTypes.fuelFillingApplyActionType.CREATE_FuelFilling_ERROR, payload: { data: err } })
+        Alert.alert(
+            '',
+            `加油申请提交失败：${err}！`,
+            [
+                {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }

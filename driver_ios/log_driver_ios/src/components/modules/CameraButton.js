@@ -147,19 +147,34 @@ export default class CameraButton extends Component {
                 })
         )
     }
+    //在相册选择照片并压缩
+ openPicker() {
+     this._timer=setInterval(()=>{
+         ImageCropPicker.openPicker({
+             multiple: true
+         }).then(images => {
+           this.isPicker(images)
 
-    async openPicker() {//在相册选择照片并压缩
-        try {
-            const images = await ImageCropPicker.openPicker({ multiple: true })
-            await this.props._cameraStart()
-            const newImages = await Promise.all(images.map(item => {
+         }).catch(e => console.log(e));
+         this._timer&&clearInterval(this._timer);
+
+     },1000);
+
+
+    }
+    async isPicker(param){
+        try{
+            this.props._cameraStart()
+            const newImages =await Promise.all(param.map(item => {
                 return this.createResizedImage(item)
             }))
+            console.log("newImages",newImages)
             this.props.getImage(newImages)
-        } catch (err) {
-             console.log('err', err)
+        }catch (err) {
+            console.log('err', err)
         }
-    }
+
+     }
 
     render() {
         return (

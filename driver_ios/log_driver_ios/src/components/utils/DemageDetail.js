@@ -9,7 +9,7 @@ import moment from 'moment'
 
 const DemageDetail = props => {
     const { initParam: { id, damage_status, created_on, damage_explain, drive_name, truck_num } } = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <View style={styles.container}>
             <View style={styles.header}>

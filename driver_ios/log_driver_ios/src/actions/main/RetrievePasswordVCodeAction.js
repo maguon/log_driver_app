@@ -8,7 +8,7 @@ export const countDown = () => async (dispatch, getState) => {
     const {retrievePasswordVCodeReducer: {data: {countDownTime}}} = getState()
     try {
         if (countDownTime > 0) {
-            console.log('countDownTime', countDownTime)
+            // console.log('countDownTime', countDownTime)
             dispatch({
                 type: actionTypes.retrievePasswordVCodeActionType.countDownForRetrievePassword_start,
                 payload: {countDownTime: countDownTime - 1}
@@ -46,7 +46,7 @@ export const getVCode = param => async (dispatch) => {
         const base_host = `http://api.${Server}/api`
         dispatch({type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_waiting, payload: {}})
         const url = `${base_host}/phone/${mobileNo}/passwordSms`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.post(url, {})
         // console.log('res', res)
         if (res.success) {
@@ -66,6 +66,10 @@ export const getVCode = param => async (dispatch) => {
         // Toast.show({
         //     text: '服务器错误，请核对后重新填写！'
         // })
+        dispatch({
+            type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_error,
+            payload: {errorMsg: `${err}`}
+        })
         Alert.alert(
             '',
             '服务器错误，请核对后重新填写！',
@@ -74,9 +78,6 @@ export const getVCode = param => async (dispatch) => {
             ],
             {cancelable: false}
         )
-        dispatch({
-            type: actionTypes.retrievePasswordVCodeActionType.get_vCodeForRetrievePassword_error,
-            payload: {errorMsg: `${err}`}
-        })
+
     }
 }

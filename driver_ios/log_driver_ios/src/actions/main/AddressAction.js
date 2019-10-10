@@ -7,6 +7,7 @@ export const getAddress = (param) => async (dispatch) => {
     try {
         const url = `http://restapi.amap.com/v3/geocode/regeo?${ObjectToUrl(param)}`
         const res = await httpRequest.get(url)
+        // console.log("url",url)
         if (res.info=='OK') {
             dispatch({ type: actionTypes.addressType.get_addressAtMap_success, payload: { addressInfo: res.regeocode } })
         } else {

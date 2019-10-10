@@ -1,5 +1,4 @@
 import httpRequest from '../../util/HttpRequest'
-
 import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 import { sleep } from '../../util/util'
@@ -10,17 +9,16 @@ const pageSize = 50
 export const getOveruseDieselOilList = (param) => async (dispatch, getState) => {
     try {
         // console.log('getState()', getState())
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}} } = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host} } } = getState()
         let searchParam = {}
         if (param) {
             searchParam = {
-                oilDateStart: param.dateIdStart ? param.dateIdStart : null,
-                oilDateEnd: param.dateIdEnd ? param.dateIdEnd : null,
-                oilStatus: param.statStatus ? param.statStatus.id : null
+                yMonthStart: param.startDate ? param.startDate.replace("-","") : null,
+                yMonthEnd: param.endDate ? param.endDate.replace("-","") : null
             }
         }
         // console.log('searchParam', searchParam)
-        const url = `${base_host}/driveExceedOil?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
+        const url = `${base_host}/driveExceedOilDateList?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
@@ -52,9 +50,8 @@ export const cleanOveruseDieselOilList = () => (dispatch) => {
 
 export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { url: { base_host } } } = getState()
     const {
-        loginReducer: { data: { user: { drive_id } } },
+        loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}},
         overuseDieselOilListReducer: { data: { overuseDieselOilList, isComplete, search } },
         overuseDieselOilListReducer } = state
     // let search = getFormValues('searchCleanRelForm')(state)
@@ -62,9 +59,8 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
     let searchParam = {}
     if (search) {
         searchParam = {
-            oilDateStart: search.dateIdStart ? search.dateIdStart : null,
-            oilDateEnd: search.dateIdEnd ? search.dateIdEnd : null,
-            settleStatus: search.statStatus ? search.statStatus.id : null
+            yMonthStart: param.startDate ? param.startDate.replace("-","") : null,
+            yMonthEnd: param.endDate ? param.endDate.replace("-","") : null
         }
     }
     if (overuseDieselOilListReducer.getOveruseDieselOilListMore.isResultStatus == 1) {
@@ -74,7 +70,7 @@ export const getOveruseDieselOilListMore = () => async (dispatch, getState) => {
         if (!isComplete) {
             dispatch({ type: actionTypes.overuseDieselOilListActionType.get_overuseDieselOilListMore_waiting, payload: {} })
             try {
-                const url = `${base_host}/driveExceedOil?${ObjectToUrl({
+                const url = `${base_host}/driveExceedOilDateList?${ObjectToUrl({
                     driveId: drive_id,
                     start: overuseDieselOilList.length,
                     size: pageSize,

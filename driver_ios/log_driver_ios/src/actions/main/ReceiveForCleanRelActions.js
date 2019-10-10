@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getReceive = req => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/receive?receiveId=${req.receiveId}`
         // console.log('url', url)
         const res = await httpRequest.get(url)

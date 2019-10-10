@@ -4,7 +4,7 @@ import {ObjectToUrl} from '../../util/ObjectToUrl'
 
 export const getMileageInfo = (param) => async (dispatch, getState) => {
     try {
-        const {loginReducer: {url: {base_host}}} = getState()
+        const {communicationSettingReducer: {data: {base_host}}} = getState()
         const getDriverUrl = `${base_host}/user/${param.getDriverId.requiredParam.userId}`
         const getDriverRes = await httpRequest.get(getDriverUrl)
         if (getDriverRes.success) {

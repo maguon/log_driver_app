@@ -2,15 +2,15 @@ import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 import { ObjectToUrl } from '../../util/ObjectToUrl'
 import { sleep } from '../../util/util'
-import { ToastAndroid } from 'react-native'
 import { getFormValues } from 'redux-form'
+import {Toast} from 'native-base'
 
 const pageSize = 50
 export const getTaskLoanList = () => async (dispatch, getState) => {
     try {
         const state = getState()
         const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
-        const { loginReducer: { data: { user: { drive_id } },url:{base_host} } } = state
+        const { loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} } } = state
         const url = `${base_host}/dpRouteTaskLoan?${ObjectToUrl({
             driveId: drive_id,
             taskLoanStatusArr: searchTaskLoanFormValues && searchTaskLoanFormValues.taskLoanStatusArr && searchTaskLoanFormValues.taskLoanStatusArr.id ? `${searchTaskLoanFormValues.taskLoanStatusArr.id}` : '2,3',
@@ -23,7 +23,7 @@ export const getTaskLoanList = () => async (dispatch, getState) => {
         const res = await httpRequest.get(url)
         if (res.success) {
             if (res.result.length % pageSize != 0 || res.result.length == 0) {
-                ToastAndroid.show('数据已全部加载完毕！', 10)
+                Toast.show({text:'数据已全部加载完毕！'})
                 dispatch({ type: actionTypes.taskLoanListActionType.get_taskLoanList_success, payload: { taskLoanList: res.result, isComplete: true } })
             } else {
                 dispatch({ type: actionTypes.taskLoanListActionType.get_taskLoanList_success, payload: { taskLoanList: res.result, isComplete: false } })
@@ -40,7 +40,7 @@ export const getTaskLoanListMore = () => async (dispatch, getState) => {
     const state = getState()
 
     const { taskLoanListReducer: { data: { taskLoanList, isComplete } }, taskLoanListReducer,
-        loginReducer: { data: { user: { drive_id } },url:{base_host} } } = state
+        loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} } } = state
     const searchTaskLoanFormValues = getFormValues('searchTaskLoanForm')(state)
     if (taskLoanListReducer.getTaskLoanListMore.isResultStatus == 1) {
         await sleep(1000)
@@ -67,7 +67,7 @@ export const getTaskLoanListMore = () => async (dispatch, getState) => {
                         }
                     })
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
-                        ToastAndroid.show('数据已全部加载完毕！', 10)
+                        Toast.show({text:'数据已全部加载完毕！'})
                     }
                 } else {
                     dispatch({ type: actionTypes.taskLoanListActionType.get_taskLoanListMore_failed, payload: { failedMsg: res.msg } })

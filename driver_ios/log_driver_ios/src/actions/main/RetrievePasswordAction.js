@@ -25,6 +25,11 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
             // Toast.show({
             //     text:'修改成功'
             // })
+            dispatch({ type: actionTypes.retrievePasswordType.retrieve_success, payload: {} })
+            //更新url
+            await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: server }))
+            //替换登录server
+            await dispatch(change('loginForm', 'server', server))
             Alert.alert(
                 '',
                 `修改成功！`,
@@ -33,16 +38,13 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.retrievePasswordType.retrieve_success, payload: {} })
-            //更新url
-            await dispatch(actions.communicationSettingAction.saveCommunicationSetting({ url: server }))
-            //替换登录server
-            await dispatch(change('loginForm', 'server', server))
+
 
         } else {
             // Toast.show({
             //     text:`修改失败：${res.msg}`
             // })
+            dispatch({ type: actionTypes.retrievePasswordType.retrieve_failed, payload: { failedMsg: `${res.msg}` } })
             Alert.alert(
                 '',
                 `修改失败：${res.msg}`,
@@ -51,13 +53,14 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
                 ],
                 {cancelable: false}
             )
-            dispatch({ type: actionTypes.retrievePasswordType.retrieve_failed, payload: { failedMsg: `${res.msg}` } })
+
         }
     }catch (err) {
         // console.log('err', err)
         // Toast.show({
         //     text:`修改失败：${err}`
         // })
+        dispatch({ type: actionTypes.retrievePasswordType.retrieve_error, payload: { errorMsg: `${err}` } })
         Alert.alert(
             '',
             `修改失败：${err}`,
@@ -66,6 +69,6 @@ export  const retrieve=(param)=>async(dispatch,getState)=>{
             ],
             {cancelable: false}
         )
-        dispatch({ type: actionTypes.retrievePasswordType.retrieve_error, payload: { errorMsg: `${err}` } })
+
     }
 }

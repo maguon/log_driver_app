@@ -26,7 +26,7 @@ const BaseAddrList = props => {
                     keyExtractor={(item, index) => `${index}`}
                     data={baseAddrList}
                     renderItem={({ item, index }) => {
-                        console.log('item',item)
+                        // console.log('item',item)
                         return (
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 onSelect(item)

@@ -5,12 +5,7 @@ const initialState = {
     data: {
         user: {},
     },
-    url:{
-        base_host: "http://api.myxxjs.com/api",
-        file_host: "http://stg.myxxjs.com:9002/api",
-        record_host: "http://stg.myxxjs.com:9004/api",
-        host: null
-    },
+ 
     loginFlow: {
         isResultStatus: 0,     //执行状态 : 0(未执行), 1(正在执行),2(执行结束)
         step: 0,               //执行到第N步
@@ -31,25 +26,6 @@ const initialState = {
 }
 
 export default handleActions({
-    [(actionTypes.loginType.get_communicationSetting_success)]: (state, action) => {
-    const { payload: { base_host, file_host, record_host, host } } = action
-    return {
-        ...state,
-       url: {
-            base_host, file_host, record_host, host
-        }
-    }
-},
-    [(actionTypes.loginType.save_communicationSetting_success)]: (state, action) => {
-    const { payload: { base_host, file_host, record_host, host } } = action
-    return {
-        ...state,
-        url: {
-            base_host, file_host, record_host, host
-        }
-    }
-},
-
 
 
     [actionTypes.loginType.login_success]: (state, action) => {

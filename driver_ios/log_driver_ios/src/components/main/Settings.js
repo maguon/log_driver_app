@@ -42,8 +42,8 @@ class Setting extends Component {
 
     render() {
         const { version } = this.props.InitializationReducer.data
-        const { loginReducer: { data: { user: { avatar_image, real_name, mobile } },url: { file_host } } } = this.props
-        console.log('this.props',this.props)
+        const { loginReducer: { data: { user: { avatar_image, real_name, mobile } }},communicationSettingReducer:{data: { file_host } } } = this.props
+        // console.log('this.props',this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -51,7 +51,8 @@ class Setting extends Component {
                         <Separator style={globalStyles.separator} />
                         <ListItem last onPress={Actions.personalCenter}>
                             <View style={styles.avatarContainer}>
-                                <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
+                                {avatar_image!=""&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
+                                {avatar_image==""&&<Thumbnail source={require("../../images/head.png")} />}
                                 <View style={styles.userContainer}>
                                     <View>
                                     <Text style={globalStyles.largeText}>{real_name ? `${real_name}` : ''}</Text>
@@ -62,6 +63,9 @@ class Setting extends Component {
                                     </View>
                                 </View>
                             </View>
+                            <Right style={{position:"absolute", right:15}}>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
                         </ListItem>
                         <Separator style={globalStyles.separator} />
                         <ListItem icon onPress={Actions.updatePassword}>
@@ -95,7 +99,7 @@ class Setting extends Component {
                             </Body>
                             <Right >
                                 {version.force_update != 0 && <TouchableOpacity onPress={() => {
-                                    console.log('url', version.url)
+                                    // console.log('url', version.url)
                                     if (version.url) {
                                         Linking.canOpenURL(version.url)
                                             .then(supported => {
@@ -151,6 +155,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer,
         InitializationReducer: state.initializationReducer
     }
 }

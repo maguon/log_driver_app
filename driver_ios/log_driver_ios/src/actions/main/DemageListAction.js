@@ -10,7 +10,7 @@ const pageSize = 50
 export const getDemageList = () => async (dispatch, getState) => {
     const state = getState()
     const { userReducer: { data: { user: { userId } } } } = state
-    const { loginReducer: { url: { base_host} } } = getState()
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     let search = getFormValues('demageSearchForm')(state)
     search = search ? search : { car: {} }
     try {
@@ -39,7 +39,7 @@ export const getDemageListWaiting = () => (dispatch, getState) => {
 
 export const getDemageListMore = () => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { url: { base_host} } } = getState()
+    const { communicationSettingReducer: { data: { base_host} } } = getState()
     const {
         userReducer: { data: { user: { userId } } },
         demageListReducer: { data: { demageList, isComplete } },
@@ -70,7 +70,7 @@ export const getDemageListMore = () => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.demageListType.get_DemageListMore_error, payload: { errorMsg: err } })
             }
         } else {
-            Toast.show({text:'已全部加载完毕！'})
+            // Toast.show({text:'已全部加载完毕！'})
         }
     }
 

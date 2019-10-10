@@ -13,7 +13,7 @@ import globalStyles, { styleColor } from '../utils/GlobalStyles'
 
 const renderItem = props => {
     const { item } = props
-    console.log('item', item)
+    // console.log('item', item)
     return (
         <View style={{ padding: 7.5, margin: 7.5, borderWidth: 0.5, borderColor: '#ddd' }}>
             <View style={{ padding: 7.5, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -45,7 +45,7 @@ const renderEmpty = () => {
 
 const CleanFeeList = props => {
     const {  cleanFeeListReducer: { data: { cleanFeeList } ,getCleanFeeList:{isResultStatus}} } = props
-    console.log('cleanFeeListReducer', cleanFeeList)
+    // console.log('cleanFeeListReducer', cleanFeeList)
     if(isResultStatus==1){
         return (
             <Container>

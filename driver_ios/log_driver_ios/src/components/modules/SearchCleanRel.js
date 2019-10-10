@@ -29,7 +29,7 @@ const onSelectReceive = ({param, getReceiveListWaiting, getReceiveList, onSelect
         }
     })
     InteractionManager.runAfterInteractions(() => getReceiveList(param))
-    console.log(param)
+    // console.log(param)
 }
 
 const SearchCleanRel = props => {
@@ -50,6 +50,7 @@ const SearchCleanRel = props => {
                         List: DisposableList,
                         title: '选择城市',
                         onSelect: (param) => {
+                            Actions.pop()
                             onSelectReceive({
                                 param: {cityId: param.id, cityName: param.value},
                                 getCleanRelListWaiting,

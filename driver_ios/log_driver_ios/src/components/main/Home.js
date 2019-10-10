@@ -67,7 +67,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         homeReducer: state.homeReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

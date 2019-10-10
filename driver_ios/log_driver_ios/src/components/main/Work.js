@@ -50,15 +50,15 @@ class Work extends Component {
         this.setState({endDateTimePickerVisible: false});
     }
     handleDatePicked = date => {
-        console.log("A date has been picked: ", date);
+        // console.log("A date has been picked: ", date);
 
        this.state.dateIdStart=moment(date).format('YYYY-MM-DD')
-        console.log("this.state.dateIdStart ", this.state.dateIdStart);
+        // console.log("this.state.dateIdStart ", this.state.dateIdStart);
         this.hideDateTimePicker();
     };
 
     handleEndDatePicked = date => {
-        console.log("A date has been picked: ", date);
+        // console.log("A date has been picked: ", date);
         this.state.dateIdEnd=moment(date).format('YYYY-MM-DD')
         this.hideEndDateTimePicker();
     };
@@ -343,7 +343,8 @@ class Work extends Component {
 const mapStateToProps = (state) => {
     return {
         workReducer: state.workReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

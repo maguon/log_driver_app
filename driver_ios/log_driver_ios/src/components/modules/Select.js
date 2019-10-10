@@ -18,6 +18,7 @@ const _onPress = ({showList, getList, onChange, getListWaiting, isPop}) => {
     getListWaiting()
     showList({
         onSelect: (param) => {
+            // console.log("param"+JSON.stringify(param))
             if (isPop) {
                 Actions.pop()
             }
@@ -44,6 +45,7 @@ const Select = props => {
         getListWaiting,
         meta: {error, touched}
     } = props
+    // console.log("props"+JSON.stringify(showList))
     return (
         <TouchableOpacity style={last ? styles.lastBody : styles.body}
                           onPress={() => _onPress({showList, getList, onChange, getListWaiting, isPop})}>

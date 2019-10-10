@@ -3,7 +3,7 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getCityList = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/city`
         const res = await httpRequest.get(url)
         if (res.success) {

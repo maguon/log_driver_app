@@ -5,7 +5,7 @@ import SinglePhotoView from './SinglePhotoView'
 
 const PhotoViewForCarInfo = props => {
     const { carInfoReducer: { data: { imageList, index } }, setCarImageIndex } = props
-    const { loginReducer: { url: { file_host} } } = props
+    const { communicationSettingReducer: { data: { file_host} } } = props
     return (
         <SinglePhotoView
             initParam={{ imageUrlList: imageList.map(item => `${file_host}/image/${item.url}`), index }}
@@ -15,7 +15,8 @@ const PhotoViewForCarInfo = props => {
 
 const mapStateToProps = (state) => ({
     carInfoReducer: state.carInfoReducer,
-    loginReducer: state.loginReducer
+    loginReducer: state.loginReducer,
+    communicationSettingReducer:state.communicationSettingReducer
 })
 
 const mapDispatchToProps = (dispatch) => ({

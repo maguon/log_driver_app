@@ -8,7 +8,7 @@ import globalStyles from '../utils/GlobalStyles'
 import moment from 'moment'
 
 const AccidentResponsibilityInfo = props => {
-    console.log('props' + JSON.stringify(props))
+    // console.log('props' + JSON.stringify(props))
     const {responsibilityInfo: {created_on, accident_status, truck_accident_id, truck_accident_type, op_user_name, remark,under_cost, end_date}} = props
     return (
         <View style={{flex: 1, backgroundColor: '#fff'}}>

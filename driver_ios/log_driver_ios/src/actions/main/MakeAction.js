@@ -2,7 +2,7 @@ import httpRequest from '../../util/HttpRequest'
 import * as actionTypes from '../../actionTypes/index'
 
 export const getMakeList = (param) => async (dispatch, getState) => {
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
     const url = `${base_host}/carMake`
     try {
         let res = await httpRequest.get(url)

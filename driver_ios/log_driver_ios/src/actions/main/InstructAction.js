@@ -4,7 +4,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getRouteTaskList = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/dpRouteLoadTask?${ObjectToUrl(param.OptionalParam)}`
         const res = await httpRequest.get(url)
         if (res.success) {

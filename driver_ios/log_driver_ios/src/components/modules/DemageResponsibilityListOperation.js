@@ -236,7 +236,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     getDemageResponsibilityList: (param) => {
-        console.log(param)
+        // console.log(param)
         dispatch(actions.demageResponsibilityListAction.getDemageResponsibilityList(param))
     },
     getDemageResponsibilityListWaiting: () => {

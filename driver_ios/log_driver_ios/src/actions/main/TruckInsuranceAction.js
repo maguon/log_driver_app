@@ -4,12 +4,12 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getTruckInsurance = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckInfoReducer: { data: { truckInfo } } } = getState()
         const url = `${base_host}/truckInsureRel?${ObjectToUrl({ truckId: truckInfo.id, active: 1 })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.success) {
             dispatch({ type: actionTypes.truckInsuranceActionType.GET_TruckInsurance_SUCCESS, payload: { data: res.result } })
         } else {

@@ -58,11 +58,11 @@ class Cars extends Component {
                 '',
                 '移除成功！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>   this.props.resetRemoveCommandCar(car.data.id), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            this.props.resetRemoveCommandCar(car.data.id)
+
         }
 
         if (finishCarry.isResultStatus == 2) {
@@ -71,11 +71,11 @@ class Cars extends Component {
                 '',
                 '装车完毕！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  this.props.resetFinishCarry(), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            this.props.resetFinishCarry()
+
         }
     }
 
@@ -168,7 +168,6 @@ class Cars extends Component {
 
     renderListItem(item) {
         const {taskInfo} = this.props.carsReducer.data
-        console.log("item========================"+JSON.stringify(item))
         if (taskInfo.load_task_status == 1) {
             return <View style={{
                 flexDirection: 'row',
@@ -198,12 +197,12 @@ class Cars extends Component {
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'flex-end'}}>
                     <TouchableOpacity onPress={() => this.removeCar(item)}>
                         <AntDesign name='closecircle'
-                              style={{color: '#fe8a95', fontSize: 22}}/>
+                              style={{color: '#fe8a95', fontSize: 25}}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => Actions.carInfo({initParam: {vin: item.data.vin, carId: item.data.car_id}})}>
                         <AntDesign name='rightcircle'
-                              style={{color:"#76b92c", marginLeft: 10, fontSize: 22}}/>
+                              style={{color:"#76b92c", marginLeft: 10, fontSize: 25}}/>
                     </TouchableOpacity>
                 </View>}
             </View>
@@ -238,8 +237,6 @@ class Cars extends Component {
     render() {
         const {carList, taskInfo} = this.props.carsReducer.data
         const {pushCarInCommand, getCommandCarList} = this.props.carsReducer
-        console.log("carList========================"+JSON.stringify(carList))
-        console.log("getCommandCarList========================"+JSON.stringify(getCommandCarList))
         if (getCommandCarList.isResultStatus == 1) {
             return (
                 <View style={{flex: 1}}>

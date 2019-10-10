@@ -6,7 +6,7 @@ const pageSize = 20
 
 export const getRouteTaskFeeList = () => async (dispatch, getState) => {
     try {
-        const {loginReducer: { data: { user: { drive_id } },url:{base_host} } } = getState()
+        const {loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
         const url = `${base_host}/dpRouteTaskFee?driveId=${drive_id}&start=0&size=${pageSize}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -31,7 +31,7 @@ export const getRouteTaskFeeListWaiting = () => (dispatch) => {
 }
 
 export const getRouteTaskFeeListMore = () => async (dispatch, getState) => {
-    const {loginReducer: { data: { user: { drive_id } },url:{base_host} },
+    const {loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} },
         routeTaskFeeReducer: { data: { routeTaskFeeList, isCompleted } },
         routeTaskFeeReducer } = getState()
     if (routeTaskFeeReducer.getRouteTaskFeeListMore.isResultStatus == 1) {

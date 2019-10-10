@@ -70,7 +70,7 @@ const renderListEmpty = props => {
 }
 
 const ApplyDemageImage = props => {
-    const { loginReducer: { url: { file_host} } } = props
+    const { communicationSettingReducer: { data: { file_host} } } = props
     const { parent, vin, uploadDamageImageWating, uploadDamageImage, applyDamageImageReducer: { data: { imageList }, uploadDamageImage: { isResultStatus } } } = props
     return (
         <Container >
@@ -160,7 +160,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         applyDamageImageReducer: state.applyDamageImageReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

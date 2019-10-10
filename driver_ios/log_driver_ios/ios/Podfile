@@ -23,14 +23,7 @@ target 'log_driver_ios' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'react-native-amap3d', path: '../node_modules/react-native-amap3d/lib/ios'
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
-  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
-
-  pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
-
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-  pod 'react-native-image-crop-picker', :path =>  '../node_modules/react-native-image-crop-picker'
 
 end
 

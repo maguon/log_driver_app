@@ -71,7 +71,7 @@ class BranchInstruct extends Component {
         const {routeLoadInfo} = this.props.initParam
         const {routeLoadTaskList, cleanCar, loadTaskInfo, contactList} = this.props.branchInstructReducer.data
         const {getRouteLoadTaskList} = this.props.branchInstructReducer
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         const {getCleanFeeListWaiting, getCleanFeeList, parent} = this.props
         // console.log('this.props.branchInstructReducer',this.props.branchInstructReducer)
         // console.log('routeLoadInfo',routeLoadInfo)

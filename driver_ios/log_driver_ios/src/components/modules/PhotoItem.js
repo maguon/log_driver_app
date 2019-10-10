@@ -27,7 +27,7 @@ class PhotoItem extends Component {
     }
 
     render() {
-        const { loginReducer: { url: { file_host } } } = this.props
+        const { communicationSettingReducer: { data: { file_host } } } = this.props
         return (
             <TouchableOpacity onPress={this.props.onShowPhoto}>
                 <View style={{ width: this.props.width, height: this.props.width / 16 * 9, justifyContent: 'center', alignItems: 'center', ...this.props.containerSytle }}>
@@ -47,7 +47,7 @@ class PhotoItem extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loginReducer: state.loginReducer
+        communicationSettingReducer: state.communicationSettingReducer
     }
 }
 

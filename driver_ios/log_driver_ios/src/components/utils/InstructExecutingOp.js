@@ -13,7 +13,7 @@ import * as actions from '../../actions/index'
 const InstructExecutingOp = props => {
     const { getMileageInfo, getTaskListForHome, getRouteTaskListForHome, getMileageInfoWaiting, getTaskListForHomeWaiting, getRouteTaskListForHomeWaiting,
         mileageInfoReducer, routeTaskListForHomeReducer, taskListForHomeReducer } = props
-    console.log("taskListForHomeReducer.getTaskListForHome.isResultStatus"+taskListForHomeReducer.getTaskListHome.isResultStatus)
+
     if (taskListForHomeReducer.getTaskListHome.isResultStatus == 1
         || mileageInfoReducer.MileageInfo.isResultStatus == 1
         || routeTaskListForHomeReducer.getRouteTaskListHome.isResultStatus == 1) {

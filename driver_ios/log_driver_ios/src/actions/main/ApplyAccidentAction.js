@@ -5,12 +5,12 @@ import {Alert} from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 export const applyAccident = (param) => async (dispatch, getState) => {
-    const { loginReducer: { data: { user: { uid, drive_id } },url:{base_host} } } = getState()
+    const { loginReducer: { data: { user: { uid, drive_id } }},communicationSettingReducer:{data:{base_host} } } = getState()
     try {
         dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_waiting, payload: {} })
-        console.log('param', param)
+        // console.log('param', param)
         const url = `${base_host}/user/${uid}/truckAccident`
-        console.log('url', url)
+        // console.log('url', url)
 
         const res = await httpRequest.post(url, objectExceptNull({
             truckId: param.accidentType.id,
@@ -22,7 +22,7 @@ export const applyAccident = (param) => async (dispatch, getState) => {
             lat: param.address.lat,
             accidentExplain: param.accidentExplain
         }))
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             dispatch({
@@ -36,31 +36,31 @@ export const applyAccident = (param) => async (dispatch, getState) => {
                 '',
                 '提交成功！',
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () =>  Actions.applyAccidentImage(), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
-            Actions.applyAccidentImage()
+
         } else {
-            dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_failed, payload: { failedMsg: res.msg } })
+
             // ToastAndroid.showWithGravity(`提交失败:${res.msg}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
             Alert.alert(
                 '',
                 `提交失败:${res.msg}!`,
                 [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: '确定', onPress: () => dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_failed, payload: { failedMsg: res.msg } }), style: 'cancel'},
                 ],
                 {cancelable: false}
             )
         }
     } catch (err) {
-        dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_error, payload: { errorMsg: err } })
+
         // ToastAndroid.showWithGravity(`提交失败:${err}!`, ToastAndroid.CENTER, ToastAndroid.BOTTOM)
         Alert.alert(
             '',
             `提交失败:${err}!`,
             [
-                {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: '确定', onPress: () =>dispatch({ type: actionTypes.applyAccidentActionType.apply_Accident_error, payload: { errorMsg: err } }), style: 'cancel'},
             ],
             {cancelable: false}
         )

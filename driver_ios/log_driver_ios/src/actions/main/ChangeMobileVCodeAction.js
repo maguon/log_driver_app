@@ -30,7 +30,7 @@ export const countDown = () => async (dispatch, getState) => {
 
 export const getVCode = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid } },url:{base_host} } } = getState()
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{data:{base_host} } } = getState()
 
 
         console.log('getState()', getState())

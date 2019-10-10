@@ -98,8 +98,8 @@ class BranchInstructExecuting extends Component {
                 {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {
                     text: '确定', onPress: () => {
-                        const {user} = this.props.loginReducer.data
-                        this.props.changeCarLoadStatus({
+                        const { user } = this.props.loginReducer.data
+                        this.props.toChangeCarLoadStatus({
                             requiredParam: {
                                 userId: user.uid,
                                 dpRouteTaskDetailId: param,
@@ -125,7 +125,6 @@ class BranchInstructExecuting extends Component {
             const total = routeLoadTaskList.reduce((sum, value) => {
                 return sum && value.car_load_status == 2
             }, true)
-            console.log("total==="+total)
             if (total && loadTaskInfo.load_task_status == 3) {
                 return <View style={{padding: 10, alignSelf: 'flex-end'}}>
                     <Button style={{
@@ -162,8 +161,8 @@ class BranchInstructExecuting extends Component {
     }
 
     renderListItem(item, key) {
-        console.log('item', item)
-        console.log('this.props', this.props)
+        // console.log('item', item)
+        // console.log('this.props', this.props)
         const {taskListForHomeReducer: {data: {taskList}}} = this.props
 
         const {task_status} = this.props.initParam
@@ -187,10 +186,8 @@ class BranchInstructExecuting extends Component {
                 }]}>{item.make_name ? item.make_name : ''}</Text>
             </View>
             <View style={{flexDirection: 'row', flex: 2, justifyContent: 'flex-end', alignItems: 'center'}}>
-                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, {
-                    color: styleColor,
-                    marginVertical: 10
-                }]}>{item.car_load_status == 2 && '已送达'}</Text>}
+                {item.car_load_status == 2 && task_status > 3 && <Text style={[globalStyles.smallText, {color: styleColor, marginVertical: 10}]}>
+                    {item.car_load_status == 2 && '已送达'}</Text>}
 
                 {item.car_load_status == 1 && task_status > 3 && <TouchableOpacity onPress={() => {
                     this.changeCarLoadStatus(item.id)
@@ -310,7 +307,7 @@ class BranchInstructExecuting extends Component {
                                 backgroundColor: styleColor,
                                 justifyContent: 'center'
                             }} onPress={() => {
-                                console.log("contactList====================" + contactList)
+
                                 if (contactList.length > 0) {
                                     this.setState({modalVisible: true})
                                 } else {
@@ -453,7 +450,7 @@ class BranchInstructExecuting extends Component {
                                     }]}>联系人</Text>
                                 </View>
                                 <FlatList
-                                    keyExtractor={(item, index) => index}
+                                    keyExtractor={(item, index) =>`${index}`}
                                     data={contactList}
                                     renderItem={({item, index}) => {
                                         return (
@@ -527,7 +524,7 @@ const mapDispatchToProps = (dispatch) => ({
     setGetRouteLoadTaskListWaiting: () => {
         dispatch(actions.branchInstructExecutingAction.setGetRouteLoadTaskListWaiting())
     },
-    changeCarLoadStatus: (param) => {
+    toChangeCarLoadStatus: (param) => {
         dispatch(actions.branchInstructExecutingAction.changeCarLoadStatus(param))
     },
     setChangeCarLoadStatusWaiting: () => {

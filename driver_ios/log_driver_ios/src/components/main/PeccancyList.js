@@ -25,6 +25,9 @@ class PeccancyList extends  Component {
         this.EndDateTimePicker = this.EndDateTimePicker.bind(this)
     }
 
+    componentWillMount() {
+        this.onSearch()
+    }
 
     showDateTimePicker = () => {
         this.setState({isDateTimePickerVisible: true});
@@ -56,10 +59,12 @@ class PeccancyList extends  Component {
     onSearch() {
 
         InteractionManager.runAfterInteractions(() =>
+
             this.props.getPeccancyList({
                 dateIdStart: this.state.dateIdStart,
                 dateIdEnd: this.state.dateIdEnd
             }))
+
     }
 
 

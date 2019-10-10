@@ -183,7 +183,7 @@ class DriverInfo extends Component {
 
     renderDriverPhoto() {
         const {getDriverImage} = this.props.driverInfoReducer
-        const {loginReducer: {url: {file_host}}} = this.props
+        const {communicationSettingReducer: {data: {file_host}}} = this.props
 
 
         if (getDriverImage.isResultStatus == 1) {
@@ -341,7 +341,8 @@ class DriverInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         driverInfoReducer: state.driverInfoReducer,
-        loginReducer: state.loginReducer
+        loginReducer: state.loginReducer,
+        communicationSettingReducer:state.communicationSettingReducer
     }
 }
 

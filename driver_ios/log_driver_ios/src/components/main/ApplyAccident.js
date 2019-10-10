@@ -11,9 +11,10 @@ import moment from 'moment'
 import Select from '../modules/Select'
 import RichTextBox from '../modules/RichTextBox'
 import DisposableList from '../modules/DisposableList'
-import DatePicker from '../utils/DatePicker'
+import DatePickerStart from '../utils/DatePickerStart'
 import * as actions from '../../actions/index'
 import { required } from '../../util/Validator'
+import * as routerDirection from '../../util/RouterDirection'
 
 
 
@@ -27,7 +28,9 @@ const ApplyAccident = props => {
         getAccidentTypeWaiting,
         getAccidentType,
         getCityRouteList,
-        getCityRouteListWaiting } = props
+        getCityRouteListWaiting,
+        routeName,parent } = props
+
     return (
         <Container>
             <Content showsVerticalScrollIndicator={false}>
@@ -44,10 +47,7 @@ const ApplyAccident = props => {
                                mapDispatchToProps: routeMapDispatchToProps,
                                List: DisposableList,
                                title: '调度任务',
-                               onSelect: (param) => {
-                                   Actions.pop()
-                                   onSelect(param)
-                               }
+                               onSelect
                            })
                        }} />
                 <Field name='accidentType'
@@ -63,10 +63,7 @@ const ApplyAccident = props => {
                                mapDispatchToProps: accidentTypeMapDispatchToProps,
                                List: DisposableList,
                                title: '车辆类型',
-                               onSelect: (param) => {
-                                   Actions.pop()
-                                   onSelect(param)
-                               }
+                               onSelect
                            })
                        }} />
                 <Field name='address'
@@ -83,7 +80,7 @@ const ApplyAccident = props => {
                        }} />
                 <Field name='accidentDate'
                        label='发生时间：'
-                       component={DatePicker} />
+                       component={DatePickerStart} />
                 <Field name='accidentExplain'
                        label='事故描述：'
                        isRequired={true}

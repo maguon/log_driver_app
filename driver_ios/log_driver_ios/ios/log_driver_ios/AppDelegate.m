@@ -9,6 +9,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 @implementation AppDelegate
 
@@ -20,7 +21,7 @@
                                             initialProperties:nil];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+[AMapServices sharedServices].apiKey = @"22d16ea40b6fdb3ebc3daa1b48db3287";
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
@@ -28,7 +29,6 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
-
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

@@ -48,7 +48,7 @@ class VinScanner extends Component {
     };
 
     barcodeReceived=(e) =>{
-        console.log("========================="+JSON.stringify(e))
+        // console.log("========================="+JSON.stringify(e))
         if (this.state.barcodeStatus) {
             this.setState({barcodeStatus: false}, () => {
                 Vibration.vibrate()

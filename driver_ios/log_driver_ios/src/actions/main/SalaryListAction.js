@@ -7,15 +7,15 @@ const pageSize = 10
 
 export const getSalaryList = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { drive_id } } ,url:{base_host}}} = getState()
+        const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}}} = getState()
         const url = `${base_host}/driveSalaryBase?${ObjectToUrl({
             driveId: drive_id,
             start: 0,
             size: pageSize
         })}`
-        console.log('url',url)
+        // console.log('url',url)
         const res = await httpRequest.get(url)
-        console.log('res',res)
+        // console.log('res',res)
         if (res.success) {
             dispatch({
                 type: actionTypes.salaryListActionType.get_salaryLst_success, payload: {
@@ -27,7 +27,7 @@ export const getSalaryList = () => async (dispatch, getState) => {
             dispatch({ type: actionTypes.salaryListActionType.get_salaryLst_failed, payload: { failedMsg: `${res.msg}` } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.salaryListActionType.get_salaryLst_error, payload: { errorMsg: `${err}` } })
     }
 }
@@ -37,7 +37,7 @@ export const getSalaryListWaiting = () => (dispatch) => {
 }
 
 export const getSalaryListMore = () => async (dispatch, getState) => {
-    const {loginReducer: { data: { user: { drive_id } },url:{base_host} }, salaryListReducer,
+    const {loginReducer: { data: { user: { drive_id } }}, communicationSettingReducer:{data:{base_host} }, salaryListReducer,
         salaryListReducer: { data: { salaryList, isCompleted } } } = getState()
     if (salaryListReducer.getSalaryListMore.isResultStatus == 1) {
         await sleep(1000)
@@ -51,9 +51,9 @@ export const getSalaryListMore = () => async (dispatch, getState) => {
                     start: salaryList.length,
                     size: pageSize
                 })}`
-                console.log('url',url)
+                // console.log('url',url)
                 const res = await httpRequest.get(url)
-                console.log('res',res)
+                // console.log('res',res)
 
                 if (res.success) {
                     dispatch({
@@ -66,7 +66,7 @@ export const getSalaryListMore = () => async (dispatch, getState) => {
                     dispatch({ type: actionTypes.salaryListActionType.get_salaryLstMore_failed, payload: { failedMsg: `${res.msg}` } })
                 }
             } catch (err) {
-                console.log('err', err)
+                // console.log('err', err)
                 dispatch({ type: actionTypes.salaryListActionType.get_salaryLstMore_error, payload: { errorMsg: `${err}` } })
             }
         }

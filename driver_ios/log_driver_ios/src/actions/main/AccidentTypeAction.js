@@ -4,10 +4,10 @@ import * as actionTypes from '../../actionTypes/index'
 
 export const getAccidentType = () => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { truckReducer: { data: { driverInfo: { truck_id, truck_num } } } } = getState()
         const url = `${base_host}/truckFirst?truckId=${truck_id}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
         if (res.success) {
             dispatch({
@@ -29,7 +29,7 @@ export const getAccidentType = () => async (dispatch, getState) => {
             dispatch({ type: actionTypes.accidentTypeActionType.get_AccidentType_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.accidentTypeActionType.get_AccidentType_error, payload: { errorMsg: err } })
     }
 }

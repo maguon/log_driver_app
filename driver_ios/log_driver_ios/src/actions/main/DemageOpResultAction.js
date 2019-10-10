@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 export const getDemageOpResult = (param) => async (dispatch, getState) => {
     const { id } = param
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         const url = `${base_host}/damageCheck?${ObjectToUrl({ damageId: id })}`
         console.log('url',url)
         const res = await httpRequest.get(url)

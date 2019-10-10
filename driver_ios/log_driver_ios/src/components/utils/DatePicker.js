@@ -17,7 +17,7 @@ const margin = 15
 
 
 const showPicker = (props) => {
-    console.log('props========'+JSON.stringify(props))
+    // console.log('props========'+JSON.stringify(props))
     props.meta.active =true
 
     return(
@@ -58,7 +58,7 @@ const DatePicker = props => {
         last = false,
         meta: {active,error, touched}
     } = props
-    console.log('props========'+JSON.stringify(props))
+    // console.log('props========'+JSON.stringify(props))
     return (
         <TouchableOpacity style={last ? styles.lastBody : styles.body}
                           onPress={() =>showPicker(props)}>

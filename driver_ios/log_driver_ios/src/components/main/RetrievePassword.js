@@ -88,7 +88,7 @@ const mapStateToProps = (state) => {
         retrievePasswordReducer: state.retrievePasswordReducer,
         formValues: getFormValues('RetrievePasswordForm')(state),
         initialValues: {
-            server: state.loginReducer.data.host
+            server: state.communicationSettingReducer.data.host
         }
     }
 }

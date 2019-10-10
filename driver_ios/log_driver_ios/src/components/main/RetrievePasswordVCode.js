@@ -12,7 +12,7 @@ class RetrievePasswordVCode extends Component {
         // console.log('this.props', this.props)
         const { retrievePasswordVCodeReducer: { data: { countDownTime } },
             retrievePasswordVCodeReducer, getVCode } = this.props
-        console.log('countDownTime', countDownTime)
+        // console.log('countDownTime', countDownTime)
         return (
             <Button full disabled={retrievePasswordVCodeReducer.countDown.isResultStatus == 1} onPress={() => {
                 if (!this.props.server) {

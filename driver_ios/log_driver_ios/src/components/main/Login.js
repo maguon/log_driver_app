@@ -13,7 +13,7 @@ const window = Dimensions.get('window')
 
 const TextBox = props => {
     const {iconName, placeholderText, input: {onChange, ...restProps}, secureTextEntry = false} = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <Item rounded style={styles.item}>
             <Icon active name={iconName} style={styles.itemIcon}/>
@@ -36,8 +36,8 @@ class Login extends Component {
 
     render() {
         const {handleSubmit, initializationReducer: {data: {version: {force_update, url}}}} = this.props
-        console.log('ios_app', ios_app)
-        console.log('force_update', force_update)
+        // console.log('ios_app', ios_app)
+        // console.log('force_update', force_update)
         return (
             <Root>
                 <Container style={styles.container}>
@@ -189,10 +189,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        // initialValues: {
-        //     mobile: state.loginReducer.data.user.mobile,
-        //     server: state.loginReducer.data.host
-        // },
+        initialValues: {
+            mobile: state.loginReducer.data.user.mobile,
+            server: state.communicationSettingReducer.data.host
+        },
         initializationReducer: state.initializationReducer
     }
 }
@@ -202,9 +202,16 @@ export default connect(mapStateToProps)(
         form: 'loginForm',
         destroyOnUnmount: false,
         enableReinitialize: true,
-        onSubmit: (values, dispatch) => {
-            dispatch(actions.loginAction.validateVersion(values))
-            console.log(JSON.stringify(values) + "------------------------")
+        onSubmit: (values, dispatch, props) => {
+            // console.log('onSubmitprops', props)
+            const { initializationReducer: { initAPP: {  currentStep } } } = props
+            if (currentStep < 3) {
+                // console.log('validateVersionForLogin')
+                dispatch(actions.loginAction.validateVersionForLogin(values))
+            } else {
+                // console.log('login')
+                dispatch(actions.loginAction.login(values))
+            }
         }
     })(Login))
 

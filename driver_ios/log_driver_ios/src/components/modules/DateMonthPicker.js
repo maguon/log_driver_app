@@ -13,11 +13,10 @@ import moment from 'moment'
 const { width } = Dimensions.get('window')
 const margin = 15
 
-const DatePickerStart = props => {
+const DateMonthPicker = props => {
 
     let { input: { onChange, value },
         label = '',
-        last = false,
         isRequired = false,
         textStyle = {},
         itemStyle = {},
@@ -31,9 +30,7 @@ const DatePickerStart = props => {
     // console.log('value', value)
     return (
 
-        <TouchableOpacity
-            style={last ? styles.lastBody : styles.body}
-            onPress={() => {
+        <TouchableOpacity  onPress={() => {
 
             Picker.init({
                 pickerData: [
@@ -44,33 +41,26 @@ const DatePickerStart = props => {
                         } else {
                             return `${(i + 1)}`
                         }
-                    }),
-                    Array.from({ length: 31 }, (v, i) => {
-                        if (i < 9) {
-                            return `0${(i + 1)}`
-                        } else {
-                            return `${(i + 1)}`
-                        }
                     })
                 ],
                 selectedValue: [newValue ? newValue[0] : `${now.getFullYear()}`,
-                    newValue ? newValue[1] : `${now.getMonth() < 9 ? `0${(now.getMonth() + 1)}` : (now.getMonth() + 1)}`,
-                    newValue ? newValue[2] : `${now.getSeconds() < 9 ? `0${(now.getSeconds() + 1)}` : (now.getSeconds() + 1)}`],
+                    newValue ? newValue[1] : `${now.getMonth() < 9 ? `0${(now.getMonth() + 1)}` : (now.getMonth() + 1)}`],
                 pickerCancelBtnText: "关闭",
-                pickerTitleText: "选择年月日",
+                pickerTitleText: "选择年月",
                 pickerConfirmBtnText: "选择",
                 pickerToolBarBg:[232,232,232,1],
                 pickerBg:[255,255,255,1],
                 onPickerConfirm: data => {
-                    onChange(`${data[0]}-${data[1]}-${data[2]}`)
+                    onChange(`${data[0]}-${data[1]}`)
                 },
             })
             Picker.show()
         }}>
-            <View style={[styles.item, itemStyle]}>
-                <Text style={[globalStyles.midText, textStyle, {}]}>{isRequired &&
-                <Text style={styles.errText}>*</Text>}{label}{value}</Text>
-                <Icon name='ios-arrow-down' color='#777' fontSize={15} style={{fontSize: 18, color: '#777'}}/>
+            <View>
+                <Text  style={{color: '#76b92c'}}>{isRequired && <Text style={[styles.errText]}>*</Text>}{label}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={[globalStyles.midText, textStyle]}>{value}</Text>
+                </View>
             </View>
             {touched && (error && <View style={styles.errView}>
                 <Text style={[globalStyles.smallText, styles.errText]}>{`*${error}`}</Text>
@@ -92,13 +82,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.3,
         borderColor: '#ccc'
     },
-    lastBody: {
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        padding: margin,
-        borderBottomWidth: 0.3,
-        borderColor: '#ccc'
-    },
     item: {
         width: width - margin * 2,
         borderBottomWidth: 0,
@@ -111,4 +94,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DatePickerStart
+export default DateMonthPicker

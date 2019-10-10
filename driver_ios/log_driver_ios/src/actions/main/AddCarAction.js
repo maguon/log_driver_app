@@ -3,10 +3,11 @@ import * as actionTypes from '../../actionTypes/index'
 import { objectExceptNull } from '../../util/ObjectToUrl'
 import { Toast} from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import {Alert} from "react-native";
 
 
 export const submit = param => (dispatch, getState) => {
-    console.log('param', param)
+    // console.log('param', param)
     const { addCarReducer: { data: { status } } } = getState()
     if (status == 0) {
         dispatch(createCar(param))
@@ -17,7 +18,7 @@ export const submit = param => (dispatch, getState) => {
 
 export const modifyCar = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host} } } = getState()
+        const { communicationSettingReducer: { data: { base_host} } } = getState()
         dispatch({ type: actionTypes.addCarType.modify_car_waiting, payload: {} })
         const { addCarReducer: { data: { carId } },
             loginReducer: { data: { user: { uid } } } } = getState()
@@ -36,27 +37,51 @@ export const modifyCar = param => async (dispatch, getState) => {
             engineNum: values.engineNum
         }))
         if (res.success) {
-            Toast.show({text:'修改成功！'})
+            //Toast.show({text:'修改成功！'})
 
             dispatch({ type: actionTypes.addCarType.modify_car_success, payload: {} })
+            Alert.alert(
+                '',
+                '修改成功！',
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         } else {
-            Toast.show({text:`修改失败：${res.msg}！`})
+            //Toast.show({text:`修改失败：${res.msg}！`})
 
             dispatch({ type: actionTypes.addCarType.modify_car_failed, payload: { failedMsg: res.msg } })
+            Alert.alert(
+                '',
+                `修改失败：${res.msg}！`,
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
-        Toast.show({text:`修改失败：${err}！`})
+        //Toast.show({text:`修改失败：${err}！`})
         dispatch({ type: actionTypes.addCarType.modify_car_error, payload: { errorMsg: err } })
+        Alert.alert(
+            '',
+            `修改失败：${err}！`,
+            [
+                {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
     }
 }
 
 export const createCar = param => async (dispatch, getState) => {
     try {
-        const { loginReducer: { data: { user: { uid } } ,url: { base_host} } } = getState()
+        const { loginReducer: { data: { user: { uid } } },communicationSettingReducer:{data: { base_host} } } = getState()
         const { values, onSelect } = param
         dispatch({ type: actionTypes.addCarType.ADD_Car_WAITING, payload: {} })
         const url = `${base_host}/user/${uid}/car`
-        console.log('url', url)
+        // console.log('url', url)
         console.log('postParam',objectExceptNull({
             vin: values.vin,
             makeId: values.make.id,
@@ -81,23 +106,48 @@ export const createCar = param => async (dispatch, getState) => {
             receiveId: values.receive.id,
             engineNum: values.engineNum
         }))
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
-            Toast.show({text:'提交成功！'})
+            //Toast.show({text:'提交成功！'})
             if (onSelect) {
                 onSelect({ item: { id: res.id, vin: values.vin, make_name: values.make.value != '全部' ? values.make.value : null } })
             }
-            Actions.addCarImage()
+
             dispatch({ type: actionTypes.addCarType.ADD_Car_SUCCESS, payload: { carId: res.id, vin: values.vin } })
+            Alert.alert(
+                '',
+                '提交成功！',
+                [
+                    {text: '确定', onPress: () =>  Actions.addCarImage(), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         } else {
-            Toast.show({text:`提交成功：${res.msg}！`})
+           // Toast.show({text:`提交成功：${res.msg}！`})
             dispatch({ type: actionTypes.addCarType.ADD_Car_FAILED, payload: { failedMsg: res.msg } })
+            Alert.alert(
+                '',
+                `提交成功：${res.msg}！`,
+                [
+                    {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+                ],
+                {cancelable: false}
+            )
         }
     } catch (err) {
-        console.log('err', err)
-        Toast.show({text:`提交成功：${err}！`})
+        // console.log('err', err)
+        //Toast.show({text:`提交成功：${err}！`})
         dispatch({ type: actionTypes.addCarType.ADD_Car_ERROR, payload: { errorMsg: err } })
+        Alert.alert(
+            '',
+            `提交成功：${err}！`,
+            [
+                {text: '确定', onPress: () =>  console.log("success"), style: 'cancel'},
+            ],
+            {cancelable: false}
+        )
+
     }
 }
 

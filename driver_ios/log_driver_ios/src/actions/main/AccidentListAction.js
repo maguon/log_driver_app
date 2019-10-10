@@ -4,14 +4,14 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 import { sleep } from '../../util/util'
 import { getFormValues } from 'redux-form'
-import {Alert} from "react-native";
+import {Toast} from "native-base";
 
 const pageSize = 50
 
 export const getAccidentList = (param) => async (dispatch, getState) => {
     try {
         const state = getState()
-        const { loginReducer: { data: { user: { uid } } ,url:{base_host}} } = state
+        const { loginReducer: { data: { user: { uid } }},communicationSettingReducer:{ data:{base_host}} } = state
 
         // let search = getFormValues('accidentSearchForm')(state)
        let search =param
@@ -44,7 +44,7 @@ export const getAccidentListWaiting = () => (dispatch) => {
 
 export const getAccidentListMore = (param) => async (dispatch, getState) => {
     const state = getState()
-    const { loginReducer: { url: { base_host } } } = getState()
+    const { communicationSettingReducer: { data: { base_host } } } = getState()
 
     const {
         loginReducer: { data: { user: { uid } } },
@@ -75,15 +75,8 @@ export const getAccidentListMore = (param) => async (dispatch, getState) => {
                 dispatch({ type: actionTypes.accidentListActionType.get_accidentListMore_error, payload: { errorMsg: err } })
             }
         } else {
-            // Toast.show({text:'已全部加载完毕！'})
-            Alert.alert(
-                '',
-                '已全部加载完毕！',
-                [
-                    {text: '确定', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                ],
-                {cancelable: false}
-            )
+             Toast.show({text:'已全部加载完毕！'})
+
         }
     }
 }

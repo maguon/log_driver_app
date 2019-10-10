@@ -8,7 +8,7 @@ const pageSize = 50
 
 export const getPeccancyList = (param) => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
         // console.log('getState()', getState())
          console.log('param', param)
         let searchParam = {}
@@ -57,7 +57,7 @@ export const cleanPeccancyList = () => (dispatch) => {
 export const getPeccancyListMore = (param) => async (dispatch, getState) => {
     const state = getState()
     const {
-        loginReducer: { data: { user: { drive_id } },url:{base_host} },
+        loginReducer: { data: { user: { drive_id } }},communicationSettingReducer:{data:{base_host} },
         peccancyListReducer: { data: { peccancyList, isComplete, search } },
         peccancyListReducer } = state
 

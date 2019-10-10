@@ -5,7 +5,7 @@ import { ObjectToUrl } from '../../util/ObjectToUrl'
 
 export const getNotSettleList = reqParam => async (dispatch, getState) => {
     try {
-        const { loginReducer: { url: { base_host } } } = getState()
+        const { communicationSettingReducer: { data: { base_host } } } = getState()
          console.log('getState', getState())
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
         const url = `${base_host}/notSettleHandover?${ObjectToUrl({ carLoadStatus: 2, transferFlag: '0', driveId: drive_id })}`
