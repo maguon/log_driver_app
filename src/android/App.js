@@ -114,6 +114,7 @@ import Salary from './complatedViews/salary/Salary'
 import CleanRel from './complatedViews/cleanRel/CleanRel'
 import RouteTaskFee from './complatedViews/routeTaskFee/RouteTaskFee'
 import CleanFeeList from './complatedViews/cleanFeeList/CleanFeeList'
+import Cash from './complatedViews/cash/Cash'
 
 
 const styles = StyleSheet.create({
@@ -321,6 +322,12 @@ export default class App extends Component {
                                     navBar={NavBar}
                                     LeftButton={LeftButton}
                                     RightButton={ApplyAccidentSubmit} />
+                                <Scene key="cash"
+                                    component={Cash}
+                                    LeftButton={LeftButton}
+                                    title='现金'
+                                    hideTabBar
+                                    navBar={NavBar} />
                                 <Scene key="taskLoanList"
                                     component={TaskLoanList}
                                     RightButton={TaskLoanListOP}

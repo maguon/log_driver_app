@@ -102,6 +102,9 @@ import * as salary from '../android/complatedViews/salary/salaryActionTypes'
 import * as receiveForCleanRel from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelActionTypes'
 import * as routeTaskFee from '../android/complatedViews/routeTaskFee/routeTaskFeeActionTypes'
 import * as cleanFeeList from '../android/complatedViews/cleanFeeList/cleanFeeListActionTypes'
+import * as cashOil from '../android/complatedViews/cash/cashOil/cashOilActionTypes'
+import * as cashRepair from '../android/complatedViews/cash/cashRepair/cashRepairActionTypes'
+import * as cashToll from '../android/complatedViews/cash/cashToll/cashTollActionTypes'
 
 
 export {
@@ -199,5 +202,10 @@ export {
     salary,
     receiveForCleanRel,
     routeTaskFee,
-    cleanFeeList
+    cleanFeeList,
+
+
+    cashOil,
+    cashRepair,
+    cashToll
 }   

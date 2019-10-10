@@ -29,7 +29,9 @@ import * as initialization from '../android/views/initialization/InitializationA
 
 import * as cleanFeeList from '../android/complatedViews/cleanFeeList/cleanFeeListActions'
 
-
+import * as cashOil from '../android/complatedViews/cash/cashOil/cashOilActions'
+import * as cashRepair from '../android/complatedViews/cash/cashRepair/cashRepairActions'
+import * as cashToll from '../android/complatedViews/cash/cashToll/cashTollActions'
 export {
     //settingBlock-views-complated 
     personalCenter,
@@ -60,5 +62,8 @@ export {
     initialization,
 
 
-    cleanFeeList
+    cleanFeeList,
+    cashOil,
+    cashRepair,
+    cashToll
 }

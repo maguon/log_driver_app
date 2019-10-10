@@ -36,7 +36,8 @@ class Truck extends Component {
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
             getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
             getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList,
-            getSalaryListWaiting, getSalaryList,getRouteTaskFeeListWaiting,getRouteTaskFeeList } = this.props
+            getSalaryListWaiting, getSalaryList, getRouteTaskFeeListWaiting, getRouteTaskFeeList, getCashOilList, getCashOilListWaiting,
+            getCashRepairList, getCashRepairListWaiting, getCashTollListWaiting, getCashTollList } = this.props
         return (
             <Container>
                 <View style={{ backgroundColor: styleColor, flexDirection: 'row', paddingHorizontal: 30, paddingVertical: 10 }}>
@@ -189,6 +190,8 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon} />
                                 </Right>
                             </TouchableOpacity>
+                        </View>
+                        <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getCleanRelListWaiting()
                                 Actions.cleanRelList()
@@ -239,6 +242,26 @@ class Truck extends Component {
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='currency-cny' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>工资</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getCashOilListWaiting()
+                                getCashRepairListWaiting()
+                                getCashTollListWaiting()
+                                Actions.cash()
+                                InteractionManager.runAfterInteractions(() => {
+                                    getCashOilList()
+                                    getCashRepairList()
+                                    getCashTollList()
+                                })
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='currency-cny' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>现金</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>
@@ -331,6 +354,24 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getRouteTaskFeeListWaiting: () => {
         dispatch(actions.routeTaskFee.getRouteTaskFeeListWaiting())
+    },
+    getCashOilList: () => {
+        dispatch(actions.cashOil.getCashOilList())
+    },
+    getCashOilListWaiting: () => {
+        dispatch(actions.cashOil.getCashOilListWaiting())
+    },
+    getCashRepairList: () => {
+        dispatch(actions.cashRepair.getCashRepairList())
+    },
+    getCashRepairListWaiting: () => {
+        dispatch(actions.cashRepair.getCashRepairListWaiting())
+    },
+    getCashTollListWaiting: () => {
+        dispatch(actions.cashToll.getCashTollListWaiting())
+    },
+    getCashTollList: () => {
+        dispatch(actions.cashToll.getCashTollList())
     }
 })
 

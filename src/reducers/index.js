@@ -97,6 +97,9 @@ import salaryReducer from '../android/complatedViews/salary/salaryReducer'
 import receiveForCleanRelReducer from '../android/complatedViews/cleanRel/receiveForCleanRel/receiveForCleanRelReducer'
 import routeTaskFeeReducer from '../android/complatedViews/routeTaskFee/routeTaskFeeReducer'
 import cleanFeeListReducer from '../android/complatedViews/cleanFeeList/cleanFeeListReducer'
+import cashOilReducer from '../android/complatedViews/cash/cashOil/cashOilReducer'
+import cashRepairReducer from '../android/complatedViews/cash/cashRepair/cashRepairReducer'
+import cashTollReducer from '../android/complatedViews/cash/cashToll/cashTollReducer'
 
 export default combineReducers({
     form: formReducer,
@@ -191,5 +194,8 @@ export default combineReducers({
     receiveForCleanRelReducer,
     routeTaskFeeReducer,
 
-    cleanFeeListReducer
+    cleanFeeListReducer,
+    cashOilReducer,
+    cashRepairReducer,
+    cashTollReducer
 })
