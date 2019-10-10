@@ -89,8 +89,8 @@ class Truck extends Component {
                         borderBottomColor: '#ddd'
                     }}>
                         <Left>
-                            <Thumbnail
-                                source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>
+                            {avatar_image!=""&&<Thumbnail source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>}
+                            {avatar_image==""&&<Thumbnail source={require("../../images/head.png")} />}
                         </Left>
                         <Body style={{borderBottomWidth: 0}}>
                         <View style={{flexDirection: 'row',alignItems:'center' }}>
@@ -131,6 +131,7 @@ class Truck extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.itemGroup}>
+
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getDemageResponsibilityListWaiting()
                                 Actions.demageResponsibilityList()
@@ -145,6 +146,7 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
                                 </Right>
                             </TouchableOpacity>
+
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getAccidentListResponsibilityWaiting()
                                 Actions.accidentResponsibilityList()
@@ -160,6 +162,7 @@ class Truck extends Component {
                                 </Right>
                             </TouchableOpacity>
                         </View>
+
                         <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getPeccancyListWaiting()
@@ -190,6 +193,8 @@ class Truck extends Component {
                                 </Right>
                             </TouchableOpacity>
                         </View>
+
+
                         <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getNotSettleListWaiting()
@@ -205,6 +210,29 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
                                 </Right>
                             </TouchableOpacity>
+
+
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getNotSettleListWaiting()
+                                Actions.notSettleList()
+                                InteractionManager.runAfterInteractions(getNotSettleList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='cash-multiple' size={20} color={'#76b92c'}/>
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>现金费用</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
+                                </Right>
+                            </TouchableOpacity>
+
+
+
+                        </View>
+
+
+                        <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={Actions.fuelFillingRecord}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='gas-station' size={20} color={'#76b92c'}/>

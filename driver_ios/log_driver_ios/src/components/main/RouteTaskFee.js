@@ -23,17 +23,17 @@ const renderListItem = props => {
 
             </View>
             <View style={[styles.listitem, styles.listItemPadding]}>
-                <Text style={globalStyles.midText}>停车单价：{single_price ? `${single_price}` : '0'}元 x {day_count ? `${day_count}` : '0'}天</Text>
+                {/*<Text style={globalStyles.midText}>停车单价：{single_price ? `${single_price}` : '0'}元 x {day_count ? `${day_count}` : '0'}天</Text>*/}
                 <Text style={globalStyles.midText}>货车停车费：{(_single_price * _day_count)}元</Text>
             </View>
             <View style={[styles.listitem, styles.listItemPadding]}>
-                <Text style={globalStyles.midText}>商品车停车单价：{`${_car_single_price}`}元 x {`${_car_day_count}`}天</Text>
+                {/*<Text style={globalStyles.midText}>商品车停车单价：{`${_car_single_price}`}元 x {`${_car_day_count}`}天</Text>*/}
                 <Text style={globalStyles.midText}>商品车停车费：{(_car_single_price * _car_day_count)}元</Text>
             </View>
-            <View style={[styles.listitem, styles.listItemPadding,{justifyContent:'flex-end'}]}>
+            <View style={[styles.listitem, styles.listItemPadding]}>
                 <Text style={globalStyles.midText}>商品车加油费：{car_oil_fee ? `${car_oil_fee}` : '0'}元</Text>
             </View>
-            <View style={[styles.listitem, styles.listItemPadding,{justifyContent:'flex-end'}]}>
+            <View style={[styles.listitem, styles.listItemPadding]}>
                 <Text style={globalStyles.midText}>申请时间：{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
             </View>
         </View>

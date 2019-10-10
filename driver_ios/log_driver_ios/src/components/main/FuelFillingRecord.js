@@ -49,19 +49,18 @@ class FuelFillingRecord extends Component {
         this.setState({endDateTimePickerVisible: false});
     }
     handleDatePicked = date => {
-        console.log("A date has been picked: ", date);
-
         this.state.dateIdStart = moment(date).format('YYYY-MM-DD')
-        console.log("this.state.dateIdStart ", this.state.dateIdStart);
         this.hideDateTimePicker();
     };
 
     handleEndDatePicked = date => {
-        console.log("A date has been picked: ", date);
         this.state.dateIdEnd = moment(date).format('YYYY-MM-DD')
         this.hideEndDateTimePicker();
     };
 
+    componentWillMount() {
+        this.onSearch()
+    }
 
     componentDidMount() {
         this.props.getFuelFillingRecordWaiting()

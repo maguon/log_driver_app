@@ -51,7 +51,8 @@ class Setting extends Component {
                         <Separator style={globalStyles.separator} />
                         <ListItem last onPress={Actions.personalCenter}>
                             <View style={styles.avatarContainer}>
-                                <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
+                                {avatar_image!=""&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
+                                {avatar_image==""&&<Thumbnail source={require("../../images/head.png")} />}
                                 <View style={styles.userContainer}>
                                     <View>
                                     <Text style={globalStyles.largeText}>{real_name ? `${real_name}` : ''}</Text>
@@ -62,6 +63,9 @@ class Setting extends Component {
                                     </View>
                                 </View>
                             </View>
+                            <Right style={{position:"absolute", right:15}}>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
                         </ListItem>
                         <Separator style={globalStyles.separator} />
                         <ListItem icon onPress={Actions.updatePassword}>
