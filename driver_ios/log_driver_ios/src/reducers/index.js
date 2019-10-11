@@ -27,6 +27,10 @@ import cityReducer from './main/CityReducer'
 import entrustReducer from './main/EntrustReducer'
 import receiveReducer from './main/ReceiveReducer'
 import datePickerReducer from './main/DatePickerReducer'
+import cashRefuelingReducer from './main/CashRefuelingReducer'
+import cashMaintenanceReducer from './main/CashMaintenanceReducer'
+import cashETCReducer from './main/CashETCReducer'
+
 
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
@@ -115,6 +119,9 @@ export default combineReducers({
     entrustReducer,
     receiveReducer,
     datePickerReducer,
+    cashRefuelingReducer,
+    cashMaintenanceReducer,
+    cashETCReducer,
 
     truckDetailReducer,
     truckImageReducer,

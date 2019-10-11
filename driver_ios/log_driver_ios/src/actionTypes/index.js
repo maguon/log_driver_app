@@ -24,6 +24,10 @@ import * as makeType from './main/MakeType'
 import * as cityType from './main/CityType'
 import * as entrustType from './main/EntrustType'
 import * as receiveType from './main/ReceiveType'
+import * as cashRefuelingType from './main/CashRefuelingType'
+import * as cashMaintenanceType from './main/CashMaintenanceType'
+import * as cashETCType from './main/CashETCType'
+
 
 import * as truckDetailActionType from './main/TruckDetailActionType'
 import * as truckImageActionType from './main/TruckImageActionType'
@@ -110,6 +114,10 @@ export {
     cityType,
     entrustType,
     receiveType,
+    cashRefuelingType,
+    cashMaintenanceType,
+    cashETCType,
+
 
     truckDetailActionType,
     truckImageActionType,

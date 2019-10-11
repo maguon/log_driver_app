@@ -24,6 +24,10 @@ import * as makeAction from './main/MakeAction'
 import * as cityAction from './main/CityAction'
 import * as entrustAction from './main/EntrustAction'
 import * as receiveAction from './main/ReceiveAction'
+import * as cashRefuelingAction from './main/CashRefuelingAction'
+import * as cashMaintenanceAction from './main/CashMaintenanceAction'
+import * as cashETCAction from './main/CashETCAction'
+
 
 
 import * as truckDetailAction from './main/TruckDetailAction'
@@ -110,6 +114,9 @@ export {
     cityAction,
     entrustAction,
     receiveAction,
+    cashRefuelingAction,
+    cashMaintenanceAction,
+    cashETCAction,
 
 
     truckDetailAction,

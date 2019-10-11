@@ -211,28 +211,6 @@ class Truck extends Component {
                                 </Right>
                             </TouchableOpacity>
 
-
-                            <TouchableOpacity style={styles.item} onPress={() => {
-                                getNotSettleListWaiting()
-                                Actions.notSettleList()
-                                InteractionManager.runAfterInteractions(getNotSettleList)
-                            }}>
-                                <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='cash-multiple' size={20} color={'#76b92c'}/>
-                                    <Text style={[globalStyles.midText, styles.itemTitle]}>现金费用</Text>
-                                </Left>
-                                <Body></Body>
-                                <Right>
-                                    <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
-                                </Right>
-                            </TouchableOpacity>
-
-
-
-                        </View>
-
-
-                        <View style={styles.itemGroup}>
                             <TouchableOpacity style={styles.item} onPress={Actions.fuelFillingRecord}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='gas-station' size={20} color={'#76b92c'}/>
@@ -243,6 +221,12 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
                                 </Right>
                             </TouchableOpacity>
+                            
+                        </View>
+
+
+                        <View style={styles.itemGroup}>
+
                             <TouchableOpacity style={styles.item} onPress={() => {
                                 getCleanRelListWaiting()
                                 Actions.cleanRelList()
@@ -265,6 +249,17 @@ class Truck extends Component {
                                 <Left style={styles.itemLeft}>
                                     <AntDesign name='pay-circle-o1' size={20} color={'#76b92c'}/>
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>出车款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
+                                </Right>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.item} onPress={() => {Actions.cashCost()}}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='cash-multiple' size={20} color={'#76b92c'}/>
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>现金打款</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>

@@ -72,6 +72,7 @@ import City from './components/main/City'
 import BaseAddrList from './components/main/BaseAddrList'
 import Entrust from './components/main/Entrust'
 import Receive from './components/main/Receive'
+import CashCost from './components/main/CashCost'
 
 
 
@@ -485,6 +486,16 @@ export default class App extends Component {
                                            navBar={NavBar}
                                            LeftButton={LeftButton}
                                            RightButton={InstructExecutingOc}/>
+
+
+                                    <Scene key="cashCost"
+                                           component={CashCost}
+                                           title='现金打款'
+                                           hideTabBar
+                                           navBar={NavBar}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
                                     <Scene key="fuelFillingRecord"
                                            LeftButton={LeftButton}
                                            component={FuelFillingRecord}
