@@ -3,6 +3,7 @@ package com.log_driver_ios;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new RNDeviceInfo(),
             new PhotoViewPackage(),
             new OrientationPackage(),
