@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Dimensions, Image, Linking, ImageBackground, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {connect} from 'react-redux'
-import {Button, Icon, Item, Text, Input, Container, Root} from 'native-base'
+import {Button, Icon, Item, Text, Input, Container, Root, Body, Content} from 'native-base'
 import {Actions} from 'react-native-router-flux'
 import {Field, reduxForm} from 'redux-form'
 import * as actions from '../../actions/index'
@@ -43,10 +43,11 @@ class Login extends Component {
                 <Container style={styles.container}>
                     <StatusBar hidden={true}/>
 
-
+                    <Content showsVerticalScrollIndicator={false}>
                     <ImageBackground
                         source={require('../../images/login_back.png')}
                         style={styles.backgroundImage}>
+
                         <View style={{position: 'absolute', top: window.height / 10}}>
                             <View style={styles.logoContainer}>
                                 <Image
@@ -113,6 +114,7 @@ class Login extends Component {
                             </Button>
                         </View>}
                     </ImageBackground>
+                    </Content>
                 </Container>
             </Root>
 
