@@ -89,8 +89,8 @@ class Truck extends Component {
                         borderBottomColor: '#ddd'
                     }}>
                         <Left>
-                            {avatar_image!=""&&<Thumbnail source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>}
-                            {avatar_image==""&&<Thumbnail source={require("../../images/head.png")} />}
+                            {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>}
+                            {(avatar_image==""||avatar_image==null)&&<Thumbnail source={require("../../images/head.png")} />}
                         </Left>
                         <Body style={{borderBottomWidth: 0}}>
                         <View style={{flexDirection: 'row',alignItems:'center' }}>
@@ -221,7 +221,7 @@ class Truck extends Component {
                                     <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
                                 </Right>
                             </TouchableOpacity>
-                            
+
                         </View>
 
 

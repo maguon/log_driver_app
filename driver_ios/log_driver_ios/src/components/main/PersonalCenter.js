@@ -58,7 +58,8 @@ class PersonalCenter extends Component {
                         </Left>
                         <Body style={{ borderBottomWidth: 0 }} />
                         <Right style={{ borderBottomWidth: 0 }}>
-                            <Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />
+                            {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
+                            {(avatar_image==""||avatar_image==null)&&<Thumbnail source={require("../../images/head.png")} />}
                         </Right>
                     </ListItem>
                     <ListItem style={{ justifyContent: 'space-between' }}>

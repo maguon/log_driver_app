@@ -43,7 +43,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } }},communicationSettingReducer:{data: { file_host } } } = this.props
-        // console.log('this.props',this.props)
+        console.log('this.props',this.props)
         return (
             <Container>
                 <Content style={globalStyles.container}>
@@ -51,8 +51,8 @@ class Setting extends Component {
                         <Separator style={globalStyles.separator} />
                         <ListItem last onPress={Actions.personalCenter}>
                             <View style={styles.avatarContainer}>
-                                {avatar_image!=""&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
-                                {avatar_image==""&&<Thumbnail source={require("../../images/head.png")} />}
+                                {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
+                                {(avatar_image==""||avatar_image==null)&&<Thumbnail source={require("../../images/head.png")} />}
                                 <View style={styles.userContainer}>
                                     <View>
                                     <Text style={globalStyles.largeText}>{real_name ? `${real_name}` : ''}</Text>
