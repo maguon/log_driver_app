@@ -43,7 +43,8 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } }},communicationSettingReducer:{data: { file_host } } } = this.props
-        console.log('this.props',this.props)
+        // console.log('this.props',this.props)
+        // console.log('version',version)
         return (
             <Container>
                 <Content style={globalStyles.container}>
