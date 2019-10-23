@@ -7,12 +7,12 @@ import {
 } from 'react-native'
 import { Button, Icon } from 'native-base'
 import Swiper from 'react-native-swiper'
-import PhotoView from 'react-native-photo-view'
+// import PhotoView from 'react-native-photo-view'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import globalStyles from '../utils/GlobalStyles'
 import ConfirmModal from './ConfirmModal'
-
+import {CachedImage} from "react-native-img-cache";
 
 const { width, height } = Dimensions.get('window')
 
@@ -61,12 +61,11 @@ class ImageView extends Component {
     renderPhoteView(imageList) {
         return imageList.map((item, i) => {
             return <View key={i} style={{ flex: 1 }} >
-                <PhotoView
+                <CachedImage
                     source={{ uri: `${item}` }}
                     resizeMode='contain'
                     minimumZoomScale={1}
                     maximumZoomScale={3}
-                    androidScaleType='fitCenter'
                     style={styles.photo}
                 />
             </View>

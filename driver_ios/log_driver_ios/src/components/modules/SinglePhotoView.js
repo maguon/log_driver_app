@@ -6,7 +6,8 @@ import {
 } from 'react-native'
 
 import Swiper from 'react-native-swiper'
-import PhotoView from 'react-native-photo-view'
+// import PhotoView from 'react-native-photo-view'
+import {CachedImage} from "react-native-img-cache";
 
 export default class SinglePhotoView extends Component {
     constructor(props) {
@@ -48,15 +49,12 @@ export default class SinglePhotoView extends Component {
     renderPhoteView() {
         const { initParam } = this.props
         return initParam.imageUrlList.map((item, i) => {
-            console.log('item',item)
-            return
-            <View key={i} style={{ flex: 1 }} >
-                <PhotoView
+            return<View key={i} style={{ flex: 1 }} >
+                <CachedImage
                     source={{ uri: `${item}` }}
                     resizeMode='contain'
                     minimumZoomScale={1}
                     maximumZoomScale={3}
-                    androidScaleType='fitCenter'
                     style={styles.photo}
                 />
             </View>

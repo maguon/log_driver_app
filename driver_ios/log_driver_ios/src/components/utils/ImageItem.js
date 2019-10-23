@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Button, Icon, Spinner } from 'native-base'
 import globalStyles, { styleColor } from './GlobalStyles'
-
+import {CachedImage} from "react-native-img-cache";
 
 const window = Dimensions.get('window')
 
@@ -40,7 +40,7 @@ export default class ImageItem extends Component {
 
     render() {
         return <View style={styles.container}>
-            <Image source={{ uri: this.props.imageUrl }}
+            <CachedImage source={{ uri: this.props.imageUrl }}
                 style={styles.image}
                 onLoadStart={() => { this.setState({ spinnerDisplay: true }) }}
                 LonLoad={() => { this.setState({ spinnerDisplay: false }) }}
