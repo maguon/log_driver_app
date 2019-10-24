@@ -10,7 +10,7 @@ export const getPeccancyList = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         // console.log('getState()', getState())
-         console.log('param', param)
+        //  console.log('param', param)
         let searchParam = {}
         if (param) {
             searchParam = {
@@ -21,8 +21,8 @@ export const getPeccancyList = (param) => async (dispatch, getState) => {
         // console.log('searchParam', searchParam)
 
         const { loginReducer: { data: { user: { drive_id } } } } = getState()
-        console.log('drive_id', drive_id)
-        console.log('searchParam', searchParam)
+        // console.log('drive_id', drive_id)
+        // console.log('searchParam', searchParam)
         const url = `${base_host}/drivePeccancy?${ObjectToUrl({ driveId: drive_id, start: 0, size: pageSize, ...searchParam })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
@@ -41,7 +41,7 @@ export const getPeccancyList = (param) => async (dispatch, getState) => {
         }
     }
     catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.peccancyListActionType.get_peccancyList_error, payload: { errorMsg: err } })
     }
 }
@@ -69,7 +69,7 @@ export const getPeccancyListMore = (param) => async (dispatch, getState) => {
             statStatus: search.statStatus ? search.statStatus.id : null
         }
     }
-    console.log('search'+search)
+    // console.log('search'+search)
     if (peccancyListReducer.getPeccancyListMore.isResultStatus == 1) {
         await sleep(1000)
         dispatch(getPeccancyListMore)
@@ -83,9 +83,9 @@ export const getPeccancyListMore = (param) => async (dispatch, getState) => {
                     size: pageSize,
                     ...searchParam
                 })}`
-                console.log('url', url)
+                // console.log('url', url)
                 const res = await httpRequest.get(url)
-                console.log('res', res)
+                // console.log('res', res)
                 if (res.success) {
                     if (res.result.length % pageSize != 0 || res.result.length == 0) {
                         dispatch({ type: actionTypes.peccancyListActionType.get_peccancyListMore_success, payload: { peccancyList: res.result, isComplete: true } })
@@ -96,7 +96,7 @@ export const getPeccancyListMore = (param) => async (dispatch, getState) => {
                     dispatch({ type: actionTypes.peccancyListActionType.get_peccancyListMore_failed, payload: { failedMsg: res.msg } })
                 }
             } catch (err) {
-                console.log('err', err)
+                // console.log('err', err)
                 dispatch({ type: actionTypes.peccancyListActionType.get_peccancyListMore_error, payload: { errorMsg: err } })
             }
         } else {

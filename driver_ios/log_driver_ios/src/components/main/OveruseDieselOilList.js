@@ -80,7 +80,7 @@ const ListFooterComponent = () => {
 }
 
 const OveruseDieselOilList = props => {
-    console.log('props', props)
+    // console.log('props', props)
     const {
         overuseDieselOilListReducer: {data: {overuseDieselOilList, isComplete}, getOveruseDieselOilList},
         getDpRouteTaskWaiting, getDpRouteTask, overuseDieselOilListReducer, getOveruseDieselOilListMore,handleSubmit
@@ -187,7 +187,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'peccancySearchForm',
     onSubmit: (values, dispatch) => {
-        console.log("values"+values)
+        // console.log("values"+values)
         dispatch(actions.overuseDieselOilListAction.getOveruseDieselOilListWaiting())
         InteractionManager.runAfterInteractions(() => dispatch(actions.overuseDieselOilListAction.getOveruseDieselOilList(values)))
     }

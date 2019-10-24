@@ -11,7 +11,7 @@ import { reduxForm, Field } from 'redux-form'
 import DisposableList from '../modules/DisposableList'
 import Select from '../modules/Select'
 import RichTextBox from '../utils/RichTextBox'
-import DatePicker from '../utils/DatePicker'
+import DatePickerStart from '../utils/DatePickerStart'
 import { required } from '../../util/Validator'
 import { Actions } from 'react-native-router-flux'
 import moment from 'moment'
@@ -54,7 +54,7 @@ const AccidentEditor = props => {
                             title: '调度任务',
                             onSelect: (param) => {
                                 // console.log('param'+param)
-                                Actions.pop()
+                                // Actions.pop()
                                 onSelect(param)
                             }
                         })
@@ -73,7 +73,7 @@ const AccidentEditor = props => {
                             List: DisposableList,
                             title: '车辆类型',
                             onSelect: (param) => {
-                                Actions.pop()
+                                // Actions.pop()
                                 onSelect(param)
                             }
                         })
@@ -92,7 +92,7 @@ const AccidentEditor = props => {
                     }} />
                 <Field name='accidentDate'
                     label='发生时间：'
-                    component={DatePicker} />
+                    component={DatePickerStart} />
                 <Field name='accidentExplain'
                     label='事故描述：'
                     isRequired={true}

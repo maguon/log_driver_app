@@ -11,7 +11,7 @@ import * as actions from '../../actions/index'
 
 const renderItem = props => {
     const {item: {id, truck_num, grant_date, task_loan_status, refund_date, repayment_money, grant_actual_money, refund_actual_money}, item} = props
-    console.log('props', props)
+    // console.log('props', props)
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={() => {
             Actions.taskLoan({initParam: {taskLoan: item}})

@@ -6,7 +6,9 @@ import {Alert} from "react-native";
 
 
 export const updateAccident = (param,accidentId) => async (dispatch, getState) => {
-     const { loginReducer: { data: { user: { uid }},communicationSettingReducer:{ data:{base_host}} }, truckReducer: { data: { driverInfo: { id } } } } = getState()
+    const { loginReducer: { data: { user: { uid } } },communicationSettingReducer: { data: { base_host } }, truckReducer: { data: { driverInfo: { id } } } } = getState()
+    // const { communicationSettingReducer: { data: { base_host } } } = getState()
+
     try {
         dispatch({ type: actionTypes.accidentEditorType.update_Accident_waiting, payload: {} })
         const url = `${base_host}/user/${uid}/truckAccident/${accidentId}`

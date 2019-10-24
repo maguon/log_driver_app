@@ -15,11 +15,11 @@ export const getAccidentList = (param) => async (dispatch, getState) => {
 
         // let search = getFormValues('accidentSearchForm')(state)
        let search =param
-        console.log('search', search)
+        // console.log('search', search)
         const url = `${base_host}/truckAccident?${ObjectToUrl({ declareUserId: uid, start: 0, size: pageSize, ...search })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             dispatch({

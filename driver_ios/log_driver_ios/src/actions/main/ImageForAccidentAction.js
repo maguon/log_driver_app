@@ -9,9 +9,9 @@ export const getAccidentImageList = (param) => async (dispatch, getState) => {
     try {
         const { communicationSettingReducer: { data: { record_host } } } = getState()
         const url = `${record_host}/truckDamage?${ObjectToUrl({ truckDamageId: accidentId })}`
-        console.log('url', url)
+        // console.log('url', url)
         const res = await httpRequest.get(url)
-        console.log('res', res)
+        // console.log('res', res)
 
         if (res.success) {
             dispatch({
@@ -24,7 +24,7 @@ export const getAccidentImageList = (param) => async (dispatch, getState) => {
             dispatch({ type: actionTypes.imageForAccidentType.get_AccidentImageList_failed, payload: { failedMsg: res.msg } })
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         dispatch({ type: actionTypes.imageForAccidentType.get_AccidentImageList_error, payload: { errorMsg: err } })
     }
 }
