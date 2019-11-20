@@ -8,7 +8,7 @@ import * as actions from '../../actions/index'
 
 const renderListItem = props => {
     console.log('props', props)
-    const { item: { created_on, car_oil_fee, truck_num, day_count, single_price, actual_price, car_day_count, car_single_price, status } } = props
+    const { item: { created_on, car_oil_fee, truck_num, other_fee,day_count, single_price, actual_price, car_day_count, car_single_price, status } } = props
     const _single_price = single_price ? single_price : 0
     const _day_count = day_count ? day_count : 0
     const _car_day_count = car_day_count ? car_day_count : 0
@@ -22,17 +22,25 @@ const renderListItem = props => {
                 {status == 2 && <Text style={globalStyles.midText}>已发放</Text>}
 
             </View>
+
+            <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
             <View style={[styles.listitem, styles.listItemPadding]}>
-                {/*<Text style={globalStyles.midText}>停车单价：{single_price ? `${single_price}` : '0'}元 x {day_count ? `${day_count}` : '0'}天</Text>*/}
-                <Text style={globalStyles.midText}>货车停车费：{(_single_price * _day_count)}元</Text>
-            </View>
-            <View style={[styles.listitem, styles.listItemPadding]}>
-                {/*<Text style={globalStyles.midText}>商品车停车单价：{`${_car_single_price}`}元 x {`${_car_day_count}`}天</Text>*/}
                 <Text style={globalStyles.midText}>商品车停车费：{(_car_single_price * _car_day_count)}元</Text>
             </View>
             <View style={[styles.listitem, styles.listItemPadding]}>
                 <Text style={globalStyles.midText}>商品车加油费：{car_oil_fee ? `${car_oil_fee}` : '0'}元</Text>
             </View>
+            </View>
+
+           <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
+            <View style={[styles.listitem, styles.listItemPadding]}>
+                <Text style={globalStyles.midText}>货车停车费：{(_single_price * _day_count)}元</Text>
+            </View>
+            <View style={[styles.listitem, styles.listItemPadding]}>
+                <Text style={globalStyles.midText}>其他车费：{other_fee? `${other_fee}` : '0'}元</Text>
+            </View>
+           </View>
+
             <View style={[styles.listitem, styles.listItemPadding]}>
                 <Text style={globalStyles.midText}>申请时间：{created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}</Text>
             </View>
