@@ -37,7 +37,7 @@ const renderListItem = props => {
                 <Text style={globalStyles.midText}>货车停车费：{(_single_price * _day_count)}元</Text>
             </View>
             <View style={[styles.listitem, styles.listItemPadding]}>
-                <Text style={globalStyles.midText}>其他车费：{other_fee? `${other_fee}` : '0'}元</Text>
+                <Text style={globalStyles.midText}>其他费用：{other_fee? `${other_fee}` : '0'}元</Text>
             </View>
            </View>
 
