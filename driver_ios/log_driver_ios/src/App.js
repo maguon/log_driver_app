@@ -451,13 +451,6 @@ export default class App extends Component {
                                            hideTabBar
                                            LeftButton={LeftButton}
                                            RightButton={InstructExecutingOc}/>
-                                    {/*<Scene key="peccancySearch"*/}
-                                    {/*component={PeccancySearch}*/}
-                                    {/*title='违章扣款查询'*/}
-                                    {/*navBar={NavBar}*/}
-                                    {/*hideTabBar*/}
-                                    {/*LeftButton={LeftButton}*/}
-                                    {/*RightButton={InstructExecutingOc}/>*/}
 
                                     <Scene key="overuseDieselOilList"
                                            component={OveruseDieselOilList}
@@ -473,14 +466,6 @@ export default class App extends Component {
                                            hideTabBar
                                            LeftButton={LeftButton}
                                            RightButton={InstructExecutingOc}/>
-                                    {/*<Scene key="overuseDieselOilSearch"*/}
-                                    {/*component={OveruseDieselOilSearch}*/}
-                                    {/*title='超油扣款查询'*/}
-                                    {/*navBar={NavBar}*/}
-                                    {/*hideTabBar*/}
-                                    {/*LeftButton={LeftButton}*/}
-                                    {/*RightButton={InstructExecutingOc}/>*/}
-
 
                                     <Scene key="notSettleList"
                                            component={NotSettleList}
@@ -513,13 +498,6 @@ export default class App extends Component {
                                            hideTabBar
                                            navBar={NavBar}
                                            RightButton={InstructExecutingOc}/>
-                                    {/*<Scene key="fuelFillingSearch"*/}
-                                    {/*LeftButton={LeftButton}*/}
-                                    {/*component={FuelFillingSearch}*/}
-                                    {/*title='加油查询'*/}
-                                    {/*hideTabBar*/}
-                                    {/*navBar={NavBar}*/}
-                                    {/*RightButton={InstructExecutingOc}/>*/}
 
 
                                     <Scene key="cleanRelList"

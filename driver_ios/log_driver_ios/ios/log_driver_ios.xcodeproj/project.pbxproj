@@ -64,8 +64,6 @@
 		2FA0FF7123337676007ECEC9 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA0FF6623337654007ECEC9 /* libRNDeviceInfo.a */; };
 		2FB2260F2357021400DFD5A1 /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB2260E2357020E00DFD5A1 /* libRNCWebView.a */; };
 		2FC88E2222F42D3800704274 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC88E2122F42D1300704274 /* libimageCropPicker.a */; };
-		2FF73364237400880028E6BA /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF73361237400760028E6BA /* libRNFS.a */; };
-		2FF7336E237A90590028E6BA /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF7336B237A90510028E6BA /* libRCTVideo.a */; };
 		2FF7ECED2357FEFD007AB9BF /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF7ECE22357FEE2007AB9BF /* libRNCAsyncStorage.a */; };
 		4181C249F647441995A04D62 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C13EC044D4F488D94819E2A /* FontAwesome5_Solid.ttf */; };
 		48C6D0B1C4D746C68956C6EE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5072739CADA548D38D507F44 /* SimpleLineIcons.ttf */; };
@@ -392,41 +390,6 @@
 			remoteGlobalIDString = 3400A8081CEB54A6008A0BC7;
 			remoteInfo = imageCropPicker;
 		};
-		2FF731872372BE9C0028E6BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F8FB5F222F188CE00903E09 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C80F48708CBDDCE5978071B38FB8B4E5;
-			remoteInfo = "react-native-ffmpeg";
-		};
-		2FF73360237400760028E6BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2FF7335B237400760028E6BA /* RNFS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
-			remoteInfo = RNFS;
-		};
-		2FF73362237400760028E6BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2FF7335B237400760028E6BA /* RNFS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6456441F1EB8DA9100672408;
-			remoteInfo = "RNFS-tvOS";
-		};
-		2FF7336A237A90510028E6BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2FF73365237A90500028E6BA /* RCTVideo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RCTVideo;
-		};
-		2FF7336C237A90510028E6BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2FF73365237A90500028E6BA /* RCTVideo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 641E28441F0EEC8500443AF6;
-			remoteInfo = "RCTVideo-tvOS";
-		};
 		2FF7ECE12357FEE2007AB9BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2FF7ECA82357FEE2007AB9BF /* RNCAsyncStorage.xcodeproj */;
@@ -601,8 +564,6 @@
 		2FB226012356D50800DFD5A1 /* RNCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RNCamera.xcodeproj"; sourceTree = "<group>"; };
 		2FB226092357020E00DFD5A1 /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
 		2FC88E1A22F42D1200704274 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = imageCropPicker.xcodeproj; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; };
-		2FF7335B237400760028E6BA /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
-		2FF73365237A90500028E6BA /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		2FF7ECA82357FEE2007AB9BF /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		3C13EC044D4F488D94819E2A /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		401D663BD6614A40894EDD97 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -651,8 +612,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FF7336E237A90590028E6BA /* libRCTVideo.a in Frameworks */,
-				2FF73364237400880028E6BA /* libRNFS.a in Frameworks */,
 				2F4BE66323604D91000F44B8 /* libRNCamera.a in Frameworks */,
 				2F4BE66223604A1C000F44B8 /* libRNFetchBlob.a in Frameworks */,
 				2FB2260F2357021400DFD5A1 /* libRNCWebView.a in Frameworks */,
@@ -891,7 +850,6 @@
 				2F8FB60322F188CE00903E09 /* libglog.a */,
 				2F8FB60522F188CE00903E09 /* libPods-log_driver_ios.a */,
 				2F8FB60722F188CE00903E09 /* libreact-native-amap3d.a */,
-				2FF731882372BE9C0028E6BA /* libreact-native-ffmpeg.a */,
 				2F8FB60922F188CE00903E09 /* libyoga.a */,
 			);
 			name = Products;
@@ -968,24 +926,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2FF7335C237400760028E6BA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2FF73361237400760028E6BA /* libRNFS.a */,
-				2FF73363237400760028E6BA /* libRNFS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2FF73366237A90500028E6BA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2FF7336B237A90510028E6BA /* libRCTVideo.a */,
-				2FF7336D237A90510028E6BA /* libRCTVideo.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		2FF7ECA92357FEE2007AB9BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1050,8 +990,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				2FF73365237A90500028E6BA /* RCTVideo.xcodeproj */,
-				2FF7335B237400760028E6BA /* RNFS.xcodeproj */,
 				2F4BE61C236045E3000F44B8 /* RNFetchBlob.xcodeproj */,
 				2FF7ECA82357FEE2007AB9BF /* RNCAsyncStorage.xcodeproj */,
 				2FB226092357020E00DFD5A1 /* RNCWebView.xcodeproj */,
@@ -1308,10 +1246,6 @@
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
 				},
 				{
-					ProductGroup = 2FF73366237A90500028E6BA /* Products */;
-					ProjectRef = 2FF73365237A90500028E6BA /* RCTVideo.xcodeproj */;
-				},
-				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
@@ -1338,10 +1272,6 @@
 				{
 					ProductGroup = 2F4BE61D236045E3000F44B8 /* Products */;
 					ProjectRef = 2F4BE61C236045E3000F44B8 /* RNFetchBlob.xcodeproj */;
-				},
-				{
-					ProductGroup = 2FF7335C237400760028E6BA /* Products */;
-					ProjectRef = 2FF7335B237400760028E6BA /* RNFS.xcodeproj */;
 				},
 				{
 					ProductGroup = 2F40FF1C22FD499200A207EA /* Products */;
@@ -1652,41 +1582,6 @@
 			fileType = archive.ar;
 			path = libimageCropPicker.a;
 			remoteRef = 2FC88E2022F42D1300704274 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FF731882372BE9C0028E6BA /* libreact-native-ffmpeg.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libreact-native-ffmpeg.a";
-			remoteRef = 2FF731872372BE9C0028E6BA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FF73361237400760028E6BA /* libRNFS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFS.a;
-			remoteRef = 2FF73360237400760028E6BA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FF73363237400760028E6BA /* libRNFS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFS.a;
-			remoteRef = 2FF73362237400760028E6BA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FF7336B237A90510028E6BA /* libRCTVideo.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTVideo.a;
-			remoteRef = 2FF7336A237A90510028E6BA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2FF7336D237A90510028E6BA /* libRCTVideo.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTVideo.a;
-			remoteRef = 2FF7336C237A90510028E6BA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2FF7ECE22357FEE2007AB9BF /* libRNCAsyncStorage.a */ = {
@@ -2101,7 +1996,7 @@
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				INFOPLIST_FILE = log_driver_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2140,7 +2035,7 @@
 					"$(SRCROOT)/../../React/**",
 				);
 				INFOPLIST_FILE = log_driver_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2407,7 +2302,7 @@
 					"$(SRCROOT)/../react-native/React/**",
 				);
 				INFOPLIST_FILE = log_driver_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

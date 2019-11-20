@@ -37,18 +37,18 @@ const AccidentInfo = props => {
                         {accidentInfo.accident_status == 3 && <ImageListForAccident />}
                     </Container>
                 </Tab>
-                <Tab
-                    tabStyle={globalStyles.styleBackgroundColor}
-                    activeTabStyle={globalStyles.styleBackgroundColor}
-                    activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                    textStyle={[globalStyles.midText, { color: '#ddd' }]}
-                    heading="视频">
-                    <Container>
-                        {accidentInfo.accident_status == 1 && <CameraEditorForAccident accidentInfo={accidentInfo} />}
-                        {accidentInfo.accident_status == 2 && <CameraEditorForAccident accidentInfo={accidentInfo} />}
-                        {/*{accidentInfo.accident_status == 3 && <ImageListForAccident />}*/}
-                    </Container>
-                </Tab>
+                {/*<Tab*/}
+                    {/*tabStyle={globalStyles.styleBackgroundColor}*/}
+                    {/*activeTabStyle={globalStyles.styleBackgroundColor}*/}
+                    {/*activeTextStyle={[globalStyles.midText, { color: '#fff' }]}*/}
+                    {/*textStyle={[globalStyles.midText, { color: '#ddd' }]}*/}
+                    {/*heading="视频">*/}
+                    {/*<Container>*/}
+                        {/*{accidentInfo.accident_status == 1 && <CameraEditorForAccident accidentInfo={accidentInfo} />}*/}
+                        {/*{accidentInfo.accident_status == 2 && <CameraEditorForAccident accidentInfo={accidentInfo} />}*/}
+                        {/*/!*{accidentInfo.accident_status == 3 && <ImageListForAccident />}*!/*/}
+                    {/*</Container>*/}
+                {/*</Tab>*/}
             </Tabs>
         </Container>
     )
