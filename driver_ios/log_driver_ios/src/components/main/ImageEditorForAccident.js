@@ -61,7 +61,7 @@ const renderListEmpty = props => {
             <View style={styles.cameraButtonContainer}>
                 <CameraButton
                     getImage={(cameraReses) => uploadAccidentImage({ cameraReses,truck_num,accidentId })}
-                    _cameraStart={uploadAccidentImageWaiting} />
+                    _cameraStart={uploadAccidentImageWaiting}/>
             </View>
             <View style={styles.titleContainer}>
                 <Text style={[globalStyles.largeText, globalStyles.styleColor]}>点击按钮上传事故照片</Text>
@@ -73,7 +73,7 @@ const renderListEmpty = props => {
     )
 }
 
-const ImageEditorForAccident = props => {
+const CameraEditorForAccident = props => {
     const { parent,
         uploadAccidentImageWaiting,
         uploadAccidentImage,
@@ -198,4 +198,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageEditorForAccident)
+export default connect(mapStateToProps, mapDispatchToProps)(CameraEditorForAccident)

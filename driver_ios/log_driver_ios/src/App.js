@@ -92,7 +92,8 @@ import ImageViewConnect from './components/modules/ImageViewConnect'
 import PhotoViewForCreateCar from './components/modules/PhotoViewForCreateCar'
 import PhotoViewForCarInfo from './components/modules/PhotoViewForCarInfo'
 import CreateCarOP from './components/modules/CreateCarOP'
-
+import MyCamera from './components/modules/MyCamera'
+import CameraView from './components/modules/CameraView'
 
 //通用
 import tabIcon from './components/utils/TabIcon'
@@ -381,6 +382,8 @@ export default class App extends Component {
                                            navBar={NavBar}
                                            LeftButton={LeftButton}
                                            RightButton={InstructExecutingOc}/>
+
+
                                     <Scene key="applyAccident"
                                            component={ApplyAccident}
                                            title='事故申报'
@@ -728,8 +731,19 @@ export default class App extends Component {
                                            hideTabBar={true}
                                            navBar={NavBar} />
                                 </Scene>
+
+
                             </Stack>
+                            <Scene key="myCamera"
+                                   title='摄像'
+                                   hideNavBar={false}
+                                   component={MyCamera}/>
+                            <Scene key="cameraView"
+                                   hideNavBar={false}
+                                   component={CameraView}/>
                             </Scene>
+
+
                     </Lightbox>
                 </Modal>
             </Router>

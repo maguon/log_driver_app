@@ -4,13 +4,18 @@ import {
     Text,
     View,
     Modal,
-    TouchableOpacity
+    TouchableOpacity, Animated
 } from 'react-native'
-import { Button, Icon } from 'native-base'
+import {Button, Container, Icon} from 'native-base'
 import ImageResizer from 'react-native-image-resizer'
 import ImagePicker from 'react-native-image-picker'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import globalStyles, { styleColor } from '../utils/GlobalStyles'
+import { Actions } from 'react-native-router-flux'
+// import MyCamera from './MyCamera'
+// import * as ImageFullPicker from 'react-native-full-image-picker'
+// import  {RNCamera} from 'react-native-camera'
+
 
 /***********************  临时解决方案，待改善：1，执行状态是否成功，成功数量。2，执行进度*/
 //     //底部弹出框选项
@@ -23,6 +28,8 @@ import globalStyles, { styleColor } from '../utils/GlobalStyles'
 //     noData: false,
 const photoOptions = {
     quality: 1,//拍照之后得到的照片的质量
+    title:"拍照",
+    cancelable:"取消",
     maxWidth: 960, //拍照之后得到的照片的最大宽度
     maxHeight: 960,//拍照之后得到的照片的最大高度
     storageOptions: {//照片保存的位置
@@ -76,15 +83,20 @@ const styles = StyleSheet.create({
 })
 
 export default class CameraButton extends Component {
+
     constructor(props) {
         super(props)
         this.state = {
-            operationModalVisible: false
+            operationModalVisible: false,
+            avatarSource:""
         }
+
         this.launchCamera = this.launchCamera.bind(this)
         this.openPicker = this.openPicker.bind(this)
         this.createResizedImage = this.createResizedImage.bind(this)
     }
+
+
 
     static defaultProps = {
         getImage: (param) => console.log('选择的图片信息', param), //回调图片信息
@@ -111,6 +123,8 @@ export default class CameraButton extends Component {
             }
         })
     }
+
+
 
     createResizedImage(param) {//图片压缩
         if (param.height <= 960 && param.width <= 960) {
@@ -163,10 +177,12 @@ export default class CameraButton extends Component {
 
     }
     async isPicker(param){
+        console.log("param",param)
         try{
             this.props._cameraStart()
             const newImages =await Promise.all(param.map(item => {
                 return this.createResizedImage(item)
+                console.log("item",item)
             }))
             console.log("newImages",newImages)
             this.props.getImage(newImages)
@@ -175,6 +191,7 @@ export default class CameraButton extends Component {
         }
 
      }
+
 
     render() {
         return (
@@ -202,12 +219,18 @@ export default class CameraButton extends Component {
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>选择照片</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity
+                            {this.props.type==="image"&&<TouchableOpacity
                                 onPress={() => this.setState({ operationModalVisible: false }, this.launchCamera)}>
                                 <View>
                                     <Text style={[styles.modalListItemTitle, globalStyles.midText]}>拍照</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableOpacity>}
+                            {this.props.type==="video"&&<TouchableOpacity
+                                onPress={() => this.setState({ operationModalVisible: false }, Actions.myCamera())}>
+                                <View>
+                                    <Text style={[styles.modalListItemTitle, globalStyles.midText]}>摄像</Text>
+                                </View>
+                            </TouchableOpacity>}
                         </View>
                     </View>
                 </Modal>

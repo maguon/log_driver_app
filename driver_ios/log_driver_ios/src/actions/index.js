@@ -27,8 +27,7 @@ import * as receiveAction from './main/ReceiveAction'
 import * as cashRefuelingAction from './main/CashRefuelingAction'
 import * as cashMaintenanceAction from './main/CashMaintenanceAction'
 import * as cashETCAction from './main/CashETCAction'
-
-
+import * as myCameraAction from './main/MyCameraAction'
 
 import * as truckDetailAction from './main/TruckDetailAction'
 import * as truckImageAction from './main/TruckImageAction'
@@ -117,7 +116,7 @@ export {
     cashRefuelingAction,
     cashMaintenanceAction,
     cashETCAction,
-
+    myCameraAction,
 
     truckDetailAction,
     truckImageAction,

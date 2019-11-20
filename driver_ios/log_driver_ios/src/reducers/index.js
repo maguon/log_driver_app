@@ -30,7 +30,7 @@ import datePickerReducer from './main/DatePickerReducer'
 import cashRefuelingReducer from './main/CashRefuelingReducer'
 import cashMaintenanceReducer from './main/CashMaintenanceReducer'
 import cashETCReducer from './main/CashETCReducer'
-
+import myCameraReducer from './main/MyCameraReducer'
 
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
@@ -122,6 +122,7 @@ export default combineReducers({
     cashRefuelingReducer,
     cashMaintenanceReducer,
     cashETCReducer,
+    myCameraReducer,
 
     truckDetailReducer,
     truckImageReducer,

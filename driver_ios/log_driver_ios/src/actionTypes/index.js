@@ -27,6 +27,8 @@ import * as receiveType from './main/ReceiveType'
 import * as cashRefuelingType from './main/CashRefuelingType'
 import * as cashMaintenanceType from './main/CashMaintenanceType'
 import * as cashETCType from './main/CashETCType'
+import * as myCameraActionType from './main/MyCameraActionType'
+
 
 
 import * as truckDetailActionType from './main/TruckDetailActionType'
@@ -117,6 +119,7 @@ export {
     cashRefuelingType,
     cashMaintenanceType,
     cashETCType,
+    myCameraActionType,
 
 
     truckDetailActionType,

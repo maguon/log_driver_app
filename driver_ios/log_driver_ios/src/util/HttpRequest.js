@@ -86,12 +86,26 @@ function postFile(url,params) {
     }).then((response) => response.json())
 }
 
+function postVideo(url, params) {
+    let formData = new FormData()
+    let file = { uri: params.param,  name:params.name }
+    formData.append(params.key, file)
+    console.log("formData",formData)
+    return fetch(url, {
+        method: 'POST',
+        headers: requestHeaders.formHeaders,
+        body: formData,
+    }).then((response) => response.json())
+}
+
+
 module.exports = {
     get: get,
     post: post,
     put: put,
     del: del,
     postFile: postFile,
+    postVideo:postVideo,
     getCallBack: getCallBack,
     postCallBack: postCallBack,
     putCallBack: putCallBack
