@@ -73,6 +73,7 @@ import BaseAddrList from './components/main/BaseAddrList'
 import Entrust from './components/main/Entrust'
 import Receive from './components/main/Receive'
 import CashCost from './components/main/CashCost'
+import AFine from './components/main/AFine'
 
 
 
@@ -464,6 +465,15 @@ export default class App extends Component {
                                            title='超油扣款详情'
                                            navBar={NavBar}
                                            hideTabBar
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}/>
+
+
+                                    <Scene key="AFine"
+                                           component={AFine}
+                                           title='暂扣与罚款'
+                                           hideTabBar
+                                           navBar={NavBar}
                                            LeftButton={LeftButton}
                                            RightButton={InstructExecutingOc}/>
 

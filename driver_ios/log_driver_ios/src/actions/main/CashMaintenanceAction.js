@@ -12,7 +12,7 @@ export const getCashMaintenance = () => async (dispatch, getState) => {
         const { communicationSettingReducer: { data: { base_host } } ,loginReducer: { data: { user: { drive_id } } }} = state
 
         // console.log('drive_id', drive_id)
-        const url = `${base_host}/truckRepairRel?${ObjectToUrl({ driveId: 182, paymentType: 2, paymentStatus: 1 })}`
+        const url = `${base_host}/truckRepairRel?${ObjectToUrl({ driveId: drive_id, paymentType: 2, paymentStatus: 1 })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)

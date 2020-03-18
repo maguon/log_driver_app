@@ -48,6 +48,7 @@
 		2F354376234D815C000981ED /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F950F5322C4BB5F00BDC473 /* libRNVectorIcons.a */; };
 		2F354377234D816A000981ED /* libthird-party.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF0FFE32056DD460020B375 /* libthird-party.a */; };
 		2F35437E234DBF4C000981ED /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F35437D234DBF21000981ED /* libRCTImageResizer.a */; };
+		2F3E2EC624220D9B00E9B602 /* libreact-native-video.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3E2EC524220D9B00E9B602 /* libreact-native-video.a */; };
 		2F40FF5922FD49A500A207EA /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F40FF5122FD499300A207EA /* libRNImagePicker.a */; };
 		2F40FFB422FD50F900A207EA /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F40FF5A22FD50BA00A207EA /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F40FFB722FD50FC00A207EA /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6808B122FD43B4008C4024 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -228,6 +229,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5D72D2E81C16249000E22EC1;
 			remoteInfo = RCTImageResizer;
+		};
+		2F3E2EC224220D9B00E9B602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F8FB5F222F188CE00903E09 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C80F48708CBDDCE5978071B38FB8B4E5;
+			remoteInfo = "react-native-ffmpeg";
+		};
+		2F3E2EC424220D9B00E9B602 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F8FB5F222F188CE00903E09 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B058F035CFD84ECBF8414E4EAE5834FC;
+			remoteInfo = "react-native-video";
 		};
 		2F40FF5022FD499300A207EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -612,6 +627,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F3E2EC624220D9B00E9B602 /* libreact-native-video.a in Frameworks */,
 				2F4BE66323604D91000F44B8 /* libRNCamera.a in Frameworks */,
 				2F4BE66223604A1C000F44B8 /* libRNFetchBlob.a in Frameworks */,
 				2FB2260F2357021400DFD5A1 /* libRNCWebView.a in Frameworks */,
@@ -850,6 +866,8 @@
 				2F8FB60322F188CE00903E09 /* libglog.a */,
 				2F8FB60522F188CE00903E09 /* libPods-log_driver_ios.a */,
 				2F8FB60722F188CE00903E09 /* libreact-native-amap3d.a */,
+				2F3E2EC324220D9B00E9B602 /* libreact-native-ffmpeg.a */,
+				2F3E2EC524220D9B00E9B602 /* libreact-native-video.a */,
 				2F8FB60922F188CE00903E09 /* libyoga.a */,
 			);
 			name = Products;
@@ -1421,6 +1439,20 @@
 			fileType = archive.ar;
 			path = libRCTImageResizer.a;
 			remoteRef = 2F35437C234DBF21000981ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F3E2EC324220D9B00E9B602 /* libreact-native-ffmpeg.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libreact-native-ffmpeg.a";
+			remoteRef = 2F3E2EC224220D9B00E9B602 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F3E2EC524220D9B00E9B602 /* libreact-native-video.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libreact-native-video.a";
+			remoteRef = 2F3E2EC424220D9B00E9B602 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2F40FF5122FD499300A207EA /* libRNImagePicker.a */ = {

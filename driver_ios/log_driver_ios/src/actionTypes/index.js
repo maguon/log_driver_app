@@ -28,7 +28,7 @@ import * as cashRefuelingType from './main/CashRefuelingType'
 import * as cashMaintenanceType from './main/CashMaintenanceType'
 import * as cashETCType from './main/CashETCType'
 import * as myCameraActionType from './main/MyCameraActionType'
-
+import * as aFineActionType from './main/AFineActionType'
 
 
 import * as truckDetailActionType from './main/TruckDetailActionType'
@@ -120,7 +120,7 @@ export {
     cashMaintenanceType,
     cashETCType,
     myCameraActionType,
-
+    aFineActionType,
 
     truckDetailActionType,
     truckImageActionType,

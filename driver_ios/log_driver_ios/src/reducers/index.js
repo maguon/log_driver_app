@@ -31,6 +31,7 @@ import cashRefuelingReducer from './main/CashRefuelingReducer'
 import cashMaintenanceReducer from './main/CashMaintenanceReducer'
 import cashETCReducer from './main/CashETCReducer'
 import myCameraReducer from './main/MyCameraReducer'
+import aFineReducer from './main/AFineReducer'
 
 import truckDetailReducer from './main/TruckDetailReducer'
 import truckImageReducer from './main/TruckImageReducer'
@@ -123,6 +124,7 @@ export default combineReducers({
     cashMaintenanceReducer,
     cashETCReducer,
     myCameraReducer,
+    aFineReducer,
 
     truckDetailReducer,
     truckImageReducer,

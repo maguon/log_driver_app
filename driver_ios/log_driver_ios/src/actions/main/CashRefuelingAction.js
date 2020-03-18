@@ -13,7 +13,7 @@ export const getCashRefueling = () => async (dispatch, getState) => {
 
 
         // console.log('drive_id', drive_id)
-        const url = `${base_host}/driveExceedOilRel?${ObjectToUrl({ driveId: 182, paymentType: 2, paymentStatus: 1 })}`
+        const url = `${base_host}/driveExceedOilRel?${ObjectToUrl({ driveId:drive_id, paymentType: 2, paymentStatus: 1 })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
@@ -26,7 +26,7 @@ export const getCashRefueling = () => async (dispatch, getState) => {
             })
 
         } else {
-            dispatch({ type: actionTypes.cashRefuelingType.get_CashRefueling_failed, payload: { failedMsg: err } })
+            dispatch({ type: actionTypes.cashRefuelingType.get_CashRefueling_failed, payload: { failedMsg: res.msg} })
         }
     }
     catch (err) {

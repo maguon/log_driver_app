@@ -57,7 +57,7 @@ class Truck extends Component {
             getRouteTaskFeeListWaiting,
             getRouteTaskFeeList
         } = this.props
-
+ console.log(avatar_image)
         return (
             <Container>
                 <View style={{
@@ -89,7 +89,7 @@ class Truck extends Component {
                         borderBottomColor: '#ddd'
                     }}>
                         <Left>
-                            {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={{uri: avatar_image ? `${file_host}/image/${avatar_image}` : `personalicon`}}/>}
+                            {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={{uri: `${file_host}/image/${avatar_image}` }}/>}
                             {(avatar_image==""||avatar_image==null)&&<Thumbnail source={require("../../images/head.png")} />}
                         </Left>
                         <Body style={{borderBottomWidth: 0}}>
@@ -186,6 +186,17 @@ class Truck extends Component {
                                 <Left style={styles.itemLeft}>
                                     <AntDesign name='dashboard' size={20} color={'#76b92c'}/>
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>超油扣款</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon}/>
+                                </Right>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                Actions.AFine()}}>
+                                <Left style={styles.itemLeft}>
+                                    <AntDesign name='meh' size={20} color={'#76b92c'}/>
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>暂扣与罚款</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>
