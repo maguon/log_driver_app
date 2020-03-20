@@ -74,7 +74,7 @@ import Entrust from './components/main/Entrust'
 import Receive from './components/main/Receive'
 import CashCost from './components/main/CashCost'
 import AFine from './components/main/AFine'
-
+import AboutUs from './components/main/AboutUs'
 
 
 //模块
@@ -716,6 +716,14 @@ export default class App extends Component {
                                            component={PersonalCenter}
                                            title='个人中心'
                                            hideNavBar={false}
+                                           hideTabBar={true}
+                                           navBar={NavBar} />
+                                    <Scene key="aboutUs"
+                                           component={AboutUs}
+                                           title='关于我们'
+                                           hideNavBar={false}
+                                           LeftButton={LeftButton}
+                                           RightButton={InstructExecutingOc}
                                            hideTabBar={true}
                                            navBar={NavBar} />
                                 </Scene>

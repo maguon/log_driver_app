@@ -25,12 +25,13 @@ const renderItem = props => {
                 <View style={styles.listItemPadding} >
                     <View style={[styles.listItemBody, styles.listItemPadding]}>
                         <Text style={globalStyles.midText}>月份：{month_date_id ? `${month_date_id}` : ''}</Text>
-                        <Text style={[globalStyles.midText]}>货车牌号：{truck_num ? `${truck_num}` : ''}</Text>
-                    </View>
-                    <View style={[styles.listItemBody, styles.listItemPadding]}>
-                        <Text style={[globalStyles.midText]}>应发工资：{plan_salary ? `${plan_salary}` : '0'} 元</Text>
                         <Text style={[globalStyles.midText]}>实发工资：{actual_salary ? `${actual_salary}` : '0'} 元</Text>
+
                     </View>
+                    {/*<View style={[styles.listItemBody, styles.listItemPadding]}>*/}
+                        {/*<Text style={[globalStyles.midText]}>应发工资：{plan_salary ? `${plan_salary}` : '0'} 元</Text>*/}
+                        {/*<Text style={[globalStyles.midText]}>货车牌号：{truck_num ? `${truck_num}` : ''}</Text>*/}
+                    {/*</View>*/}
                 </View>
             </View>
         </TouchableOpacity>

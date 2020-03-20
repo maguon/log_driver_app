@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/17.
  */
 import React, { Component } from 'react'
-import { Text, Linking, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { Text, Linking, StyleSheet, View,TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Button, Container, Content, Icon, Left, Body, Right, List, ListItem, Thumbnail, Separator } from 'native-base'
@@ -52,8 +52,10 @@ class Setting extends Component {
                         <Separator style={globalStyles.separator} />
                         <ListItem last onPress={Actions.personalCenter}>
                             <View style={styles.avatarContainer}>
-                                {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={avatar_image ? { uri: `${file_host}/image/${avatar_image}` } : { uri: `personalicon` }} />}
+                                {(avatar_image!=""&&avatar_image!=null)&&<Thumbnail source={{uri: `${file_host}/image/${avatar_image}`}} />}
                                 {(avatar_image==""||avatar_image==null)&&<Thumbnail source={require("../../images/head.png")} />}
+
+                                {/*<Thumbnail source={{uri: `https://www.baidu.com/img/bd_logo1.png`}} />*/}
                                 <View style={styles.userContainer}>
                                     <View>
                                     <Text style={globalStyles.largeText}>{real_name ? `${real_name}` : ''}</Text>
@@ -117,6 +119,20 @@ class Setting extends Component {
                                 </TouchableOpacity>}
                             </Right>
                         </ListItem>
+                        <Separator style={globalStyles.separator} />
+
+                        <ListItem icon onPress={Actions.aboutUs}>
+                            <Left>
+                                <Icon name="person" style={globalStyles.styleColor} />
+                            </Left>
+                            <Body>
+                            <Text style={globalStyles.midText}>关于我们</Text>
+                            </Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem>
+
                     </List>
                     <Button full style={[styles.button, globalStyles.styleBackgroundColor]} onPress={this.exitApp}>
                         <Text style={[globalStyles.midText, styles.buttonTitle]}>退出</Text>

@@ -10,6 +10,7 @@ export const getSalaryList = () => async (dispatch, getState) => {
         const { loginReducer: { data: { user: { drive_id } } },communicationSettingReducer:{data:{base_host}}} = getState()
         const url = `${base_host}/driveSalaryBase?${ObjectToUrl({
             driveId: drive_id,
+            grantStatus:3,
             start: 0,
             size: pageSize
         })}`
@@ -48,6 +49,7 @@ export const getSalaryListMore = () => async (dispatch, getState) => {
             try {
                 const url = `${base_host}/driveSalaryBase?${ObjectToUrl({
                     driveId: drive_id,
+                    grantStatus:3,
                     start: salaryList.length,
                     size: pageSize
                 })}`

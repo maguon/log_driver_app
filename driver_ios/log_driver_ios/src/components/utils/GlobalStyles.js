@@ -16,6 +16,10 @@ const globalStyles = StyleSheet.create({
     textColor:{
         color: '#838485'
     },
+    madText:{
+        fontSize: 16 * fontSizeCoeff,
+        color: '#838485'
+    },
     midText: {
         fontSize: 14 * fontSizeCoeff,
         color: '#838485'
@@ -27,6 +31,10 @@ const globalStyles = StyleSheet.create({
     ssText: {
         fontSize: 10 * fontSizeCoeff,
         color: '#838485'
+    },
+    larText:{
+        fontSize: 14 * fontSizeCoeff,
+        color: '#414445'
     },
     largeText:{
         fontSize: 16 * fontSizeCoeff,

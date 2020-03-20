@@ -5,40 +5,11 @@ import { connect } from 'react-redux'
 import globalStyles, { styleColor } from '../utils/GlobalStyles'
 import moment from 'moment'
 
-const renderItem = props => {
-    const { item, item: { city_route_start, city_route_end, distance, truck_num, load_flag, brand_name, car_count, truck_number, task_end_date } } = props
-    return (
-        <View style={{ margin: 5, borderColor: '#ddd', borderWidth: 0.5 }}>
-            <View style={[styles.listItemBody, { padding: 10, borderColor: '#ddd', borderBottomWidth: 0.5 }]}>
-                <Text style={[globalStyles.midText]}>{city_route_start ? `${city_route_start}` : ''} -> {city_route_end ? `${city_route_end}` : ''}</Text>
-                <Text style={[globalStyles.midText]}>{distance ? `${distance}` : '0'}公里</Text>
-            </View>
-            <View style={styles.listItemListPadding} >
-                <View style={[styles.listItemBody, styles.listItemListPadding]}>
-                    <Text style={[globalStyles.midText]}>货车牌号：{truck_num ? `${truck_num}` : ''}{brand_name ? `(${brand_name})` : ''}</Text>
-                    <Text style={globalStyles.midText}>运送车辆：{car_count ? `${car_count}` : '0'}/{truck_number ? `${truck_number}` : '0'}</Text>
-                </View>
-                <View style={[styles.listItemBody, styles.listItemListPadding]}>
-                    <Text style={[globalStyles.midText]}>完成时间：{task_end_date ? `${moment(task_end_date).format('YYYYMMDD')}` : ''}</Text>
 
-                </View>
-            </View>
-        </View>
-    )
-}
-
-
-const renderListEmpty = () => {
-    return (
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 80 }}>
-            <Text style={globalStyles.midText}>暂无关联任务记录</Text>
-        </View>
-    )
-}
 
 
 const Salary = props => {
-    const { salary: { plan_salary, actual_salary, truck_num,distance_salary,reverse_salary,enter_fee, month_date_id, drive_name, grant_status },
+    const { salary: {actual_salary,distance_salary,reverse_salary,enter_fee,  grant_status},salary,
         salaryReducer: { data: { salaryTaskList } }, salaryReducer } = props
     console.log('props',props)
     if (salaryReducer.getSalaryTaskList.isResultStatus == 1) {
@@ -50,42 +21,77 @@ const Salary = props => {
     } else {
         return (
             <Container>
-                <Tabs>
-                    <Tab
-                        tabStyle={globalStyles.styleBackgroundColor}
-                        activeTabStyle={globalStyles.styleBackgroundColor}
-                        activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                        textStyle={[globalStyles.midText, { color: '#ddd' }]}
-                        heading="信息">
+
                         <Content>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>月份</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{month_date_id ? `${month_date_id}` : ''}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{salary.month_date_id ? `${salary.month_date_id}` : ''}</Text>
                             </View>
-                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>货车牌号</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{truck_num ? `${truck_num}` : ''}</Text>
-                            </View>
+
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>司机姓名</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{drive_name ? `${drive_name}` : ''}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{salary.drive_name ? `${salary.drive_name}` : ''}</Text>
+                            </View>
+
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>里程工资：{distance_salary ? `${distance_salary}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>倒板工资：{reverse_salary ? `${reverse_salary}` : '0'}</Text>
                             </View>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>里程工资</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{distance_salary ? `${distance_salary}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>交车打车进门费：{enter_fee ? `${enter_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>商品车质损：{salary.damage_under_fee ? `${salary.damage_under_fee}` : '0'}</Text>
                             </View>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>倒板工资</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{reverse_salary ? `${reverse_salary}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>货车事故承担：{salary.accident_fee ? `${salary.accident_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>违章扣款：{salary.peccancy_under_fee ? `${salary.peccancy_under_fee}` : '0'}</Text>
                             </View>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>交车打车进门费</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{enter_fee ? `${enter_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>超量扣款：{salary.exceed_oil_fee ? `${salary.exceed_oil_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>满勤补助：{salary.full_work_bonus ? `${salary.full_work_bonus}` : '0'}</Text>
+                            </View>
+
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>其他补助：{salary.other_bonus ? `${salary.other_bonus}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>出差补助：{salary.hotel_bonus ? `${salary.hotel_bonus}` : '0'}</Text>
                             </View>
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>应发工资</Text>
-                                <Text style={[globalStyles.midText, styles.listItemPadding]}>{plan_salary ? `${plan_salary}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>社保缴费：{salary.social_security_fee ? `${salary.social_security_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>伙食费：{salary.food_fee ? `${salary.food_fee}` : '0'}</Text>
                             </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>个人借款：{salary.loan_fee ? `${salary.loan_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>其他扣款：{salary.other_fee ? `${salary.other_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>质损暂扣款：{salary.damage_retain_fee ? `${salary.damage_retain_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>质安罚款：{salary.damage_op_fee ? `${salary.damage_op_fee}` : '0'}</Text>
+                            </View>
+
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>交车暂扣款：{salary.truck_retain_fee ? `${salary.truck_retain_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>商品车加油费：{salary.car_oil_fee ? `${salary.car_oil_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>货车停车费：{salary.truck_parking_fee ? `${salary.truck_parking_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>商品车停车费：{salary.car_parking_fee ? `${salary.car_parking_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>其他费用：{salary.dp_other_fee ? `${salary.dp_other_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>应发洗车费：{salary.clean_fee ? `${salary.clean_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>应发拖车费：{salary.trailer_fee ? `${salary.trailer_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>应发地跑费：{salary.run_fee ? `${salary.run_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>应发带路费：{salary.lead_fee ? `${salary.lead_fee}` : '0'}</Text>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>提车费：{salary.car_pick_fee ? `${salary.car_pick_fee}` : '0'}</Text>
+                            </View>
+                            <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
+                                <Text style={[globalStyles.midText, styles.listItemPadding]}>个税：{salary.personal_tax ? `${salary.personal_tax}` : '0'}</Text>
+                            </View>
+
+
                             <View style={[styles.listItemBody, styles.listItemPadding, styles.listItemBorderBottom]}>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>实发工资</Text>
                                 <Text style={[globalStyles.midText, styles.listItemPadding]}>{actual_salary ? `${actual_salary}` : '0'}</Text>
@@ -95,22 +101,9 @@ const Salary = props => {
                                 {grant_status == 3 && <Text style={[globalStyles.midText, styles.listItemPadding]}>已发放</Text>}
                                 {grant_status == 2 && <Text style={[globalStyles.midText, styles.listItemPadding]}>未发放</Text>}
                             </View>
+
                         </Content>
-                    </Tab>
-                    <Tab
-                        tabStyle={globalStyles.styleBackgroundColor}
-                        activeTabStyle={globalStyles.styleBackgroundColor}
-                        activeTextStyle={[globalStyles.midText, { color: '#fff' }]}
-                        textStyle={[globalStyles.midText, { color: '#ddd' }]}
-                        heading="任务">
-                        <FlatList
-                            contentContainerStyle={{ margin: 5 }}
-                            data={salaryTaskList}
-                            ListEmptyComponent={salaryReducer.getSalaryTaskList.isResultStatus != 1 && salaryTaskList.length == 0 && renderListEmpty}
-                            keyExtractor={(item, index) => `${index}`}
-                            renderItem={renderItem} />
-                    </Tab>
-                </Tabs>
+
             </Container>
         )
     }
@@ -135,7 +128,10 @@ const styles = StyleSheet.create({
     },
     listItemBorderBottom: {
         borderBottomWidth: 0.5,
-        borderBottomColor: '#dfdfdf'
+        borderBottomColor: '#dfdfdf',
+        borderRightWidth: 0.5,
+        borderRightColor: '#dfdfdf',
+        justifyContent: 'space-between',
     },
     listItemBody: {
         flexDirection: 'row',
