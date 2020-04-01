@@ -6,7 +6,6 @@
 // import DataTime from './DataTime'
 // import Slider from 'react-native-slider'
 // import { LogLevel, RNFFmpeg } from 'react-native-ffmpeg'
-// import RNFS from 'react-native-fs'
 // import * as actions from "../../actions/index";
 //
 // const window = Dimensions.get('window')
@@ -93,11 +92,7 @@
 //             if(result.rc==0) {
 //                 this.props.setMyCamera(path);
 //                 this.setState({waiting: false});
-//                 RNFS.unlink(this.state.data).then(() => {
-//                     console.log('FILE DELETED');
-//                 }).catch((err) => {
-//                     console.log(err.message);
-//                 })
+//
 //             }else {
 //
 //             }
