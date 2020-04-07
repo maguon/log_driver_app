@@ -3,7 +3,7 @@ import {
     View,
     Dimensions
 } from 'react-native'
-import QRCode from 'react-native-qrcode'
+import QRCode from 'react-native-qrcode-svg'
 import { connect } from 'react-redux'
 import { Container } from 'native-base'
 //0.0.4

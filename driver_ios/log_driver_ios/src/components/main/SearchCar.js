@@ -66,7 +66,7 @@ class SearchCar extends Component {
                         keyExtractor={(item, index) => `${index}`}
                         showsVerticalScrollIndicator={false}
                         data={list}
-                        style={{marginTop:80}}
+                        style={{marginTop:100}}
                         renderItem={(param) => renderListItem({onSelect, ...param})}/>
                 </Container>
             )

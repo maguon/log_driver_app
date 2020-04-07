@@ -50,6 +50,7 @@ export const getCommandCarList = (param) => async (dispatch, getState) => {
 
 export const pushCarInCommand = (param) => async (dispatch, getState) => {
     try {
+        console.log(param)
         const { communicationSettingReducer: { data: { base_host } }, carsReducer: { pushCarInCommand: { isResultStatus } } } = getState()
         if (isResultStatus != 1) {
             dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_WAITING, payload: {} })
@@ -60,6 +61,7 @@ export const pushCarInCommand = (param) => async (dispatch, getState) => {
             } else {
                 // Toast.show({text:`${res.msg}`})
                 dispatch({ type: actionTypes.carsActionType.PUSH_CarInCommand_FAILED, payload: { data: res.msg } })
+                console.log(res.msg)
                 Alert.alert(
                     '',
                     `${res.msg}`,

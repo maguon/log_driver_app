@@ -11,7 +11,7 @@ const FontTag = ({ size, color, title, fontColor }) => {
     let fontSize = size / 8 * 5
     return (
         <View style={{ width, height, borderRadius, backgroundColor: color, justifyContent: 'center', alignItems: 'center' }}>
-            <Text includeFontPadding={false} style={{color: fontColor, fontFamily: 'rubicon-icon-font', fontSize}}>{title}</Text>
+            <Text includeFontPadding={false} style={{color: fontColor, fontSize}}>{title}</Text>
         </View>
     )
 }

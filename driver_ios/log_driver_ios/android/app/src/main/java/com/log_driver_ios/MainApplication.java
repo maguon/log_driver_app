@@ -1,72 +1,39 @@
 package com.log_driver_ios;
 
 import android.app.Application;
-
+import android.content.Context;
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.brentvatne.react.ReactVideoPackage;
-import com.rnfs.RNFSPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.horcrux.svg.SvgPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.reactnative.photoview.PhotoViewPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import org.reactnative.camera.RNCameraPackage;
-import com.beefe.picker.PickerViewPackage;
-import com.keyee.datetime.RCTDateTimePickerPackage;
-import com.imagepicker.ImagePickerPackage;
-import cn.qiuxiang.react.amap3d.AMap3DPackage;
-import com.jeepeng.react.xgpush.PushPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
-import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+  private final ReactNativeHost mReactNativeHost =
+      new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
 
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReactVideoPackage(),
-            new RNFSPackage(),
-            new RNCWebViewPackage(),
-            new AsyncStoragePackage(),
-            new SvgPackage(),
-            new RNDeviceInfo(),
-            new PhotoViewPackage(),
-            new OrientationPackage(),
-            new ImageResizerPackage(),
-            new PickerPackage(),
-            new RNCameraPackage(),
-            new PickerViewPackage(),
-            new RCTDateTimePickerPackage(),
-            new ImagePickerPackage(),
-            new AMap3DPackage(),
-            new PushPackage(),
-            new VectorIconsPackage(),
-            new RNSpinkitPackage()
-      );
-    }
+        @Override
+        protected List<ReactPackage> getPackages() {
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
+          // Packages that cannot be autolinked yet can be added manually here, for example:
+          // packages.add(new MyReactNativePackage());
+          return packages;
+        }
 
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
+        @Override
+        protected String getJSMainModuleName() {
+          return "index";
+        }
+      };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -77,5 +44,37 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+  }
+
+  /**
+   * Loads Flipper in React Native templates. Call this in the onCreate method with something like
+   * initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+   *
+   * @param context
+   * @param reactInstanceManager
+   */
+  private static void initializeFlipper(
+      Context context, ReactInstanceManager reactInstanceManager) {
+    if (BuildConfig.DEBUG) {
+      try {
+        /*
+         We use reflection here to pick up the class that initializes Flipper,
+        since Flipper library is not available in release mode
+        */
+        Class<?> aClass = Class.forName("com.log_driver_ios.ReactNativeFlipper");
+        aClass
+            .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+            .invoke(null, context, reactInstanceManager);
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
