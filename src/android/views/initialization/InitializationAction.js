@@ -30,7 +30,7 @@ export const start = () => async (dispatch, getState) => {
     }))
 }
 
-/** 
+/**
  * 第一步：获取uniqueID，
  *          如果localStorage中有，从localStorage中取，
  *          如果没有DeviceInfo.getUniqueID()获取
@@ -46,7 +46,7 @@ export const loadUniqueID = param => async (dispatch, getState) => {
     dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
 }
 
-/** 
+/**
  * 第二步：获取host，
  *          如果localStorage中有，从localStorage中取，
  *          如果没有跳转到login页面
@@ -69,7 +69,7 @@ export const getCommunicationSetting = param => async (dispatch) => {
     }
 }
 
-/** 
+/**
  * 第三步：获取最新version信息并对比，
  *          如果获取失败，停止初始化流程，等待用户手动点击获取
  *          如果获取成功，对比是否需要强制更新 force_update:0(版本为最新版), 1(版本过低，强制更新), 2(版本过低，但不需要强制更新)
@@ -137,7 +137,7 @@ export const validateVersion = param => async (dispatch, getState) => {
 
 
 
-/** 
+/**
  * 第四步：获取最新user数据，
  *          如果获取失败，跳转到登录页面
  *          如果获取成功，继续流程
@@ -166,7 +166,7 @@ export const loadLocalStorage = param => async (dispatch) => {
 }
 
 
-/** 
+/**
  * 第五步：先获取用户信息，然后更新token，
  *          如果获取用户信息失败，跳转到登录
  *          如果获取用户信息成功，继续更新token
@@ -215,7 +215,7 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
     }
 }
 
-/** 
+/**
  * 第六步：从localStorage获取deviceToken
  *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
  *          如果获取deviceToken成功，完成初始化流程
@@ -223,10 +223,11 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
 export const loadDeviceToken = param => async (dispatch) => {
     // console.log('loadDeviceTokenParam', param)
     try {
-        deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
-        // console.log('deviceToken',deviceToken)
-        dispatch(saveDeviceToken({deviceToken,...param}))
-        dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param } })
+        // let deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
+        //  console.log('deviceToken',deviceToken)
+        // dispatch(saveDeviceToken({deviceToken,...param}))
+        // dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param } })
+        console.log('enter main load device token')
         Actions.mainRoot()
         return
     } catch (err) { }
@@ -234,7 +235,7 @@ export const loadDeviceToken = param => async (dispatch) => {
 }
 
 
-/** 
+/**
  * 第七步：从NativeModules.XinGeModule.register()获取deviceToken
  *          如果获取deviceToken失败，从NativeModules.XinGeModule.register()获取，
  *          如果获取deviceToken成功，完成初始化流程
@@ -243,16 +244,17 @@ export const initPush = param => async (dispatch) => {
     // console.log('initPushParam', param)
     let deviceToken
     try {
-        deviceToken = await NativeModules.XinGeModule.register()
-        // console.log('deviceToken',deviceToken)
-        dispatch(saveDeviceToken({deviceToken,...param}))
-        localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
+        // deviceToken = await NativeModules.XinGeModule.register()
+        //  console.log('deviceToken',deviceToken)
+        // dispatch(saveDeviceToken({deviceToken,...param}))
+        // localStorage.save({ key: localStorageKey.DEVICETOKEN, data: deviceToken })
+        console.log('enter main init push')
         Actions.mainRoot()
     } catch (err) { }
     dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param } })
 }
 
-/** 
+/**
  * 分支：保存deviceToken
  */
 export const saveDeviceToken = param => async (dispatch, getState) => {
@@ -283,15 +285,15 @@ export const saveDeviceToken = param => async (dispatch, getState) => {
 // import DeviceInfo from 'react-native-device-info'
 
 
-// /** 
-//  * 
+// /**
+//  *
 //  * initApp : APP初始化
-//  * 
+//  *
 //  * param : 对应执行步骤执行时所需要的参数
 //  * currentStep : 执行到第N步（从1开始）
 //  * tryCount : 当遇到网络错误的时候尝试的次数（从1开始）
-//  * 
-//  * 
+//  *
+//  *
 //  * 初始化流程：
 //  * 第一步：验证版本是否是最新版本
 //  * 第二步：获取本地localstorage的数据
