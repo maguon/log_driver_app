@@ -67,8 +67,10 @@ import * as trailerInfoActionTypes from '../android/complatedViews/trailer/trail
 import * as trailerInsuranceActionTypes from '../android/complatedViews/trailer/trailerInsurece/trailerInsuranceActionTypes'
 import * as trailerRepairListActionTypes from '../android/complatedViews/trailer/trailerRepairList/trailerRepairListActionTypes'
 import * as trailerImageActionTypes from '../android/complatedViews/trailer/trailerImage/trailerImageActionTypes'
+import * as sysNotificationActionTypes from '../android/complatedViews/sysNotification/SysNotificationActionTypes'
+import * as notificationActionTypes from '../android/complatedViews/notification/NotificationActionTypes'
 
-//settingBlock-views-complated 
+//settingBlock-views-complated
 import * as updatePassword from '../android/complatedViews/updatePassword/updatePasswordActionTypes'
 import * as personalCenter from '../android/complatedViews/personalCenter/personalCenterTypes'
 
@@ -82,7 +84,7 @@ import * as retrievePassword from '../android/complatedViews/retrievePassword/Re
 
 
 
-//views-complated 
+//views-complated
 import * as notSettleList from '../android/complatedViews/notSettleList/notSettleListActionTypes'
 import * as communicationSetting from '../android/complatedViews/communicationSetting/communicationSettingActionTypes'
 
@@ -114,7 +116,7 @@ export {
     changeMobileVCode,
     changeMobileNo,
     communicationSetting,
-    //settingBlock-views-complated 
+    //settingBlock-views-complated
     updatePassword,
     personalCenter,
     // <<<End
@@ -128,6 +130,8 @@ export {
     trailerInsuranceActionTypes,
     trailerRepairListActionTypes,
     trailerImageActionTypes,
+    sysNotificationActionTypes,
+    notificationActionTypes,
     // <<<End
     //view
     homeTypes,
@@ -208,4 +212,4 @@ export {
     cashOil,
     cashRepair,
     cashToll
-}   
+}

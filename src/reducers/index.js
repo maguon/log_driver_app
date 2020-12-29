@@ -50,7 +50,7 @@ import demageListReducer from '../android/notUsed/demageList/DemageListReducer'
 import applyDamageImageReducer from '../android/notUsed/applyDemageImage/ApplyDamageImageReducer'
 import applyDamageReducer from '../android/notUsed/applyDemage/applyDamageReducer'
 
-//truckBlock-views-complated 
+//truckBlock-views-complated
 import accidentListReducer from '../android/complatedViews/accidentList/AccidentListReducer'
 import accidentResponsibilityListReducer from '../android/complatedViews/accidentResponsibilityList/AccidentResponsibilityListReducer'
 import overuseDieselOilListReducer from '../android/complatedViews/overuseDieselOilList/overuseDieselOilListReducer'
@@ -59,7 +59,7 @@ import overuseDieselOilInfoReducer from '../android/complatedViews/overuseDiesel
 
 // <<<End
 
-//truckBlock-components-complated 
+//truckBlock-components-complated
 import truckInfoReducer from '../android/complatedViews/truck/truckInfo/truckInfoReducer'
 import truckRepairListReducer from '../android/complatedViews/truck/truckRepairList/truckRepairListReducer'
 import truckInsuranceReducer from '../android/complatedViews/truck/truckInsurance/truckInsuranceReducer'
@@ -74,7 +74,7 @@ import accidentEditorReducer from '../android/complatedComponents/accidentInfo/a
 // <<<End
 
 
-//settingBlock-views-complated 
+//settingBlock-views-complated
 import updatePasswordReducer from '../android/complatedViews/updatePassword/updatePasswordReducer'
 import personalCenterReducer from '../android/complatedViews/personalCenter/personalCenterReducer'
 
@@ -87,8 +87,8 @@ import notSettleListReducer from '../android/complatedViews/notSettleList/notSet
 import communicationSettingReducer from '../android/complatedViews/communicationSetting/communicationSettingReducer'
 import retrievePasswordVCodeReducer from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeReducer'
 // import RetrievePasswordReducer from '../android/complatedViews/retrievePassword/RetrievePasswordReducer'
-
-
+import sysNotificationReducer from '../android/complatedViews/sysNotification/SysNotificationReducer'
+import notificationReducer from '../android/complatedViews/notification/NotificationReducer'
 import mileageInfoReducer from '../android/views/blockInitial/home/mileageInfo/mileageInfoReducer'
 import taskListForHomeReducer from '../android/views/blockInitial/home/taskListForHome/taskListForHomeReducer'
 import routeTaskListForHomeReducer from '../android/views/blockInitial/home/routeTaskListForHome/routeTaskListForHomeReducer'
@@ -104,7 +104,7 @@ import cashTollReducer from '../android/complatedViews/cash/cashToll/cashTollRed
 export default combineReducers({
     form: formReducer,
 
-    //settingBlock-views-complated 
+    //settingBlock-views-complated
     updatePasswordReducer,
     personalCenterReducer,
     communicationSettingReducer,
@@ -183,8 +183,8 @@ export default combineReducers({
     notSettleListReducer,
     retrievePasswordVCodeReducer,
     // RetrievePasswordReducer
-
-
+    sysNotificationReducer,
+    notificationReducer,
 
     mileageInfoReducer,
     taskListForHomeReducer,

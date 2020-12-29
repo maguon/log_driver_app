@@ -2,7 +2,7 @@
  * Created by lingxue on 2017/4/17.
  */
 import React, { Component } from 'react'
-import { Text, Linking, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { Text, Linking, StyleSheet, View, TouchableOpacity,InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Button, Container, Content, Icon, Left, Body, Right, List, ListItem, Thumbnail, Separator } from 'native-base'
@@ -11,6 +11,8 @@ import * as LoginAction from '../login/LoginAction'
 import globalStyles, { styleColor } from '../../GlobalStyles'
 import * as android_app from '../../../android_app.json'
 import FoundationIcon from 'react-native-vector-icons/dist/Foundation'
+import sysNotification from "../sysNotification/SysNotification";
+import * as SysNotificationAction from "../sysNotification/SysNotificationAction";
 
 
 class Setting extends Component {
@@ -41,7 +43,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
-        const { communicationSettingReducer: { data: { file_host } } } = this.props
+        const { communicationSettingReducer: { data: { file_host } } ,getSysNotificationListWaiting,getSysNotification} = this.props
         console.log('this.props',this.props)
         return (
             <Container>
@@ -75,6 +77,21 @@ class Setting extends Component {
                             </Left>
                             <Body>
                                 <Text style={globalStyles.midText}>换绑手机</Text>
+                            </Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem>
+
+                        <ListItem icon onPress={()=>{
+                            getSysNotificationListWaiting()
+                            Actions.sysNotification()
+                            InteractionManager.runAfterInteractions(getSysNotification)}}>
+                            <Left>
+                                <Icon name="ios-notifications-outline" style={globalStyles.styleColor} />
+                            </Left>
+                            <Body>
+                                <Text style={globalStyles.midText}>系统消息</Text>
                             </Body>
                             <Right>
                                 <Icon name="ios-arrow-forward" />
@@ -153,6 +170,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
         dispatch(LoginAction.cleanLogin())
+    },
+    getSysNotification: () => {
+        dispatch(SysNotificationAction.getSysNotification())
+    },
+    getSysNotificationListWaiting: () => {
+        dispatch(SysNotificationAction.getSysNotificationListWaiting())
+
     }
 })
 

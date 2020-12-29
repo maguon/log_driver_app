@@ -100,13 +100,16 @@ import OveruseDieselOilSearch from './complatedViews/OveruseDieselOilSearch'
 import VinScanner from './views/VinScanner'
 import FuelFillingRecordToolButton from './complatedComponents/op/FuelFillingRecordToolButton'
 
-//settingBlock-views-complated 
+//settingBlock-views-complated
 import PersonalCenter from './complatedViews/personalCenter/PersonalCenter'
 import UpdatePassword from './complatedViews/updatePassword/UpdatePassword'
 import Setting from './complatedViews/blockInitial/Setting'
 import CommunicationSetting from './complatedViews/communicationSetting/CommunicationSetting'
 
 import ChangeMobileNo from './complatedViews/changeMobileNo/ChangeMobileNo'
+import sysNotification from './complatedViews/sysNotification/SysNotification'
+import notification from './complatedViews/notification/Notification'
+
 import NotSettleList from './complatedViews/notSettleList/NotSettleList'
 
 import SalaryList from './complatedViews/salaryList/SalaryList'
@@ -164,7 +167,7 @@ export default class App extends Component {
         console.disableYellowBox = true
         return (
             <Router
-                //createReducer={this.reducerCreate} 
+                //createReducer={this.reducerCreate}
                 getSceneStyle={getSceneStyle} >
                 <Scene key="root">
                     <Scene initial={true} key="initialization" component={Initialization} hideNavBar hideTabBar />
@@ -574,7 +577,28 @@ export default class App extends Component {
                                     hideNavBar={false}
                                     hideTabBar={true}
                                     navBar={NavBar} />
-                                <Scene key="changeMobileNo" component={ChangeMobileNo} title='换绑手机' hideNavBar={false} LeftButton={LeftButton} hideTabBar={true} navBar={NavBar} />
+                                <Scene key="changeMobileNo"
+                                       component={ChangeMobileNo}
+                                       title='换绑手机'
+                                       hideNavBar={false}
+                                       LeftButton={LeftButton}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="sysNotification"
+                                       component={sysNotification}
+                                       title='系统消息'
+                                       hideNavBar={false}
+                                       LeftButton={LeftButton}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+                                <Scene key="notification"
+                                       component={notification}
+                                       title='消息详情'
+                                       hideNavBar={false}
+                                       LeftButton={LeftButton}
+                                       hideTabBar={true}
+                                       navBar={NavBar} />
+
                                 <Scene key="personalCenter"
                                     LeftButton={LeftButton}
                                     component={PersonalCenter}
