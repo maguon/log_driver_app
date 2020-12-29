@@ -14,7 +14,7 @@ This is normal text
 `;
 
 const Notification = props => {
-    const {id,notificationReducer:{data:{notification:{content,created_on,real_name,status,title,updated_on}}}} = props
+    const {id,notificationReducer:{data:{notification}}} = props
 
     return (
         <Container style={globalStyles.container}>
@@ -23,12 +23,9 @@ const Notification = props => {
             {/*</Markdown>*/}
                 <View style={{ padding: 7.5, margin: 7.5, borderWidth: 0.5, borderColor: '#ddd' }}>
                     <View style={{ padding: 7.5, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={[globalStyles.midText]}>洗车费：00元</Text>
-                        <Text style={[globalStyles.midText]}>拖车费：555元</Text>
-                    </View>
-                    <View style={{ padding: 7.5, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={[globalStyles.midText]}>提车费：0000元</Text>
-                        <Text style={[globalStyles.midText]}>地跑费：11111元</Text>
+                        <Text style={[globalStyles.midText]}>{notification.real_name ? `${notification.real_name}` : ''}</Text>
+                        <Text style={[globalStyles.midText]}>{notification.title ? `${notification.title}` : ''}</Text>
+                        <Text style={[globalStyles.midText]}>{notification.content ? `${notification.content}` : ''}</Text>
                     </View>
 
                 </View>

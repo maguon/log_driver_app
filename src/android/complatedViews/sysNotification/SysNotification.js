@@ -29,16 +29,10 @@ const renderItem = props => {
                           onPress={() => {
                               getNotificationListWaiting()
                               Actions.notification({ id: id })
-                              InteractionManager.runAfterInteractions(() => getNotification({ id: id }))
-        }}
-        >
+                              InteractionManager.runAfterInteractions(() => getNotification({ id: id }))}}>
             <View style={styles.itemHeader}>
-                <View style={styles.itemBlock}>
-                    <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>
-                        {created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}
-                    </Text>
-                </View>
+
+                <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>
                 {status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>未读</Text>}
                 {status == 0 && <Text style={[globalStyles.midText]}></Text>}
 
@@ -47,6 +41,12 @@ const renderItem = props => {
                 <View style={styles.itemBlock}>
                     <MaterialCommunityIcons name='account' size={15} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>{real_name ? `${real_name}` : ''}</Text>
+                </View>
+                <View style={styles.itemBlock}>
+                    <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>
+                        {created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}
+                    </Text>
                 </View>
 
             </View>
@@ -78,9 +78,9 @@ const renderEmpty = () => {
 }
 
 const SysNotification = props => {
-    const { sysNotificationReducer: { data: { sysNotificationList, isComplete }, getSysNotificationList },
+    const { navigationState:{name},sysNotificationReducer: { data: { sysNotificationList, isComplete }, getSysNotificationList },
         sysNotificationReducer, getSysNotificationListMore, getNotification, getNotificationListWaiting } = props
-
+console.log(props)
     if (getSysNotificationList.isResultStatus == 1) {
         return (
             <Container>
@@ -125,6 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
     getNotification: (param) => {
         dispatch(NotificationAction.getNotification(param))
     },
+
     getNotificationListWaiting: () => {
         dispatch(NotificationAction.getNotificationListWaiting())
     }

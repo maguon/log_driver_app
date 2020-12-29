@@ -17,10 +17,11 @@ export const getNotification = param => async (dispatch, getState) => {
         const res = await httpRequest.get(url)
 
         if (res.success) {
-            const url = `${base_host}/user/${uid}/sysNotification/${id }/status`
+            dispatch({ type: reduxActionTypes.notificationActionTypes.notification_success, payload: {notification:res.result[0]} })
+            const putUrl = `${base_host}/user/${uid}/sysNotification/${id }/status`
             // console.log('url', url)
-            const res = await httpRequest.put(url,{status: 0})
-            dispatch({ type: reduxActionTypes.notificationActionTypes.notification_success, payload: {notification:res.result} })
+            const putRes = await httpRequest.put(putUrl,{status: 0})
+
         } else {
             dispatch({ type: reduxActionTypes.notificationActionTypes.notification_failed, payload: { failedMsg: `${res.msg}` } })
         }

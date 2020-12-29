@@ -39,6 +39,7 @@ import UploadImageForCreateCarOP from './components/UploadImageForCreateCarOP'
 
 
 import LeftButton from './components/share/bar/LeftButton'
+import NotLeftButton from './components/share/bar/NotLeftButton'
 import ApplyAccident from './views/applyAccident/ApplyAccident'
 import AccidentList from './complatedViews/accidentList/AccidentList'
 import AccidentResponsibilityList from './complatedViews/accidentResponsibilityList/AccidentResponsibilityList'
@@ -83,6 +84,7 @@ import PhotoViewForCarInfo from './views/photoView/PhotoViewForCarInfo'
 
 import NavSearchCarBar from './components/share/bar/NavSearchCarBar'
 import NavBar from './components/share/bar/NavBar'
+import CenterBar from './components/share/bar/CenterBar'
 import NavSearchDynamicBar from './components/share/bar/NavSearchDynamicBar'
 import PhotoViewNavBar from './components/share/bar/PhotoViewNavBar'
 import PeccancyToolButton from './complatedComponents/op/PeccancyToolButton'
@@ -200,7 +202,7 @@ export default class App extends Component {
                                     initial={true}
                                     component={Home}
                                     hideNavBar={false}
-                                    navBar={NavBar}
+                                    navBar={CenterBar}
                                     LeftButton={HomeLeftButton}
                                     RightButton={HomeOperation} />
                                 <Scene key="instructExecuting"
@@ -595,7 +597,7 @@ export default class App extends Component {
                                        component={notification}
                                        title='消息详情'
                                        hideNavBar={false}
-                                       LeftButton={LeftButton}
+                                       LeftButton={NotLeftButton}
                                        hideTabBar={true}
                                        navBar={NavBar} />
 

@@ -60,6 +60,21 @@ class Setting extends Component {
                             </View>
                         </ListItem>
                         <Separator style={globalStyles.separator} />
+                        <ListItem icon last onPress={()=>{
+                            getSysNotificationListWaiting()
+                            Actions.sysNotification({name:"setting"})
+                            InteractionManager.runAfterInteractions(getSysNotification)}}>
+                            <Left>
+                                <Icon name="ios-notifications-outline" style={globalStyles.styleColor} />
+                            </Left>
+                            <Body>
+                                <Text style={globalStyles.midText}>系统消息</Text>
+                            </Body>
+                            <Right>
+                                <Icon name="ios-arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <Separator style={globalStyles.separator} />
                         <ListItem icon onPress={Actions.updatePassword}>
                             <Left>
                                 <Icon name="ios-unlock-outline" style={globalStyles.styleColor} />
@@ -83,20 +98,7 @@ class Setting extends Component {
                             </Right>
                         </ListItem>
 
-                        <ListItem icon onPress={()=>{
-                            getSysNotificationListWaiting()
-                            Actions.sysNotification()
-                            InteractionManager.runAfterInteractions(getSysNotification)}}>
-                            <Left>
-                                <Icon name="ios-notifications-outline" style={globalStyles.styleColor} />
-                            </Left>
-                            <Body>
-                                <Text style={globalStyles.midText}>系统消息</Text>
-                            </Body>
-                            <Right>
-                                <Icon name="ios-arrow-forward" />
-                            </Right>
-                        </ListItem>
+
                         <ListItem icon last>
                             <Left>
                                 <Icon name="ios-cube-outline" style={globalStyles.styleColor} />

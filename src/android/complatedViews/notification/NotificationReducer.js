@@ -20,8 +20,8 @@ export default handleActions({
             data: {
                 notification,
             },
-            getNotSettleList: {
-                ...state.getNotSettleList,
+            getNotification: {
+                ...state.getNotification,
                 isResultStatus: 2
             }
         }

@@ -19,7 +19,6 @@ export const getSysNotification = () => async (dispatch, getState) => {
         // console.log('res', res)
 
         if (res.success) {
-            console.log('res.result.length', res.result)
             dispatch({
                 type: actionTypes.sysNotificationActionTypes.sys_Notification_success,
                 payload: {

@@ -1,4 +1,4 @@
-//settingBlock-views-complated 
+//settingBlock-views-complated
 import * as personalCenter from '../android/complatedViews/personalCenter/personalCenterAction'
 import * as updatePassword from '../android/complatedViews/updatePassword/updatePasswordAction'
 
@@ -13,7 +13,7 @@ import * as notSettleList from '../android/complatedViews/notSettleList/notSettl
 import * as communicationSetting from '../android/complatedViews/communicationSetting/communicationSettingActions'
 import * as retrievePasswordVCode from '../android/complatedViews/retrievePassword/retrievePasswordVCode/retrievePasswordVCodeActions'
 import * as retrievePassword from '../android/complatedViews/retrievePassword/RetrievePasswordAction'
-
+import * as sysNotificationAction from '../android/complatedViews/sysNotification/SysNotificationAction'
 
 import * as mileageInfo from '../android/views/blockInitial/home/mileageInfo/mileageInfoActions'
 import * as taskListForHome from '../android/views/blockInitial/home/taskListForHome/taskListForHomeActions'
@@ -33,7 +33,7 @@ import * as cashOil from '../android/complatedViews/cash/cashOil/cashOilActions'
 import * as cashRepair from '../android/complatedViews/cash/cashRepair/cashRepairActions'
 import * as cashToll from '../android/complatedViews/cash/cashToll/cashTollActions'
 export {
-    //settingBlock-views-complated 
+    //settingBlock-views-complated
     personalCenter,
     updatePassword,
     // <<<End
@@ -47,7 +47,7 @@ export {
     communicationSetting,
     retrievePasswordVCode,
     retrievePassword,
-
+    sysNotificationAction,
 
     mileageInfo,
     taskListForHome,
