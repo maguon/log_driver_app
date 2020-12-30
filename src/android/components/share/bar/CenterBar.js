@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {View, StatusBar, Text,StyleSheet, Dimensions, TouchableOpacity, InteractionManager} from 'react-native'
-import { Header, Title, Right, Left, Body } from 'native-base'
+import {Header, Title, Right, Left, Body, Icon} from 'native-base'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Actions } from 'react-native-router-flux'
@@ -44,8 +44,9 @@ class CenterBar extends Component{
                             InteractionManager.runAfterInteractions(getSysNotification)
                         }}>
 
-                            <MaterialCommunityIcons name='email-outline' size={20} color={'#fffff9'}
+                            <MaterialCommunityIcons name='bell-outline' size={20} color={'#fffff9'}
                                                     style={styles.itemBlockMaterialIcon}/>
+                            {/*<Icon name="ios-notifications-outline" style={globalStyles.styleColor} />*/}
                             <View style={styles.round}>
                                 <Text style={styles.text}>{count.length ? `${count.length}` : ''}</Text>
                             </View>

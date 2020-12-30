@@ -5,7 +5,7 @@ import {ObjectToUrl} from "../../../util/ObjectToUrl";
 import {sleep} from "../../../util/util";
 
 
-const pageSize = 50
+const pageSize = 20
 
 export const getSysNotification = () => async (dispatch, getState) => {
     try {

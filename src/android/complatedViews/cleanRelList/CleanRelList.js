@@ -20,8 +20,8 @@ import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
     const { item: { dp_route_task_id, route_start_name, addr_name, receive_id, route_end_name, short_name, total_price, car_count, load_date, status },
-        item, index, getReceive, getReceiveWaiting } = props
-    // console.log('props', props)
+        item, index, getReceive, getReceiveWaiting,actual_price } = props
+     console.log('props', props)
     return (
         <TouchableOpacity
             onPress={() => {
@@ -57,7 +57,7 @@ const renderItem = props => {
                     <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车数量：{car_count ? `${car_count}` : '0'}</Text>
                 </View>
                 <View style={styles.itemBlock}>
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车费：<Text style={styles.itemWarnColor}>{total_price ? `${total_price}` : '0'}元</Text></Text>
+                    <Text style={[globalStyles.midText, styles.itemBlockText]}>洗车费：<Text style={styles.itemWarnColor}>{actual_price ? `${actual_price}` : '0'}元</Text></Text>
                 </View>
             </View>
         </TouchableOpacity>

@@ -18,7 +18,7 @@
     "react-native-image-crop-picker": "0.16.1",
     "react-native-image-picker": "0.26.7",
     "react-native-image-resizer": "1.0.0",
-    "react-native-markdown-display": "^7.0.0-alpha.2",
+    "react-native-markdown-display": "https://github.com/iamacup/react-native-markdown-display.git#9b8f03d8f3638dc396d266a20eb2446ba5055a57",
     "react-native-orientation": "3.1.0",
     "react-native-photo-view": "1.4.0",
     "react-native-picker": "^4.3.7",

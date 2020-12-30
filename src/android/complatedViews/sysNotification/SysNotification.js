@@ -30,32 +30,33 @@ const renderItem = props => {
                               getNotificationListWaiting()
                               Actions.notification({ id: id })
                               InteractionManager.runAfterInteractions(() => getNotification({ id: id }))}}>
-            <View style={styles.itemHeader}>
-
-                <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>
-                {status == 1 && <Text style={[globalStyles.midText, styles.itemWarnColor]}>未读</Text>}
-                {status == 0 && <Text style={[globalStyles.midText]}></Text>}
-
+            {/*<View style={styles.itemHeader}>*/}
+            {/*    <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>*/}
+            {/*    */}
+            {/*</View>*/}
+            <View style={[styles.item]}>
+                <View style={styles.itemBlock}>
+                    <MaterialCommunityIcons name='volume-medium' size={15} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
+                    <Text  style={[globalStyles.midText, globalStyles.styleColor]}>{title ? `${title}` : ''}</Text>
+                </View>
+                {status == 1 && <Text style={[globalStyles.smallText, styles.itemWarnColor]}>未读</Text>}
+                {status == 0 && <Text style={[globalStyles.smallText]}></Text>}
             </View>
+
             <View style={styles.item}>
                 <View style={styles.itemBlock}>
                     <MaterialCommunityIcons name='account' size={15} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>{real_name ? `${real_name}` : ''}</Text>
+                    <Text style={[globalStyles.smallText, styles.itemBlockText]}>{real_name ? `${real_name}` : ''}</Text>
                 </View>
                 <View style={styles.itemBlock}>
                     <Icon name='ios-time-outline' style={styles.itemBlockIcon} style={styles.itemBlockIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText]}>
+                    <Text style={[globalStyles.smallText, styles.itemBlockText]}>
                         {created_on ? `${moment(created_on).format('YYYY-MM-DD HH:mm:ss')}` : ''}
                     </Text>
                 </View>
 
             </View>
-            <View style={[styles.item]}>
-                <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='volume-medium' size={15} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
-                    <Text style={[globalStyles.midText, styles.itemBlockText, { width: width - 60 }]}>{title ? `${title}` : ''}</Text>
-                </View>
-            </View>
+
         </TouchableOpacity>
     )
 }

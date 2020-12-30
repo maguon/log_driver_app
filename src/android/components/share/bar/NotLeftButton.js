@@ -12,8 +12,7 @@ const NotLeftButton=props=>{
                     <Button transparent onPress={() => {
                                     getSysNotification()
                                     Actions.pop()
-                            }
-                    }>
+                            }}>
                             <Icon name='arrow-back'/>
                     </Button>
                 )
