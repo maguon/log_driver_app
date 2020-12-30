@@ -39,7 +39,6 @@ import UploadImageForCreateCarOP from './components/UploadImageForCreateCarOP'
 
 
 import LeftButton from './components/share/bar/LeftButton'
-import NotLeftButton from './components/share/bar/NotLeftButton'
 import ApplyAccident from './views/applyAccident/ApplyAccident'
 import AccidentList from './complatedViews/accidentList/AccidentList'
 import AccidentResponsibilityList from './complatedViews/accidentResponsibilityList/AccidentResponsibilityList'
@@ -597,7 +596,7 @@ export default class App extends Component {
                                        component={notification}
                                        title='消息详情'
                                        hideNavBar={false}
-                                       LeftButton={NotLeftButton}
+                                       LeftButton={LeftButton}
                                        hideTabBar={true}
                                        navBar={NavBar} />
 

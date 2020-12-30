@@ -23,7 +23,6 @@ class CenterBar extends Component{
         const {RightButton, LeftButton, parent, initParam, layout: {initWidth}, sysNotificationReducer: {data: {sysNotificationList}},
             getSysNotification, getSysNotificationListWaiting} = this.props
         const count = sysNotificationList.filter(item => item.status == 1)
-        console.log(count)
 
         return (
 
