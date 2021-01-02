@@ -20,7 +20,7 @@ export const cleanLogin = () => async (dispatch, getState) => {
         }
     })
     dispatch({ type: actionTypes.loginTypes.clean_login, payload: { mobile: user.mobile } })
-    Actions.replace("loginGroup")
+    // Actions.login()
 }
 
 export const login = param => async (dispatch, getState) => {
@@ -30,7 +30,6 @@ export const login = param => async (dispatch, getState) => {
         server = `${server}`.replace(/\s*/g, "")
         mobile = `${mobile}`.replace(/\s*/g, "")
         const base_host = `http://api.${server}/api`
-        // console.log('param', param)
         const { initializationReducer: { data: {
             version: { currentVersion },
             deviceInfo: { uniqueID } }, data } } = getState()
@@ -78,6 +77,7 @@ export const login = param => async (dispatch, getState) => {
             }
         } else {
             //登录失败重新登录
+            // console.log('res.msg', res.msg)
             ToastAndroid.show(`登陆失败：${res.msg}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_failed, payload: { failedMsg: res.msg } })
         }
@@ -88,6 +88,7 @@ export const login = param => async (dispatch, getState) => {
             dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
             // }
         } else {
+            console.log('err', err)
             ToastAndroid.show(`登陆失败：${err}`, 10)
             dispatch({ type: actionTypes.loginTypes.login_error, payload: { errorMsg: err } })
         }
@@ -175,7 +176,7 @@ export const validateVersionForLogin = param => async (dispatch, getState) => {
             }
         }
     } catch (err) {
-        console.log('err', err)
+        // console.log('err', err)
         ToastAndroid.show(`初始化错误:${err}`, 10)
     }
 }

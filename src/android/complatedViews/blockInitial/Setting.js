@@ -106,7 +106,7 @@ class Setting extends Component {
                                 <Icon name="ios-cube-outline" style={globalStyles.styleColor} />
                             </Left>
                             <Body>
-                                <Text style={globalStyles.midText}>版本信息：v{version.currentVersion}{`(${android_app.stageList.find(item => item.id == android_app.stage).value})`}</Text>
+                                <Text style={globalStyles.midText}>版本信息：v{android_app.version}{`(${android_app.stageList.find(item => item.id == android_app.stage).value})`}</Text>
                             </Body>
                             <Right >
                                 {version.force_update != 0 && <TouchableOpacity onPress={() => {

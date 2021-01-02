@@ -36,13 +36,13 @@ export const start = () => async (dispatch, getState) => {
  *          如果没有DeviceInfo.getUniqueID()获取
  */
 export const loadUniqueID = param => async (dispatch, getState) => {
-    console.log('loadUniqueIDParam', param)
     let uniqueID
     try {
         uniqueID = await localStorage.load({ key: localStorageKey.UNIQUEID })
     } catch (err) {
         uniqueID = DeviceInfo.getUniqueID()
     }
+    console.log('uniqueID', uniqueID)
     dispatch(getCommunicationSetting({ ...param, deviceInfo: { ...param.deviceInfo, uniqueID } }))
 }
 
@@ -122,6 +122,7 @@ export const validateVersion = param => async (dispatch, getState) => {
             if (versionInfo.force_update != 1) {
                 dispatch(loadLocalStorage({ ...param, version: versionInfo }))
             }else{
+                // console.log('loadLocalStorage', param)
                 dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param:{...param, version: versionInfo} } })
             }
         } else {
@@ -226,7 +227,7 @@ export const loadDeviceToken = param => async (dispatch) => {
         // let deviceToken = await localStorage.load({ key: localStorageKey.DEVICETOKEN })
         //  console.log('deviceToken',deviceToken)
         // dispatch(saveDeviceToken({deviceToken,...param}))
-        // dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param } })
+         dispatch({ type: actionTypes.initializationTypes.init_app_complete, payload: { param } })
         console.log('enter main load device token')
         Actions.mainRoot()
         return
