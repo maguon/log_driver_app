@@ -22,7 +22,7 @@ const { width } = Dimensions.get('window')
 
 const renderItem = props => {
 
-    const { item: { id, status, title, real_name, created_on,  }, index
+    const { item: { id, readStatus, title, real_name, created_on,  }, index
         , getNotificationListWaiting, getNotification } = props
     return (
         <TouchableOpacity  style={styles.itemContainer}
@@ -30,17 +30,12 @@ const renderItem = props => {
                               getNotificationListWaiting()
                               Actions.notification({ id: id })
                               InteractionManager.runAfterInteractions(() => getNotification({ id: id }))}}>
-            {/*<View style={styles.itemHeader}>*/}
-            {/*    <Text style={[globalStyles.midText, globalStyles.styleColor]}>编号：{id ? `${id}` : ''}</Text>*/}
-            {/*    */}
-            {/*</View>*/}
             <View style={[styles.item]}>
-                <View style={styles.itemBlock}>
-                    <MaterialCommunityIcons name='volume-medium' size={15} color={'#bbb'} style={styles.itemBlockMaterialIcon} />
+                <View style={[styles.itemBlock,{ width:width*0.8}]}>
                     <Text  style={[globalStyles.midText, globalStyles.styleColor]}>{title ? `${title}` : ''}</Text>
                 </View>
-                {status == 1 && <Text style={[globalStyles.smallText, styles.itemWarnColor]}>未读</Text>}
-                {status == 0 && <Text style={[globalStyles.smallText]}></Text>}
+                {readStatus == 1 && <Text style={[globalStyles.smallText, styles.itemWarnColor]}>未读</Text>}
+                {readStatus == 0 && <Text style={[globalStyles.smallText]}></Text>}
             </View>
 
             <View style={styles.item}>
@@ -61,14 +56,7 @@ const renderItem = props => {
     )
 }
 
-const ListFooterComponent = () => {
-    return (
-        <View style={styles.footerContainer}>
-            <ActivityIndicator color={styleColor} styleAttr='Small' />
-            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
-        </View>
-    )
-}
+
 
 const renderEmpty = () => {
     return (
@@ -80,8 +68,8 @@ const renderEmpty = () => {
 
 const SysNotification = props => {
     const { navigationState:{name},sysNotificationReducer: { data: { sysNotificationList, isComplete }, getSysNotificationList },
-        sysNotificationReducer, getSysNotificationListMore, getNotification, getNotificationListWaiting } = props
-console.log(props)
+        sysNotificationReducer, getNotification, getNotificationListWaiting } = props
+
     if (getSysNotificationList.isResultStatus == 1) {
         return (
             <Container>
@@ -97,14 +85,7 @@ console.log(props)
                     data={sysNotificationList}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
-                    onEndReachedThreshold={0.2}
-                    onEndReached={() => {
-                        if (sysNotificationList.isResultStatus == 2 && !isComplete) {
-                            getSysNotificationListMore()
-                        }
-                    }}
-                    ListFooterComponent={sysNotificationReducer.getSysNotificationListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
-
+                    ListFooterComponent={ <View />}
                     renderItem={(item) => renderItem({ ...item ,getNotificationListWaiting,getNotification})}
                 />
             </Container>
@@ -120,13 +101,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getSysNotificationListMore: () => {
-        dispatch(SysNotificationAction.getSysNotificationListMore())
-    },
     getNotification: (param) => {
         dispatch(NotificationAction.getNotification(param))
     },
-
     getNotificationListWaiting: () => {
         dispatch(NotificationAction.getNotificationListWaiting())
     }

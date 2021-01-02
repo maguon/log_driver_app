@@ -4,6 +4,8 @@ import httpRequest from '../../../util/HttpRequest'
 
 import { ToastAndroid } from 'react-native'
 import * as login from '../../complatedViews/login/LoginAction'
+import localStorage from "../../../util/LocalStorage";
+import localStorageKey from "../../../util/LocalStorageKey";
 
 export const getNotification = param => async (dispatch, getState) => {
     try {
@@ -12,19 +14,14 @@ export const getNotification = param => async (dispatch, getState) => {
         const { id } = param
         const { loginReducer: { data: { user: { uid } } } } = getState()
 
-        const url = `${base_host}/user/${uid}/sysNotification/${id }/`
+        const url = `${base_host}/user/${uid}/sysNotification/${id}/`
         // console.log('url', url)
         const res = await httpRequest.get(url)
-        const putUrl = `${base_host}/user/${uid}/sysNotification/${id }/status`
-        // console.log('url', url)
-        const putRes = await httpRequest.put(putUrl,{status: 0})
-        if(putRes.success){
-            dispatch(reduxActions.sysNotificationAction.getSysNotification())
-        }
+        const sysNotList = await localStorage.load({key: localStorageKey.SYSNOTIFICATIONLIST})
 
         if (res.success) {
             dispatch({ type: reduxActionTypes.notificationActionTypes.notification_success, payload: {notification:res.result[0]} })
-
+            dispatch({ type: reduxActionTypes.sysNotificationActionTypes.sys_readStatus_success, payload: { readId:id,sysNotList:sysNotList } })
         } else {
             dispatch({ type: reduxActionTypes.notificationActionTypes.notification_failed, payload: { failedMsg: `${res.msg}` } })
         }

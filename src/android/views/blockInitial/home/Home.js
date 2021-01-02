@@ -10,6 +10,7 @@ import * as actions from '../../../../actions/index'
 import MileageInfo from './mileageInfo/MileageInfo'
 import TaskListForHome from './taskListForHome/TaskListForHome'
 import RouteTaskListForHome from './routeTaskListForHome/RouteTaskListForHome'
+import * as SysNotificationAction from "../../../complatedViews/sysNotification/SysNotificationAction";
 
 class Home extends Component {
     constructor(props) {
@@ -21,9 +22,10 @@ class Home extends Component {
         this.props.getMileageInfoWaiting()
         this.props.getTaskListForHomeWaiting()
         this.props.getRouteTaskListForHomeWaiting()
-        
+
         InteractionManager.runAfterInteractions(() => {
             this.props.getMileageInfo()
+            this.props.getSysNotification()
             this.props.getTaskListForHome()
             this.props.getRouteTaskListForHome()
         })
@@ -31,6 +33,7 @@ class Home extends Component {
 
     render() {
         // console.log('this.props',this.props)
+
         return (
             <Container style={globalStyles.listBackgroundColor}>
                 <MileageInfo />
@@ -82,6 +85,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getTaskListForHome: () => {
         dispatch(actions.taskListForHome.getTaskListForHome())
+    },
+    getSysNotification: () => {
+        dispatch(SysNotificationAction.getSysNotification())
     },
     getTaskListForHomeWaiting: () => {
         dispatch(actions.taskListForHome.getTaskListForHomeWaiting())

@@ -1,80 +1,71 @@
 import * as actionTypes from '../../../actionTypes'
 import httpRequest from '../../../util/HttpRequest'
-import { ToastAndroid } from 'react-native'
+import {ToastAndroid} from 'react-native'
 import {ObjectToUrl} from "../../../util/ObjectToUrl";
 import {sleep} from "../../../util/util";
+import localStorageKey from '../../../util/LocalStorageKey'
+import localStorage from '../../../util/LocalStorage'
+import moment from "moment";
 
 
-const pageSize = 20
-
+const nowTime = moment(Date.now()).format('YYYY-MM-DD')
+const preTime = moment(Date.now() - (60 * 10 * 1000) * 6 * 24 * 7).format('YYYY-MM-DD')
 export const getSysNotification = () => async (dispatch, getState) => {
     try {
         const state = getState()
-        const { loginReducer: { data: { user: { uid } } } } = state
-        const { communicationSettingReducer: { data: { base_host } } } = getState()
+        const {loginReducer: {data: {user: {uid}}}} = state
+        const {communicationSettingReducer: {data: {base_host}}} = getState()
+        const sysNotList = await localStorage.load({key: localStorageKey.SYSNOTIFICATIONLIST})
 
-        const url = `${base_host}/user/${uid}/sysNotification?${ObjectToUrl({start: 0, size: pageSize })}`
+        const url = `${base_host}/user/${uid}/sysNotification?${ObjectToUrl({
+            status: 1,
+            createdOnStart: preTime,
+            createdOnEnd: nowTime,
+        })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
+       const hidden=sysNotList?true:false
 
         if (res.success) {
+            //读取数组 并加未读状态
+             let resList = res.result.map(item => ({...item, readStatus: 1}))
+            //判断本地保存是否为null
+            if (hidden) {
+                //遍历新数组 把相同项合并
+                for (let i = 0; i < resList.length; i++) {
+                    for (let j = 0; j < sysNotList.length; j++) {
+                        if (resList[i].id === sysNotList[j].id) {
+                            resList[i].readStatus=sysNotList[j].readStatus
+                        }
+                    }
+                }
+                // console.log('sysNotList', sysNotList)
+                // console.log("resList",resList)
+            } else {
+                resList=resList.map(item => ({...item, readStatus: 1}))
+            }
+
+            localStorage.save({key: localStorageKey.SYSNOTIFICATIONLIST, data: resList})
             dispatch({
                 type: actionTypes.sysNotificationActionTypes.sys_Notification_success,
-                payload: {
-                    sysNotificationList: res.result,
-                    isComplete: (res.result.length == 0 || res.result.length % pageSize != 0)
-                }
-
+                payload: {sysNotificationList: resList}
             })
-
         } else {
-            dispatch({ type: actionTypes.sysNotificationActionTypes.sys_Notification_failed, payload: { failedMsg: res.msg } })
+            dispatch({
+                type: actionTypes.sysNotificationActionTypes.sys_Notification_failed,
+                payload: {failedMsg: res.msg}
+            })
         }
     } catch (err) {
-         dispatch({ type: actionTypes.sysNotificationActionTypes.sys_Notification_error, payload: { errorMsg: err } })
+        dispatch({type: actionTypes.sysNotificationActionTypes.sys_Notification_error, payload: {errorMsg: err}})
     }
 }
 
 
 export const getSysNotificationListWaiting = () => (dispatch) => {
-    dispatch({ type: actionTypes.sysNotificationActionTypes.sys_Notification_waiting, payload: {} })
+    dispatch({type: actionTypes.sysNotificationActionTypes.sys_Notification_waiting, payload: {}})
 }
 
-export const getSysNotificationListMore = () => async (dispatch, getState) => {
-    const state = getState()
-    const { communicationSettingReducer: { data: { base_host } } } = getState()
 
-    const {
-        loginReducer: { data: { user: { uid } } },
-        sysNotificationReducer: { data: { sysNotificationList, isComplete } }, sysNotificationReducer } = state
-
-    if (sysNotificationReducer.getSysNotificationListMore.isResultStatus == 1) {
-        await sleep(1000)
-        getSysNotificationListMore()(dispatch, getState)
-    } else {
-        if (!isComplete) {
-            dispatch({ type: actionTypes.sysNotificationActionTypes.sys_NotificationMore_waiting, payload: {} })
-            try {
-                const url = `${base_host}/user/${uid}/sysNotification?${ObjectToUrl({ start: sysNotificationList.length, size: pageSize })}`
-                const res = await httpRequest.get(url)
-                if (res.success) {
-                    if (res.result.length % pageSize != 0 || res.result.length == 0) {
-                        dispatch({ type: actionTypes.sysNotificationActionTypes.sys_NotificationMore_success,
-                            payload: { sysNotificationList: res.result, isComplete: true } })
-                    } else {
-                        dispatch({ type: actionTypes.sysNotificationActionTypes.sys_NotificationMore_success,
-                            payload: { sysNotificationList: res.result, isComplete: false } })
-                    }
-                } else {
-                    dispatch({ type: actionTypes.sysNotificationActionTypes.sys_NotificationMore_failed, payload: { failedMsg: res.msg } })
-                }
-            } catch (err) {
-                dispatch({ type: actionTypes.sysNotificationActionTypes.sys_NotificationMore_error, payload: { errorMsg: err } })
-            }
-        } else {
-            ToastAndroid.showWithGravity('已全部加载完毕！', ToastAndroid.CENTER, ToastAndroid.BOTTOM)
-        }
-    }
-}
 

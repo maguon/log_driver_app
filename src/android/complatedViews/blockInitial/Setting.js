@@ -40,6 +40,7 @@ class Setting extends Component {
         this.setState({ confirmModalVisible: false })
     }
 
+
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
@@ -61,9 +62,10 @@ class Setting extends Component {
                         </ListItem>
                         <Separator style={globalStyles.separator} />
                         <ListItem icon last onPress={()=>{
-                            getSysNotificationListWaiting()
-                            Actions.sysNotification({name:"setting"})
-                            InteractionManager.runAfterInteractions(getSysNotification)}}>
+                            // getSysNotificationListWaiting()
+                            Actions.sysNotification()
+                            // InteractionManager.runAfterInteractions(getSysNotification())
+                        }}>
                             <Left>
                                 <Icon name="ios-notifications-outline" style={globalStyles.styleColor} />
                             </Left>
@@ -173,13 +175,13 @@ const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
         dispatch(LoginAction.cleanLogin())
     },
-    getSysNotification: () => {
-        dispatch(SysNotificationAction.getSysNotification())
-    },
-    getSysNotificationListWaiting: () => {
-        dispatch(SysNotificationAction.getSysNotificationListWaiting())
-
-    }
+    // getSysNotification: () => {
+    //     dispatch(SysNotificationAction.getSysNotification())
+    // },
+    // getSysNotificationListWaiting: () => {
+    //     dispatch(SysNotificationAction.getSysNotificationListWaiting())
+    //
+    // }
 })
 
 

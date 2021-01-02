@@ -8,8 +8,10 @@ import requestHeaders from '../../../util/RequestHeaders'
 import { ObjectToUrl } from '../../../util/ObjectToUrl'
 import { ToastAndroid } from 'react-native'
 import * as android_app from '../../../android_app.json'
+import {Actions} from "react-native-router-flux";
 
 export const cleanLogin = () => async (dispatch, getState) => {
+
     const { loginReducer: { data: { user } } } = getState()
     localStorage.save({
         key: localStorageKey.USER,
@@ -18,6 +20,7 @@ export const cleanLogin = () => async (dispatch, getState) => {
         }
     })
     dispatch({ type: actionTypes.loginTypes.clean_login, payload: { mobile: user.mobile } })
+    Actions.replace("loginGroup")
 }
 
 export const login = param => async (dispatch, getState) => {
@@ -142,7 +145,7 @@ export const validateVersionForLogin = param => async (dispatch, getState) => {
                 versionInfo.force_update = 0
                 versionInfo.newestVersion = versionInfo.currentVersion
             }
-  
+
             if (versionInfo.force_update != 1) {
                 await dispatch({
                     type: actionTypes.initializationTypes.init_app_failed, payload: {

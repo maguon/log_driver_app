@@ -43,12 +43,6 @@ const Notification = props => {
                         </View>
                     </View>
                 </ScrollView>
-
-                {/*<View style={{ padding: 7.5, flexDirection: 'row', justifyContent: 'space-between' }}>*/}
-                {/*    <Text style={[globalStyles.midText]}>{notification.real_name ? `${notification.real_name}` : ''}</Text>*/}
-                {/*    <Text style={[globalStyles.midText]}>{notification.title ? `${notification.title}` : ''}</Text>*/}
-                {/*    <Text style={[globalStyles.midText]}>{notification.content ? `${notification.content}` : ''}</Text>*/}
-                {/*</View>*/}
             </Container>
         )
 

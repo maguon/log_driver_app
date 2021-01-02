@@ -16,13 +16,16 @@ class CenterBar extends Component{
             hidden: false
         }
     }
-    componentDidMount(){
-        this.props.getSysNotification()
-    }
+    // componentDidMount(){
+    //     this.props.getSysNotification()
+    // }
+
+
     render() {
         const {RightButton, LeftButton, parent, initParam, layout: {initWidth}, sysNotificationReducer: {data: {sysNotificationList}},
             getSysNotification, getSysNotificationListWaiting} = this.props
-        const count = sysNotificationList.filter(item => item.status == 1)
+
+        const count = sysNotificationList.filter(item => item.readStatus == 1)
 
         return (
 
@@ -37,15 +40,14 @@ class CenterBar extends Component{
 
                     {count!=""&&<Body style={{marginLeft: width * 0.20}}>
 
-                        <TouchableOpacity style={{flexDirection: "row"}} onPress={() => {
-                            getSysNotificationListWaiting()
-                            Actions.sysNotification({name:"home"})
-                            InteractionManager.runAfterInteractions(getSysNotification)
+                        <TouchableOpacity style={{flexDirection: "row"}} onPress={()=>{
+                            // getSysNotificationListWaiting()
+                            Actions.sysNotification()
+                            // InteractionManager.runAfterInteractions(getSysNotification())
                         }}>
 
                             <MaterialCommunityIcons name='bell-outline' size={20} color={'#fffff9'}
                                                     style={styles.itemBlockMaterialIcon}/>
-                            {/*<Icon name="ios-notifications-outline" style={globalStyles.styleColor} />*/}
                             <View style={styles.round}>
                                 <Text style={styles.text}>{count.length ? `${count.length}` : ''}</Text>
                             </View>
@@ -98,13 +100,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 
-    getSysNotification: () => {
-        dispatch(SysNotificationAction.getSysNotification())
-    },
-    getSysNotificationListWaiting: () => {
-        dispatch(SysNotificationAction.getSysNotificationListWaiting())
-
-    }
+    // getSysNotification: () => {
+    //     dispatch(SysNotificationAction.getSysNotification())
+    // },
+    // getSysNotificationListWaiting: () => {
+    //     dispatch(SysNotificationAction.getSysNotificationListWaiting())
+    //
+    // }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(CenterBar)
 

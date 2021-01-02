@@ -7,11 +7,12 @@ import { Button, Spinner } from 'native-base'
 import gobalStyles, { styleColor } from '../GlobalStyles'
 import { connect } from 'react-redux'
 import * as reduxActions from '../../actions/index'
+import * as SysNotificationAction from "../complatedViews/sysNotification/SysNotificationAction";
 // import * as homeAction from '../views/blockInitial/home/HomeAction'
 
 
 const HomeOperation = props => {
-    const { getMileageInfo, getMileageInfoWaiting, getTaskListForHome,
+    const { getMileageInfo, getMileageInfoWaiting, getTaskListForHome,getSysNotification,
         getTaskListForHomeWaiting, getRouteTaskListForHome, getRouteTaskListForHomeWaiting, homeReducer } = props
     if (homeReducer.getHomeMileageInfo.isResultStatus == 1) {
         return (
@@ -24,6 +25,7 @@ const HomeOperation = props => {
                 getTaskListForHomeWaiting()
                 getRouteTaskListForHomeWaiting()
                 getMileageInfo()
+                getSysNotification()
                 getTaskListForHome()
                 getRouteTaskListForHome()
             }}>
@@ -50,6 +52,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getTaskListForHome: () => {
         dispatch(reduxActions.taskListForHome.getTaskListForHome())
+    },
+    getSysNotification: () => {
+        dispatch(SysNotificationAction.getSysNotification())
     },
     getTaskListForHomeWaiting: () => {
         dispatch(reduxActions.taskListForHome.getTaskListForHomeWaiting())
