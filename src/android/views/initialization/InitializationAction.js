@@ -194,6 +194,10 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
                 deviceType: 1,
                 deviceId: uniqueID
             })}`
+            const userDeviceRes = await httpRequest.post(userDeviceUrl)
+            if (userDeviceRes.success) {
+                console.log('userDeviceRes', userDeviceRes)
+            }
             const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: uid })}`
             const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
             // console.log('param', param)
