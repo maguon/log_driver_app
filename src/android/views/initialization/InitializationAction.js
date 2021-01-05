@@ -180,14 +180,24 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
     try {
         const { communicationSettingReducer: { data: { base_host } } } = getState()
         const { uid, token } = user
+        const {deviceInfo:{uniqueID},version:{currentVersion}}=param
         const url = `${base_host}/user/${uid}/token/${token}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
 
         if (res.success) {
+            const userDeviceUrl = `${base_host}/user/${uid}/userDevice?${ObjectToUrl({
+                deviceToken:"",
+                version: currentVersion,
+                appType: android_app.type,
+                deviceType: 1,
+                deviceId: uniqueID
+            })}`
             const getUserInfoUrl = `${base_host}/user?${ObjectToUrl({ userId: uid })}`
             const getUserInfoRes = await httpRequest.get(getUserInfoUrl)
+            // console.log('param', param)
+
             if (getUserInfoRes.success) {
                 const { uid, mobile, real_name, type, gender, avatar_image, status, drive_id } = getUserInfoRes.result[0]
                 const user = {
@@ -201,6 +211,7 @@ export const validateToken = ({ param, user }) => async (dispatch, getState) => 
                 requestHeaders.set('user-name', mobile)
                 await dispatch({ type: actionTypes.loginTypes.set_userInfo, payload: { user } })
                 dispatch(loadDeviceToken(param))
+
             } else {
                 dispatch({ type: actionTypes.initializationTypes.init_app_failed, payload: { currentStep, msg: '无法换token', param } })
                 Actions.mainRoot()

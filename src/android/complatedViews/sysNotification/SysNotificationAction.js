@@ -15,7 +15,6 @@ export const getSysNotification = () => async (dispatch, getState) => {
         const state = getState()
         const {loginReducer: {data: {user: {uid}}}} = state
         const {communicationSettingReducer: {data: {base_host}}} = getState()
-        const sysNotList = await localStorage.load({key: localStorageKey.SYSNOTIFICATIONLIST})
 
         const url = `${base_host}/user/${uid}/sysNotification?${ObjectToUrl({
             status: 1,
@@ -25,11 +24,17 @@ export const getSysNotification = () => async (dispatch, getState) => {
         // console.log('url', url)
         const res = await httpRequest.get(url)
         // console.log('res', res)
-       const hidden=sysNotList?true:false
 
         if (res.success) {
             //读取数组 并加未读状态
              let resList = res.result.map(item => ({...item, readStatus: 1}))
+           let sysNotList=[]
+            try{
+                sysNotList = await localStorage.load({key: localStorageKey.SYSNOTIFICATIONLIST})
+            }catch (err){
+                console.log("err",err)
+            }
+            const hidden=sysNotList?true:false
             //判断本地保存是否为null
             if (hidden) {
                 //遍历新数组 把相同项合并
@@ -42,8 +47,6 @@ export const getSysNotification = () => async (dispatch, getState) => {
                 }
                 // console.log('sysNotList', sysNotList)
                 // console.log("resList",resList)
-            } else {
-                resList=resList.map(item => ({...item, readStatus: 1}))
             }
 
             localStorage.save({key: localStorageKey.SYSNOTIFICATIONLIST, data: resList})
