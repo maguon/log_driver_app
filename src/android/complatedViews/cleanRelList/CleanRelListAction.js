@@ -20,6 +20,7 @@ export const getCleanRelList = (receiveId) => async (dispatch, getState) => {
             receiveId: receiveId
         })}`
         const res = await httpRequest.get(url)
+        //console.log('res', res)
         if (res.success) {
             dispatch({
                 type: actionTypes.cleanRelListTypes.get_cleanRelList_success,

@@ -19,8 +19,8 @@ import SearchCleanRel from '../../components/SearchCleanRel'
 import { Actions } from 'react-native-router-flux'
 
 const renderItem = props => {
-    const { item: { dp_route_task_id, route_start_name, addr_name, receive_id, route_end_name, short_name, total_price, car_count, load_date, status },
-        item, index, getReceive, getReceiveWaiting,actual_price } = props
+    const { item: { dp_route_task_id, route_start_name, addr_name, receive_id, route_end_name, short_name, total_price, car_count, load_date, status,actual_price },
+        item, index, getReceive, getReceiveWaiting} = props
      console.log('props', props)
     return (
         <TouchableOpacity
