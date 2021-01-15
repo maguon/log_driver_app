@@ -23,10 +23,10 @@ class CenterBar extends Component{
 
     render() {
         const {RightButton, LeftButton, parent, initParam, layout: {initWidth}, sysNotificationReducer: {data: {sysNotificationList}},
-            getSysNotificationAll, getSysNotificationListWaiting} = this.props
+            getSysNotificationAll,getSysNotification, getSysNotificationListWaiting} = this.props
 
         const count = sysNotificationList.filter(item => item.readStatus == 1)
-
+        console.log('sysNotificationList', sysNotificationList)
         return (
 
             <View style={[styles.container, {width: initWidth}]}>
@@ -41,6 +41,7 @@ class CenterBar extends Component{
                     {count!=""&&<Body style={{marginLeft: width * 0.20}}>
 
                         <TouchableOpacity style={{flexDirection: "row"}} onPress={()=>{
+                            getSysNotification()
                              getSysNotificationListWaiting()
                             Actions.sysNotification()
                             InteractionManager.runAfterInteractions(getSysNotificationAll())
@@ -99,7 +100,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    getSysNotification: () => {
+        dispatch(SysNotificationAction.getSysNotification())
+    },
     getSysNotificationAll: () => {
         dispatch(SysNotificationAction.getSysNotificationAll())
     },

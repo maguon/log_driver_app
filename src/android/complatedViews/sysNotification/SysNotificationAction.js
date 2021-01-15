@@ -78,7 +78,7 @@ export const getSysNotificationAll = () => async (dispatch, getState) => {
         const url = `${base_host}/user/${uid}/sysNotification?${ObjectToUrl({start: 0, size: pageSize })}`
         // console.log('url', url)
         const res = await httpRequest.get(url)
-        //console.log('res', res)
+        console.log('res', res)
         if (res.success) {
             let resList = res.result.map(item => ({...item, readStatus: 0}))
             let sysNotList=[]
@@ -87,6 +87,7 @@ export const getSysNotificationAll = () => async (dispatch, getState) => {
             }catch (err){
                 console.log("err",err)
             }
+            console.log('sysNotList', sysNotList)
             for (let i = 0; i < resList.length; i++) {
                 for (let j = 0; j < sysNotList.length; j++) {
                     if (resList[i].id === sysNotList[j].id) {
@@ -98,6 +99,7 @@ export const getSysNotificationAll = () => async (dispatch, getState) => {
             dispatch({
                 type: actionTypes.sysNotificationActionTypes.sys_NotificationAll_success,
                 payload: {
+                    sysNotificationList:sysNotList,
                     sysNotificationListAll:resList,
                     isComplete: (res.result.length == 0 || res.result.length % pageSize != 0)
                 }

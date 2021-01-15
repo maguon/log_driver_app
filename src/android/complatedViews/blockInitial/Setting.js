@@ -44,7 +44,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
-        const { communicationSettingReducer: { data: { file_host } } ,getSysNotificationListWaiting,getSysNotificationAll} = this.props
+        const { communicationSettingReducer: { data: { file_host } } ,getSysNotificationListWaiting,getSysNotificationAll,getSysNotification} = this.props
 
         return (
             <Container>
@@ -62,6 +62,7 @@ class Setting extends Component {
                         </ListItem>
                         <Separator style={globalStyles.separator} />
                         <ListItem icon last onPress={()=>{
+                            getSysNotification()
                            getSysNotificationListWaiting()
                             Actions.sysNotification()
                              InteractionManager.runAfterInteractions(getSysNotificationAll())
@@ -174,6 +175,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
         dispatch(LoginAction.cleanLogin())
+    },
+    getSysNotification: () => {
+        dispatch(SysNotificationAction.getSysNotification())
     },
     getSysNotificationAll: () => {
         dispatch(SysNotificationAction.getSysNotificationAll())

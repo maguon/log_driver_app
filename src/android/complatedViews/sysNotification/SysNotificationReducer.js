@@ -46,12 +46,20 @@ export default handleActions({
                 return item
             }
         })
+        const allList=state.data.sysNotificationListAll.map(item=>{
+            if (item.id == readId) {
+                return {...item, readStatus: 0}
+            } else {
+                return item
+            }
+        })
         localStorage.save({ key: localStorageKey.SYSNOTIFICATIONLIST, data:saveList})
         return {
             ...state,
             data: {
                 ...state.data,
                 sysNotificationList: saveList,
+                sysNotificationListAll:allList,
             },
             getSysNotificationList: {
                 ...state.getSysNotificationList,
@@ -94,11 +102,12 @@ export default handleActions({
 
 
     [(actionTypes.sysNotificationActionTypes.sys_NotificationAll_success)]: (state, action) => {
-        const {payload: {sysNotificationListAll, isComplete}} = action
+        const {payload: {sysNotificationList,sysNotificationListAll, isComplete}} = action
+        //console.log('state.data.sysNotificationList', state.data.sysNotificationList)
         return {
             ...state,
             data: {
-                sysNotificationList:[...state.data.sysNotificationList],
+               sysNotificationList,
                 sysNotificationListAll,
                 isComplete,
             },
