@@ -6,21 +6,30 @@ import localStorageKey from "../../../util/LocalStorageKey";
 const initialState = {
     data: {
         sysNotificationList: [],
+        sysNotificationListAll:[],
+        isComplete: false
     },
     getSysNotificationList: {
         isResultStatus: 0,
         errorMsg: '',
         failedMsg: '',
     },
+    getSysNotificationListMore: {
+        isResultStatus: 0,
+        errorMsg: '',
+        failedMsg: '',
+    }
 }
 
 export default handleActions({
     [(actionTypes.sysNotificationActionTypes.sys_Notification_success)]: (state, action) => {
-        const {payload: {sysNotificationList}} = action
+        const {payload: {sysNotificationList, isComplete}} = action
         return {
             ...state,
             data: {
+                sysNotificationListAll:[...state.data.sysNotificationListAll],
                 sysNotificationList,
+                isComplete,
             },
             getSysNotificationList: {
                 ...state.getSysNotificationList,
@@ -78,6 +87,94 @@ export default handleActions({
             getSysNotificationList: {
                 ...initialState.getSysNotificationList,
                 isResultStatus: 1
+            }
+        }
+    },
+
+
+
+    [(actionTypes.sysNotificationActionTypes.sys_NotificationAll_success)]: (state, action) => {
+        const {payload: {sysNotificationListAll, isComplete}} = action
+        return {
+            ...state,
+            data: {
+                sysNotificationList:[...state.data.sysNotificationList],
+                sysNotificationListAll,
+                isComplete,
+            },
+            getSysNotificationList: {
+                ...state.getSysNotificationList,
+                isResultStatus: 2
+            }
+        }
+    },
+    [(actionTypes.sysNotificationActionTypes.sys_NotificationAll_failed)]: (state, action) => {
+        const {payload: {failedMsg}} = action
+        return {
+            ...state,
+            getSysNotificationList: {
+                ...state.getSysNotificationList,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [(actionTypes.sysNotificationActionTypes.sys_NotificationAll_error)]: (state, action) => {
+        const {payload: {errorMsg}} = action
+        return {
+            ...state,
+            getSysNotificationList: {
+                ...state.getSysNotificationList,
+                isResultStatus: 3,
+                errorMsg
+            }
+        }
+    },
+
+
+    [actionTypes.sysNotificationActionTypes.sys_NotificationMore_success]: (state, action) => {
+        const { payload: { sysNotificationListAll, isComplete } } = action
+        return {
+            ...state,
+            data: {
+                sysNotificationList:[...state.data.sysNotificationList],
+                sysNotificationListAll: [...state.data.sysNotificationListAll, ...sysNotificationListAll],
+                isComplete
+            },
+            getSysNotificationListMore: {
+                ...initialState.getSysNotificationListMore,
+                isResultStatus: 2
+            }
+        }
+    },
+    [actionTypes.sysNotificationActionTypes.sys_NotificationMore_waiting]: (state, action) => {
+        return {
+            ...state,
+            getSysNotificationListMore: {
+                ...initialState.getSysNotificationListMore,
+                isResultStatus: 1,
+            }
+        }
+    },
+    [actionTypes.sysNotificationActionTypes.sys_NotificationMore_failed]: (state, action) => {
+        const { payload: { failedMsg } } = action
+        return {
+            ...state,
+            getSysNotificationListMore: {
+                ...initialState.getSysNotificationListMore,
+                isResultStatus: 4,
+                failedMsg
+            }
+        }
+    },
+    [actionTypes.sysNotificationActionTypes.sys_NotificationMore_error]: (state, action) => {
+        const { payload: { errorMsg } } = action
+        return {
+            ...state,
+            getSysNotificationListMore: {
+                ...initialState.getSysNotificationListMore,
+                isResultStatus: 3,
+                errorMsg
             }
         }
     }

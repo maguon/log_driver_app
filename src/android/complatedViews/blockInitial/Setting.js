@@ -44,7 +44,7 @@ class Setting extends Component {
     render() {
         const { version } = this.props.InitializationReducer.data
         const { loginReducer: { data: { user: { avatar_image, real_name, mobile } } } } = this.props
-        const { communicationSettingReducer: { data: { file_host } } ,getSysNotificationListWaiting,getSysNotification} = this.props
+        const { communicationSettingReducer: { data: { file_host } } ,getSysNotificationListWaiting,getSysNotificationAll} = this.props
 
         return (
             <Container>
@@ -62,9 +62,9 @@ class Setting extends Component {
                         </ListItem>
                         <Separator style={globalStyles.separator} />
                         <ListItem icon last onPress={()=>{
-                            // getSysNotificationListWaiting()
+                           getSysNotificationListWaiting()
                             Actions.sysNotification()
-                            // InteractionManager.runAfterInteractions(getSysNotification())
+                             InteractionManager.runAfterInteractions(getSysNotificationAll())
                         }}>
                             <Left>
                                 <Icon name="ios-notifications-outline" style={globalStyles.styleColor} />
@@ -175,13 +175,13 @@ const mapDispatchToProps = (dispatch) => ({
     cleanLogin: () => {
         dispatch(LoginAction.cleanLogin())
     },
-    // getSysNotification: () => {
-    //     dispatch(SysNotificationAction.getSysNotification())
-    // },
-    // getSysNotificationListWaiting: () => {
-    //     dispatch(SysNotificationAction.getSysNotificationListWaiting())
-    //
-    // }
+    getSysNotificationAll: () => {
+        dispatch(SysNotificationAction.getSysNotificationAll())
+    },
+    getSysNotificationListWaiting: () => {
+        dispatch(SysNotificationAction.getSysNotificationListWaiting())
+
+    }
 })
 
 

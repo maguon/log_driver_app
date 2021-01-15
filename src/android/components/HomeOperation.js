@@ -8,6 +8,7 @@ import gobalStyles, { styleColor } from '../GlobalStyles'
 import { connect } from 'react-redux'
 import * as reduxActions from '../../actions/index'
 import * as SysNotificationAction from "../complatedViews/sysNotification/SysNotificationAction";
+import * as actions from "../../actions";
 // import * as homeAction from '../views/blockInitial/home/HomeAction'
 
 
@@ -54,7 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(reduxActions.taskListForHome.getTaskListForHome())
     },
     getSysNotification: () => {
-        dispatch(SysNotificationAction.getSysNotification())
+        dispatch(actions.sysNotificationAction.getSysNotification())
     },
     getTaskListForHomeWaiting: () => {
         dispatch(reduxActions.taskListForHome.getTaskListForHomeWaiting())

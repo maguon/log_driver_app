@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(actions.taskListForHome.getTaskListForHome())
     },
     getSysNotification: () => {
-        dispatch(SysNotificationAction.getSysNotification())
+        dispatch(actions.sysNotificationAction.getSysNotification())
     },
     getTaskListForHomeWaiting: () => {
         dispatch(actions.taskListForHome.getTaskListForHomeWaiting())

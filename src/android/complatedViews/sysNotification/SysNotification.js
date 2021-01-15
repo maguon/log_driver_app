@@ -57,6 +57,14 @@ const renderItem = props => {
 }
 
 
+const ListFooterComponent = () => {
+    return (
+        <View style={styles.footerContainer}>
+            <ActivityIndicator color={styleColor} styleAttr='Small' />
+            <Text style={[globalStyles.smallText, styles.footerText]}>正在加载...</Text>
+        </View>
+    )
+}
 
 const renderEmpty = () => {
     return (
@@ -67,8 +75,8 @@ const renderEmpty = () => {
 }
 
 const SysNotification = props => {
-    const { navigationState:{name},sysNotificationReducer: { data: { sysNotificationList, isComplete }, getSysNotificationList },
-        sysNotificationReducer, getNotification, getNotificationListWaiting } = props
+    const { navigationState:{name},sysNotificationReducer: { data: { sysNotificationListAll, isComplete }, getSysNotificationList },
+        sysNotificationReducer,getSysNotificationListMore, getNotification, getNotificationListWaiting } = props
 
     if (getSysNotificationList.isResultStatus == 1) {
         return (
@@ -82,10 +90,17 @@ const SysNotification = props => {
             <Container style={{ padding: 5, backgroundColor: '#edf1f4' }}>
                 <FlatList
                     keyExtractor={(item, index) => index}
-                    data={sysNotificationList}
+                    data={sysNotificationListAll}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={renderEmpty}
-                    ListFooterComponent={ <View />}
+                    onEndReachedThreshold={0.2}
+                    onEndReached={() => {
+                        if (getSysNotificationList.isResultStatus == 2 && !isComplete) {
+                            getSysNotificationListMore()
+                        }
+                    }}
+                    ListFooterComponent={sysNotificationReducer.getSysNotificationListMore.isResultStatus == 1 ? ListFooterComponent : <View />}
+
                     renderItem={(item) => renderItem({ ...item ,getNotificationListWaiting,getNotification})}
                 />
             </Container>
@@ -101,6 +116,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+    getSysNotificationListMore: () => {
+        dispatch(SysNotificationAction.getSysNotificationListMore())
+    },
     getNotification: (param) => {
         dispatch(NotificationAction.getNotification(param))
     },
