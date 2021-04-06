@@ -39,6 +39,7 @@ import * as demageOpResultTypes from './DemageOpResultTypes'
 import * as imageListForDemageTypes from '../android/components/demageInfo/ImageListForDemageTypes'
 import * as recordForDemageTypes from './RecordForDemageTypes'
 import * as demageResponsibilityListTypes from '../android/complatedViews/demageResponsibilityList/DemageResponsibilityListTypes'
+import * as massLossListTypes from '../android/complatedViews/massLossList/MassLossListTypes'
 import * as demageResponsibilityListOperationTypes from './DemageResponsibilityListOperationTypes'
 import * as demageListOperationTypes from './DemageListOperationTypes'
 import * as taskLoanListTypes from '../android/complatedViews/taskLoanList/taskLoanListTypes'
@@ -187,6 +188,7 @@ export {
     recordForDemageTypes,
     demageResponsibilityListTypes,
     demageResponsibilityListOperationTypes,
+    massLossListTypes,
     demageListOperationTypes,
     taskLoanListTypes,
     taskLoanRelListTypes,

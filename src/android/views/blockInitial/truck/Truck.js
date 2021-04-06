@@ -18,6 +18,7 @@ import * as cleanRelListAction from '../../../complatedViews/cleanRelList/CleanR
 import * as demageListAction from '../../../notUsed/demageList/DemageListAction'
 import * as accidentResponsibilityListAction from '../../../complatedViews/accidentResponsibilityList/AccidentResponsibilityListAction'
 import * as demageResponsibilityListAction from '../../../complatedViews/demageResponsibilityList/DemageResponsibilityListAction'
+import * as massLossListAction from '../../../complatedViews/massLossList/MassLossListAction'
 import * as taskLoanListAction from '../../../complatedViews/taskLoanList/taskLoanListAction'
 import * as actions from '../../../../actions'
 
@@ -34,7 +35,7 @@ class Truck extends Component {
         const { communicationSettingReducer: { data: { file_host } } } = this.props
         const { truckReducer: { data: { driverInfo: { company_name, operate_type } } }, loginReducer: { data: { user: { avatar_image, real_name, mobile } } },
             getAccidentList, getAccidentListWaiting, getAccidentResponsibilityList, getAccidentListResponsibilityWaiting, getCleanRelList,
-            getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting, getTaskLoanList, getTaskLoanListWaiting,
+            getCleanRelListWaiting, getDemageResponsibilityList, getDemageResponsibilityListWaiting,getMassLossList, getMassLossListWaiting, getTaskLoanList, getTaskLoanListWaiting,
             getOveruseDieselOilList, getOveruseDieselOilListWaiting, getPeccancyListWaiting, getPeccancyList, getNotSettleListWaiting, getNotSettleList,
             getSalaryListWaiting, getSalaryList, getRouteTaskFeeListWaiting, getRouteTaskFeeList, getCashOilList, getCashOilListWaiting,
             getCashRepairList, getCashRepairListWaiting, getCashTollListWaiting, getCashTollList } = this.props
@@ -114,6 +115,21 @@ class Truck extends Component {
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>商品车责任</Text>
+                                </Left>
+                                <Body></Body>
+                                <Right>
+                                    <Icon name="ios-arrow-forward" style={styles.itemIcon} />
+                                </Right>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.item} onPress={() => {
+                                getMassLossListWaiting()
+                                Actions.massLossList()
+                                InteractionManager.runAfterInteractions(getMassLossList)
+                            }}>
+                                <Left style={styles.itemLeft}>
+                                    <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>到店质损</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>
@@ -318,6 +334,12 @@ const mapDispatchToProps = (dispatch) => ({
     },
     getDemageResponsibilityListWaiting: () => {
         dispatch(demageResponsibilityListAction.getDemageResponsibilityListWaiting())
+    },
+    getMassLossList: () => {
+        dispatch(massLossListAction.getMassLossList())
+    },
+    getMassLossListWaiting: () => {
+        dispatch(massLossListAction.getMassLossListWaiting())
     },
     getTaskLoanList: () => {
         dispatch(taskLoanListAction.getTaskLoanList())

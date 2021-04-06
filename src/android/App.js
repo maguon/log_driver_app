@@ -57,6 +57,7 @@ import ListCennect from './views/select/ListCennect'
 import CleanRelList from './complatedViews/cleanRelList/CleanRelList'
 import DemageList from './notUsed/demageList/DemageList'
 import DemageResponsibilityList from './complatedViews/demageResponsibilityList/DemageResponsibilityList'
+import MassLossList from './complatedViews/massLossList/MassLossList'
 import DemageResponsibilityInfo from './views/DemageResponsibilityInfo'
 import DemageInfo from './views/DemageInfo'
 import ApplyDemage from './notUsed/applyDemage/ApplyDemage'
@@ -474,6 +475,15 @@ export default class App extends Component {
                                     hideTabBar
                                     LeftButton={LeftButton}
                                     RightButton={DemageResponsibilityListOperation} />
+                               <Scene key="massLossList"
+                                           component={MassLossList}
+                                           title='到店质损'
+                                           navBar={NavBar}
+                                           hideTabBar
+                                           LeftButton={LeftButton}
+                                        //    RightButton={DemageResponsibilityListOperation} 
+                                           />
+
                                 <Scene key="demageResponsibilityInfo"
                                     component={DemageResponsibilityInfo}
                                     title='质损详情'

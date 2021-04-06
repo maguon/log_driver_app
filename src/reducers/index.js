@@ -30,6 +30,7 @@ import demageOpResultReducer from './demageOpResultReducer'
 import imageListForDemageReducer from '../android/components/demageInfo/imageListForDemageReducer'
 import recordForDemageReducer from './recordForDemageReducer'
 import demageResponsibilityListReducer from '../android/complatedViews/demageResponsibilityList/DemageResponsibilityListReducer'
+import massLossListReducer from '../android/complatedViews/massLossList/MassLossListReducer'
 import demageResponsibilityListOperationReducer from './DemageResponsibilityListOperationReducer'
 import demageListOperationReducer from './DemageListOperationReducer'
 import taskLoanListReducer from '../android/complatedViews/taskLoanList/taskLoanListReducer'
@@ -175,6 +176,7 @@ export default combineReducers({
     recordForDemageReducer,
     demageResponsibilityListReducer,
     demageResponsibilityListOperationReducer,
+    massLossListReducer,
     demageListOperationReducer,
     taskLoanListReducer,
     taskLoanRelListReducer,
