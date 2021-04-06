@@ -9,6 +9,8 @@ import {
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
 import { ListItem, Left, Thumbnail, Body, Right, Content, Container, Icon } from 'native-base'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 import { connect } from 'react-redux'
@@ -229,7 +231,7 @@ class Truck extends Component {
                                 InteractionManager.runAfterInteractions(getRouteTaskFeeList)
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='car-wash' size={14} color={'#bbb'} />
+                                    <MaterialCommunityIcons name='cash-usd' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>出车款</Text>
                                 </Left>
                                 <Body></Body>
@@ -257,7 +259,7 @@ class Truck extends Component {
                                 InteractionManager.runAfterInteractions(getSalaryList)
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='currency-cny' size={14} color={'#bbb'} />
+                                    <MaterialCommunityIcons name='credit-card' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>工资</Text>
                                 </Left>
                                 <Body></Body>
@@ -277,7 +279,7 @@ class Truck extends Component {
                                 })
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='currency-cny' size={14} color={'#bbb'} />
+                                    <FontAwesome name='money' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>现金</Text>
                                 </Left>
                                 <Body></Body>
