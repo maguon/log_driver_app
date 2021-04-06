@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import { ListItem, Left, Thumbnail, Body, Right, Content, Container, Icon } from 'native-base'
 import globalStyles, { styleColor } from '../../../GlobalStyles'
 import { connect } from 'react-redux'
@@ -97,7 +98,7 @@ class Truck extends Component {
                                 InteractionManager.runAfterInteractions(getAccidentList)
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='truck' size={14} color={'#bbb'} />
+                                    <Entypo name='traffic-cone' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>货车事故申报</Text>
                                 </Left>
                                 <Body></Body>
@@ -128,7 +129,7 @@ class Truck extends Component {
                                 InteractionManager.runAfterInteractions(getMassLossList)
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='car-sports' size={14} color={'#bbb'} />
+                                    <MaterialCommunityIcons name='alert' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>到店质损</Text>
                                 </Left>
                                 <Body></Body>
@@ -158,7 +159,7 @@ class Truck extends Component {
                                 InteractionManager.runAfterInteractions(getPeccancyList)
                             }}>
                                 <Left style={styles.itemLeft}>
-                                    <MaterialCommunityIcons name='gas-station' size={14} color={'#bbb'} />
+                                    <MaterialCommunityIcons name='cash-multiple' size={14} color={'#bbb'} />
                                     <Text style={[globalStyles.midText, styles.itemTitle]}>违章扣款</Text>
                                 </Left>
                                 <Body></Body>
