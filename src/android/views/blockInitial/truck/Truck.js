@@ -132,7 +132,7 @@ class Truck extends Component {
                             }}>
                                 <Left style={styles.itemLeft}>
                                     <MaterialCommunityIcons name='alert' size={14} color={'#bbb'} />
-                                    <Text style={[globalStyles.midText, styles.itemTitle]}>到店质损</Text>
+                                    <Text style={[globalStyles.midText, styles.itemTitle]}>到库质损</Text>
                                 </Left>
                                 <Body></Body>
                                 <Right>

@@ -477,7 +477,7 @@ export default class App extends Component {
                                     RightButton={DemageResponsibilityListOperation} />
                                <Scene key="massLossList"
                                            component={MassLossList}
-                                           title='到店质损'
+                                           title='到库质损'
                                            navBar={NavBar}
                                            hideTabBar
                                            LeftButton={LeftButton}
