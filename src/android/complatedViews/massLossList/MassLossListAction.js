@@ -17,7 +17,7 @@ export const getMassLossList = () => async (dispatch, getState) => {
     // console.log("search",search)
     try {
         const url = `${base_host}/damage?${ObjectToUrl({
-            underUserId: uid, start: 0, size: pageSize,driveId: drive_id, createdOnStart: "2020-4-1",
+            underUserId: uid, start: 0, size: pageSize,driveId: drive_id, createdOnStart: "2021-4-1",
             // damageId: search.damageId, vin: search.car.value, createdOnStart: search.createdOnStart, createdOnEnd: search.createdOnEnd
         })}`
         const res = await httpRequest.get(url)
@@ -61,7 +61,7 @@ export const getMassLossListMore = () => async (dispatch, getState) => {
             try {
                 const url = `${base_host}/damage?${ObjectToUrl({
                     underUserId: uid, start: MassLossList.length, size: pageSize,
-                    driveId: drive_id, createdOnStart: "2020-4-1",
+                    driveId: drive_id, createdOnStart: "2021-4-1",
                     // damageId: search.damageId, vin: search.car.value, createdOnStart: search.createdOnStart, createdOnEnd: search.createdOnEnd
                 })}`
                 const res = await httpRequest.get(url)
