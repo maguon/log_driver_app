@@ -15,7 +15,7 @@
     "moment": "^2.24.0",
     "native-base": "^2.12.1",
     "react": "16.11.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.3",
     "react-native-amap-location": "^0.0.4",
     "react-native-amap3d": "^1.1.1",
     "react-native-camera": "2.11.1",
